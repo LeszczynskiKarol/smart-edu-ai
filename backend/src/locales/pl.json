@@ -1,0 +1,60 @@
+{
+  "auth": {
+    "registration": {
+      "userExists": "Użytkownik o tym adresie email już istnieje",
+      "success": "Konto zostało utworzone. Sprawdź swoją skrzynkę email, aby zweryfikować konto.",
+      "error": "Wystąpił błąd podczas rejestracji",
+      "email": {
+        "subject": "Smart-Edu.ai - weryfikacja konta",
+        "title": "Weryfikacja konta",
+        "codeMessage": "Twój kod weryfikacyjny to:",
+        "headerTitle": "Smart-Edu.ai"
+      }
+    },
+    "verification": {
+      "invalidCode": "Nieprawidłowy kod weryfikacyjny",
+      "success": "Konto zostało pomyślnie zweryfikowane",
+      "error": "Wystąpił błąd podczas weryfikacji konta"
+    },
+    "forgotPassword": {
+      "userNotFound": "Nie znaleziono użytkownika z tym adresem email",
+      "emailSent": "Email z instrukcjami resetowania hasła został wysłany",
+      "emailError": "Nie udało się wysłać emaila. Spróbuj ponownie później.",
+      "serverError": "Wystąpił błąd serwera",
+      "email": {
+        "subject": "Smart-Edu.ai - reset hasła",
+        "title": "Reset hasła",
+        "message": "Otrzymujesz ten email, ponieważ otrzymaliśmy prośbę o zresetowanie hasła dla Twojego adresu e-mail.",
+        "buttonText": "Zresetuj hasło",
+        "ignoreMessage": "Zignoruj tę wiadomość, jeśli nie chcesz zmieniać hasła.",
+        "expiryMessage": "Link do resetowania hasła wygaśnie za 10 minut."
+      }
+    },
+    "resetPassword": {
+      "invalidToken": "Nieprawidłowy lub wygasły token",
+      "success": "Hasło zostało pomyślnie zresetowane",
+      "error": "Wystąpił błąd podczas resetowania hasła"
+    }
+  },
+  "orders": {
+    "orderConfirmation": {
+      "subject": "Smart-Edu.ai - Potwierdzenie zamówienia #{{orderNumber}}",
+      "title": "Potwierdzenie zamówienia #{{orderNumber}}",
+      "thankYou": "Dziękujemy za złożenie zamówienia nr {{orderNumber}}.",
+      "orderDetails": "Szczegóły zamówienia:",
+      "totalPrice": "Całkowita cena: {{price}} {{currency}}",
+      "articlesCount": "Liczba zamówionych artykułów: {{count}}",
+      "estimatedDate": "Przewidywana data realizacji: {{date}}",
+      "trackOrder": "Możesz śledzić status swojego zamówienia",
+      "loginPanel": "logując się do panelu klienta",
+      "questions": "W razie jakichkolwiek pytań prosimy o kontakt.",
+      "regards": "Pozdrawiamy",
+      "team": "Zespół Smart-Edu.ai"
+    },
+    "completion": {
+      "subject": "Twoje zamówienie nr {{orderNumber}} zostało zrealizowane",
+      "message": "Twoje zamówienie nr {{orderNumber}} zostało zrealizowane. Zaloguj się do panelu klienta, aby zobaczyć wygenerowane treści.",
+      "allCompleted": "Twoje zamówienie nr {{orderNumber}} zostało w całości zrealizowane. Zaloguj się do panelu klienta, aby zobaczyć wygenerowane treści."
+    }
+  }
+}

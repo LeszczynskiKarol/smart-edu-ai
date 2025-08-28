@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Poppins', sans-serif;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+:root {
+  --background: 210 40% 98%;
+  --foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --popover: 210 40% 98%;
+  --popover-foreground: 222.2 47.4% 11.2%;
+  --card: 210 40% 98%;
+  --card-foreground: 222.2 47.4% 11.2%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --accent: 221.2 83.2% 53.3%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --ring: 221.2 83.2% 53.3%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --accent: 217.2 91.2% 59.8%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --ring: 217.2 91.2% 59.8%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+  }
+}
+
+@layer components {
+  .prose {
+    max-width: none !important;
+  }
+
+  .prose p {
+    @apply my-4 text-gray-600 dark:text-gray-300 leading-7;
+  }
+
+  .prose h1 {
+    @apply text-3xl font-bold text-gray-900 dark:text-white mt-8 mb-4;
+  }
+
+  .prose h2 {
+    @apply text-2xl font-semibold text-gray-900 dark:text-white mt-6 mb-4;
+  }
+
+  .prose h3 {
+    @apply text-xl font-semibold text-gray-900 dark:text-white mt-4 mb-2;
+  }
+
+  .prose ul {
+    @apply list-disc list-inside my-4;
+  }
+
+  .prose ol {
+    @apply list-decimal list-inside my-4;
+  }
+
+  .prose li {
+    @apply mb-2;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-gray-300 dark:border-gray-700 pl-4 my-4 italic;
+  }
+
+  .prose code {
+    @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded;
+  }
+
+  .prose pre {
+    @apply bg-gray-100 dark:bg-gray-800 p-4 rounded my-4 overflow-x-auto;
+  }
+
+  .prose a {
+    @apply text-blue-600 dark:text-blue-400 hover:underline;
+  }
+
+  .article-content {
+    max-width: 3xl;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+  .article-content h1,
+  .article-content h2,
+  .article-content h3,
+  .article-content h4,
+  .article-content h5,
+  .article-content h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .article-content h1 {
+    font-size: 2.25rem;
+  }
+
+  .article-content h2 {
+    @apply text-3xl font-semibold mt-8 mb-4 text-gray-800 dark:text-gray-200;
+  }
+
+  .article-content p + h2 {
+    @apply mt-12;
+  }
+
+  .article-content h3 {
+    font-size: 1.5rem;
+  }
+
+  .article-content p {
+    margin-bottom: 1.5rem;
+  }
+
+  .article-content ul,
+  .article-content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-content ul {
+    list-style-type: disc;
+  }
+
+  .article-content ol {
+    list-style-type: decimal;
+  }
+
+  .article-content li {
+    margin-bottom: 0.5rem;
+  }
+
+  .article-content a {
+    @apply text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline;
+  }
+  .article-content blockquote {
+    @apply border-l-4 border-gray-300 dark:border-gray-700 pl-4 italic my-4;
+  }
+  .article-content code {
+    @apply bg-gray-100 dark:bg-gray-800 rounded px-1 py-0.5 font-mono text-sm;
+  }
+  .article-content pre {
+    @apply bg-gray-100 dark:bg-gray-800 rounded p-4 overflow-x-auto mb-4;
+  }
+  .article-content img {
+    @apply max-w-full h-auto rounded-lg shadow-md my-4;
+  }
+  .article-content table {
+    @apply w-full border-collapse border border-gray-300 dark:border-gray-700 my-4;
+  }
+  .article-content th,
+  .article-content td {
+    @apply border border-gray-300 dark:border-gray-700 px-4 py-2;
+  }
+  .article-content th {
+    @apply bg-gray-100 dark:bg-gray-800 font-semibold;
+  }
+}

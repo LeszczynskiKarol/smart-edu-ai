@@ -1,0 +1,1659 @@
+{
+  "dashboard": {
+    "title": "Generuj pracę",
+    "textGenerator": "Generuj pracę",
+    "summary": {
+      "licencjacka": "3 rozdz., 60-90 str. + wykresy, tabele, diagramy + bibliografia + przypisy",
+      "magisterska": "4 rozdz., 80-120 str. + wykresy, tabele, diagramy + bibliografia + przypisy"
+    },
+    "addText": "Dodaj kolejny tekst",
+    "totalPrice": "Łączna cena:",
+    "generateAllTexts": "Generuj wszystkie teksty",
+    "generateText": "Generuj tekst",
+    "goToHome": "Strona główna",
+    "generating": "Wysyłam zamówienie...",
+    "generatedContent": "Wygenerowana treść",
+    "appName": "Smart-Edu.AI",
+    "panel": "Generuj pracę",
+    "orders": "Twoje prace",
+    "invoices": "Płatności",
+    "billingDetails": "Twój profil",
+    "placeOrder": "Złóż zamówienie",
+    "topUp": "Doładuj konto",
+    "changeLanguage": "Polski",
+    "logoutButton": "Wyloguj",
+    "lightMode": "Tryb jasny",
+    "darkMode": "Tryb ciemny",
+    "balance": "Saldo",
+    "logoutConfirmation": "Czy na pewno chcesz się wylogować?",
+    "logoutDescription": "Ta akcja spowoduje wylogowanie z Twojego konta.",
+    "textLengths": {
+      "2000": "Bardzo krótki (250 słów)",
+      "3000": "Krótki (350 słów)",
+      "4000": "Średni (500 słów)",
+      "7000": "Długi (800-900 słów)",
+      "10000": "Bardzo długi (1300 słów)",
+      "20000": "Najdłuższy (ok. 2500 słów)",
+      "selectLength": "-- Wybierz długość pracy --"
+    },
+    "noActiveOrders": "Brak realizowanych zamówień",
+    "contentTypes": {
+      "wypracowanie": "Wypracowanie",
+      "esej": "Esej",
+      "referat": "Referat",
+      "rozprawka": "Rozprawka",
+      "charakterystyka": "Charakterystyka",
+      "opowiadanie": "Opowiadanie",
+      "list": "List",
+      "recenzja": "Recenzja",
+      "przemowienie": "Przemówienie",
+      "licencjacka": "Praca licencjacka",
+      "magisterska": "Praca magisterska",
+      "reportaz": "Reportaż",
+      "zaproszenie": "Zaproszenie",
+      "streszczenie": "Streszczenie",
+      "interpretacja": "interpretacja",
+      "custom": "Inny (wpisz własny)",
+      "customPlaceholder": "Wpisz własny rodzaj pracy",
+      "select": "-- Wybierz rodzaj pracy --"
+    },
+    "tone": {
+      "informal": "Nieformalny, bezpośredni (zwrot do czytelnika na Ty)",
+      "formal": "Oficjalny, formalny (Państwo)",
+      "impersonal": "Bezosobowy (bez zwrotów do czytelnika)"
+    },
+    "inputs": {
+      "guideline": "Wpisz wytyczne dla generowanej pracy...",
+      "advancedSettings": "Ustawienia (opcjonalnie)",
+      "contentType": "Rodzaj pracy",
+      "keywords": "Słowa kluczowe",
+      "keywordsPlaceholder": "Wprowadź słowa kluczowe i zatwierdź Enter lub przecinkiem",
+      "sourceLinks": "Linki źródłowe",
+      "sourceLink": "Link źródłowy",
+      "invalidUrl": "Nieprawidłowy adres URL",
+      "faq": "FAQ",
+      "table": "Tabela",
+      "tone": "Ton i forma wypowiedzi",
+      "bibliography": "Bibliografia",
+      "searchLanguage": "Wybierz język źródeł",
+      "topicPlaceholder": "Wprowadź temat pracy",
+      "topic": "Temat pracy",
+      "guidelines": "Wytyczne"
+    },
+    "tooltips": {
+      "contentType": "Wybierz rodzaj pracy lub wpisz własny",
+      "keywords": "Dodaj frazy, pod których kątem tekst zostanie zoptymalizowany",
+      "sourceLinks": "Wprowadź własne adresy URL stron, z których Smart-Edu będzie czerpał informacje",
+      "faq": "Dodaj w tekście 5 pytań i odpowiedzi",
+      "table": "Dodaj w tekście tabelę",
+      "tone": "Określ, jak zwracać się do odbiorcy",
+      "bibliography": "Dodaj listę źródeł wiedzy",
+      "searchLanguage": "Bibliografia będzie zawierała pozycje w wybranym języku"
+    },
+
+    "searchLanguages": {
+      "en": "🇬🇧 Angielski",
+      "pl": "🇵🇱 Polski",
+      "de": "🇩🇪 Niemiecki",
+      "es": "🇪🇸 Hiszpański",
+      "uk": "🇺🇦 Ukraiński",
+      "cs": "🇨🇿 Czeski",
+      "pt": "🇵🇹 Portugalski",
+      "ru": "🇷🇺 Rosyjski"
+    },
+    "buttons": {
+      "addText": "Dodaj kolejną pracę",
+      "generateText": "Generuj pracę",
+      "generateAllTexts": "Generuj prace",
+      "generating": "Przesyłanie..."
+    },
+    "pricing": {
+      "textPrice": "Cena tekstu:",
+      "totalPrice": "Łączna cena:",
+      "minimalPayment": "Minimalna kwota płatności wynosi {amount}",
+      "minimalPaymentTooltip": "Po dokonaniu płatności {paymentAmount} na Twoim koncie zostanie {remainingBalance}"
+    },
+    "text": {
+      "default": "Tekst",
+      "remove": "Usuń tekst z formularza"
+    },
+    "languages": {
+      "pol": "Polski",
+      "eng": "Angielski",
+      "ger": "Niemiecki",
+      "ukr": "Ukraiński",
+      "fra": "Francuski",
+      "esp": "Hiszpański",
+      "ros": "Rosyjski",
+      "por": "Portugalski"
+    },
+    "logout": {
+      "title": "Czy na pewno chcesz się wylogować?",
+      "description": "Ta akcja spowoduje wylogowanie z Twojego konta.",
+      "cancel": "Anuluj",
+      "confirm": "Wyloguj"
+    }
+  },
+  "Video": {
+    "headerVideo": "2 kliknięcia i praca gotowa w 5 min"
+  },
+  "Terms": {
+    "title": "Regulamin Serwisu Smart-Edu.ai",
+    "lastUpdated": "Ostatnia aktualizacja: 6 grudnia 2024",
+    "sections": {
+      "general": {
+        "title": "§1. Postanowienia ogólne",
+        "items": [
+          "Niniejszy regulamin określa zasady korzystania z serwisu internetowego Smart-Edu.ai, dostępnego pod adresem https://smart-edu.ai.",
+          "Właścicielem i administratorem serwisu Smart-Edu.ai jest eCopywriting.pl Karol Leszczyński, z siedzibą w Papowie Biskupim 119/18, wpisana do rejestru przedsiębiorców pod numerem NIP 9562203948, REGON 340627879."
+        ]
+      },
+      "definitions": {
+        "title": "Definicje",
+        "items": {
+          "Serwis": "platforma internetowa Smart-Edu.ai",
+          "Użytkownik": "osoba fizyczna lub prawna korzystająca z Serwisu",
+          "Konto": "indywidualny profil Użytkownika w Serwisie",
+          "Usługa": "generowanie tekstów przy pomocy sztucznej inteligencji",
+          "Zamówienie": "zlecenie wygenerowania tekstu złożone przez Użytkownika"
+        }
+      },
+      "registration": {
+        "title": "§2. Rejestracja i korzystanie z serwisu",
+        "items": [
+          "Korzystanie z Serwisu wymaga utworzenia Konta poprzez proces rejestracji.",
+          "Podczas rejestracji Użytkownik podaje imię/nick, wybiera unikalny adres email, tworzy bezpieczne hasło oraz wyraża zgodę na przetwarzanie danych osobowych.",
+          "Rejestracja może odbywać się poprzez formularz rejestracyjny w Serwisie lub konto Google (OAuth).",
+          "Użytkownik zobowiązuje się do podawania prawdziwego adresu e-mail oraz zachowania poufności danych logowania."
+        ]
+      },
+      "services": {
+        "title": "§3. Zasady świadczenia usług",
+        "items": [
+          "Serwis świadczy usługi generowania tekstów z wykorzystaniem sztucznej inteligencji - różnych modeli Claude.",
+          "Proces zamawiania tekstu obejmuje: wybór języka tekstu, określenie długości tekstu, podanie wytycznych i tematu, opcjonalne dodanie słów kluczowych i źródeł referencyjnych.",
+          "Czas realizacji jednego tekstu wynosi od kilku do kilkunastu minut i jest szacowany indywidualnie w zależności od długości tekstu i aktualnego obciążenia systemu.",
+          "Serwis zastrzega sobie prawo do odmowy realizacji zamówienia, wydłużenia czasu realizacji oraz modyfikacji parametrów usługi."
+        ]
+      },
+      "payments": {
+        "title": "§4. Płatności i rozliczenia",
+        "items": [
+          "Minimalna kwota zamówienia wynosi 20 PLN.",
+          "Płatności mogą być realizowane poprzez: przelew bankowy, płatności kartą, BLIK, PayPal oraz inne dostępne metody płatności.",
+          "Płatność musi zostać zrealizowana przed rozpoczęciem generowania tekstu."
+        ]
+      },
+      "refunds": {
+        "title": "§5. Polityka zwrotów i reklamacji",
+        "items": [
+          "Ze względu na cyfrowy charakter usługi zamówione i dostarczone teksty nie podlegają zwrotowi.",
+          "Reklamacje można składać w przypadku: nieotrzymania zamówionego tekstu, otrzymania tekstu niezgodnego z zamówieniem lub błędów technicznych w procesie zamawiania.",
+          "Reklamację należy złożyć w terminie 14 dni od wystąpienia problemu.",
+          "Serwis rozpatruje reklamacje w terminie 14 dni roboczych."
+        ]
+      },
+      "rights": {
+        "title": "§6. Prawa i obowiązki użytkownika",
+        "items": [
+          "Użytkownik ma prawo do: korzystania ze wszystkich dostępnych funkcji Serwisu, składania zamówień, zgłaszania reklamacji poprzez formularz kontaktowy dostępny w Usłudze lub mailowo oraz otrzymywania wsparcia technicznego.",
+          "Użytkownik zobowiązuje się do: przestrzegania regulaminu, niepodejmowania działań szkodliwych dla Serwisu, nienaruszania praw własności intelektualnej oraz zachowania poufności danych dostępowych."
+        ]
+      },
+      "intellectual": {
+        "title": "§7. Własność intelektualna",
+        "items": [
+          "Użytkownik może wykorzystywać zamówione teksty w dowolnym celu, z zachowaniem przepisów prawa.",
+          "Serwis nie ponosi odpowiedzialności za sposób wykorzystania tekstów przez Użytkownika."
+        ]
+      },
+      "data": {
+        "title": "§8. Ochrona danych osobowych",
+        "items": [
+          "Administrator przetwarza dane osobowe zgodnie z RODO i obowiązującymi przepisami.",
+          "Dane są przetwarzane w celu: świadczenia usług, obsługi płatności, komunikacji z Użytkownikiem, realizacji obowiązków prawnych oraz działań analitycznych i statystycznych.",
+          "Szczegółowe informacje znajdują się w Polityce Prywatności."
+        ]
+      },
+      "liability": {
+        "title": "§9. Odpowiedzialność",
+        "items": [
+          "Serwis dokłada wszelkich starań, aby generowane teksty były wysokiej jakości.",
+          "Serwis nie ponosi odpowiedzialności za: przerwy w działaniu spowodowane siłą wyższą, szkody wynikłe z niewłaściwego wykorzystania tekstów, treści dostarczane przez Użytkowników oraz działania osób trzecich."
+        ]
+      },
+      "final": {
+        "title": "§10. Postanowienia końcowe",
+        "items": [
+          "Regulamin wchodzi w życie z dniem 06.12.2024.",
+          "Serwis zastrzega sobie prawo do zmiany Regulaminu.",
+          "O zmianach Regulaminu Użytkownicy będą informowani z 14-dniowym wyprzedzeniem.",
+          "Korzystanie z Serwisu po wprowadzeniu zmian oznacza ich akceptację."
+        ]
+      },
+      "contact": {
+        "title": "Kontakt",
+        "email": "Email: kontakt@ecopywriting.pl",
+        "address": "Adres: Polska, 86-221 Papowo Biskupie 119/18"
+      }
+    }
+  },
+  "site": {
+    "name": "AI do pisania prac. Sztuczna inteligencja do generowania zadań domowych",
+    "description": "Generuj profesjonalne teksty z AI. Oszczędzaj czas i pieniądze dzięki pisaniu z AI",
+    "ogImageAlt": "Smart-Edu.ai"
+  },
+
+  "Privacy": {
+    "title": "Polityka Prywatności",
+    "linkText": "politykę prywatności",
+    "lastUpdated": "Data ostatniej aktualizacji: 08.12.2024",
+    "sections": {
+      "general": {
+        "title": "Informacje ogólne",
+        "content": "Niniejsza Polityka Prywatności określa zasady przetwarzania i ochrony danych osobowych Użytkowników korzystających z naszej aplikacji internetowej (dalej \"Aplikacja\").",
+        "administrator": {
+          "title": "Administrator danych osobowych",
+          "content": "Administratorem danych osobowych jest eCopywriting.pl Karol Leszczyński z siedzibą w Papowie Biskupim 119/18, wpisana do rejestru przedsiębiorców pod numerem NIP: 9562203948, REGON: 340627879 (dalej \"Administrator\")."
+        },
+        "contact": "Kontakt w sprawach związanych z ochroną danych osobowych jest możliwy pod adresem email: kontakt [at] ecopywriting.pl lub pisemnie na adres siedziby Administratora."
+      },
+      "dataCollection": {
+        "title": "Zakres zbieranych danych",
+        "categories": {
+          "voluntary": {
+            "title": "Dane podawane dobrowolnie przy rejestracji i logowaniu:",
+            "items": [
+              "Imię/nick",
+              "Adres email",
+              "Dane profilowe z konta Google (w przypadku logowania przez Google)",
+              "Identyfikator konta Google (do celów uwierzytelniania)",
+              "Status weryfikacji emaila Google"
+            ]
+          },
+          "automatic": {
+            "title": "Dane zbierane automatycznie:",
+            "items": [
+              "Informacje o urządzeniu (rozdzielczość ekranu, system operacyjny, przeglądarka)",
+              "Adres IP",
+              "Dane analityczne z TikTok Pixel (identyfikator użytkownika, informacje o interakcjach)",
+              "Dane o źródle ruchu z TikTok",
+              "Strefa czasowa",
+              "Dane o wydajności aplikacji (czas ładowania, metryki renderowania)",
+              "Informacje o sesji użytkownika",
+              "Statystyki korzystania z funkcji aplikacji"
+            ]
+          },
+          "analytical": {
+            "title": "Dane analityczne:",
+            "items": [
+              "Zachowania użytkownika w aplikacji",
+              "Statystyki konwersji i zachowań użytkowników z TikTok Pixel",
+              "Śledzenie efektywności kampanii reklamowych TikTok",
+              "Interakcje z komponentami",
+              "Dane o błędach i problemach technicznych",
+              "Statystyki wykorzystania funkcji"
+            ]
+          }
+        }
+      },
+      "googleData": {
+        "title": "Google User Data Processing",
+        "usage": {
+          "title": "How we use Google user data:",
+          "items": [
+            "Weryfikacja i zabezpieczenie konta",
+            "Zarządzanie identyfikatorem i danymi profilowymi użytkownika",
+            "Wsparcie techniczne",
+            "Personalizacja usług"
+          ]
+        },
+        "protection": {
+          "title": "Google Data Protection:",
+          "items": [
+            "Dane użytkownika Google nie są udostępniane zewnętrznym podmiotom",
+            "Korzystamy z danych Google wyłącznie w celu zapewnienia podstawowej funkcjonalności aplikacji",
+            "Dane są szyfrowane w trakcie przechowywania i przesyłania",
+            "Regularnie monitorujemy i analizujemy bezpieczeństwo danych Google"
+          ]
+        }
+      },
+      "tiktokData": {
+        "title": "Przetwarzanie danych TikTok",
+        "usage": {
+          "title": "Wykorzystujemy TikTok Pixel do analizy zachowań użytkowników i mierzenia skuteczności reklam",
+          "items": [
+            "Informacje o odwiedzinach strony",
+            "Interakcje z komponentami",
+            "Dane o konwersjach",
+            "Źródło ruchu"
+          ]
+        },
+        "protection": {
+          "title": "Ochrona danych TikTok:",
+          "items": [
+            "Dane są przetwarzane zgodnie z polityką prywatności TikTok",
+            "Użytkownicy mogą kontrolować śledzenie poprzez ustawienia swojej przeglądarki",
+            "Dane są szyfrowane w trakcie przechowywania i przesyłania",
+            "Regularnie monitorujemy i analizujemy bezpieczeństwo danych Google"
+          ]
+        }
+      },
+      "processingPurposes": {
+        "title": "Cele i podstawy przetwarzania",
+        "categories": {
+          "services": {
+            "title": "Realizacja usług (Art. 6 ust. 1 lit. b RODO):",
+            "items": [
+              "Obsługa konta użytkownika",
+              "Realizacja funkcjonalności aplikacji",
+              "Zapewnienie wsparcia technicznego",
+              "Analiza skuteczności kampanii marketingowych w TikTok",
+              "Optymalizacja treści reklamowych"
+            ]
+          },
+          "legitInterests": {
+            "title": "Realizacja prawnie uzasadnionych interesów Administratora (Art. 6 ust. 1 lit. f RODO):",
+            "items": [
+              "Analiza i poprawa jakości usług",
+              "Wykrywanie i zapobieganie nadużyciom",
+              "Prowadzenie statystyk i analiz"
+            ]
+          },
+          "consent": {
+            "title": "Na podstawie zgody użytkownika (Art. 6 ust. 1 lit. a RODO):",
+            "items": [
+              "Marketing bezpośredni",
+              "Personalizacja treści",
+              "Analityka i śledzenie zachowań użytkownika"
+            ]
+          }
+        }
+      },
+      "analytics": {
+        "title": "Google Analytics, Microsoft Clarity i pliki cookies",
+        "content": "Wykorzystujemy Google Analytics i Microsoft Clarity do analizy ruchu w Aplikacji. Dane są zbierane zgodnie z polityką prywatności Google i Microsoft.",
+        "cookieManagement": "Użytkownik może zarządzać zgodami na przetwarzanie danych w celach analitycznych poprzez panel ustawień cookies dostępny w Aplikacji.",
+        "cookieTypes": {
+          "title": "Stosujemy następujące rodzaje cookies:",
+          "items": [
+            "Niezbędne do funkcjonowania Aplikacji",
+            "Analityczne (za zgodą użytkownika)",
+            "Marketingowe (za zgodą użytkownika)"
+          ]
+        }
+      },
+      "dataRecipients": {
+        "title": "Odbiorcy danych",
+        "recipients": {
+          "title": "Dostęp do danych mogą mieć:",
+          "items": [
+            "Upoważnieni pracownicy Administratora",
+            "Podmioty świadczące usługi techniczne i analityczne (Google Analytics, Microsoft)",
+            "Podmioty świadczące usługi hostingowe",
+            "Organy państwowe na podstawie przepisów prawa"
+          ]
+        },
+        "transfer": {
+          "title": "Przekazywanie danych poza EOG:",
+          "items": ["Google LLC (Privacy Shield)", "Microsoft Corporation"]
+        }
+      },
+      "userRights": {
+        "title": "Prawa użytkownika",
+        "rights": [
+          "Dostępu do swoich danych",
+          "Sprostowania danych",
+          "Usunięcia danych (\"prawo do bycia zapomnianym\")",
+          "Ograniczenia przetwarzania",
+          "Przenoszenia danych",
+          "Sprzeciwu wobec przetwarzania",
+          "Wycofania zgody na przetwarzanie",
+          "Wniesienia skargi do organu nadzorczego (Prezes UODO)"
+        ]
+      },
+      "retentionPeriods": {
+        "title": "Okres przechowywania danych",
+        "periods": {
+          "account": "Dane konta: przez okres posiadania konta i 6 miesięcy po jego usunięciu",
+          "analytical": "Dane analityczne: 14 miesięcy",
+          "logs": "Logi techniczne: 90 dni",
+          "billing": "Dane rozliczeń: 6 lat (wymóg prawny)"
+        }
+      },
+      "security": {
+        "title": "Bezpieczeństwo danych",
+        "measures": {
+          "title": "Stosujemy odpowiednie środki techniczne i organizacyjne zapewniające bezpieczeństwo danych osobowych:",
+          "items": [
+            "Szyfrowanie SSL/TLS",
+            "Szyfrowanie danych w spoczynku",
+            "Regularne aktualizacje zabezpieczeń",
+            "Kontrola dostępu",
+            "Monitoring bezpieczeństwa",
+            "Szyfrowanie danych wrażliwych",
+            "Zautomatyzowane procedury kopii zapasowych"
+          ]
+        }
+      },
+      "changes": {
+        "title": "Zmiany Polityki Prywatności",
+        "content": "Zastrzegamy sobie prawo do wprowadzania zmian w Polityce Prywatności.",
+        "notification": "O wszystkich zmianach użytkownicy będą informowani poprzez komunikat w Aplikacji lub wiadomość email."
+      },
+      "contact": {
+        "title": "Kontakt",
+        "content": "W przypadku pytań dotyczących Polityki Prywatności prosimy o kontakt:",
+        "email": "Email: kontakt [at] ecopywriting.pl"
+      }
+    }
+  },
+  "form": {
+    "language": "Język",
+    "textLength": "Długość tekstu",
+    "guidelines": "Wprowadź temat i inne wytyczne dla generowanego tekstu...",
+    "advancedSettings": "Ustawienia zaawansowane (opcjonalnie)",
+    "contentType": "Rodzaj tekstu",
+    "customContentType": "Wpisz własny rodzaj tekstu",
+    "keywords": "Słowa kluczowe",
+    "addKeywords": "Wprowadź słowa kluczowe i zatwierdź Enter lub przecinkiem",
+    "sourceLinks": "Linki źródłowe",
+    "sourceLink": "Link źródłowy",
+    "invalidUrl": "Nieprawidłowy adres URL",
+    "faq": "FAQ",
+    "table": "Tabela",
+    "tone": "Ton i forma wypowiedzi",
+    "toneInformal": "Nieformalny, bezpośredni (zwrot do czytelnika na Ty)",
+    "toneFormal": "Oficjalny, formalny (Państwo)",
+    "toneImpersonal": "Bezosobowy (bez zwrotów do czytelnika)",
+    "textPrice": "Cena tekstu:"
+  },
+  "errors": {
+    "fillFields": "Proszę wypełnić następujące pola:",
+    "text": "Tekst",
+    "textLength": "długość tekstu",
+    "guidelines": "wytyczne",
+    "and": "i"
+  },
+
+  "Home": {
+    "pageTitle": "Strona główna",
+    "heroTitle": "Praca do napisania? Zleć ją Smart‑Edu.AI!",
+    "heroSubtitle": "Zamów wypracowanie, referat, esej lub inną pracę pisemną, a sztuczna inteligencja wygeneruje ją dla Ciebie w 5 min",
+    "heroCta": "Załóż konto",
+    "features": {
+      "topic": {
+        "title": "Dowolne przedmioty i zadania",
+        "description": "Ze Smart-Edu.AI stworzysz referat, esej, opowiadanie, wypracowanie, streszczenie, charakterystykę i inne prace domowe, zaliczeniowe oraz naukowe z dowolnych przedmiotów."
+      },
+      "speed": {
+        "title": "Błyskawiczne pisanie",
+        "description": "Oszczędzaj czas dzięki generowaniu prac pisemnych ze sztuczną inteligencją."
+      },
+      "quality": {
+        "title": "Rzetelność i profesjonalizm",
+        "description": "Smart-Edu.AI tworzy prace pisemne na bazie samodzielnie wyszukanych i zweryfikowanych źródeł"
+      },
+      "multilingual": {
+        "title": "Stworzony w języku polskim",
+        "description": "Smart-Edu.AI - w pełni polski generator prac domowych, naukowych i zdań pisemnych. Idealny dla uczniów i studentów."
+      }
+    }
+  },
+  "BenefitsSection": {
+    "title": "Korzyści z naszego generatora",
+    "benefit1Title": "Oszczędność czasu",
+    "benefit1Description": "Automatyczne generowanie prac zaliczeniowych w mgnieniu oka pozwoli Ci zaoszczędzić cenny czas.",
+    "benefit2Title": "Wysoka jakość",
+    "benefit2Description": "Nasze zaawansowane modele AI tworzą teksty o wysokiej jakości, dostosowane do różnych poziom edukacji.",
+    "benefit3Title": "Personalizacja",
+    "benefit3Description": "Dostosuj generowaną pracę pisemną do swoich potrzeb za pomocą wytycznych i ustawień.",
+    "benefit4Title": "Sztuczna inteligencja dla uczniów i studentów",
+    "benefit4Description": "Skorzystaj z naszego generatora prac domowych, naukowych i zaliczeniowych w szkole podstawowej, liceum, technikum i na studiach."
+  },
+  "EducationLevelsSection": {
+    "title": "Poziomy edukacji i dziedziny",
+    "subtitle": "Smart-Edu.AI wspiera uczniów i studentów na każdym etapie edukacji",
+    "footer": "Odkryj możliwości sztucznej inteligencji w edukacji - wypróbuj Smart-Edu.AI już dziś!",
+    "levels": {
+      "primary": {
+        "title": "Szkoła podstawowa",
+        "subjects": [
+          "Język polski",
+          "Język angielski",
+          "Język niemiecki",
+          "Historia",
+          "WOS",
+          "Geografia",
+          "Biologia",
+          "Przyroda",
+          "Chemia"
+        ]
+      },
+      "secondary": {
+        "title": "Liceum",
+        "subjects": [
+          "Język polski",
+          "Język angielski",
+          "Język niemiecki",
+          "Historia",
+          "WOS",
+          "Geografia",
+          "Biologia",
+          "Chemia",
+          "Psychologia",
+          "Socjologia"
+        ]
+      },
+      "technical": {
+        "title": "Technikum",
+        "subjects": [
+          "Język polski",
+          "Język angielski",
+          "Język niemiecki",
+          "Historia",
+          "Przedmioty zawodowe",
+          "Geografia",
+          "Biologia",
+          "Chemia",
+          "Informatyka"
+        ]
+      },
+      "university": {
+        "title": "Studia",
+        "subjects": [
+          "Pedagogika",
+          "Psychologia",
+          "Socjologia",
+          "Filozofia",
+          "Historia",
+          "Politologia",
+          "Zarządzanie",
+          "Ekonomia",
+          "Kulturoznawstwo",
+          "Dziennikarstwo",
+          "Literatura",
+          "Językoznawstwo"
+        ]
+      }
+    }
+  },
+
+  "BenefitsPage": {
+    "title": "Generuj prace zaliczeniowe ze Smart-Edu.ai",
+    "benefits": {
+      "generation": {
+        "title": "Błyskawiczne generowanie tekstów",
+        "description": "Podaj temat i długość, a praca zostanie wygenerowana w ciągu 5 minut (albo szybciej)."
+      },
+      "originality": {
+        "title": "Brak zobowiązań",
+        "description": "W Smart-Edu.ai płacisz tylko za pisanie każdego wypracowania, eseju czy referatu. Zapomnij o długoterminowych zoobowiązaniach!"
+      },
+      "versatility": {
+        "title": "Wszechstronność",
+        "description": "Generuj prace pisemne z dowolnych dziedzin, w różnych formach i w kilku językach, w tym po polsku."
+      },
+      "quality": {
+        "title": "Wysoka jakość",
+        "description": "Jakość treści gwarantowana dzięki modelom Claude, na których bazuje Smart-Edu.AI."
+      },
+      "export": {
+        "title": "Łatwy eksport",
+        "description": "Pobieraj gotowe prace zaliczeniowe w formacie PDF lub Word do dalszej edycji."
+      },
+      "flexibility": {
+        "title": "Pełna elastyczność",
+        "description": "Edytuj i dostosowuj wygenerowane teksty według własnych potrzeb."
+      }
+    }
+  },
+  "HowItWorksSection": {
+    "title": "Jak działa Smart-Edu.AI?",
+    "steps": {
+      "analysis": {
+        "title": "Analiza tematu i wytycznych",
+        "description": "Wprowadź temat i opcjonalne wytyczne, które pomogą sztucznej inteligencji lepiej zrozumieć zadanie i Twoje oczekiwania."
+      },
+      "research": {
+        "title": "Wyszukiwanie informacji",
+        "description": "Sztuczna inteligencja przeszukuje internet, aby znaleźć aktualne i rzetelne źródła, na podstawie których pisze pracę."
+      },
+      "processing": {
+        "title": "Przetwarzanie informacji",
+        "description": "AI analizuje zebrane dane i tworzy merytorycznie poprawną treść do Twojej pracy domowej, zaliczeniowej, naukowej."
+      },
+      "delivery": {
+        "title": "Gotowa treść do pobrania",
+        "description": "Pobierz swój tekst w formacie PDF lub DOCX i używaj jej według własnych potrzeb."
+      }
+    }
+  },
+  "ProcessSection": {
+    "title": "Jak korzystać ze Smart-Edu.AI?",
+    "steps": {
+      "account": {
+        "title": "Załóż darmowe konto",
+        "description": "Zarejestruj się w serwisie i uzyskaj natychmiastowy dostęp do naszego AI do generowania prac pisemnych."
+      },
+      "details": {
+        "title": "Podaj temat i długość tekstu",
+        "description": "Wybierz temat, określ pożądaną długość i inne preferencje dla swojego tekstu."
+      },
+      "wait": {
+        "title": "Poczekaj 5 minut",
+        "description": "Nasz zaawansowany generator prac zaliczeniowych AI pisze wysokiej jakości pracę domową w ciągu zaledwie 5 minut."
+      },
+      "download": {
+        "title": "Pobierz gotową pracę",
+        "description": "Pobierz wygenerowany tekst w formacie PDF lub Word i edytuj go według własnych potrzeb."
+      }
+    }
+  },
+  "ServicesSection": {
+    "title": "Rodzaje generowanych treści",
+    "footer": "Sprawdź przykładowe prace",
+    "services": {
+      "articles": {
+        "title": "Wypracowania",
+        "description": "Tworzenie wypracowań z języka polskiego i innych przedmiotów humanistycznych."
+      },
+      "descriptions": {
+        "title": "Referaty",
+        "description": "Profesjonalne referaty na każdy temat, poparte źródłami."
+      },
+      "category": {
+        "title": "Eseje",
+        "description": "Eseje argumentacyjne i interpretacyjne z różnych dziedzin."
+      },
+      "business": {
+        "title": "Prace domowe i zaliczeniowe",
+        "description": "Kompleksowe rozwiązania zadań i prac zaliczeniowych."
+      },
+      "social": {
+        "title": "Prace naukowe",
+        "description": "Zaawansowane prace badawcze i analizy naukowe."
+      },
+      "reports": {
+        "title": "Analizy",
+        "description": "Szczegółowe analizy tekstów i zagadnień."
+      },
+      "emails": {
+        "title": "Opowiadania",
+        "description": "Kreatywne opowiadania i teksty literackie."
+      },
+      "landing": {
+        "title": "Streszczenia",
+        "description": "Zwięzłe streszczenia lektur i tekstów źródłowych."
+      },
+      "pr": {
+        "title": "Charakterystyki",
+        "description": "Pogłębione charakterystyki postaci literackich i historycznych."
+      },
+      "ads": {
+        "title": "Interpretacje i opracowania literackie",
+        "description": "Interpretacje utworów literackich i dzieł kultury."
+      }
+    }
+  },
+  "PricingSection": {
+    "title": "Cennik",
+    "priceFrom": "",
+    "priceUnit": "/ tekst",
+    "discount": "Otrzymuj atrakcyjne zniżki przy większych zamówieniach i doładowaniach konta!",
+    "features": [
+      "Praca licencjacka - ${bachelor}",
+      "Praca magisterska - ${master}",
+      "250 słów - ${price250}",
+      "350 słów - ${price350}",
+      "500 słów - ${price500}",
+      "800-900 słów - ${price800}",
+      "1300 słów - ${price1300}",
+      "+/-2500 słów - ${price2500}"
+    ],
+    "cta": "Utwórz konto"
+  },
+  "Auth": {
+    "resetPassword": {
+      "title": "Resetowanie hasła",
+      "pageTitle": "Zresetuj swoje hasło",
+      "newPassword": "Nowe hasło",
+      "confirmPassword": "Potwierdź nowe hasło",
+      "resetButton": "Zresetuj hasło",
+      "resettingButton": "Resetowanie...",
+      "success": "Hasło zostało pomyślnie zresetowane. Przekierowanie do strony logowania...",
+      "error": "Wystąpił błąd podczas resetowania hasła",
+      "invalidToken": "Nieprawidłowy token resetowania hasła",
+      "validation": {
+        "passwordLength": "Hasło musi mieć co najmniej 8 znaków",
+        "passwordMatch": "Hasła muszą być identyczne"
+      }
+    },
+    "forgotPassword": {
+      "title": "Resetowanie hasła",
+      "pageTitle": "Zresetuj swoje hasło",
+      "emailLabel": "Adres email",
+      "submitButton": "Wyślij link do resetowania hasła",
+      "sendingButton": "Wysyłanie...",
+      "success": "Link do resetowania hasła został wysłany na podany adres email.",
+      "error": "Wystąpił błąd podczas wysyłania linku do resetowania hasła"
+    },
+
+    "verification": {
+      "title": "Weryfikacja konta",
+      "enterCode": "Wprowadź kod weryfikacyjny, który został wysłany na Twój adres email",
+      "invalidCode": "Nieprawidłowy kod weryfikacyjny",
+      "success": {
+        "title": "Rejestracja zakończona pomyślnie!",
+        "message": "Dziękujemy za założenie konta w Smart-Edu.ai",
+        "redirect": "Za chwilę nastąpi przekierowanie do panelu klienta."
+      },
+      "error": "Wystąpił błąd podczas weryfikacji konta"
+    },
+    "Common": {
+      "alert": {
+        "title": "Attention",
+        "close": "Close"
+      },
+      "email": "Adres email",
+      "password": "Hasło",
+      "loading": "Ładowanie..."
+    },
+    "Login": {
+      "pageTitle": "Logowanie",
+      "registerLink": "Zarejestruj się",
+      "title": "Zaloguj się",
+      "email": "Adres email",
+      "password": "Hasło",
+      "forgotPassword": "Nie pamiętasz hasła?",
+      "loading": "Logowanie...",
+      "loginButton": "Zaloguj się",
+      "noAccount": "Nie masz konta?",
+      "recaptcha": "Formularz zabezpieczony przez Google reCAPTCHA",
+      "register": "Załóż konto",
+      "loggingIn": "Logowanie...",
+      "errors": {
+        "failed": "Logowanie nie powiodło się. Sprawdź swoje dane logowania.",
+        "unknown": "Wystąpił nieznany błąd podczas logowania"
+      }
+    },
+    "Register": {
+      "pageTitle": "Załóż konto",
+      "title": "Załóż konto",
+      "name": "Imię/nick",
+      "confirmPassword": "Potwierdź hasło",
+      "privacyNotice": "Rejestrując się, akceptujesz naszą",
+      "registerButton": "Zarejestruj się",
+      "registering": "Rejestracja...",
+      "haveAccount": "Masz już konto?",
+      "loginLink": "Zaloguj się",
+      "errors": {
+        "invalidEmail": "Nieprawidłowy format adresu email",
+        "invalidPassword": "Hasło musi zawierać co najmniej 8 znaków",
+        "passwordSameAsEmail": "Hasło nie może być takie samo jak adres email",
+        "passwordsDontMatch": "Hasła nie są identyczne",
+        "registrationFailed": "Wystąpił błąd podczas rejestracji",
+        "nameRequired": "Imię jest wymagane",
+        "invalidResponse": "Otrzymano nieprawidłową odpowiedź z serwera"
+      }
+    }
+  },
+  "Footer": {
+    "companyName": "Smart-Edu.AI",
+    "description": "Generator prac pisemnych, domowych, naukowych, zaliczeniowych Smart-Edu.ai - sztuczna inteligencja do pisania zadań.",
+    "quickLinks": "Szybkie linki",
+    "links": {
+      "blog": "Blog",
+      "contact": "Kontakt",
+      "register": "Rejestracja",
+      "login": "Logowanie",
+      "example": "Przykładowe prace",
+      "paper": "Referat AI",
+      "composition": "Wypracowanie AI",
+      "writerPaper": "AI generator prac pisemnych"
+    },
+    "contact": {
+      "title": "Warunki użytkowania",
+      "email": "kontakt@ecopywriting.pl",
+      "privacy": "Polityka prywatności",
+      "terms": "Regulamin"
+    },
+    "copyright": "Wszelkie prawa zastrzeżone."
+  },
+  "Header": {
+    "brandName": "Smart-Edu.AI",
+    "examples": "Przykładowe prace",
+    "adminPanel": "Panel Admina",
+    "customerPanel": "Wróć do panelu klienta",
+    "login": "Zaloguj się",
+    "register": "Załóż darmowe konto",
+    "theme": {
+      "light": "Tryb jasny",
+      "dark": "Tryb ciemny"
+    }
+  },
+  "orderStatus": {
+    "view": "Zobacz",
+    "title": "Status zamówień",
+    "untitledText": "Tekst bez tytułu",
+    "processing": "Przetwarzanie...",
+    "completed": "Zakończone",
+    "almostDone": "Prawie gotowe",
+    "viewOrder": "Zobacz",
+    "hideOrder": "Ukryj",
+    "orderNumber": "Nr zamówienia",
+    "textLength": "Długość tekstu",
+    "characters": "znaków",
+    "language": "Język",
+    "hideItem": "Ukryj",
+    "contentType": "Rodzaj treści",
+    "activeOrders": "Aktywne zamówienia",
+    "languages": {
+      "pol": "Polski",
+      "eng": "Angielski",
+      "ger": "Niemiecki",
+      "ukr": "Ukraiński",
+      "fra": "Francuski",
+      "esp": "Hiszpański",
+      "ros": "Rosyjski",
+      "por": "Portugalski"
+    },
+    "contentTypes": {
+      "wypracowanie": "Wypracowanie",
+      "esej": "Esej",
+      "referat": "Referat",
+      "rozprawka": "Rozprawka",
+      "charakterystyka": "Charakterystyka",
+      "opowiadanie": "Opowiadanie",
+      "list": "List",
+      "recenzja": "Recenzja",
+      "przemowienie": "Przemówienie",
+      "licencjacka": "Praca licencjacka",
+      "magisterska": "Praca magisterska",
+      "reportaz": "Reportaż",
+      "zaproszenie": "Zaproszenie",
+      "streszczenie": "Streszczenie",
+      "interpretacja": "interpretacja"
+    }
+  },
+  "orderHistory": {
+    "orderInfo": {
+      "createdAt": "Data utworzenia",
+      "totalPrice": "Całkowita cena",
+      "orderId": "ID zamówienia",
+      "length": "Długość",
+      "characters": "znaków",
+      "guidelines": "Wytyczne",
+      "showMore": "Rozwiń",
+      "showLess": "Zwiń",
+      "itemPrice": "Cena"
+    },
+    "title": "Zamówienia",
+    "status": {
+      "all": "Wszystkie statusy",
+      "waiting": "Oczekujące",
+      "inProgress": "W trakcie",
+      "completed": "Zakończone"
+    },
+    "table": {
+      "number": "Nr",
+      "topic": "Temat",
+      "orderDate": "Data zamówienia",
+      "status": "Status",
+      "totalPrice": "Łączna cena",
+      "details": "Szczegóły",
+      "refreshStatus": "Odśwież status",
+      "characters": "znaków",
+      "price": "Cena",
+      "priceValue": "{amount}",
+      "noTitle": "Brak tytułu",
+      "language": "Język"
+    },
+    "content": {
+      "generatedContent": "Wygenerowana treść",
+      "yourGuidelines": "Twoje wytyczne",
+      "attachments": {
+        "title": "Załączniki",
+        "yours": "Twoje załączniki",
+        "fromService": "Załączniki od eCopywriting"
+      },
+      "downloadPDF": "Pobierz PDF",
+      "downloadDOCX": "Pobierz Word (DOCX)",
+      "share": "Udostępnij",
+      "copyToClipboard": "Kopiuj do schowka",
+      "copiedToClipboard": "Skopiowano do schowka"
+    },
+    "order": {
+      "details": "Szczegóły zamówienia",
+      "yourAttachments": "Twoje załączniki",
+      "summary": "Podsumowanie zamówienia",
+      "item": "Element",
+      "guidelines": "Twoje wytyczne",
+      "language": "Język",
+      "content": "Wygenerowana treść",
+      "characters": "znaków",
+      "price": "${characters} znaków - ${price} zł",
+      "status": {
+        "inProgress": "W trakcie",
+        "completed": "Zakończone",
+        "zakończone": "Zakończone",
+        "waiting": "Oczekujące"
+      }
+    },
+    "pagination": {
+      "page": "Strona",
+      "of": "z"
+    },
+    "mobileTable": {
+      "orderNumber": "Nr zamówienia",
+      "date": "Data",
+      "deadline": "Termin",
+      "price": "Cena",
+      "status": "Status",
+      "orderDetails": "Szczegóły zamówienia",
+      "topic": "Temat",
+      "comments": {
+        "title": "Komentarze",
+        "addComment": "Dodaj komentarz",
+        "send": "Wyślij",
+        "attachments": "Załączniki",
+        "placeholder": "Dodaj komentarz...",
+        "removeFile": "Usuń plik"
+      }
+    },
+    "common": {
+      "showLess": "Zwiń",
+      "showMore": "Rozwiń",
+      "currency": {
+        "format": "{amount} zł",
+        "decimal": ","
+      }
+    }
+  },
+  "common": {
+    "close": "Zamknij",
+    "submit": "Wyślij",
+    "cancel": "Anuluj",
+    "save": "Zapisz",
+    "edit": "Edytuj",
+    "delete": "Usuń",
+    "loading": "Ładowanie...",
+    "showLess": "Zwiń",
+    "showMore": "Rozwiń",
+    "currency": {
+      "format": "{amount} zł",
+      "decimal": ","
+    }
+  },
+  "orderDetails": {
+    "title": "Szczegóły zamówienia",
+    "loading": "Ładowanie...",
+    "status": {
+      "title": "Status",
+      "inProgress": "w trakcie",
+      "completed": "zakończone",
+      "waiting": "oczekujące",
+      "refreshStatus": "Odśwież status"
+    },
+    "orderInfo": {
+      "createdAt": "Data utworzenia",
+      "length": "Długość",
+      "price": "Cena",
+      "language": "Język",
+      "contentType": "Rodzaj treści",
+      "itemPrice": "Cena tekstu",
+      "orderId": "ID zamówienia",
+      "characters": "znaków",
+      "guidelines": "Wytyczne"
+    },
+    "content": {
+      "generatedContent": "Wygenerowana treść",
+      "copyToClipboard": "Kopiuj do schowka",
+      "copiedToClipboard": "Skopiowano do schowka",
+      "item": "Tekst",
+      "copyHTML": "Kopiuj HTML",
+      "copiedHTMLToClipboard": "Skopiowano HTML!",
+      "downloadPDF": "Pobierz PDF",
+      "downloadDOCX": "Pobierz Word (DOCX)",
+      "share": "Udostępnij",
+      "showMore": "Pokaż więcej",
+      "showLess": "Pokaż mniej"
+    },
+    "attachments": {
+      "title": "Załączniki",
+      "userAttachments": "Twoje załączniki",
+      "serviceAttachments": "Dodane przez eCopywriting"
+    },
+    "common": {
+      "showLess": "Zwiń",
+      "showMore": "Rozwiń"
+    }
+  },
+  "paymentHistory": {
+    "title": "Faktury i płatności",
+    "loading": "Ładowanie...",
+    "error": {
+      "loading": "Wystąpił błąd podczas ładowania historii płatności.",
+      "invoice": "Błąd podczas pobierania faktury. Spróbuj ponownie później.",
+      "noSessionId": "Brak identyfikatora sesji dla tej płatności."
+    },
+    "filter": {
+      "all": "Wszystkie typy",
+      "topUp": "Doładowanie",
+      "order": "Zamówienie"
+    },
+    "table": {
+      "date": "Data",
+      "type": "Typ",
+      "amount": "Kwota",
+      "status": "Status",
+      "invoice": "Faktura"
+    },
+    "status": {
+      "completed": "Opłacona",
+      "pending": "Oczekująca",
+      "failed": "Nieudana",
+      "unknown": "Nieznany"
+    },
+    "type": {
+      "topUp": "Doładowanie konta",
+      "order": "Zamówienie tekstów"
+    },
+    "invoice": {
+      "download": "Pobierz",
+      "downloading": "Pobieranie...",
+      "unavailable": "Niedostępna"
+    },
+    "pagination": {
+      "previous": "Poprzednia",
+      "next": "Następna",
+      "page": "Strona {current} z {total}"
+    },
+    "noPayments": {
+      "title": "Brak płatności",
+      "description": "Nie masz jeszcze żadnych płatności w historii."
+    }
+  },
+  "profile": {
+    "title": "Profil użytkownika",
+    "changePassword": {
+      "title": "Zmiana hasła",
+      "currentPassword": "Obecne hasło",
+      "newPassword": "Nowe hasło",
+      "confirmPassword": "Potwierdź nowe hasło",
+      "noChangesTooltip": "Wypełnij wszystkie pola, aby zmienić hasło",
+      "submit": "Zmień hasło",
+      "success": {
+        "title": "Sukces",
+        "message": "Hasło zostało zmienione pomyślnie"
+      },
+      "error": {
+        "title": "Błąd",
+        "mismatch": "Nowe hasła nie są identyczne",
+        "unknown": "Wystąpił nieznany błąd podczas zmiany hasła"
+      }
+    },
+    "form": {
+      "fields": {
+        "name": "Imię/nick",
+        "noChangesTooltip": "Wprowadź zmiany, aby umożliwić zapisanie",
+        "companyName": "Nazwa firmy",
+        "nip": "NIP",
+        "address": "Ulica",
+        "buildingNumber": "Numer budynku/lokalu",
+        "buildingNumberPlaceholder": "np. 18/9",
+        "postalCode": "Kod pocztowy",
+        "city": "Miasto"
+      },
+      "submit": "Zaktualizuj profil",
+      "success": {
+        "title": "Profil zaktualizowany",
+        "message": "Twoje dane zostały pomyślnie zaktualizowane."
+      },
+      "error": {
+        "title": "Błąd aktualizacji",
+        "message": "Wystąpił błąd podczas aktualizacji profilu:"
+      }
+    }
+  },
+  "topUpSuccessModal": {
+    "title": "Konto doładowane",
+    "titleWithOrder": "Zamówienie złożone pomyślnie!",
+    "totalAmount": "Wartość zamówienia",
+    "discount": "Rabat",
+    "finalAmount": "Zapłacono",
+    "newBalance": "Nowe saldo",
+    "orderDetails": "Szczegóły zamówienia",
+    "expandItems": "Pokaż szczegóły",
+    "collapseItems": "Ukryj szczegóły",
+    "item": "Pozycja",
+    "length": "Długość tekstu",
+    "type": "Typ treści",
+    "price": "Cena",
+    "downloadInvoice": "Pobierz fakturę",
+    "downloading": "Pobieranie...",
+    "close": "Zamknij",
+    "contentTypes": {
+      "wypracowanie": "Wypracowanie",
+      "esej": "Esej",
+      "referat": "Referat",
+      "rozprawka": "Rozprawka",
+      "charakterystyka": "Charakterystyka",
+      "opowiadanie": "Opowiadanie",
+      "list": "List",
+      "recenzja": "Recenzja",
+      "przemowienie": "Przemówienie",
+      "reportaz": "Reportaż",
+      "zaproszenie": "Zaproszenie",
+      "streszczenie": "Streszczenie",
+      "interpretacja": "interpretacja"
+    }
+  },
+  "topUpModal": {
+    "title": "Doładuj konto",
+    "description": "Doładuj konto powyżej 200 zł, aby otrzymać 10% rabatu. Przy doładowaniu powyżej 500 zł rabat wzrasta do 20%!",
+    "form": {
+      "amountLabel": "Kwota doładowania (zł)"
+    },
+    "summary": {
+      "topUpAmount": "Doładujesz",
+      "withDiscount": "Z rabatem {discount}% zapłacisz {amount} zł",
+      "finalAmount": "Zapłacisz"
+    },
+    "discountRemaining": {
+      "to10Percent": "Do rabatu 10% brakuje {amount}",
+      "to20Percent": "Do rabatu 20% brakuje {amount}"
+    },
+    "buttons": {
+      "cancel": "Anuluj",
+      "topUp": "Doładuj"
+    },
+    "minimumAmount": "Minimalna kwota doładowania: {amount}",
+    "errors": {
+      "minimumAmount": "Minimalna kwota doładowania to {amount}",
+      "belowMinimum": "Proszę wprowadzić kwotę co najmniej {amount}",
+      "general": "Wystąpił błąd podczas doładowywania konta.",
+      "tryAgain": "Wystąpił błąd podczas doładowywania konta. Spróbuj ponownie później."
+    }
+  },
+  "orderConfirmation": {
+    "title": "Zamówienie złożone pomyślnie",
+    "orderNumber": "Numer zamówienia",
+    "itemsCount": "Liczba zamówionych treści",
+    "totalPrice": "Wartość zamówienia",
+    "discount": "Zastosowany rabat",
+    "trackingInfo": "Możesz śledzić postęp realizacji zamówienia w sekcji \"Zamówienia\" w panelu klienta",
+    "emailNotification": "O każdej aktualizacji zamówienia poinformujemy mailowo",
+    "close": "Zamknij"
+  },
+  "orderSuccess": {
+    "title": "Zamówienie przyjęte",
+    "socialMediaMessage": "Twój post do social media został wygenerowany i jest gotowy do użycia",
+    "standardMessage": "Twoje zamówienie zostało przyjęte i zostanie zrealizowane w ciągu kilku minut",
+    "details": {
+      "title": "Szczegóły zamówienia",
+      "expandItems": "Pokaż szczegóły",
+      "collapseItems": "Ukryj szczegóły",
+      "items": {
+        "title": "Zamówione teksty",
+        "item": "Tekst",
+        "textLength": "Długość",
+        "characters": "znaków",
+        "contentType": "Typ",
+        "subtotal": "Wartość"
+      },
+      "summary": {
+        "total": "Całkowita kwota",
+        "items": "Liczba tekstów"
+      }
+    },
+    "footerStandard": "Możesz śledzić postęp realizacji zamówienia w panelu statusu zamówień",
+    "footerSocialMedia": "Twój post będzie gotowy wkrótce. Zostaniesz powiadomiony, gdy będzie gotowy",
+    "contentTypes": {
+      "wypracowanie": "Wypracowanie",
+      "esej": "Esej",
+      "referat": "Referat",
+      "rozprawka": "Rozprawka",
+      "charakterystyka": "Charakterystyka",
+      "opowiadanie": "Opowiadanie",
+      "list": "List",
+      "recenzja": "Recenzja",
+      "przemowienie": "Przemówienie",
+      "reportaz": "Reportaż",
+      "zaproszenie": "Zaproszenie",
+      "streszczenie": "Streszczenie",
+      "interpretacja": "interpretacja"
+    }
+  },
+  "CookieSettings": {
+    "CookieConsent": {
+      "banner": {
+        "description": "Używamy plików cookie, aby poprawić jakość przeglądania.",
+        "purposes": {
+          "functional": "Podstawowe funkcjonalności i wydajność",
+          "analytical": "Analityka i statystyki użytkowania",
+          "marketing": "Marketing i personalizacja"
+        },
+        "read": "Dowiedz się więcej w naszej"
+      },
+      "buttons": {
+        "acceptAll": "Akceptuj wszystkie",
+        "acceptNecessary": "Akceptuj niezbędne",
+        "settings": "Ustawienia cookies"
+      },
+      "settingsButton": "Cookies",
+      "contactButton": "Kontakt"
+    },
+    "Contact": {
+      "modal": {
+        "title": "Wyślij wiadomość"
+      },
+      "form": {
+        "nameLabel": "Imię",
+        "emailLabel": "Email",
+        "messageLabel": "Wiadomość",
+        "submit": "Wyślij wiadomość",
+        "submitting": "Wysyłanie...",
+        "errorMessage": "Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie później.",
+        "successMessage": "Wiadomość wysłana!",
+        "placeholder": {
+          "name": "Twoje imię",
+          "email": "twoj@email.com",
+          "message": "W czym możemy pomóc?"
+        }
+      }
+    },
+    "title": "Ustawienia prywatności",
+    "read": "Przeczytaj ",
+    "necessary": {
+      "title": "Niezbędne pliki cookie",
+      "description": "Wymagane do działania podstawowych funkcji witryny"
+    },
+    "analytics": {
+      "title": "Analiza ruchu (analytics_storage)",
+      "description": "Pomaga nam zrozumieć, jak użytkownicy korzystają z witryny"
+    },
+    "ad_storage": {
+      "title": "Dane reklamowe (ad_storage)",
+      "description": "Pozwala na mierzenie skuteczności reklam"
+    },
+    "ad_user_data": {
+      "title": "Dane użytkownika (ad_user_data)",
+      "description": "Używane do personalizacji reklam"
+    },
+    "ad_personalization": {
+      "title": "Personalizacja (ad_personalization)",
+      "description": "Pozwala na wyświetlanie spersonalizowanych reklam"
+    },
+    "clarity_storage": {
+      "title": "Microsoft Clarity",
+      "description": "Rejestrowanie sesji użytkowników w celach analitycznych"
+    },
+    "buttons": {
+      "save": "Zapisz ustawienia",
+      "cancel": "Anuluj"
+    }
+  },
+  "CookieConsent": {
+    "banner": {
+      "description": "Używamy plików cookie i podobnych technologii w celach:",
+      "read": "Przeczytaj ",
+      "purposes": {
+        "functional": "Funkcjonalnych (niezbędne do działania strony)",
+        "analytical": "Analitycznych (pomiar ruchu na stronie)",
+        "marketing": "Marketingowych (personalizacja reklam)"
+      },
+      "customizeSettings": "Dostosuj ustawienia"
+    },
+    "buttons": {
+      "acceptAll": "Akceptuj ustawienia",
+      "acceptNecessary": "Dostosuj"
+    },
+    "settingsButton": "Cookies",
+    "contactButton": "Kontakt"
+  },
+  "Contact": {
+    "modal": {
+      "title": "Wyślij wiadomość"
+    },
+    "form": {
+      "nameLabel": "Imię",
+      "emailLabel": "Adres e-mail",
+      "messageLabel": "Wiadomość",
+      "placeholders": {
+        "name": "Twoje imię",
+        "email": "twoj@email.com",
+        "message": "W czym możemy pomóc?"
+      },
+      "submit": "Wyślij wiadomość",
+      "submitting": "Wysyłanie...",
+      "successMessage": "Wiadomość została wysłana pomyślnie! Odpowiemy w ciągu 24 godzin.",
+      "errorMessage": "Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie później."
+    }
+  },
+  "HomeHero": {
+    "pageTitle": "Referat AI",
+    "heroTitle": "Referat lub esej do oddania? Zleć to Smart‑Edu.AI!",
+    "heroSubtitle": "Zamów referat, esej lub inną pracę pisemną, a sztuczna inteligencja wygeneruje ją dla Ciebie w 5 min",
+    "heroCta": "Załóż darmowe konto",
+    "title": "Generator Referatów AI - Napisz Pracę w 5 Minut",
+    "subtitle": "Sztuczna inteligencja stworzy dla Ciebie profesjonalny referat, wypracowanie lub esej. Zero stresu, oszczędność czasu!",
+    "cta": "Napisz Referat za Darmo",
+    "referat": {
+      "title": "Dowolne przedmioty",
+      "description": "Smart-Edu.AI to najlepszy generator referatów. Poradzi sobie z każdym tematem."
+    },
+    "quality": {
+      "title": "Akademicka jakość",
+      "description": "Merotyroczna treść, profesjonalne źródła, różne języki."
+    },
+    "aiWriter": {
+      "title": "Referat AI po polsku",
+      "description": "Polski generator referatów i esejów AI stworzony dla uczniów i studentów."
+    },
+    "speed": {
+      "title": "Referat w 5 min",
+      "description": "Zapomnij o stresie. Twoja praca będzie gotowa szybciej, niż zrobisz kawę!"
+    }
+  },
+  "BenefitsPageReport": {
+    "title": "Generuj referaty i eseje ze Smart-Edu.ai",
+    "benefits": {
+      "generation": {
+        "title": "Błyskawiczne generowanie prac",
+        "description": "Podaj temat i długość, a referat czy esej zostanie wygenerowany w ciągu 5 minut (albo szybciej)."
+      },
+      "originality": {
+        "title": "Brak zobowiązań",
+        "description": "W Smart-Edu.ai płacisz tylko za pisanie każdego referatu i eseju. Zapomnij o długoterminowych zoobowiązaniach!"
+      },
+      "versatility": {
+        "title": "Wszechstronność",
+        "description": "Generuj referaty i eseje z dowolnych dziedzin, w różnych formach i w kilku językach, w tym po polsku."
+      },
+      "quality": {
+        "title": "Wysoka jakość",
+        "description": "Jakość treści jest gwarantowana dzięki modelom Claude, na których bazuje Smart-Edu.AI."
+      },
+      "export": {
+        "title": "Łatwy eksport",
+        "description": "Pobieraj gotowe referaty i eseje w formacie PDF lub Word do dalszej edycji."
+      },
+      "flexibility": {
+        "title": "Pełna elastyczność",
+        "description": "Edytuj i dostosowuj referaty i eseje wygenerowane przez sztuczną inteligencję według własnych potrzeb."
+      }
+    }
+  },
+  "ReportHowItWorksSection": {
+    "title": "Jak działa Smart-Edu.AI?",
+    "steps": {
+      "analysis": {
+        "title": "Analiza tematu i wytycznych",
+        "description": "Wprowadź temat i opcjonalne wytyczne, które pomogą sztucznej inteligencji lepiej zrozumieć zadanie i Twoje oczekiwania."
+      },
+      "research": {
+        "title": "Wyszukiwanie informacji",
+        "description": "Sztuczna inteligencja przeszukuje internet, aby znaleźć aktualne i rzetelne źródła, na podstawie których AI pisze referat czy esej."
+      },
+      "processing": {
+        "title": "Przetwarzanie informacji",
+        "description": "AI analizuje zebrane dane i tworzy merytorycznie poprawną treść do Twojego referatu czy eseju."
+      },
+      "delivery": {
+        "title": "Gotowa treść do pobrania",
+        "description": "Pobierz swój referat bądź esej w formacie PDF lub DOCX i używaj jej według własnych potrzeb."
+      }
+    }
+  },
+  "ReportProcessSection": {
+    "title": "Jak korzystać ze Smart-Edu.AI?",
+    "steps": {
+      "account": {
+        "title": "Załóż darmowe konto",
+        "description": "Zarejestruj się w serwisie i uzyskaj natychmiastowy dostęp do naszego AI do generowania prac pisemnych."
+      },
+      "details": {
+        "title": "Podaj temat i długość rerefatu/eseju",
+        "description": "Wybierz temat, określ pożądaną długość i inne preferencje dla swojej pracy."
+      },
+      "wait": {
+        "title": "Poczekaj 5 minut",
+        "description": "Nasz zaawansowany generator AI pisze wysokiej jakości referaty i eseje w ciągu zaledwie 5 minut."
+      },
+      "download": {
+        "title": "Pobierz gotową pracę",
+        "description": "Pobierz wygenerowany tekst w formacie PDF lub Word i edytuj go według własnych potrzeb."
+      }
+    }
+  },
+  "ReportGenerator": {
+    "meta": {
+      "title": "Referat AI, Esej generator - twórz prace ze sztuczną inteligencją",
+      "description": "Napisz profesjonalny referat lub esej w 5 minut dzięki generatorowi AI. Sztuczna inteligencja stworzy dla Ciebie wysokiej jakości pracę pisemną bez wysiłku!",
+      "keywords": "referat ai, generator referatów, pisanie esejów ai, generator esejów, sztuczna inteligencja do pisania, ai do pisania prac, generator prac pisemnych"
+    },
+    "hero": {
+      "title": "Referat lub esej do napisania? Zleć to AI!",
+      "subtitle": "Sztuczna inteligencja napisze dla Ciebie profesjonalny referat lub esej w 5 minut. Oszczędź czas i otrzymaj wysokiej jakości pracę!",
+      "cta": "Załóż darmowe konto"
+    },
+    "features": {
+      "speed": {
+        "title": "Błyskawiczne pisanie",
+        "description": "Generator AI tworzy kompletny referat lub esej w zaledwie 5 minut. Zapomnij o stresie związanym z terminami!"
+      },
+      "quality": {
+        "title": "Akademicka jakość",
+        "description": "Każda praca jest tworzona w oparciu o wiarygodne źródła i spełnia standardy akademickie."
+      },
+      "versatility": {
+        "title": "Dowolna tematyka",
+        "description": "Od historii po nauki ścisłe - nasz generator AI poradzi sobie z każdym tematem referatu czy eseju."
+      },
+      "polish": {
+        "title": "Polski generator AI",
+        "description": "Specjalnie dostosowany do polskich wymogów edukacyjnych i standardów pisania prac."
+      }
+    },
+    "benefits": {
+      "title": "Dlaczego warto wybrać nasz generator?",
+      "list": {
+        "research": "Automatyczne wyszukiwanie i analiza źródeł",
+        "structure": "Poprawna struktura akademicka",
+        "citations": "Profesjonalne cytowania i bibliografia",
+        "originality": "Unikalna treść dostosowana do Twoich wymagań",
+        "formatting": "Gotowe formatowanie dokumentu",
+        "support": "Wsparcie dla różnych poziomów edukacji"
+      }
+    },
+    "process": {
+      "title": "Jak Działa Nasz Generator Referatów?",
+      "steps": {
+        "topic": {
+          "title": "Podaj Temat",
+          "description": "Wprowadź temat i wymagania dla Twojego referatu lub eseju"
+        },
+        "ai": {
+          "title": "AI Pracuje",
+          "description": "Sztuczna inteligencja analizuje źródła i tworzy treść"
+        },
+        "ready": {
+          "title": "Gotowe!",
+          "description": "Otrzymujesz kompletną pracę gotową do pobrania"
+        }
+      }
+    }
+  },
+  "examples": {
+    "createdBy": "Praca w 100% stworzona przez Smart-Edu.AI.",
+    "tags": "Tagi",
+    "length": "Długość",
+    "subjectDescriptions": {
+      "description": "{subject}, {level} - przykładowe prace pisemne i zaliczeniowe wygenerowane przez Smart-Edu.AI || Załóż darmowe konto i wygeneruj własną pracę ze sztuczną inteligencją!"
+    },
+    "workTypeDescriptions": {
+      "description": "{workType}, {level} - przykładowe prace pisemne i zaliczeniowe wygenerowane przez Smart-Edu.AI || Załóż darmowe konto i wygeneruj własną pracę ze sztuczną inteligencją!"
+    },
+    "mainDescription": "Baza przykładowych prac pisemnych i zaliczeniowych tworzonych przez sztuczną inteligencję dla uczniów i studentów. Wybierz poziom nauczania i sprawdź, jakie materiały możesz wygenerować w ciągu kilku minut w Smart-Edu.AI!",
+    "meta": {
+      "subject": {
+        "title": "{subject} - przykładowe prace ({level}) | Smart-Edu.AI",
+        "description": "Przykładowe prace z przedmiotu {subject} dla {level}. Gotowe wzory wypracowań, referatów i esejów generowanych przez AI."
+      },
+      "level": {
+        "title": "{level} - przykładowe prace | Smart-Edu.AI",
+        "description": "{description}"
+      },
+      "workType": {
+        "title": "{workType} - przykładowe prace ({level}) | Smart-Edu.AI",
+        "description": "Przykładowe {workType} dla {level}. Gotowe wzory prac pisemnych generowanych przez AI."
+      },
+      "main": {
+        "title": "Bank przykładowych prac | Smart-Edu.AI",
+        "description": "Przykładowe prace pisemne i zaliczeniowe generowane przez AI. Wzory wypracowań, referatów i esejów dla uczniów i studentów."
+      }
+    },
+    "examplesList": "Lista wszystkich prac",
+    "loading": "loading",
+    "signup": {
+      "banner": {
+        "title": "Stwórz własną pracę!",
+        "description": "Zarejestruj się i wygeneruj spersonalizowaną pracę dopasowaną do Twoich potrzeb na dowolny temat.",
+        "cta": "Załóż darmowe konto"
+      }
+    },
+    "relatedExamples": "Podobne prace",
+    "sort": {
+      "date": "Data dodania",
+      "views": "Liczba wyświetleń",
+      "desc": "Malejąco",
+      "asc": "Rosnąco"
+    },
+
+    "filters": {
+      "allSubjects": "Przedmiot",
+      "noResults": "Nie znaleziono przykładów spełniających kryteria.",
+      "allWorkTypes": "Rodzaj pracy",
+      "allLengths": "Długość",
+      "newest": "Najnowsze",
+      "oldest": "Najstarsze",
+      "mostPopular": "Najpopularniejsze",
+      "leastPopular": "Najmniej popularne",
+      "titleAZ": "A-Z",
+      "titleZA": "Z-A"
+    },
+    "lengths": {
+      "2000": "Bardzo krótki (250 słów)",
+      "3000": "Krótki (350 słów)",
+      "4000": "Średni (500 słów)",
+      "7000": "Długi (800-900 słów)",
+      "10000": "Bardzo długi (1300 słów)",
+      "20000": "Najdłuższy (ok. 2500 słów)"
+    },
+    "title": "Przykładowe prace zaliczeniowe ze Smart-Edu.AI",
+    "searchPlaceholder": "Szukaj...",
+    "levels": {
+      "primary": {
+        "name": "Szkoła podstawowa",
+        "title": "Szkoła podstawowa",
+        "description": "Przykładowe prace pisemne i zaliczeniowe dla uczniów szkół podstawowych (klasy 4-8) wygenerowane przez Smart-Edu.AI. Sprawdź, jakie materiały możesz tworzyć ze sztuczną inteligencją w ciągu kilku minut, zarejestruj się i wygeneruj z AI pracę pisemną dla siebie!"
+      },
+      "secondary": {
+        "name": "Szkoła średnia",
+        "title": "Szkoła średnia",
+        "description": "Przykładowe prace pisemne i zaliczeniowe dla licealistów i uczniów techników wygenerowane przez Smart-Edu.AI. Sprawdź, jakie materiały możesz tworzyć ze sztuczną inteligencją w ciągu kilku minut, zarejestruj się i wygeneruj z AI pracę pisemną dla siebie!"
+      },
+      "university": {
+        "name": "Studia",
+        "title": "Studia",
+        "description": "Przykładowe prace pisemne i zaliczeniowe dla studentów wszystkich kierunków  wygenerowane przez Smart-Edu.AI. Sprawdź, jakie materiały możesz tworzyć ze sztuczną inteligencją w ciągu kilku minut, zarejestruj się i wygeneruj z AI pracę pisemną dla siebie!"
+      }
+    },
+
+    "categories": "Kategorie prac",
+    "subjects": "Przedmioty",
+    "allExamples": "Lista wszystkich prac",
+    "subjectDescription": {
+      "one": "{{count}} praca",
+      "few": "{{count}} prace",
+      "many": "{{count}} prac",
+      "other": "{{count}} prac"
+    },
+    "words": "słów",
+    "views": "wyświetleń",
+
+    "filter": {
+      "allLevels": "Wszystkie poziomy",
+      "allWorkTypes": "Wszystkie typy prac",
+      "allSubjects": "Wszystkie przedmioty"
+    },
+
+    "readingTime": "{minutes} min czytania",
+    "subjectCount": "{count} prac",
+    "addExample": "Dodaj pracę",
+    "editExample": "Edytuj pracę",
+    "deleteExample": "Usuń pracę",
+    "confirmDelete": "Czy na pewno chcesz usunąć tę pracę?"
+  },
+
+  "admin": {
+    "examples": {
+      "lengths": {
+        "2000": "Bardzo krótki (250 słów)",
+        "3000": "Krótki (350 słów)",
+        "4000": "Średni (500 słów)",
+        "7000": "Długi (800-900 słów)",
+        "10000": "Bardzo długi (1300 słów)",
+        "20000": "Najdłuższy (ok. 2500 słów)"
+      },
+      "title": "Zarządzanie przykładami",
+      "addNew": "Dodaj nowy przykład",
+      "editExample": "Edytuj przykład",
+      "table": {
+        "title": "Tytuł",
+        "level": "Poziom",
+        "subject": "Przedmiot",
+        "views": "Wyświetlenia",
+        "actions": "Akcje"
+      },
+      "levels": {
+        "primary": "Szkoła podstawowa",
+        "secondary": "Szkoła średnia",
+        "university": "Uniwersytet"
+      },
+      "form": {
+        "length": "Długość tekstu",
+        "lengthPlaceholder": "Wybierz długość tekstu"
+      },
+
+      "subjects": {
+        "dsadsa": "Przykładowy przedmiot"
+      }
+    }
+  },
+
+  "contentSummary": {
+    "licencjacka": "W cenie pracy licencjackiej otrzymujesz:",
+    "magisterska": "W cenie pracy magisterskiej otrzymujesz:",
+    "chapters": {
+      "licencjacka": "3 rozdziały",
+      "licencjackaDetails": " (teoretyczny, metodologiczny, badawczy)",
+      "magisterska": "4 rozdziały",
+      "magisterskaDetails": " (teoretyczny, metodologiczny, badawczy, podsumowujący)"
+    },
+    "pages": {
+      "licencjacka": "60-90 stron",
+      "magisterska": "80-120 stron",
+      "text": " naukowego tekstu"
+    },
+    "features": {
+      "tables": "Tabele i wykresy",
+      "tableOfContents": "Spis treści",
+      "bibliography": "Bibliografia",
+      "academicLanguage": "Język akademicki",
+      "introduction": "Wstęp",
+      "conclusion": "Zakończenie"
+    }
+  }
+}

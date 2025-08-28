@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-color: #ffffff;
+  }
+
+  [data-theme='dark'] {
+    --bg-color: rgb(31, 41, 55);
+    --background: 210 40% 98%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer components {
+  .dashboard-container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  }
+
+  .dashboard-card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transition-all duration-300;
+  }
+
+  .dashboard-header {
+    @apply text-2xl font-semibold text-gray-800 dark:text-blue-400 mb-6;
+  }
+
+  .dashboard-input {
+    @apply w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all duration-300;
+  }
+
+  .dashboard-select {
+    @apply w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-all duration-300;
+  }
+
+  .dashboard-button {
+    @apply px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-300;
+  }
+
+  .dashboard-button-secondary {
+    @apply px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 font-medium rounded-md transition-colors duration-300;
+  }
+}
+
+.bg-grid-pattern {
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.dark .bg-grid-pattern {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+.custom-collapse.dark-mode {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+.custom-collapse.dark-mode .ant-collapse-item {
+  border-bottom-color: #374151;
+}
+
+.custom-collapse.dark-mode .ant-collapse-header {
+  color: #e5e7eb !important;
+}
+
+.custom-collapse.dark-mode .ant-collapse-content {
+  background-color: #374151;
+  color: #e5e7eb;
+}
+
+.custom-panel.dark-mode {
+  background-color: #1f2937;
+}
+
+.custom-content.dark-mode {
+  color: #e5e7eb;
+}
+
+.dark-mode .ant-list-item {
+  border-bottom-color: #374151;
+}
+
+.dark-mode .ant-collapse-arrow {
+  color: #e5e7eb;
+}
+
+.generated-content p {
+  margin-bottom: 1rem;
+}
+
+.generated-content h1,
+.generated-content h2,
+.generated-content h3,
+.generated-content h4,
+.generated-content h5,
+.generated-content h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.generated-content ul,
+.generated-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.generated-content li {
+  margin-bottom: 0.5rem;
+}
+
+.generated-content a {
+  color: #3182ce;
+  text-decoration: underline;
+}
+
+.generated-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.article-content.generated-content p {
+  margin-bottom: 1.5rem;
+}
+
+.generated-content {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.dark .generated-content {
+  color: #e5e7eb;
+}
+
+/* Pozostałe style dla .generated-content pozostają bez zmian */
+
+.article-content.generated-content p,
+.article-content.generated-content ul,
+.article-content.generated-content ol {
+  margin-bottom: 1.5rem;
+}
+
+.article-content.generated-content h1,
+.article-content.generated-content h2,
+.article-content.generated-content h3,
+.article-content.generated-content h4,
+.article-content.generated-content h5,
+.article-content.generated-content h6 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.btn {
+  border: none;
+}
+
+.btn.no-border {
+  border: none !important;
+}
+
+.dark .dialog-content::-webkit-scrollbar {
+  background: #1f2937;
+}
+
+.dark .dialog-content::-webkit-scrollbar-thumb {
+  background: #374151;
+}

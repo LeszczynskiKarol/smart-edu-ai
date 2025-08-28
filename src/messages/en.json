@@ -1,0 +1,1612 @@
+{
+  "dashboard": {
+    "title": "AI Assignment Generator",
+    "textGenerator": "AI Assignment Generator",
+    "addText": "Add another text",
+    "totalPrice": "Total price:",
+    "generateAllTexts": "Generate all texts",
+    "goToHome": "Go to Homepage",
+    "generateText": "Generate text",
+    "generating": "Sending order...",
+    "generatedContent": "Generated Content",
+    "summary": {
+      "licencjacka": "3 chapters, 60-90 pages + charts, tables, diagrams + bibliography + footnotes",
+      "magisterska": "4 chapters, 80-120 pages + charts, tables, diagrams + bibliography + footnotes"
+    },
+    "appName": "Smart-Edu.AI",
+    "panel": "Place order",
+    "orders": "Orders",
+    "noActiveOrders": "No active orders",
+    "contentTypes": {
+      "wypracowanie": "Composition",
+      "esej": "Essay",
+      "referat": "Report",
+      "rozprawka": "Argumentative Essay",
+      "charakterystyka": "Character Analysis",
+      "opowiadanie": "Story",
+      "list": "Letter",
+      "recenzja": "Review",
+      "przemowienie": "Speech",
+      "licencjacka": "Bachelor's thesis",
+      "magisterska": "Master's thesis",
+      "reportaz": "Feature Article",
+      "zaproszenie": "Invitation",
+      "streszczenie": "Summary",
+      "interpretacja": "Interpretation",
+      "custom": "Other (enter your own)",
+      "customPlaceholder": "Enter your own text type",
+      "select": "-- Choose content type --"
+    },
+    "invoices": "Payments",
+    "billingDetails": "Profile",
+    "placeOrder": "Place Order",
+    "topUp": "Top Up Account",
+    "changeLanguage": "English",
+    "logout": {
+      "title": "Are you sure you want to log out?",
+      "description": "This action will log you out of your account.",
+      "cancel": "Cancel",
+      "confirm": "Log out"
+    },
+    "lightMode": "Light Mode",
+    "logoutButton": "Logout",
+    "darkMode": "Dark Mode",
+    "balance": "Balance",
+    "logoutConfirmation": "Are you sure you want to logout?",
+    "logoutDescription": "This action will log you out of your account.",
+    "textLengths": {
+      "2000": "Very Short (250 words)",
+      "3000": "Short (350 words)",
+      "4000": "Medium (500 words)",
+      "7000": "Long (800-900 words)",
+      "10000": "Very Long (approx. 1300 words)",
+      "20000": "Longest (approx. 2500 words)",
+      "selectLength": "-- Select text length --"
+    },
+
+    "tone": {
+      "informal": "Informal, direct (addressing reader as 'you')",
+      "formal": "Official, formal (addressing as Sir/Madam)",
+      "impersonal": "Impersonal (no direct address)"
+    },
+    "inputs": {
+      "guideline": "Enter guidelines for the generated text...",
+      "advancedSettings": "Settings (optional)",
+      "contentType": "Content type",
+      "keywords": "Keywords",
+      "keywordsPlaceholder": "Enter keywords and confirm with Enter or comma",
+      "sourceLinks": "Source links",
+      "sourceLink": "Source link",
+      "invalidUrl": "Invalid URL",
+      "faq": "FAQ",
+      "table": "Table",
+      "tone": "Tone and form of expression",
+      "bibliography": "Bibliography",
+      "searchLanguage": "Choose sources language",
+      "topicPlaceholder": "Enter thesis topic",
+      "topic": "Thesis topic",
+      "guidelines": "Guidelines"
+    },
+    "tooltips": {
+      "contentType": "Choose content type or enter your own",
+      "keywords": "Add phrases for text optimization",
+      "sourceLinks": "Enter your own URLs for Smart-Edu to source information from",
+      "faq": "Add 5 questions and answers in the text",
+      "table": "Add a table in the text",
+      "tone": "Specify how to address the reader",
+      "bibliography": "Add list included knowledge sources",
+      "searchLanguage": "Search language for bibliography sources - AI will search for references in the selected language"
+    },
+    "searchLanguages": {
+      "en": "🇬🇧 English",
+      "pl": "🇵🇱 Polish",
+      "de": "🇩🇪 German",
+      "es": "🇪🇸 Spanish",
+      "uk": "🇺🇦 Ukrainian",
+      "cs": "🇨🇿 Czech",
+      "pt": "🇵🇹 Portuguese",
+      "ru": "🇷🇺 Russian"
+    },
+    "buttons": {
+      "addText": "Add text",
+      "generateText": "Send order",
+      "generateAllTexts": "Send order",
+      "generating": "Sending..."
+    },
+    "pricing": {
+      "textPrice": "Text price:",
+      "totalPrice": "Total price:",
+      "minimalPayment": "Minimum payment amount is {amount}",
+      "minimalPaymentTooltip": "After making the payment of {paymentAmount} your account balance will be {remainingBalance}"
+    },
+    "text": {
+      "default": "Text",
+      "remove": "Remove text from order form"
+    },
+    "languages": {
+      "pol": "Polish",
+      "eng": "English",
+      "ger": "German",
+      "ukr": "Ukrainian",
+      "fra": "French",
+      "esp": "Spanish",
+      "ros": "Russian",
+      "por": "Portuguese"
+    }
+  },
+  "Video": {
+    "videoHeader": "Your Work Ready in 5 min"
+  },
+  "site": {
+    "name": "AI Assignment Writter - Homework Generator. Artificial Intelligence for Students",
+    "description": "Professional AI Assignment Writter and Homework Generator. Sign Up For Free!",
+    "ogImageAlt": "Smart-Edu.ai"
+  },
+
+  "Privacy": {
+    "title": "Privacy Policy",
+    "linkText": "Privacy Policy",
+    "lastUpdated": "Last updated: December 6, 2024",
+    "sections": {
+      "general": {
+        "title": "General Information",
+        "content": "This Privacy Policy defines the rules for processing and protecting personal data of Users using our web application (hereinafter \"Application\").",
+        "administrator": {
+          "title": "Personal Data Administrator",
+          "content": "The administrator of personal data is eCopywriting.pl Karol Leszczyński, based in Poland, Papowo Biskupie 119/18, registered under NIP: 9562203948, REGON: 340627879 (hereinafter \"Administrator\")."
+        },
+        "contact": "Contact regarding personal data protection is possible via email: kontakt [at] ecopywriting.pl or in writing to the Administrator's address."
+      },
+      "dataCollection": {
+        "title": "Scope of Collected Data",
+        "categories": {
+          "voluntary": {
+            "title": "Data provided voluntarily during registration and login:",
+            "items": [
+              "Name/nickname",
+              "Email address",
+              "Google account profile data (when using Google login)",
+              "Google account ID (for authentication purposes)",
+              "Google account email verification status"
+            ]
+          },
+          "automatic": {
+            "title": "Automatically collected data:",
+            "items": [
+              "Device information (screen resolution, operating system, browser)",
+              "IP address",
+              "Time zone",
+              "Application performance data (loading time, rendering metrics)",
+              "User session information",
+              "Application feature usage statistics",
+              "Analytics data from TikTok Pixel (user ID, interaction information)",
+              "TikTok traffic source data"
+            ]
+          },
+          "analytical": {
+            "title": "Analytical data:",
+            "items": [
+              "User behavior in the application",
+              "TikTok Pixel conversion and user behavior statistics",
+              "TikTok ad campaign effectiveness tracking",
+              "Component interactions",
+              "Error and technical issue data",
+              "Feature usage statistics"
+            ]
+          }
+        }
+      },
+      "googleData": {
+        "title": "Google User Data Processing",
+        "usage": {
+          "title": "How we use Google user data:",
+          "items": [
+            "Account authentication and security",
+            "User identification and profile management",
+            "Technical support provision",
+            "Service personalization"
+          ]
+        },
+        "protection": {
+          "title": "Google Data Protection:",
+          "items": [
+            "Google user data is never sold to third parties",
+            "Access to Google data is strictly limited to essential service functionality",
+            "Data is encrypted during transmission and storage",
+            "Regular security audits of data access"
+          ]
+        }
+      },
+      "tiktokData": {
+        "title": "TikTok Data Processing",
+        "usage": {
+          "title": "We use TikTok Pixel for user behavior analysis and ad performance measurement",
+          "items": [
+            "Page visit information",
+            "Component interactions",
+            "Conversion data",
+            "Traffic source"
+          ]
+        },
+        "protection": {
+          "title": "TikTok Data Protection:",
+          "items": [
+            "Data is processed in accordance with TikTok privacy policy",
+            "Users can control tracking through their browser settings",
+            "Data is encrypted during storage and transmission",
+            "We regularly monitor and analyze data security"
+          ]
+        }
+      },
+      "processingPurposes": {
+        "title": "Processing Purposes and Legal Basis",
+        "categories": {
+          "services": {
+            "title": "Service provision (Art. 6(1)(b) GDPR):",
+            "items": [
+              "User account management",
+              "Application functionality implementation",
+              "Technical support provision",
+              "TikTok marketing campaign effectiveness analysis",
+              "Ad content optimization"
+            ]
+          },
+          "legitInterests": {
+            "title": "Legitimate interests of the Administrator (Art. 6(1)(f) GDPR):",
+            "items": [
+              "Service quality analysis and improvement",
+              "Fraud detection and prevention",
+              "Statistics and analysis"
+            ]
+          },
+          "consent": {
+            "title": "Based on user consent (Art. 6(1)(a) GDPR):",
+            "items": [
+              "Direct marketing",
+              "Content personalization",
+              "User behavior analytics and tracking"
+            ]
+          }
+        }
+      },
+      "analytics": {
+        "title": "Google Analytics, Microsoft Clarity and Cookies",
+        "content": "We use Google Analytics and Microsoft Clarity to analyze Application traffic. Data is collected in accordance with Google and Microsoft privacy policies.",
+        "cookieManagement": "Users can manage their consent for data processing for analytical purposes through the cookie settings panel available in the Application.",
+        "cookieTypes": {
+          "title": "We use the following types of cookies:",
+          "items": [
+            "Essential for Application functioning",
+            "Analytical (with user consent)",
+            "Marketing (with user consent)"
+          ]
+        }
+      },
+      "dataRecipients": {
+        "title": "Data Recipients",
+        "recipients": {
+          "title": "Access to data may be granted to:",
+          "items": [
+            "Authorized Administrator employees",
+            "Technical and analytical service providers (Google Analytics, Microsoft)",
+            "Hosting service providers",
+            "State authorities based on legal requirements"
+          ]
+        },
+        "transfer": {
+          "title": "Data transfer outside the EEA:",
+          "items": ["Google LLC (Privacy Shield)", "Microsoft Corporation"]
+        }
+      },
+      "userRights": {
+        "title": "User Rights",
+        "rights": [
+          "Access to their data",
+          "Data rectification",
+          "Data deletion (\"right to be forgotten\")",
+          "Processing limitation",
+          "Data portability",
+          "Objection to processing",
+          "Withdrawal of consent",
+          "Complaint to the supervisory authority (President of UODO)"
+        ]
+      },
+      "retentionPeriods": {
+        "title": "Data Retention Periods",
+        "periods": {
+          "account": "Account data: for the duration of account ownership and 6 months after deletion",
+          "analytical": "Analytical data: 14 months",
+          "logs": "Technical logs: 90 days",
+          "billing": "Billing data: 6 years (legal requirement)"
+        }
+      },
+      "security": {
+        "title": "Data Security",
+        "measures": {
+          "title": "We implement appropriate technical and organizational measures to ensure personal data security:",
+          "items": [
+            "SSL/TLS encryption",
+            "Data encryption at rest",
+            "Regular security updates",
+            "Access control",
+            "Security monitoring",
+            "Encryption for sensitive data",
+            "Automated backup procedures"
+          ]
+        }
+      },
+      "changes": {
+        "title": "Privacy Policy Changes",
+        "content": "We reserve the right to make changes to the Privacy Policy.",
+        "notification": "Users will be informed about all changes through an Application notification or email message."
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "For questions regarding the Privacy Policy, please contact us at:",
+        "email": "Email: kontakt [at] ecopywriting.pl"
+      }
+    }
+  },
+  "topUpSuccessModal": {
+    "title": "Account topped up",
+    "titleWithOrder": "Order placed successfully",
+    "totalAmount": "Total amount",
+    "discount": "Discount",
+    "finalAmount": "Amount paid",
+    "newBalance": "New balance",
+    "orderDetails": "Order details",
+    "expandItems": "Show details",
+    "collapseItems": "Hide details",
+    "item": "Item",
+    "length": "Text length",
+    "type": "Content type",
+    "price": "Price",
+    "downloadInvoice": "Download invoice",
+    "downloading": "Downloading...",
+    "close": "Close",
+    "contentTypes": {
+      "artykul": "Article",
+      "opis_kategorii_produktow": "Product category description",
+      "opis_produktu": "Product description",
+      "wizytowka": "Business card",
+      "post_social_media": "Social media post"
+    }
+  },
+  "Terms": {
+    "title": "Terms of Service - Smart-Edu.ai",
+    "lastUpdated": "Last updated: December 6, 2024",
+    "sections": {
+      "general": {
+        "title": "§1. General Provisions",
+        "items": [
+          "These Terms of Service define the rules for using the Smart-Edu.ai online service, available at https://smart-edu.ai.",
+          "The owner and administrator of Smart-Edu.ai is eCopywriting.pl Karol Leszczyński, based in Papowo Biskupie 119/18, registered in the business register under NIP (Tax ID) 9562203948, REGON 340627879."
+        ]
+      },
+      "definitions": {
+        "title": "Definitions",
+        "items": {
+          "Service": "the Smart-Edu.ai online platform",
+          "User": "a natural person or legal entity using the Service",
+          "Account": "individual User profile in the Service",
+          "Order": "text generation request submitted by the User"
+        }
+      },
+      "registration": {
+        "title": "§2. Registration and Service Use",
+        "items": [
+          "Using the Service requires creating an Account through the registration process.",
+          "During registration, the User provides a name/nickname, chooses a unique email address, creates a secure password, and consents to personal data processing.",
+          "Registration can be completed through the Service registration form or Google Account (OAuth).",
+          "The User agrees to provide a valid email address and maintain login credentials confidentiality."
+        ]
+      },
+      "services": {
+        "title": "§3. Service Provision Rules",
+        "items": [
+          "The Service provides text generation using artificial intelligence - various Claude models.",
+          "The text ordering process includes: selecting text language, specifying text length, providing guidelines and topic, optional keyword additions, and reference source additions.",
+          "The completion time for one text ranges from several to several dozen minutes and is estimated individually based on text length and current system load.",
+          "The Service reserves the right to refuse order execution, extend completion time, and modify service parameters."
+        ]
+      },
+      "payments": {
+        "title": "§4. Payments and Settlements",
+        "items": [
+          "The minimum order amount is 20 PLN.",
+          "Payments can be made through: bank transfer, card payments, BLIK, PayPal, and other available payment methods.",
+          "Payment must be completed before text generation begins."
+        ]
+      },
+      "refunds": {
+        "title": "§5. Refund and Complaint Policy",
+        "items": [
+          "Due to the digital nature of the service, ordered and delivered texts are non-refundable.",
+          "Complaints can be filed in case of: not receiving the ordered text, receiving text inconsistent with the order, or technical errors in the ordering process.",
+          "Complaints must be submitted within 14 days of the problem occurrence.",
+          "The Service processes complaints within 14 business days."
+        ]
+      },
+      "rights": {
+        "title": "§6. User Rights and Obligations",
+        "items": [
+          "The User has the right to: use all available Service functions, place orders, submit complaints through the contact form or via email, and receive technical support.",
+          "The User agrees to: comply with the Terms of Service, not undertake actions harmful to the Service, not violate intellectual property rights, and maintain login credentials confidentiality."
+        ]
+      },
+      "intellectual": {
+        "title": "§7. Intellectual Property",
+        "items": [
+          "The User may use ordered texts for any purpose, in compliance with applicable laws.",
+          "The Service is not responsible for how texts are used by the User."
+        ]
+      },
+      "data": {
+        "title": "§8. Personal Data Protection",
+        "items": [
+          "The Administrator processes personal data in accordance with GDPR and applicable regulations.",
+          "Data is processed for: service provision, payment processing, User communication, legal obligations fulfillment, and analytical and statistical purposes.",
+          "Detailed information can be found in the Privacy Policy."
+        ]
+      },
+      "liability": {
+        "title": "§9. Liability",
+        "items": [
+          "The Service makes every effort to ensure generated texts are of high quality.",
+          "The Service is not liable for: service interruptions caused by force majeure, damages resulting from improper text use, content provided by Users, or actions of third parties."
+        ]
+      },
+      "final": {
+        "title": "§10. Final Provisions",
+        "items": [
+          "These Terms of Service come into effect on December 6, 2024.",
+          "The Service reserves the right to modify the Terms of Service.",
+          "Users will be notified of Terms of Service changes 14 days in advance.",
+          "Using the Service after changes are implemented indicates acceptance."
+        ]
+      },
+      "contact": {
+        "title": "Contact",
+        "email": "Email: kontakt@ecopywriting.pl",
+        "address": "Address: Poland, 86-221 Papowo Biskupie 119/18"
+      }
+    }
+  },
+  "form": {
+    "language": "Language",
+    "textLength": "Text length",
+    "guidelines": "Enter guidelines for the generated text...",
+    "advancedSettings": "Advanced settings (optional)",
+    "contentType": "Content type",
+    "customContentType": "Enter custom content type",
+    "keywords": "Keywords",
+    "addKeywords": "Enter keywords and confirm with Enter or comma",
+    "sourceLinks": "Source links",
+    "sourceLink": "Source link",
+    "invalidUrl": "Invalid URL",
+    "faq": "FAQ",
+    "table": "Table",
+    "tone": "Tone and form of expression",
+    "toneInformal": "Informal, direct (addressing the reader as 'you')",
+    "toneFormal": "Official, formal (addressing the reader as 'Sir/Madam')",
+    "toneImpersonal": "Impersonal (without addressing the reader)",
+    "textPrice": "Text price:"
+  },
+  "errors": {
+    "fillFields": "Please fill in the following fields:",
+    "text": "Text",
+    "textLength": "text length",
+    "guidelines": "guidelines",
+    "and": "and"
+  },
+
+  "Home": {
+    "pageTitle": "Home",
+    "heroTitle": "Need an assignment written? Let Smart-Edu.AI do it!",
+    "heroSubtitle": "Order an essay, report, research paper or any other written assignment and AI will generate it for you in 5 minutes",
+    "heroCta": "Create Account",
+    "features": {
+      "topic": {
+        "title": "Any Subject and Assignment Type",
+        "description": "With Smart-Edu.AI you'll create reports, essays, stories, assignments, summaries, character analyses and other academic papers from any subject."
+      },
+      "speed": {
+        "title": "Lightning-Fast Writing",
+        "description": "Save time with AI-powered academic writing and assignment generation."
+      },
+      "quality": {
+        "title": "Reliability and Professionalism",
+        "description": "Smart-Edu.AI creates academic papers based on independently researched and verified sources"
+      },
+      "multilingual": {
+        "title": "Available in English",
+        "description": "Smart-Edu.AI - a fully English-language generator of homework, academic papers and written assignments. Perfect for students at all levels."
+      }
+    }
+  },
+  "BenefitsSection": {
+    "title": "Benefits of our generator",
+    "benefit1Title": "Time-saving",
+    "benefit1Description": "Automated assignment generation in an instant will save you valuable academic time.",
+    "benefit2Title": "High quality",
+    "benefit2Description": "Our advanced AI models create content of high quality adapted to various education levels.",
+    "benefit3Title": "Customization",
+    "benefit3Description": "Customize the generated academic paper to your needs using guidelines and settings.",
+    "benefit4Title": "AI for Students",
+    "benefit4Description": "Use our generator for homework, academic papers and assignments in primary school, high school, technical school and university."
+  },
+  "HowItWorksSection": {
+    "title": "How does Smart-Edu.AI work?",
+    "steps": {
+      "analysis": {
+        "title": "Topic and Guidelines Analysis",
+        "description": "Enter your topic and optional guidelines to help AI better understand your assignment requirements and expectations."
+      },
+      "research": {
+        "title": "Information Research",
+        "description": "AI searches the internet to find current and reliable sources to base your academic paper on."
+      },
+      "processing": {
+        "title": "Information Processing",
+        "description": "AI analyzes collected data and creates academically sound content for your homework, coursework, or research paper."
+      },
+      "delivery": {
+        "title": "Ready Content to Download",
+        "description": "Download your text in PDF or DOCX format and use it according to your needs."
+      }
+    }
+  },
+  "ProcessSection": {
+    "title": "How to use Smart-Edu.AI?",
+    "steps": {
+      "account": {
+        "title": "Create a Free Account",
+        "description": "Sign up and get instant access to our AI academic paper generator."
+      },
+      "details": {
+        "title": "Specify Topic and Length",
+        "description": "Choose your topic, desired text length, and other preferences for your academic paper."
+      },
+      "wait": {
+        "title": "Wait 5 Minutes",
+        "description": "Our advanced AI assignment generator writes high-quality academic work in just 5 minutes."
+      },
+      "download": {
+        "title": "Download Your Paper",
+        "description": "Download the generated text in PDF or Word format and edit it according to your needs."
+      }
+    }
+  },
+  "EducationLevelsSection": {
+    "title": "Education Levels & Subjects",
+    "subtitle": "Smart-Edu.AI supports students at every stage of their education",
+    "footer": "Discover the possibilities of AI in education - try Smart-Edu.AI today!",
+    "levels": {
+      "primary": {
+        "title": "Primary School",
+        "subjects": [
+          "English Language",
+          "Second Language",
+          "Foreign Language",
+          "History",
+          "Civics",
+          "Geography",
+          "Biology",
+          "Nature Science",
+          "Chemistry"
+        ]
+      },
+      "secondary": {
+        "title": "High School",
+        "subjects": [
+          "English Language",
+          "Second Language",
+          "Foreign Language",
+          "History",
+          "Civics",
+          "Geography",
+          "Biology",
+          "Chemistry",
+          "Psychology",
+          "Sociology"
+        ]
+      },
+      "technical": {
+        "title": "Technical School",
+        "subjects": [
+          "English Language",
+          "Second Language",
+          "Foreign Language",
+          "History",
+          "Vocational Subjects",
+          "Geography",
+          "Biology",
+          "Chemistry",
+          "Computer Science"
+        ]
+      },
+      "university": {
+        "title": "University",
+        "subjects": [
+          "Pedagogy",
+          "Psychology",
+          "Sociology",
+          "Philosophy",
+          "History",
+          "Political Science",
+          "Management",
+          "Economics",
+          "Cultural Studies",
+          "Journalism",
+          "Literature",
+          "Linguistics"
+        ]
+      }
+    }
+  },
+  "BenefitsPage": {
+    "title": "Generate Academic Papers with Smart-Edu.ai",
+    "benefits": {
+      "generation": {
+        "title": "Instant Text Generation",
+        "description": "Just provide the topic and length, and your paper will be generated within 5 minutes (or faster)."
+      },
+      "originality": {
+        "title": "No Commitments",
+        "description": "With Smart-Edu.ai you only pay for generating each essay, paper or report. Forget about long-term commitments!"
+      },
+      "versatility": {
+        "title": "Versatility",
+        "description": "Generate academic papers from any field, in various formats and in multiple languages."
+      },
+      "quality": {
+        "title": "Quality Guarantee",
+        "description": "Content quality guaranteed thanks to Claude models that power Smart-Edu.AI."
+      },
+      "export": {
+        "title": "Easy Export",
+        "description": "Download ready assignments in PDF or Word format for further editing."
+      },
+      "flexibility": {
+        "title": "Full Flexibility",
+        "description": "Edit and customize generated texts according to your needs."
+      }
+    }
+  },
+  "ServicesSection": {
+    "title": "Types of Content We Generate",
+    "footer": "Check examples",
+    "services": {
+      "articles": {
+        "title": "School Essays",
+        "description": "Creating essays for various humanities and academic subjects."
+      },
+      "descriptions": {
+        "title": "Reports",
+        "description": "Professional academic reports on any topic, backed by sources."
+      },
+      "category": {
+        "title": "Academic Essays",
+        "description": "Argumentative and interpretive essays from various fields."
+      },
+      "business": {
+        "title": "Homework and Assignments",
+        "description": "Comprehensive solutions for academic tasks and coursework."
+      },
+      "social": {
+        "title": "Research Papers",
+        "description": "Advanced research papers and academic analyses."
+      },
+      "reports": {
+        "title": "Analyses",
+        "description": "Detailed analyses of texts and academic topics."
+      },
+      "emails": {
+        "title": "Stories",
+        "description": "Creative stories and literary texts for assignments."
+      },
+      "landing": {
+        "title": "Summaries",
+        "description": "Concise summaries of required readings and source texts."
+      },
+      "pr": {
+        "title": "Character Analyses",
+        "description": "In-depth character analyses for literature assignments."
+      },
+      "ads": {
+        "title": "Literary Interpretations",
+        "description": "Interpretations of literary works and cultural pieces for academic purposes."
+      }
+    }
+  },
+  "PricingSection": {
+    "title": "Pricing",
+    "priceFrom": "",
+    "priceUnit": "/ text",
+    "discount": "Get attractive discounts on larger orders and account top-ups!",
+    "features": [
+      "Bachelor thesis - ${bachelor}",
+      "Master thesis - ${master}",
+      "250 words - ${price250}",
+      "350 words - ${price350}",
+      "500 words - ${price500}",
+      "800-900 words - ${price800}",
+      "1300 words - ${price1300}",
+      "+/-2500 words - ${price2500}"
+    ],
+    "cta": "Create Account"
+  },
+  "Auth": {
+    "resetPassword": {
+      "title": "Password Reset",
+      "pageTitle": "Reset your password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm new password",
+      "resetButton": "Reset password",
+      "resettingButton": "Resetting...",
+      "success": "Password has been successfully reset. Redirecting to login page...",
+      "error": "An error occurred while resetting the password",
+      "invalidToken": "Invalid password reset token",
+      "validation": {
+        "passwordLength": "Password must be at least 8 characters long",
+        "passwordMatch": "Passwords must match"
+      }
+    },
+    "forgotPassword": {
+      "title": "Password Reset",
+      "pageTitle": "Reset your password",
+      "emailLabel": "Email address",
+      "submitButton": "Send password reset link",
+      "sendingButton": "Sending...",
+      "success": "Password reset link has been sent to your email.",
+      "error": "An error occurred while sending the reset link"
+    },
+
+    "verification": {
+      "title": "Account Verification",
+      "enterCode": "Enter the verification code sent to your email",
+      "invalidCode": "Invalid verification code",
+      "success": {
+        "title": "Registration completed successfully!",
+        "message": "Thank you for creating an account at Smart-Edu.ai",
+        "redirect": "You will be redirected to the dashboard shortly."
+      },
+      "error": "An error occurred during account verification"
+    },
+    "Common": {
+      "alert": {
+        "title": "Attention",
+        "close": "Close"
+      },
+      "email": "Email address",
+      "password": "Password",
+      "loading": "Loading..."
+    },
+    "Login": {
+      "pageTitle": "Login",
+      "title": "Login",
+      "email": "Email address",
+      "password": "Password",
+      "registerLink": "Sign up",
+      "forgotPassword": "Forgot your password?",
+      "loading": "Logging in...",
+      "loginButton": "Login",
+      "loggingIn": "Logging in...",
+      "noAccount": "Don't have an account?",
+      "register": "Sign up",
+      "recaptcha": "Form secured by Google reCAPTCHA",
+      "errors": {
+        "failed": "Login failed. Check your credentials.",
+        "unknown": "An unknown error occurred during login"
+      }
+    },
+    "Register": {
+      "pageTitle": "Sign up",
+      "title": "Sign up",
+      "name": "Name/nickname",
+      "privacyNotice": "By registering, you agree to our",
+      "confirmPassword": "Confirm password",
+      "registerButton": "Sign up now",
+      "registering": "Registering...",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Login",
+      "errors": {
+        "invalidEmail": "Invalid email format",
+        "invalidPassword": "Password must be at least 8 characters long",
+        "passwordSameAsEmail": "Password cannot be the same as email address",
+        "passwordsDontMatch": "Passwords do not match",
+        "registrationFailed": "Registration failed",
+        "nameRequired": "Name is required",
+        "invalidResponse": "Received invalid response from server"
+      }
+    }
+  },
+  "Footer": {
+    "companyName": "Smart-Edu.AI",
+    "description": "AI Assignment Writter - Artificial Intelligence Homework Generator",
+    "quickLinks": "Quick Links",
+    "links": {
+      "blog": "Blog",
+      "contact": "Contact",
+      "register": "Register",
+      "login": "Login",
+      "example": "Example works",
+      "paper": "AI Paper Writer",
+      "composition": "AI Composition Writer",
+      "writerPaper": "AI Paper Writer"
+    },
+    "contact": {
+      "title": "Terms of use",
+      "email": "kontakt@ecopywriting.pl",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service"
+    },
+    "copyright": "All rights reserved."
+  },
+  "Header": {
+    "brandName": "Smart-Edu.AI",
+    "adminPanel": "Admin Panel",
+    "examples": "Sample Papers",
+    "customerPanel": "Back to customer panel",
+    "login": "Login",
+    "register": "Sign up free",
+    "theme": {
+      "light": "Light Mode",
+      "dark": "Dark Mode"
+    }
+  },
+  "orderStatus": {
+    "view": "View",
+    "title": "Order Status",
+    "untitledText": "Untitled text",
+    "hideItem": "Hide",
+    "processing": "Processing...",
+    "completed": "Completed",
+    "almostDone": "Almost done",
+    "viewOrder": "View",
+    "hideOrder": "Hide",
+    "orderNumber": "Order No.",
+    "textLength": "Text length",
+    "characters": "characters",
+    "language": "Language",
+    "contentType": "Content type",
+    "activeOrders": "Active orders",
+    "languages": {
+      "pol": "Polish",
+      "eng": "English",
+      "ger": "German",
+      "ukr": "Ukrainian",
+      "fra": "French",
+      "esp": "Spanish",
+      "ros": "Russian",
+      "por": "Portuguese"
+    },
+    "contentTypes": {
+      "wypracowanie": "Composition",
+      "esej": "Essay",
+      "referat": "Report",
+      "rozprawka": "Argumentative Essay",
+      "charakterystyka": "Character Analysis",
+      "opowiadanie": "Story",
+      "list": "Letter",
+      "recenzja": "Review",
+      "przemowienie": "Speech",
+      "licencjacka": "Bachelor's thesis",
+      "magisterska": "Master's thesis",
+      "reportaz": "Feature Article",
+      "zaproszenie": "Invitation",
+      "streszczenie": "Summary",
+      "interpretacja": "Interpretation"
+    }
+  },
+  "common": {
+    "close": "Close",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "currency": {
+      "format": "${amount}",
+      "decimal": "."
+    },
+    "showLess": "Rozwiń",
+    "showMore": "Zwiń"
+  },
+  "orderHistory": {
+    "title": "Orders",
+    "orderInfo": {
+      "createdAt": "Created at",
+      "totalPrice": "Total price",
+      "orderId": "Order ID",
+      "length": "Length",
+      "characters": "characters",
+      "guidelines": "Guidelines",
+      "itemPrice": "Price"
+    },
+    "status": {
+      "all": "All statuses",
+      "waiting": "Waiting",
+      "inProgress": "In Progress",
+      "completed": "Completed"
+    },
+    "table": {
+      "number": "No.",
+      "topic": "Topic",
+      "orderDate": "Order Date",
+      "status": "Status",
+      "totalPrice": "Total Price",
+      "refreshStatus": "Refresh status",
+      "price": "Price",
+      "priceValue": "{amount}",
+      "noTitle": "No title",
+      "language": "Language",
+      "characters": "characters",
+      "details": "Details"
+    },
+    "order": {
+      "details": "Order details",
+      "yourAttachments": "Your attachments",
+      "price": "{price} for {characters} characters",
+      "guidelines": "Your guidelines",
+      "language": "Language",
+      "summary": "Order Summary",
+      "item": "Item",
+      "content": "Generated content",
+      "characters": "characters",
+      "status": {
+        "inProgress": "In Progress",
+        "completed": "Completed",
+        "waiting": "Waiting",
+        "zakończone": "Completed"
+      }
+    },
+    "mobileTable": {
+      "orderNumber": "Order No.",
+      "date": "Date",
+      "deadline": "Deadline",
+      "price": "Price",
+      "status": "Status",
+      "orderDetails": "Order Details",
+      "topic": "Topic",
+      "comments": {
+        "title": "Comments",
+        "addComment": "Add comment",
+        "send": "Send",
+        "attachments": "Attachments",
+        "placeholder": "Add your comment...",
+        "removeFile": "Remove file"
+      }
+    },
+    "pagination": {
+      "page": "Page",
+      "of": "of"
+    },
+    "content": {
+      "generatedContent": "Generated content",
+      "yourGuidelines": "Your guidelines",
+      "item": "Text",
+      "attachments": {
+        "title": "Attachments",
+        "yours": "Your attachments",
+        "fromService": "Attachments from eCopywriting"
+      },
+      "downloadPDF": "Download PDF",
+      "downloadDOCX": "Download Word (DOCX)",
+      "share": "Share",
+      "copyToClipboard": "Copy to clipboard",
+      "copiedToClipboard": "Copied to clipboard"
+    },
+    "common": {
+      "showLess": "Rozwiń",
+      "showMore": "Zwiń",
+      "currency": {
+        "format": "${amount}",
+        "decimal": "."
+      }
+    }
+  },
+  "orderDetails": {
+    "title": "Order Details",
+    "loading": "Loading...",
+
+    "status": {
+      "title": "Status",
+      "inProgress": "in progress",
+      "completed": "completed",
+      "waiting": "waiting",
+      "refreshStatus": "Refresh status"
+    },
+    "orderInfo": {
+      "createdAt": "Created at",
+      "length": "Length",
+      "price": "Price",
+      "contentType": "Content type",
+      "itemPrice": "Item price",
+      "language": "Language",
+      "orderId": "Order ID",
+      "characters": "characters",
+      "guidelines": "Guidelines"
+    },
+    "content": {
+      "generatedContent": "Generated Content",
+      "copyToClipboard": "Copy to clipboard",
+      "copyHTML": "Copy HTML",
+      "copiedHTMLToClipboard": "Copied HTML!",
+      "copiedToClipboard": "Copied to clipboard",
+      "downloadPDF": "Download PDF",
+      "downloadDOCX": "Download Word (DOCX)",
+      "share": "Share",
+      "showMore": "Show more",
+      "showLess": "Show less"
+    },
+    "attachments": {
+      "title": "Attachments",
+      "userAttachments": "Your attachments",
+      "serviceAttachments": "Added by eCopywriting"
+    },
+    "common": {
+      "showLess": "Collapse",
+      "showMore": "Show more"
+    }
+  },
+  "paymentHistory": {
+    "title": "Invoices and Payments",
+    "loading": "Loading...",
+    "error": {
+      "loading": "An error occurred while loading payment history.",
+      "invoice": "Error downloading invoice. Please try again later.",
+      "noSessionId": "No session ID for this payment."
+    },
+    "filter": {
+      "all": "All types",
+      "topUp": "Top up",
+      "order": "Order"
+    },
+    "table": {
+      "date": "Date",
+      "type": "Type",
+      "amount": "Amount",
+      "status": "Status",
+      "invoice": "Invoice"
+    },
+    "status": {
+      "completed": "Completed",
+      "pending": "Pending",
+      "failed": "Failed",
+      "unknown": "Unknown"
+    },
+    "type": {
+      "topUp": "Account top up",
+      "order": "Text order"
+    },
+    "invoice": {
+      "download": "Download",
+      "downloading": "Downloading...",
+      "unavailable": "Unavailable"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {current} of {total}"
+    },
+    "noPayments": {
+      "title": "No payments",
+      "description": "You don't have any payments in your history yet."
+    }
+  },
+  "profile": {
+    "title": "User Profile",
+    "changePassword": {
+      "title": "Change Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "noChangesTooltip": "Fill in all fields to enable password change",
+      "submit": "Change Password",
+      "success": {
+        "title": "Success",
+        "message": "Password has been changed successfully"
+      },
+      "error": {
+        "title": "Error",
+        "mismatch": "New passwords don't match",
+        "unknown": "An unknown error occurred while changing the password"
+      }
+    },
+    "form": {
+      "fields": {
+        "name": "Name/Nickname",
+        "companyName": "Company Name",
+        "nip": "Tax ID",
+        "noChangesTooltip": "Make changes to enable saving",
+        "address": "Street",
+        "buildingNumber": "Building/Apartment Number",
+        "buildingNumberPlaceholder": "e.g. 18/9",
+        "postalCode": "Postal Code",
+        "city": "City"
+      },
+      "submit": "Update Profile",
+      "success": {
+        "title": "Profile Updated",
+        "message": "Your data has been successfully updated."
+      },
+      "error": {
+        "title": "Update Error",
+        "message": "An error occurred while updating profile:"
+      }
+    }
+  },
+  "topUpModal": {
+    "title": "Top Up Account",
+    "description": "Top up your account above $50 to receive a 10% discount. For top-ups over $125, the discount increases to 20%!",
+    "form": {
+      "amountLabel": "Top-up amount ($)"
+    },
+    "summary": {
+      "topUpAmount": "You're topping up",
+      "withDiscount": "With {discount}% discount you'll pay {amount}",
+      "finalAmount": "You'll pay"
+    },
+    "discountRemaining": {
+      "to10Percent": "Add {amount} more for a 10% discount",
+      "to20Percent": "Add {amount} more for a 20% discount"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "topUp": "Top Up"
+    },
+    "minimumAmount": "Minimum top-up amount: {amount}",
+    "errors": {
+      "minimumAmount": "The minimum top-up amount is {amount}",
+      "belowMinimum": "Please enter an amount of at least {amount}",
+      "general": "An error occurred while topping up your account.",
+      "tryAgain": "An error occurred while topping up your account. Please try again later."
+    }
+  },
+  "orderConfirmation": {
+    "title": "Order placed successfully!",
+    "orderNumber": "Order number",
+    "itemsCount": "Number of ordered items",
+    "totalPrice": "Order value",
+    "discount": "Applied discount",
+    "trackingInfo": "You can track the progress of your order in the \"Orders\" section of the customer panel",
+    "emailNotification": "We will notify you by email about any order updates",
+    "close": "Close"
+  },
+  "orderSuccess": {
+    "title": "Order placed successfully",
+    "socialMediaMessage": "Your social media post has been generated and is ready to use",
+    "standardMessage": "Your order has been accepted and will be completed within a few minutes",
+    "details": {
+      "title": "Order details",
+      "expandItems": "Show details",
+      "collapseItems": "Hide details",
+      "items": {
+        "title": "Ordered texts",
+        "item": "Text",
+        "textLength": "Length",
+        "characters": "characters",
+        "contentType": "Type",
+        "subtotal": "Subtotal"
+      },
+      "summary": {
+        "total": "Total amount",
+        "items": "Number of texts"
+      }
+    },
+    "footerStandard": "You can track the progress of your order in the order status panel",
+    "footerSocialMedia": "Your post will be ready shortly. You will be notified when it's done",
+    "contentTypes": {
+      "artykul": "Article",
+      "opis_kategorii_produktow": "Product category description",
+      "opis_produktu": "Product description",
+      "wizytowka": "Company profile",
+      "post_social_media": "Social media post"
+    }
+  },
+  "CookieSettings": {
+    "Contact": {
+      "modal": {
+        "title": "Send Message"
+      },
+      "form": {
+        "nameLabel": "Name",
+        "emailLabel": "Email",
+        "messageLabel": "Message",
+        "submit": "Send Message",
+        "submitting": "Sending...",
+        "errorMessage": "An error occurred while sending the message. Please try again later.",
+        "successMessage": "Message sent!",
+        "placeholder": {
+          "name": "Your name",
+          "email": "your@email.com",
+          "message": "How can we help you?"
+        }
+      }
+    },
+    "title": "Privacy Settings",
+    "read": "",
+    "necessary": {
+      "title": "Necessary Cookies",
+      "description": "Required for basic website functionality"
+    },
+    "analytics": {
+      "title": "Analytics (analytics_storage)",
+      "description": "Helps us understand how users interact with the website"
+    },
+    "ad_storage": {
+      "title": "Advertising Data (ad_storage)",
+      "description": "Enables measuring advertising effectiveness"
+    },
+    "ad_user_data": {
+      "title": "User Data (ad_user_data)",
+      "description": "Used for advertising personalization"
+    },
+    "ad_personalization": {
+      "title": "Personalization (ad_personalization)",
+      "description": "Enables displaying personalized advertisements"
+    },
+    "clarity_storage": {
+      "title": "Microsoft Clarity",
+      "description": "Used to record user sessions"
+    },
+    "buttons": {
+      "save": "Save Settings",
+      "cancel": "Cancel"
+    }
+  },
+  "CookieConsent": {
+    "banner": {
+      "description": "We use cookies and similar technologies for:",
+      "read": "",
+      "purposes": {
+        "functional": "Functional (necessary for website operation)",
+        "analytical": "Analytical (website traffic measurement)",
+        "marketing": "Marketing (ad personalization)"
+      },
+      "customizeSettings": "Customize settings"
+    },
+    "buttons": {
+      "acceptAll": "Accept settings",
+      "acceptNecessary": "Customize"
+    },
+    "settingsButton": "Cookies",
+    "contactButton": "Contact"
+  },
+  "Contact": {
+    "modal": {
+      "title": "Send Message"
+    },
+    "form": {
+      "nameLabel": "Name",
+      "emailLabel": "Email address",
+      "messageLabel": "Message",
+      "placeholders": {
+        "name": "Your name",
+        "email": "your@email.com",
+        "message": "How can we help?"
+      },
+      "submit": "Send message",
+      "submitting": "Sending...",
+      "successMessage": "Message sent successfully! We'll respond within 24 hours.",
+      "errorMessage": "An error occurred while sending the message. Please try again later."
+    }
+  },
+  "HomeHero": {
+    "title": "AI Paper Writer - Get Your Assignment in 5 Minutes",
+    "heroTitle": "Need a Report or Essay Written? Let AI Handle It!",
+    "heroSubtitle": "Artificial intelligence will write your professional report or essay in 5 minutes. Save time and receive high-quality work!",
+    "heroCta": "Sign Up Free",
+    "subtitle": "AI will create your professional paper, essay or assignment. No stress, save time!",
+    "cta": "Write Paper Free",
+    "referat": {
+      "title": "Papers in Any Subject",
+      "description": "Smart-Edu.AI is the best paper generator. Handles any topic with ease."
+    },
+    "quality": {
+      "title": "Academic Quality",
+      "description": "Unique content, professional sources, zero plagiarism."
+    },
+    "aiWriter": {
+      "title": "Advanced AI Writer",
+      "description": "Professional AI paper generator created for students."
+    },
+    "speed": {
+      "title": "5-Minute Paper",
+      "description": "Forget about stress. Your work will be ready faster than making coffee!"
+    }
+  },
+  "BenefitsPageReport": {
+    "title": "Generuj prace zaliczeniowe ze Smart-Edu.ai",
+    "benefits": {
+      "generation": {
+        "title": "Błyskawiczne generowanie tekstów",
+        "description": "Podaj temat i długość, a praca zostanie wygenerowana w ciągu 5 minut (albo szybciej)."
+      },
+      "originality": {
+        "title": "Brak zobowiązań",
+        "description": "W Smart-Edu.ai płacisz tylko za pisanie każdego wypracowania, eseju czy referatu. Zapomnij o długoterminowych zoobowiązaniach!"
+      },
+      "versatility": {
+        "title": "Wszechstronność",
+        "description": "Generuj prace pisemne z dowolnych dziedzin, w różnych formach i w kilku językach, w tym po polsku."
+      },
+      "quality": {
+        "title": "Wysoka jakość",
+        "description": "Jakość treści gwarantowana dzięki modelom Claude, na których bazuje Smart-Edu.AI."
+      },
+      "export": {
+        "title": "Łatwy eksport",
+        "description": "Pobieraj gotowe prace zaliczeniowe w formacie PDF lub Word do dalszej edycji."
+      },
+      "flexibility": {
+        "title": "Pełna elastyczność",
+        "description": "Edytuj i dostosowuj wygenerowane teksty według własnych potrzeb."
+      }
+    }
+  },
+  "ReportHowItWorksSection": {
+    "title": "Jak działa Smart-Edu.AI?",
+    "steps": {
+      "analysis": {
+        "title": "Analiza tematu i wytycznych",
+        "description": "Wprowadź temat i opcjonalne wytyczne, które pomogą sztucznej inteligencji lepiej zrozumieć zadanie i Twoje oczekiwania."
+      },
+      "research": {
+        "title": "Wyszukiwanie informacji",
+        "description": "Sztuczna inteligencja przeszukuje internet, aby znaleźć aktualne i rzetelne źródła, na podstawie których pisze pracę."
+      },
+      "processing": {
+        "title": "Przetwarzanie informacji",
+        "description": "AI analizuje zebrane dane i tworzy merytorycznie poprawną treść do Twojej pracy domowej, zaliczeniowej, naukowej."
+      },
+      "delivery": {
+        "title": "Gotowa treść do pobrania",
+        "description": "Pobierz swój tekst w formacie PDF lub DOCX i używaj jej według własnych potrzeb."
+      }
+    }
+  },
+  "ReportProcessSection": {
+    "title": "Jak korzystać ze Smart-Edu.AI?",
+    "steps": {
+      "account": {
+        "title": "Załóż darmowe konto",
+        "description": "Zarejestruj się w serwisie i uzyskaj natychmiastowy dostęp do naszego AI do generowania prac pisemnych."
+      },
+      "details": {
+        "title": "Podaj temat i długość tekstu",
+        "description": "Wybierz temat, określ pożądaną długość i inne preferencje dla swojego tekstu."
+      },
+      "wait": {
+        "title": "Poczekaj 5 minut",
+        "description": "Nasz zaawansowany generator prac zaliczeniowych AI pisze wysokiej jakości pracę domową w ciągu zaledwie 5 minut."
+      },
+      "download": {
+        "title": "Pobierz gotową pracę",
+        "description": "Pobierz wygenerowany tekst w formacie PDF lub Word i edytuj go według własnych potrzeb."
+      }
+    }
+  },
+  "ReportGenerator": {
+    "meta": {
+      "title": "AI Essay Writer - Generate Academic Reports & Essays with Artificial Intelligence",
+      "description": "Write a professional report or essay in 5 minutes with our AI generator. Let artificial intelligence create high-quality academic work effortlessly!",
+      "keywords": "ai essay writer, report generator, essay writing ai, essay generator, artificial intelligence writing, ai academic writing, written assignments generator"
+    },
+    "hero": {
+      "title": "Need a Report or Essay Written? Let AI Handle It!",
+      "subtitle": "Artificial intelligence will write your professional report or essay in 5 minutes. Save time and receive high-quality work!",
+      "cta": "Write Report for Free"
+    },
+    "features": {
+      "speed": {
+        "title": "Lightning-Fast Writing",
+        "description": "AI generator creates a complete report or essay in just 5 minutes. Forget about deadline stress!"
+      },
+      "quality": {
+        "title": "Academic Quality",
+        "description": "Every paper is created based on reliable sources and meets academic standards."
+      },
+      "versatility": {
+        "title": "Any Topic",
+        "description": "From history to science - our AI generator can handle any report or essay topic."
+      },
+      "polish": {
+        "title": "Professional AI Writer",
+        "description": "Specially adapted to educational requirements and academic writing standards."
+      }
+    },
+    "benefits": {
+      "title": "Why Choose Our Generator?",
+      "list": {
+        "research": "Automatic source research and analysis",
+        "structure": "Proper academic structure",
+        "citations": "Professional citations and bibliography",
+        "originality": "Unique content tailored to your requirements",
+        "formatting": "Ready document formatting",
+        "support": "Support for various education levels"
+      }
+    },
+    "process": {
+      "title": "How Our Report Generator Works?",
+      "steps": {
+        "topic": {
+          "title": "Provide Topic",
+          "description": "Enter the topic and requirements for your report or essay"
+        },
+        "ai": {
+          "title": "AI Works",
+          "description": "Artificial intelligence analyzes sources and creates content"
+        },
+        "ready": {
+          "title": "Ready!",
+          "description": "You receive a complete paper ready for download"
+        }
+      }
+    }
+  },
+  "examples": {
+    "createdBy": "Work 100% created by Smart-Edu.AI.",
+    "tags": "Tags",
+    "length": "Length",
+    "subjectDescriptions": {
+      "description": "Sample papers and assignments in {subject} for {level} students generated by Smart-Edu.AI. Sign up free and generate your own paper with artificial intelligence!"
+    },
+    "workTypeDescriptions": {
+      "description": "Sample {workType} for {level} students generated by Smart-Edu.AI. Sign up free and generate your own paper with artificial intelligence!"
+    },
+    "mainDescription": "Database of sample academic papers and assignments created by artificial intelligence for students. Choose your educational level and see what materials you can generate in minutes!",
+    "meta": {
+      "subject": {
+        "title": "{subject} - Sample Papers ({level}) | Smart-Edu.AI",
+        "description": "Sample papers in {subject} for {level} students. AI-generated essays, reports and assignments examples."
+      },
+      "level": {
+        "title": "{level} - Sample Papers | Smart-Edu.AI",
+        "description": "{description}"
+      },
+      "workType": {
+        "title": "{workType} - Sample Papers ({level}) | Smart-Edu.AI",
+        "description": "Sample {workType} for {level} students. AI-generated academic papers and assignments."
+      },
+      "main": {
+        "title": "Sample Papers Bank | Smart-Edu.AI",
+        "description": "AI-generated sample academic papers and assignments. Examples of essays, reports and other written works for students."
+      }
+    },
+    "loading": "loading",
+    "signup": {
+      "banner": {
+        "title": "Create Your Own Work!",
+        "description": "Sign up and generate a personalized paper tailored to your needs.",
+        "cta": "Start for free"
+      }
+    },
+    "relatedExamples": "Related papers",
+    "examplesList": "Lista wszystkich prac",
+    "allExamples": "All Papers List",
+    "categories": "Categories",
+    "subjects": "Subjects",
+    "sort": {
+      "date": "Data dodania",
+      "views": "Liczba wyświetleń",
+      "desc": "Malejąco",
+      "asc": "Rosnąco"
+    },
+    "lengths": {
+      "2000": "Very Short (250 words)",
+      "3000": "Short (350 words)",
+      "4000": "Medium (500 words)",
+      "7000": "Long (800-900 words)",
+      "10000": "Very Long (approx. 1300 words)",
+      "20000": "Longest (approx. 2500 words)"
+    },
+    "filter": {
+      "allWorkTypes": "All Work Types",
+      "allSubjects": "All Subjects"
+    },
+
+    "filters": {
+      "allSubjects": "All subjects",
+      "noResults": "No examples found matching the criteria.",
+      "allWorkTypes": "All work types",
+      "allLengths": "All lengths",
+      "newest": "Newest",
+      "oldest": "Oldest",
+      "mostPopular": "Most popular",
+      "leastPopular": "Least popular",
+      "titleAZ": "A-Z",
+      "titleZA": "Z-A"
+    },
+    "title": "Papers generated by Smart-Edu.AI",
+    "searchPlaceholder": "Search...",
+    "levels": {
+      "primary": {
+        "name": "Primary School",
+        "title": "Primary School",
+        "description": "Examples for primary school students (grades 4-8)"
+      },
+      "secondary": {
+        "name": "Secondary School",
+        "title": "Secondary School",
+        "description": "Works for high school students"
+      },
+      "university": {
+        "name": "University",
+        "title": "University",
+        "description": "Materials for university students of all majors"
+      }
+    },
+
+    "views": "{count} views",
+    "readingTime": "{minutes} min read",
+    "subjectCount": "{count} works",
+    "addExample": "Add example",
+    "editExample": "Edit example",
+    "deleteExample": "Delete example",
+    "confirmDelete": "Are you sure you want to delete this example?"
+  },
+  "admin": {
+    "examples": {
+      "lengths": {
+        "2000": "Very Short (250 words)",
+        "3000": "Short (350 words)",
+        "4000": "Medium (500 words)",
+        "7000": "Long (800-900 words)",
+        "10000": "Very Long (approx. 1300 words)",
+        "20000": "Longest (approx. 2500 words)"
+      },
+
+      "title": "Examples Management",
+      "addNew": "Add new example",
+      "newExample": "New example",
+      "editExample": "Edit example",
+      "confirmDelete": "Are you sure you want to delete this example?",
+      "table": {
+        "title": "Title",
+        "level": "Level",
+        "subject": "Subject",
+        "views": "Views",
+        "actions": "Actions"
+      },
+      "form": {
+        "title": "Title",
+        "titleEn": "Title (EN)",
+        "content": "Content",
+        "contentEn": "Content (EN)",
+        "level": "Level",
+        "subject": "Subject",
+        "tags": "Tags",
+        "tagsPlaceholder": "Enter tags separated by commas"
+      },
+      "cancel": "Cancel",
+      "save": "Save",
+      "create": "Create"
+    }
+  },
+  "contentSummary": {
+    "licencjacka": "Bachelor's thesis price includes:",
+    "magisterska": "Master's thesis price includes:",
+    "chapters": {
+      "licencjacka": "3 chapters",
+      "licencjackaDetails": " (theoretical, methodological, research)",
+      "magisterska": "4 chapters",
+      "magisterskaDetails": " (theoretical, methodological, research, summary)"
+    },
+    "pages": {
+      "licencjacka": "60-90 pages",
+      "magisterska": "80-120 pages",
+      "text": " of academic text"
+    },
+    "features": {
+      "tables": "Tables and charts",
+      "tableOfContents": "Table of contents",
+      "bibliography": "Bibliography",
+      "academicLanguage": "Academic language",
+      "introduction": "Introduction",
+      "conclusion": "Conclusion"
+    }
+  }
+}
