@@ -1,38 +1,39 @@
 // src/components/Editor.tsx
-'use client';
-import { useCallback } from 'react';
+import dynamic from 'next/dynamic';
+import 'react-quill/dist/quill.snow.css';
 
-type EditorProps = {
-  value: string;
+const QuillEditor = dynamic(() => import('react-quill'), { ssr: false });
+
+interface EditorProps {
+  value?: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  error?: string;
+}
+
+const modules = {
+  toolbar: [
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ color: [] }, { background: [] }],
+    ['link', 'image'],
+    ['clean'],
+  ],
 };
 
 export default function Editor({
-  value,
+  value = '',
   onChange,
   placeholder,
-  error,
 }: EditorProps) {
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      onChange(e.target.value);
-    },
-    [onChange]
-  );
-
   return (
-    <div className="space-y-2">
-      <textarea
-        value={value}
-        onChange={handleChange}
-        placeholder={placeholder}
-        className={`w-full h-64 p-4 font-mono text-sm border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-          error ? 'border-red-500' : ''
-        }`}
-      />
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-    </div>
+    <QuillEditor
+      theme="snow"
+      value={value}
+      onChange={onChange}
+      modules={modules}
+      placeholder={placeholder}
+      className="h-64 mb-4"
+    />
   );
 }
