@@ -41,80 +41,85 @@ interface IUser extends Document {
   newsletterPreferences: INewsletterPreferences;
 }
 
-const UserSchema: Schema = new Schema({
-  name: {
-    type: String,
-    required: [true, 'Please add a name'],
-  },
-  notificationPermissions: {
-    browser: { type: Boolean, default: false },
-    sound: { type: Boolean, default: false }
-  },
-  email: {
-    type: String,
-    required: [true, 'Please add an email'],
-    unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      'Please add a valid email',
+const UserSchema: Schema = new Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Please add a name'],
+    },
+    notificationPermissions: {
+      browser: { type: Boolean, default: false },
+      sound: { type: Boolean, default: false },
+    },
+    email: {
+      type: String,
+      required: [true, 'Please add an email'],
+      unique: true,
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        'Please add a valid email',
+      ],
+    },
+    accountBalance: {
+      type: Number,
+      default: 0,
+    },
+    totalPrice: {
+      type: Number,
+      default: 0,
+    },
+
+    role: {
+      type: String,
+      enum: ['client', 'admin'],
+      default: 'client',
+    },
+    password: {
+      type: String,
+      required: [true, 'Please add a password'],
+      minlength: 6,
+      select: false,
+    },
+    companyDetails: {
+      companyName: { type: String, default: '' },
+      nip: { type: String, default: '' },
+      address: { type: String, default: '' },
+      postalCode: { type: String, default: '' },
+      city: { type: String, default: '' },
+      buildingNumber: { type: String, default: '' },
+    },
+    verificationCode: {
+      type: String,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
+    totalSpent: {
+      type: Number,
+      default: 0,
+    },
+    stripeCustomerId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+    newsletterPreferences: {
+      categories: [{ type: String }],
+    },
+    orders: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Order',
+      },
     ],
   },
-  accountBalance: {
-    type: Number,
-    default: 0
-  },
-  totalPrice: {
-    type: Number,
-    default: 0
-  },
-  
-  role: {
-    type: String,
-    enum: ['client', 'admin'],
-    default: 'client'
-  },
-  password: {
-    type: String,
-    required: [true, 'Please add a password'],
-    minlength: 6,
-    select: false,
-  },
-  companyDetails: {
-    companyName: { type: String, default: '' },
-    nip: { type: String, default: '' },
-    address: { type: String, default: '' },
-    postalCode: { type: String, default: '' },
-    city: { type: String, default: '' },
-    buildingNumber: { type: String, default: '' }
-  },  
-  verificationCode: {
-    type: String,
-  },
-  isVerified: {
-    type: Boolean,
-    default: false,
-  },
-  resetPasswordToken: String,
-  resetPasswordExpire: Date,  
-  totalSpent: {
-    type: Number,
-    default: 0
-  },
-  stripeCustomerId: {
-    type: String,
-    unique: true,
-    sparse: true
-  },
-  newsletterPreferences: {
-    categories: [{ type: String }],
-  },
-  orders: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Order'
-  }]
-}, {
-  timestamps: true,
-});
+  {
+    timestamps: true,
+  }
+);
 
 UserSchema.pre<IUser>('save', async function (next) {
   if (!this.isModified('password')) {
@@ -125,9 +130,15 @@ UserSchema.pre<IUser>('save', async function (next) {
 });
 
 UserSchema.methods.getSignedJwtToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET!, {
-    expiresIn: process.env.JWT_EXPIRE,
-  });
+  const jwtSecret = process.env.JWT_SECRET;
+  // Zamień "30d" na sekundy: 30 dni * 24h * 60min * 60s
+  const jwtExpire = 30 * 24 * 60 * 60; // 30 dni w sekundach
+
+  if (!jwtSecret) {
+    throw new Error('JWT_SECRET is not defined');
+  }
+
+  return jwt.sign({ id: this._id }, jwtSecret, { expiresIn: jwtExpire });
 };
 
 UserSchema.methods.matchPassword = async function (enteredPassword: string) {
