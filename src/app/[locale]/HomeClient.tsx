@@ -13,7 +13,6 @@ import HowItWorksSection from '@/components/home/HowItWorksSection';
 import EducationLevelsSection from '@/components/home/EducationLevelsSection';
 import FAQSection from '@/components/home/FAQSection';
 import TrustSection from '@/components/home/TrustSection';
-import ComparisonSection from '@/components/home/ComparisonSection';
 
 export default function HomeClient() {
   const t = useTranslations('Home');
@@ -32,7 +31,7 @@ export default function HomeClient() {
         <HowItWorksSection />
       </div>
       <ProcessSection />
-      <ComparisonSection />
+
       <ServicesSection />
       <EducationLevelsSection />
       <div id="faq">
