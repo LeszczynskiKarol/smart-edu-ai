@@ -499,7 +499,74 @@
     "guidelines": "guidelines",
     "and": "and"
   },
-
+  "FAQSection": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about ordering academic papers",
+    "faq1": {
+      "question": "How does ordering academic papers work?",
+      "answer": "Simply create a free account, specify your topic, length, and guidelines. Our AI will generate your paper in just 5 minutes. You can then download it in PDF or DOCX format."
+    },
+    "faq2": {
+      "question": "Is AI-generated content reliable?",
+      "answer": "Yes! Smart-Edu.AI uses advanced Claude models to create high-quality academic papers based on verified sources. Each paper is professionally written and factually accurate."
+    },
+    "faq3": {
+      "question": "Can I order papers on any subject?",
+      "answer": "Absolutely! Our AI supports all academic subjects from primary school through university level, including humanities, sciences, and technical subjects."
+    },
+    "faq4": {
+      "question": "How long does it take to generate a paper?",
+      "answer": "Most papers are generated within 5 minutes. For longer works like bachelor's or master's theses, generation may take up to 15-20 minutes."
+    },
+    "faq5": {
+      "question": "Can I edit the generated paper?",
+      "answer": "Yes! You receive the paper in editable formats (PDF and DOCX), so you can freely modify and personalize the content to your needs."
+    }
+  },
+  "TrustSection": {
+    "title": "Why Trust Smart-Edu.AI?",
+    "subtitle": "When you order academic papers from us, you get guarantees and professional service",
+    "features": {
+      "privacy": {
+        "title": "Complete Privacy",
+        "description": "Your data and ordered papers are fully protected. We never share your information with third parties."
+      },
+      "security": {
+        "title": "Secure Payments",
+        "description": "All transactions are encrypted and processed through secure payment systems."
+      },
+      "quality": {
+        "title": "Quality Guarantee",
+        "description": "Every paper is based on verified sources and created using advanced AI models."
+      },
+      "delivery": {
+        "title": "On-Time Delivery",
+        "description": "Papers are generated within minutes. You always get your work on time."
+      },
+      "originality": {
+        "title": "Original Content",
+        "description": "Each paper is created from scratch based on your requirements."
+      },
+      "support": {
+        "title": "Customer Support",
+        "description": "Our team is ready to help with any questions about ordering papers."
+      }
+    }
+  },
+  "ComparisonSection": {
+    "title": "Smart-Edu.AI vs Traditional Writing Services",
+    "subtitle": "See why ordering papers through AI is better",
+    "traditional": "Traditional Services",
+    "smartedu": "Smart-Edu.AI",
+    "features": {
+      "speed": "Generated in 5 minutes",
+      "cost": "Affordable pricing",
+      "availability": "Available 24/7",
+      "quality": "High quality content",
+      "sources": "Verified sources",
+      "revisions": "Instant modifications"
+    }
+  },
   "Home": {
     "pageTitle": "Home",
     "heroTitle": "Need an assignment written? Let Smart-Edu.AI do it!",
@@ -720,21 +787,56 @@
     }
   },
   "PricingSection": {
-    "title": "Pricing",
-    "priceFrom": "",
-    "priceUnit": "/ text",
+    "title": "Transparent Pricing",
+    "subtitle": "Choose the plan that fits your needs",
+    "popularBadge": "Most Popular",
+    "priceFrom": "from",
+    "priceUnit": "/ work",
+    "words": "words",
+    "cta": "Get Started",
     "discount": "Get attractive discounts on larger orders and account top-ups!",
-    "features": [
-      "Bachelor thesis - ${bachelor}",
-      "Master thesis - ${master}",
-      "250 words - ${price250}",
-      "350 words - ${price350}",
-      "500 words - ${price500}",
-      "800-900 words - ${price800}",
-      "1300 words - ${price1300}",
-      "+/-2500 words - ${price2500}"
-    ],
-    "cta": "Create Account"
+    "plans": {
+      "bachelor": {
+        "title": "Bachelor's Thesis",
+        "subtitle": "60-90 pages",
+        "features": [
+          "Complete bachelor's thesis",
+          "Research and verified sources",
+          "Proper academic structure",
+          "Bibliography and citations",
+          "PDF and DOCX formats",
+          "Unlimited edits after download"
+        ]
+      },
+      "master": {
+        "title": "Master's Thesis",
+        "subtitle": "90-120 pages",
+        "features": [
+          "Complete master's thesis",
+          "Advanced research and analysis",
+          "Professional academic structure",
+          "Extensive bibliography",
+          "PDF and DOCX formats",
+          "Priority generation",
+          "Unlimited edits after download"
+        ]
+      },
+      "regular": {
+        "title": "Regular Papers",
+        "subtitle": "Essays, reports, assignments",
+        "features": [
+          "Any length from 250 words",
+          "All academic subjects",
+          "Fast 5-minute generation",
+          "Verified sources included",
+          "PDF and DOCX formats",
+          "Full editing flexibility"
+        ]
+      }
+    },
+    "regularPricing": {
+      "title": "Regular Papers - Pricing by Length"
+    }
   },
   "Auth": {
     "resetPassword": {
@@ -846,6 +948,10 @@
   "Header": {
     "brandName": "Smart-Edu.AI",
     "adminPanel": "Admin Panel",
+    "tagline": "Academic Paper Writing",
+    "howItWorks": "How It Works",
+    "pricing": "Pricing",
+    "faq": "FAQ",
     "examples": "Sample Papers",
     "customerPanel": "Back to customer panel",
     "login": "Login",

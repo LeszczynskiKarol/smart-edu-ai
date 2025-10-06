@@ -1,80 +1,115 @@
-// src/components/services/FAQSection.tsx
-'use client'
+// src/components/home/FAQSection.tsx
+'use client';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-
-const faqs = [
-  {
-    question: "Jak długo trwa proces tworzenia artykułu?",
-    answer: "Czas realizacji zależy od wybranego pakietu i złożoności tematu. Standardowo, od 2 do 5 dni roboczych."
-  },
-  {
-    question: "Czy mogę prosić o poprawki do artykułu?",
-    answer: "Tak, oferujemy rundy poprawek w zależności od wybranego pakietu. Chcemy, abyś był w pełni zadowolony z końcowego rezultatu."
-  },
-  {
-    question: "Jak zapewniacie unikalność treści?",
-    answer: "Każdy artykuł jest tworzony od podstaw przez naszych doświadczonych copywriterów. Dodatkowo, sprawdzamy każdy tekst narzędziami do wykrywania plagiatu."
-  },
-  {
-    question: "Czy artykuły są optymalizowane pod SEO?",
-    answer: "Tak, wszystkie nasze artykuły są optymalizowane pod kątem SEO, z uwzględnieniem kluczowych fraz i najlepszych praktyk."
-  },
-  {
-    question: "Czy mogę zamówić artykuł na niestandardowy temat?",
-    answer: "Oczywiście! Jesteśmy elastyczni i możemy napisać artykuł na dowolny temat zgodny z Twoimi potrzebami."
-  },
-  {
-    question: "Jak wygląda proces współpracy?",
-    answer: "Rozpoczynamy od omówienia Twoich potrzeb, następnie tworzymy plan treści, piszemy artykuł, wprowadzamy ewentualne poprawki i dostarczamy gotowy tekst."
-  }
-];
+import { ChevronDown } from 'lucide-react';
+import { useTheme } from '../../context/ThemeContext';
+import { useTranslations } from 'next-intl';
 
 const FAQSection: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const { theme } = useTheme();
+  const t = useTranslations('FAQSection');
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const faqs = [
+    {
+      question: t('faq1.question'),
+      answer: t('faq1.answer'),
+    },
+    {
+      question: t('faq2.question'),
+      answer: t('faq2.answer'),
+    },
+    {
+      question: t('faq3.question'),
+      answer: t('faq3.answer'),
+    },
+    {
+      question: t('faq4.question'),
+      answer: t('faq4.answer'),
+    },
+    {
+      question: t('faq5.question'),
+      answer: t('faq5.answer'),
+    },
+  ];
 
   return (
-    <section className="py-20">
-      <div className="container mx-auto px-4">
-        <motion.h2 
-          className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800"
+    <section
+      className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
+    >
+      <div className="container mx-auto px-4 max-w-4xl">
+        <motion.h2
+          className={`text-3xl md:text-4xl font-bold text-center mb-4 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          Często Zadawane Pytania
+          {t('title')}
         </motion.h2>
-        <div className="max-w-3xl mx-auto">
+        <motion.p
+          className={`text-center mb-12 text-lg ${
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+          }`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          {t('subtitle')}
+        </motion.p>
+
+        <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <motion.div 
+            <motion.div
               key={index}
-              className="mb-4"
+              className={`rounded-lg overflow-hidden ${
+                theme === 'dark' ? 'bg-gray-800' : 'bg-white'
+              } shadow-lg`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <button
-                className="flex justify-between items-center w-full text-left p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300"
-                onClick={() => setActiveIndex(activeIndex === index ? null : index)}
+                className="w-full p-6 text-left flex justify-between items-center hover:bg-opacity-80 transition-all"
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
               >
-                <span className="font-semibold text-gray-800">{faq.question}</span>
-                {activeIndex === index ? (
-                  <ChevronUp className="w-5 h-5 text-blue-500" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-blue-500" />
-                )}
+                <h3
+                  className={`text-lg font-semibold pr-8 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}
+                >
+                  {faq.question}
+                </h3>
+                <motion.div
+                  animate={{ rotate: openIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ChevronDown
+                    className={`w-5 h-5 flex-shrink-0 ${
+                      theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
+                    }`}
+                  />
+                </motion.div>
               </button>
+
               <AnimatePresence>
-                {activeIndex === index && (
+                {openIndex === index && (
                   <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="bg-white px-4 pb-4 rounded-b-lg"
+                    className="overflow-hidden"
                   >
-                    <p className="text-gray-600">{faq.answer}</p>
+                    <div
+                      className={`p-6 pt-0 ${
+                        theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                      }`}
+                    >
+                      {faq.answer}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>

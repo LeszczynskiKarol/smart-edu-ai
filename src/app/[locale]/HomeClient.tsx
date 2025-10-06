@@ -1,6 +1,6 @@
 // src/app/[locale]/HomeClient.tsx
 'use client';
-import ComparisonExport from '@/components/comparison/ComparisonExport';
+
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import VideoSection from '@/components/home/VideoSection';
@@ -11,6 +11,9 @@ import PricingSection from '@/components/home/PricingSection';
 import ProcessSection from '@/components/home/ProcessSection';
 import HowItWorksSection from '@/components/home/HowItWorksSection';
 import EducationLevelsSection from '@/components/home/EducationLevelsSection';
+import FAQSection from '@/components/home/FAQSection';
+import TrustSection from '@/components/home/TrustSection';
+import ComparisonSection from '@/components/home/ComparisonSection';
 
 export default function HomeClient() {
   const t = useTranslations('Home');
@@ -22,14 +25,22 @@ export default function HomeClient() {
         subtitle={t('heroSubtitle')}
         cta={t('heroCta')}
       />
-      <ComparisonExport />
       <VideoSection />
       <BenefitsSection />
-      <HowItWorksSection />
+      <TrustSection />
+      <div id="how-it-works">
+        <HowItWorksSection />
+      </div>
       <ProcessSection />
+      <ComparisonSection />
       <ServicesSection />
       <EducationLevelsSection />
-      <PricingSection />
+      <div id="faq">
+        <FAQSection />
+      </div>
+      <div id="pricing">
+        <PricingSection />
+      </div>
     </>
   );
 }

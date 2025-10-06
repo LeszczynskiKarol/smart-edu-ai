@@ -239,7 +239,7 @@
     }
   },
   "site": {
-    "name": "AI do pisania prac. Sztuczna inteligencja do generowania zadań domowych",
+    "name": "Pisanie Prac Zaliczeniowych z AI - Sztuczna Inteligencja do generowania zadań domowych",
     "description": "Generuj profesjonalne teksty z AI. Oszczędzaj czas i pieniądze dzięki pisaniu z AI",
     "ogImageAlt": "Smart-Edu.ai"
   },
@@ -476,19 +476,88 @@
     "and": "i"
   },
 
+  "FAQSection": {
+    "title": "AI do pisania prac zaliczeniowych - FAQ",
+    "subtitle": "Wszystko, co musisz wiedzieć o zamawianiu prac zaliczeniowych",
+    "faq1": {
+      "question": "Jak działa zamawianie prac zaliczeniowych?",
+      "answer": "Wystarczy założyć darmowe konto, podać temat, długość i wytyczne. Nasza AI wygeneruje Twoją pracę w zaledwie 5 minut. Następnie możesz ją pobrać w formacie PDF lub DOCX."
+    },
+    "faq2": {
+      "question": "Czy treści generowane przez AI są rzetelne?",
+      "answer": "Tak! Smart-Edu.AI wykorzystuje zaawansowane modele Claude do tworzenia wysokiej jakości prac akademickich w oparciu o zweryfikowane źródła. Każda praca jest profesjonalnie napisana i merytorycznie poprawna."
+    },
+    "faq3": {
+      "question": "Czy mogę zamówić pracę z dowolnego przedmiotu?",
+      "answer": "Oczywiście! Nasza AI obsługuje wszystkie przedmioty akademickie od szkoły podstawowej po studia, w tym przedmioty humanistyczne, ścisłe i techniczne."
+    },
+    "faq4": {
+      "question": "Jak długo trwa generowanie pracy?",
+      "answer": "Większość prac jest generowana w ciągu 5 minut. W przypadku dłuższych prac, takich jak praca licencjacka czy magisterska, generowanie może potrwać do 15-20 minut."
+    },
+    "faq5": {
+      "question": "Czy mogę edytować wygenerowaną pracę?",
+      "answer": "Tak! Otrzymujesz pracę w edytowalnych formatach (PDF i DOCX), więc możesz swobodnie modyfikować i personalizować treść według swoich potrzeb."
+    }
+  },
+  "TrustSection": {
+    "title": "Dlaczego warto nam zaufać?",
+    "subtitle": "Zamawiając prace zaliczeniowe u nas, zyskujesz gwarancje i profesjonalną obsługę",
+    "features": {
+      "privacy": {
+        "title": "Pełna prywatność",
+        "description": "Twoje dane i zamówione prace są w pełni chronione. Nigdy nie udostępniamy Twoich informacji osobom trzecim."
+      },
+      "security": {
+        "title": "Bezpieczne płatności",
+        "description": "Wszystkie transakcje są szyfrowane i przetwarzane przez bezpieczne systemy płatności."
+      },
+      "quality": {
+        "title": "Gwarancja jakości",
+        "description": "Każda praca powstaje na bazie zweryfikowanych źródeł i jest tworzona przy użyciu zaawansowanych modeli AI."
+      },
+      "delivery": {
+        "title": "Terminowość",
+        "description": "Prace są generowane w ciągu minut. Zawsze otrzymasz swoją pracę na czas."
+      },
+      "originality": {
+        "title": "Oryginalne treści",
+        "description": "Każda praca jest tworzona od podstaw na podstawie Twoich wymagań."
+      },
+      "support": {
+        "title": "Wsparcie klienta",
+        "description": "Nasz zespół jest gotowy pomóc w każdej kwestii dotyczącej zamawiania prac."
+      }
+    }
+  },
+  "ComparisonSection": {
+    "title": "Smart-Edu.AI vs tradycyjne usługi pisania prac na zlecenie",
+    "subtitle": "Zobacz, dlaczego zamawianie prac przez AI jest lepsze",
+    "traditional": "Tradycyjne usługi",
+    "smartedu": "Smart-Edu.AI",
+    "features": {
+      "speed": "Pisanie w 5 minut",
+      "cost": "Przystępne ceny",
+      "availability": "Dostępne 24/7",
+      "quality": "Wysoka jakość treści",
+      "sources": "Zweryfikowane źródła",
+      "revisions": "Natychmiastowe modyfikacje"
+    }
+  },
+
   "Home": {
     "pageTitle": "Strona główna",
     "heroTitle": "Praca do napisania? Zleć ją Smart‑Edu.AI!",
-    "heroSubtitle": "Zamów wypracowanie, referat, esej lub inną pracę pisemną, a sztuczna inteligencja wygeneruje ją dla Ciebie w 5 min",
+    "heroSubtitle": "Pisanie prac na zlecenie z AI. Podaj temat, a sztuczna inteligencja napisze Twoją pracę w 5 min",
     "heroCta": "Załóż konto",
     "features": {
       "topic": {
         "title": "Dowolne przedmioty i zadania",
-        "description": "Ze Smart-Edu.AI stworzysz referat, esej, opowiadanie, wypracowanie, streszczenie, charakterystykę i inne prace domowe, zaliczeniowe oraz naukowe z dowolnych przedmiotów."
+        "description": "Ze Smart-Edu.AI pisze dowolne prace zaliczeniowe - referat, esej, opowiadanie, wypracowanie, streszczenie, charakterystykę i inne prace domowe, zaliczeniowe oraz naukowe z dowolnych przedmiotów."
       },
       "speed": {
-        "title": "Błyskawiczne pisanie",
-        "description": "Oszczędzaj czas dzięki generowaniu prac pisemnych ze sztuczną inteligencją."
+        "title": "Błyskawiczne pisanie prac",
+        "description": "Oszczędzaj czas dzięki pisaniu prac pisemnych na zamówienie ze sztuczną inteligencją."
       },
       "quality": {
         "title": "Rzetelność i profesjonalizm",
@@ -496,7 +565,7 @@
       },
       "multilingual": {
         "title": "Stworzony w języku polskim",
-        "description": "Smart-Edu.AI - w pełni polski generator prac domowych, naukowych i zdań pisemnych. Idealny dla uczniów i studentów."
+        "description": "Smart-Edu.AI - w pełni polskie narzędzie do pisania prac domowych, naukowych i zdań pisemnych. Idealny dla uczniów i studentów."
       }
     }
   },
@@ -583,7 +652,7 @@
     "title": "Generuj prace zaliczeniowe ze Smart-Edu.ai",
     "benefits": {
       "generation": {
-        "title": "Błyskawiczne generowanie tekstów",
+        "title": "Błyskawiczne pisanie prac zaliczeniowych",
         "description": "Podaj temat i długość, a praca zostanie wygenerowana w ciągu 5 minut (albo szybciej)."
       },
       "originality": {
@@ -651,7 +720,7 @@
     }
   },
   "ServicesSection": {
-    "title": "Rodzaje generowanych treści",
+    "title": "Rodzaje pisanych prac przez Smart-Edu.AI",
     "footer": "Sprawdź przykładowe prace",
     "services": {
       "articles": {
@@ -697,21 +766,56 @@
     }
   },
   "PricingSection": {
-    "title": "Cennik",
-    "priceFrom": "",
-    "priceUnit": "/ tekst",
+    "title": "Przejrzyste ceny",
+    "subtitle": "Wybierz plan dopasowany do Twoich potrzeb",
+    "popularBadge": "Najpopularniejsze",
+    "priceFrom": "od",
+    "priceUnit": "/ praca",
+    "words": "słów",
+    "cta": "Zamów teraz",
     "discount": "Otrzymuj atrakcyjne zniżki przy większych zamówieniach i doładowaniach konta!",
-    "features": [
-      "Praca licencjacka - ${bachelor}",
-      "Praca magisterska - ${master}",
-      "250 słów - ${price250}",
-      "350 słów - ${price350}",
-      "500 słów - ${price500}",
-      "800-900 słów - ${price800}",
-      "1300 słów - ${price1300}",
-      "+/-2500 słów - ${price2500}"
-    ],
-    "cta": "Utwórz konto"
+    "plans": {
+      "bachelor": {
+        "title": "Praca Licencjacka",
+        "subtitle": "60-90 stron",
+        "features": [
+          "Kompletna praca licencjacka",
+          "Badania i zweryfikowane źródła",
+          "Prawidłowa struktura akademicka",
+          "Bibliografia",
+          "Formaty PDF i DOCX",
+          "Nieograniczona edycja po pobraniu"
+        ]
+      },
+      "master": {
+        "title": "Praca Magisterska",
+        "subtitle": "90-120 stron",
+        "features": [
+          "Kompletna praca magisterska",
+          "Zaawansowane badania i analiza",
+          "Profesjonalna struktura akademicka",
+          "Obszerna bibliografia",
+          "Formaty PDF i DOCX",
+          "Priorytetowe generowanie",
+          "Nieograniczona edycja po pobraniu"
+        ]
+      },
+      "regular": {
+        "title": "Zwykłe Prace",
+        "subtitle": "Eseje, referaty, wypracowania",
+        "features": [
+          "Dowolna długość od 250 słów",
+          "Wszystkie przedmioty akademickie",
+          "Szybkie generowanie w 5 minut",
+          "Zweryfikowane źródła w zestawie",
+          "Formaty PDF i DOCX",
+          "Pełna elastyczność edycji"
+        ]
+      }
+    },
+    "regularPricing": {
+      "title": "Inne prace - ceny według długości"
+    }
   },
   "Auth": {
     "resetPassword": {
@@ -800,7 +904,7 @@
   },
   "Footer": {
     "companyName": "Smart-Edu.AI",
-    "description": "Generator prac pisemnych, domowych, naukowych, zaliczeniowych Smart-Edu.ai - sztuczna inteligencja do pisania zadań.",
+    "description": "Pisanie prac na zamówienie, domowych, naukowych, zaliczeniowych Smart-Edu.ai - sztuczna inteligencja do pisania zadań.",
     "quickLinks": "Szybkie linki",
     "links": {
       "blog": "Blog",
@@ -822,6 +926,10 @@
   },
   "Header": {
     "brandName": "Smart-Edu.AI",
+    "tagline": "Pisanie prac zaliczeniowych",
+    "howItWorks": "Jak to działa",
+    "pricing": "Cennik",
+    "faq": "FAQ",
     "examples": "Przykładowe prace",
     "adminPanel": "Panel Admina",
     "customerPanel": "Wróć do panelu klienta",

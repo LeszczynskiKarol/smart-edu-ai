@@ -1,5 +1,5 @@
 // src/components/services/BenefitsSection.tsx
-'use client'
+'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Clock, FileText, Globe, Award, Download, Edit } from 'lucide-react';
@@ -14,41 +14,44 @@ const BenefitsSection: React.FC = () => {
     {
       title: t('benefits.generation.title'),
       description: t('benefits.generation.description'),
-      Icon: Clock
+      Icon: Clock,
     },
     {
       title: t('benefits.originality.title'),
       description: t('benefits.originality.description'),
-      Icon: FileText
+      Icon: FileText,
     },
     {
       title: t('benefits.versatility.title'),
       description: t('benefits.versatility.description'),
-      Icon: Globe
+      Icon: Globe,
     },
     {
       title: t('benefits.quality.title'),
       description: t('benefits.quality.description'),
-      Icon: Award
+      Icon: Award,
     },
     {
       title: t('benefits.export.title'),
       description: t('benefits.export.description'),
-      Icon: Download
+      Icon: Download,
     },
     {
       title: t('benefits.flexibility.title'),
       description: t('benefits.flexibility.description'),
-      Icon: Edit
-    }
+      Icon: Edit,
+    },
   ];
 
   return (
-    <section className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-blue-50'}`}>
+    <section
+      className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-blue-50'}`}
+    >
       <div className="container mx-auto px-4">
         <motion.h2
-          className={`text-3xl md:text-4xl font-bold text-center mb-12 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}
+          className={`text-3xl md:text-4xl font-bold text-center mb-12 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -59,22 +62,36 @@ const BenefitsSection: React.FC = () => {
           {benefits.map((benefit, index) => (
             <motion.div
               key={index}
-              className={`p-6 rounded-lg shadow-lg ${theme === 'dark'
+              className={`p-6 rounded-lg shadow-lg ${
+                theme === 'dark'
                   ? 'bg-gray-800 bg-opacity-50 backdrop-filter backdrop-blur-lg'
                   : 'bg-white bg-opacity-75 backdrop-filter backdrop-blur-lg'
-                }`}
+              }`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <div className="flex items-center mb-4">
-                <benefit.Icon className={`w-6 h-6 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
-                  } mr-2`} />
-                <h3 className={`text-xl font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>{benefit.title}</h3>
+                <benefit.Icon
+                  className={`w-6 h-6 ${
+                    theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
+                  } mr-2`}
+                />
+                <h3
+                  className={`text-xl font-semibold ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}
+                >
+                  {benefit.title}
+                </h3>
               </div>
-              <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                }`}>{benefit.description}</p>
+              <p
+                className={`${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                }`}
+              >
+                {benefit.description}
+              </p>
             </motion.div>
           ))}
         </div>
