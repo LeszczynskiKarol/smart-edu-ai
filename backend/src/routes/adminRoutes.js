@@ -1,7 +1,7 @@
 // backend/src/routes/adminRoutes.js
 const express = require('express');
 const router = express.Router();
-const adminController = require('../controllers/adminController');
+const adminOrderController = require('../controllers/adminOrderController');
 const auth = require('../middlewares/auth');
 
 // Wszystkie route'y wymagają autoryzacji jako admin
@@ -9,20 +9,20 @@ router.use(auth.protect);
 router.use(auth.authorize('admin'));
 
 // Zamówienia
-router.get('/orders', adminController.getAllOrders);
-router.get('/orders/:orderId', adminController.getOrderById);
-router.put('/orders/:orderId/status', adminController.updateOrderStatus);
-router.post('/orders/:orderId/attach', adminController.attachFileToOrder);
+router.get('/orders', adminOrderController.getAllOrders);
+router.get('/orders/:orderId', adminOrderController.getOrderById);
+router.put('/orders/:orderId/status', adminOrderController.updateOrderStatus);
+router.post('/orders/:orderId/attach', adminOrderController.attachFileToOrder);
 router.delete(
   '/orders/:orderId/attachments/:fileType/:fileIndex',
-  adminController.deleteOrderAttachment
+  adminOrderController.deleteOrderAttachment
 );
 
 // Komentarze do zamówień
-router.get('/orders/:orderId/comments', adminController.getOrderComments);
-router.post('/orders/:orderId/comments', adminController.addOrderComment);
+router.get('/orders/:orderId/comments', adminOrderController.getOrderComments);
+router.post('/orders/:orderId/comments', adminOrderController.addOrderComment);
 
 // Statystyki
-router.get('/stats', adminController.getAdminStats);
+router.get('/stats', adminOrderController.getAdminStats);
 
 module.exports = router;
