@@ -1,9 +1,5 @@
 // backend/src/controllers/makeWebhookController.js
 const Order = require('../models/Order');
-const User = require('../models/User');
-const sendEmail = require('../utils/sendEmail');
-const i18n = require('../../src/config/i18n');
-const { generateEmailTemplate } = require('../utils/emailTemplate');
 
 exports.handleImportPost = async (req, res) => {
   try {
@@ -100,4 +96,3 @@ exports.handleImportPost = async (req, res) => {
     });
   }
 };
-

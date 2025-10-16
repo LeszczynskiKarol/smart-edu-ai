@@ -1,9 +1,18 @@
 // src/app/[locale]/admin/orders/page.tsx
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import ContentGenerationFlow from '@/components/admin/ContentGenerationFlow';
 import Layout from '@/components/layout/Layout';
-import { ChevronDown, ChevronUp, Search, Filter, Paperclip, X, Send } from 'lucide-react';
+import {
+  ChevronDown,
+  ChevronUp,
+  Search,
+  Filter,
+  Paperclip,
+  X,
+  Send,
+} from 'lucide-react';
 
 interface FileUpload {
   file: File | null;
@@ -40,7 +49,6 @@ interface Order {
   }[];
 }
 
-
 interface FileUpload {
   file: File | null;
   uploading: boolean;
@@ -74,9 +82,21 @@ const AdminOrders: React.FC = () => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newStatus, setNewStatus] = useState('');
-  const [pdfFile, setPdfFile] = useState<FileUpload>({ file: null, uploading: false, error: null });
-  const [docxFile, setDocxFile] = useState<FileUpload>({ file: null, uploading: false, error: null });
-  const [imageFile, setImageFile] = useState<FileUpload>({ file: null, uploading: false, error: null });
+  const [pdfFile, setPdfFile] = useState<FileUpload>({
+    file: null,
+    uploading: false,
+    error: null,
+  });
+  const [docxFile, setDocxFile] = useState<FileUpload>({
+    file: null,
+    uploading: false,
+    error: null,
+  });
+  const [imageFile, setImageFile] = useState<FileUpload>({
+    file: null,
+    uploading: false,
+    error: null,
+  });
   const [otherFiles, setOtherFiles] = useState<FileUpload[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
@@ -86,11 +106,14 @@ const AdminOrders: React.FC = () => {
 
   const fetchComments = async (orderId: string) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${orderId}/comments`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${orderId}/comments`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         }
-      });
+      );
       if (response.ok) {
         const data = await response.json();
         setComments(data.data);
@@ -117,7 +140,6 @@ const AdminOrders: React.FC = () => {
     }
   };
 
-
   const handleEditClick = (order: Order) => {
     setSelectedOrder(order);
     setIsEditModalOpen(true);
@@ -127,19 +149,24 @@ const AdminOrders: React.FC = () => {
     try {
       const formData = new FormData();
       formData.append('content', newComment);
-      commentAttachments.forEach(file => formData.append('attachments', file));
+      commentAttachments.forEach((file) =>
+        formData.append('attachments', file)
+      );
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${orderId}/comments`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: formData
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${orderId}/comments`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          body: formData,
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
-        setComments(prevComments => [...prevComments, data.data]);
+        setComments((prevComments) => [...prevComments, data.data]);
         setNewComment('');
         setCommentAttachments([]);
       } else {
@@ -150,29 +177,31 @@ const AdminOrders: React.FC = () => {
     }
   };
 
-
-
   const handleCommentFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    const validFiles = files.filter(file => file.size <= 10 * 1024 * 1024); // 10 MB limit
+    const validFiles = files.filter((file) => file.size <= 10 * 1024 * 1024); // 10 MB limit
     if (validFiles.length + commentAttachments.length > 5) {
       alert('Możesz dodać maksymalnie 5 załączników.');
       return;
     }
-    setCommentAttachments(prev => [...prev, ...validFiles]);
+    setCommentAttachments((prev) => [...prev, ...validFiles]);
   };
 
   const removeCommentAttachment = (index: number) => {
-    setCommentAttachments(prev => prev.filter((_, i) => i !== index));
+    setCommentAttachments((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const { user } = useAuth(); const fetchOrders = async () => {
+  const { user } = useAuth();
+  const fetchOrders = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders`, {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         }
-      });
+      );
       const data = await response.json();
       if (data.success && Array.isArray(data.data)) {
         setOrders(data.data);
@@ -184,17 +213,23 @@ const AdminOrders: React.FC = () => {
     }
   };
 
-  const handleDeleteFile = async (orderId: string, fileType: string, fileIndex: number) => {
+  const handleDeleteFile = async (
+    orderId: string,
+    fileType: string,
+    fileIndex: number
+  ) => {
     if (!confirm('Czy na pewno chcesz usunąć ten plik?')) return;
 
     try {
-
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${orderId}/attachments/${fileType}/${fileIndex}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${orderId}/attachments/${fileType}/${fileIndex}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         }
-      });
+      );
 
       if (response.ok) {
         // Odśwież listę zamówień po usunięciu pliku
@@ -213,10 +248,11 @@ const AdminOrders: React.FC = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredAndSearchedOrders = filteredOrders.filter(order =>
-    order._id.includes(searchTerm) ||
-    order.user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    order.user.email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredAndSearchedOrders = filteredOrders.filter(
+    (order) =>
+      order._id.includes(searchTerm) ||
+      order.user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const toggleOrderExpansion = (orderId: string) => {
@@ -228,8 +264,6 @@ const AdminOrders: React.FC = () => {
     }
   };
 
-
-
   useEffect(() => {
     if (user && user.role === 'admin') {
       fetchOrders();
@@ -237,8 +271,8 @@ const AdminOrders: React.FC = () => {
   }, [user]);
 
   useEffect(() => {
-    const filtered = orders.filter(order =>
-      statusFilter === 'all' || order.status === statusFilter
+    const filtered = orders.filter(
+      (order) => statusFilter === 'all' || order.status === statusFilter
     );
     const sorted = [...filtered].sort((a, b) => {
       const aValue = a[sortField];
@@ -262,17 +296,19 @@ const AdminOrders: React.FC = () => {
       formData.append('status', newStatus);
 
       if (newStatus === 'zakończone') {
-        selectedFiles.forEach(file => formData.append('files', file));
+        selectedFiles.forEach((file) => formData.append('files', file));
       }
 
-
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${selectedOrder._id}/status`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: formData
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${selectedOrder._id}/status`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          body: formData,
+        }
+      );
       if (response.ok) {
         await fetchOrders();
         setIsStatusModalOpen(false);
@@ -297,8 +333,10 @@ const AdminOrders: React.FC = () => {
     }
   };
 
-
-  const handleFileUpload = async (fileType: 'pdf' | 'docx' | 'image' | 'other', file: File) => {
+  const handleFileUpload = async (
+    fileType: 'pdf' | 'docx' | 'image' | 'other',
+    file: File
+  ) => {
     if (!selectedOrder || !file) return;
 
     const formData = new FormData();
@@ -306,14 +344,16 @@ const AdminOrders: React.FC = () => {
     formData.append('fileType', fileType);
 
     try {
-
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${selectedOrder._id}/attach`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: formData
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${selectedOrder._id}/attach`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -335,7 +375,7 @@ const AdminOrders: React.FC = () => {
             setImageFile({ file: null, uploading: false, error: null });
             break;
           case 'other':
-            setOtherFiles(prev => prev.filter(f => f.file !== file));
+            setOtherFiles((prev) => prev.filter((f) => f.file !== file));
             break;
         }
       } else {
@@ -346,22 +386,40 @@ const AdminOrders: React.FC = () => {
       // Set error state
       switch (fileType) {
         case 'pdf':
-          setPdfFile(prev => ({ ...prev, error: 'Błąd podczas przesyłania pliku PDF' }));
+          setPdfFile((prev) => ({
+            ...prev,
+            error: 'Błąd podczas przesyłania pliku PDF',
+          }));
           break;
         case 'docx':
-          setDocxFile(prev => ({ ...prev, error: 'Błąd podczas przesyłania pliku DOCX' }));
+          setDocxFile((prev) => ({
+            ...prev,
+            error: 'Błąd podczas przesyłania pliku DOCX',
+          }));
           break;
         case 'image':
-          setImageFile(prev => ({ ...prev, error: 'Błąd podczas przesyłania obrazu' }));
+          setImageFile((prev) => ({
+            ...prev,
+            error: 'Błąd podczas przesyłania obrazu',
+          }));
           break;
         case 'other':
-          setOtherFiles(prev => prev.map(f => f.file === file ? { ...f, error: 'Błąd podczas przesyłania pliku' } : f));
+          setOtherFiles((prev) =>
+            prev.map((f) =>
+              f.file === file
+                ? { ...f, error: 'Błąd podczas przesyłania pliku' }
+                : f
+            )
+          );
           break;
       }
     }
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, fileType: 'pdf' | 'docx' | 'image' | 'other') => {
+  const handleFileChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    fileType: 'pdf' | 'docx' | 'image' | 'other'
+  ) => {
     const file = event.target.files?.[0] || null;
     switch (fileType) {
       case 'pdf':
@@ -375,14 +433,19 @@ const AdminOrders: React.FC = () => {
         break;
       case 'other':
         if (file) {
-          setOtherFiles(prev => [...prev, { file, uploading: false, error: null }]);
+          setOtherFiles((prev) => [
+            ...prev,
+            { file, uploading: false, error: null },
+          ]);
         }
         break;
     }
   };
 
-
-  const renderFileUploadSection = (fileType: 'pdf' | 'docx' | 'image' | 'other', label: string) => {
+  const renderFileUploadSection = (
+    fileType: 'pdf' | 'docx' | 'image' | 'other',
+    label: string
+  ) => {
     let fileState: FileUpload;
     let setFileState: React.Dispatch<React.SetStateAction<FileUpload>>;
 
@@ -402,7 +465,9 @@ const AdminOrders: React.FC = () => {
       case 'other':
         return (
           <div key={fileType} className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              {label}
+            </label>
             <input
               type="file"
               onChange={(e) => handleFileChange(e, 'other')}
@@ -419,7 +484,9 @@ const AdminOrders: React.FC = () => {
                 >
                   {file.uploading ? 'Przesyłanie...' : 'Prześlij'}
                 </button>
-                {file.error && <span className="text-red-500 ml-2">{file.error}</span>}
+                {file.error && (
+                  <span className="text-red-500 ml-2">{file.error}</span>
+                )}
               </div>
             ))}
           </div>
@@ -428,11 +495,21 @@ const AdminOrders: React.FC = () => {
 
     return (
       <div key={fileType} className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          {label}
+        </label>
         <input
           type="file"
           onChange={(e) => handleFileChange(e, fileType)}
-          accept={fileType === 'pdf' ? '.pdf' : fileType === 'docx' ? '.docx' : fileType === 'image' ? 'image/*' : undefined}
+          accept={
+            fileType === 'pdf'
+              ? '.pdf'
+              : fileType === 'docx'
+                ? '.docx'
+                : fileType === 'image'
+                  ? 'image/*'
+                  : undefined
+          }
           className="w-full p-2 border rounded mb-2"
         />
         {fileState.file && (
@@ -447,7 +524,9 @@ const AdminOrders: React.FC = () => {
             </button>
           </div>
         )}
-        {fileState.error && <p className="text-red-500 mt-1">{fileState.error}</p>}
+        {fileState.error && (
+          <p className="text-red-500 mt-1">{fileState.error}</p>
+        )}
       </div>
     );
   };
@@ -485,18 +564,37 @@ const AdminOrders: React.FC = () => {
         <table className="min-w-full bg-white border-collapse">
           <thead>
             <tr className="bg-gray-100">
-              <th className="py-2 px-4 border cursor-pointer" onClick={() => handleSort('_id')}>
-                ID / Numer zamówienia {sortField === '_id' && (sortDirection === 'asc' ? '↑' : '↓')}
+              <th
+                className="py-2 px-4 border cursor-pointer"
+                onClick={() => handleSort('_id')}
+              >
+                ID / Numer zamówienia{' '}
+                {sortField === '_id' && (sortDirection === 'asc' ? '↑' : '↓')}
               </th>
               <th className="py-2 px-4 border">Klient</th>
-              <th className="py-2 px-4 border cursor-pointer" onClick={() => handleSort('createdAt')}>
-                Data i godzina {sortField === 'createdAt' && (sortDirection === 'asc' ? '↑' : '↓')}
+              <th
+                className="py-2 px-4 border cursor-pointer"
+                onClick={() => handleSort('createdAt')}
+              >
+                Data i godzina{' '}
+                {sortField === 'createdAt' &&
+                  (sortDirection === 'asc' ? '↑' : '↓')}
               </th>
-              <th className="py-2 px-4 border cursor-pointer" onClick={() => handleSort('status')}>
-                Status {sortField === 'status' && (sortDirection === 'asc' ? '↑' : '↓')}
+              <th
+                className="py-2 px-4 border cursor-pointer"
+                onClick={() => handleSort('status')}
+              >
+                Status{' '}
+                {sortField === 'status' &&
+                  (sortDirection === 'asc' ? '↑' : '↓')}
               </th>
-              <th className="py-2 px-4 border cursor-pointer" onClick={() => handleSort('totalPrice')}>
-                Cena {sortField === 'totalPrice' && (sortDirection === 'asc' ? '↑' : '↓')}
+              <th
+                className="py-2 px-4 border cursor-pointer"
+                onClick={() => handleSort('totalPrice')}
+              >
+                Cena{' '}
+                {sortField === 'totalPrice' &&
+                  (sortDirection === 'asc' ? '↑' : '↓')}
               </th>
               <th className="py-2 px-4 border">Ostatnia aktualizacja</th>
               <th className="py-2 px-4 border">Notatki admina</th>
@@ -510,12 +608,16 @@ const AdminOrders: React.FC = () => {
                   <td className="py-2 px-4 border">
                     {order._id}
                     <br />
-                    <span className="text-sm text-gray-500">#{order._id.slice(-6)}</span>
+                    <span className="text-sm text-gray-500">
+                      #{order._id.slice(-6)}
+                    </span>
                   </td>
                   <td className="py-2 px-4 border">
                     {order.user?.name || 'N/A'}
                     <br />
-                    <span className="text-sm text-gray-500">{order.user?.email}</span>
+                    <span className="text-sm text-gray-500">
+                      {order.user?.email}
+                    </span>
                   </td>
                   <td className="py-2 px-4 border">
                     {new Date(order.createdAt).toLocaleDateString()}
@@ -525,19 +627,31 @@ const AdminOrders: React.FC = () => {
                     </span>
                   </td>
                   <td className="py-2 px-4 border">
-                    <span className={`px-2 py-1 rounded ${order.status === 'zakończone' ? 'bg-green-200 text-green-800' :
-                      order.status === 'w trakcie' ? 'bg-yellow-200 text-yellow-800' :
-                        order.status === 'anulowane' ? 'bg-red-200 text-red-800' :
-                          'bg-gray-200 text-gray-800'
-                      }`}>
+                    <span
+                      className={`px-2 py-1 rounded ${
+                        order.status === 'zakończone'
+                          ? 'bg-green-200 text-green-800'
+                          : order.status === 'w trakcie'
+                            ? 'bg-yellow-200 text-yellow-800'
+                            : order.status === 'anulowane'
+                              ? 'bg-red-200 text-red-800'
+                              : 'bg-gray-200 text-gray-800'
+                      }`}
+                    >
                       {order.status}
                     </span>
                   </td>
-                  <td className="py-2 px-4 border">{order.totalPrice.toFixed(2)} zł</td>
                   <td className="py-2 px-4 border">
-                    {order.lastUpdated ? new Date(order.lastUpdated).toLocaleString() : 'N/A'}
+                    {order.totalPrice.toFixed(2)} zł
                   </td>
-                  <td className="py-2 px-4 border">{order.adminNotes || 'Brak'}</td>
+                  <td className="py-2 px-4 border">
+                    {order.lastUpdated
+                      ? new Date(order.lastUpdated).toLocaleString()
+                      : 'N/A'}
+                  </td>
+                  <td className="py-2 px-4 border">
+                    {order.adminNotes || 'Brak'}
+                  </td>
                   <td className="py-2 px-4 border">
                     <button
                       onClick={() => handleEditClick(order)}
@@ -549,22 +663,32 @@ const AdminOrders: React.FC = () => {
                       onClick={() => toggleOrderExpansion(order._id)}
                       className="bg-gray-200 text-gray-700 px-2 py-1 rounded"
                     >
-                      {expandedOrder === order._id ? <ChevronUp /> : <ChevronDown />}
+                      {expandedOrder === order._id ? (
+                        <ChevronUp />
+                      ) : (
+                        <ChevronDown />
+                      )}
                     </button>
                   </td>
                 </tr>
                 {expandedOrder === order._id && (
                   <tr>
                     <td colSpan={8} className="py-4 px-4 border bg-gray-50">
-
-
-                      <h4 className="font-semibold mb-2">Szczegóły zamówienia:</h4>
+                      <h4 className="font-semibold mb-2">
+                        Szczegóły zamówienia:
+                      </h4>
                       <ul className="space-y-2">
                         {order.items.map((item, index) => (
                           <li key={index} className="flex flex-col">
-                            <div>Temat: <span className="font-medium">{item.topic}</span></div>
+                            <div>
+                              Temat:{' '}
+                              <span className="font-medium">{item.topic}</span>
+                            </div>
                             <div className="ml-6 text-sm text-gray-600">
-                              <span>{item.length} znaków - {item.price.toFixed(2).replace('.', ',')} zł</span>
+                              <span>
+                                {item.length} znaków -{' '}
+                                {item.price.toFixed(2).replace('.', ',')} zł
+                              </span>
                               <br />
                               <span className="bg-gray-200 px-2 py-1 rounded mr-2">
                                 Język: {item.language}
@@ -575,7 +699,9 @@ const AdminOrders: React.FC = () => {
                               {item.guidelines && (
                                 <div className="mt-2">
                                   <strong>Wytyczne:</strong>
-                                  <p className="bg-gray-100 p-2 rounded">{item.guidelines}</p>
+                                  <p className="bg-gray-100 p-2 rounded">
+                                    {item.guidelines}
+                                  </p>
                                 </div>
                               )}
                             </div>
@@ -584,64 +710,114 @@ const AdminOrders: React.FC = () => {
                       </ul>
 
                       <div className="mt-4">
-                        <p><strong>Całkowita cena:</strong> {order.totalPrice.toFixed(2).replace('.', ',')} zł</p>
-                        <p><strong>Status płatności:</strong> {order.paymentStatus}</p>
-                        <p><strong>Data utworzenia:</strong> {new Date(order.createdAt).toLocaleString()}</p>
-                        <p><strong>Termin realizacji:</strong> {new Date(order.declaredDeliveryDate).toLocaleString()}</p>
+                        <p>
+                          <strong>Całkowita cena:</strong>{' '}
+                          {order.totalPrice.toFixed(2).replace('.', ',')} zł
+                        </p>
+                        <p>
+                          <strong>Status płatności:</strong>{' '}
+                          {order.paymentStatus}
+                        </p>
+                        <p>
+                          <strong>Data utworzenia:</strong>{' '}
+                          {new Date(order.createdAt).toLocaleString()}
+                        </p>
+                        <p>
+                          <strong>Termin realizacji:</strong>{' '}
+                          {new Date(
+                            order.declaredDeliveryDate
+                          ).toLocaleString()}
+                        </p>
                       </div>
 
-                      {order.userAttachments && order.userAttachments.map((attachment, index) => (
-                        <div key={index} className="mb-1">
-
-                          <a href={attachment.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline"
-                          >
-                            {attachment.filename}
-                          </a>
-                        </div>
-                      ))}
+                      {order.userAttachments &&
+                        order.userAttachments.map((attachment, index) => (
+                          <div key={index} className="mb-1">
+                            <a
+                              href={attachment.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-blue-600 hover:underline"
+                            >
+                              {attachment.filename}
+                            </a>
+                          </div>
+                        ))}
                       <h4 className="font-semibold mb-2">Załączone pliki:</h4>
                       <div className="grid grid-cols-4 gap-4">
                         {['pdf', 'docx', 'image', 'other'].map((fileType) => (
-                          <div key={fileType} className="bg-white p-2 rounded shadow">
-                            <h5 className="font-semibold capitalize mb-1">{fileType}:</h5>
-                            {order.attachments && order.attachments[fileType] ? (
+                          <div
+                            key={fileType}
+                            className="bg-white p-2 rounded shadow"
+                          >
+                            <h5 className="font-semibold capitalize mb-1">
+                              {fileType}:
+                            </h5>
+                            {order.attachments &&
+                            order.attachments[fileType] ? (
                               <ul>
                                 {Array.isArray(order.attachments[fileType]) ? (
-                                  order.attachments[fileType].map((file, index) => (
-                                    <li key={index} className="text-sm flex justify-between items-center">
-                                      <div>
-                                        <a href={file.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-                                          {file.filename}
-                                        </a>
-                                        <br />
-                                        <span className="text-xs text-gray-500">
-                                          Dodano: {new Date(file.uploadDate).toLocaleString()}
-                                        </span>
-                                      </div>
-                                      <button
-                                        onClick={() => handleDeleteFile(order._id, fileType, index)}
-                                        className="text-red-500 hover:text-red-700"
+                                  order.attachments[fileType].map(
+                                    (file, index) => (
+                                      <li
+                                        key={index}
+                                        className="text-sm flex justify-between items-center"
                                       >
-                                        Usuń
-                                      </button>
-                                    </li>
-                                  ))
+                                        <div>
+                                          <a
+                                            href={file.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-500 hover:underline"
+                                          >
+                                            {file.filename}
+                                          </a>
+                                          <br />
+                                          <span className="text-xs text-gray-500">
+                                            Dodano:{' '}
+                                            {new Date(
+                                              file.uploadDate
+                                            ).toLocaleString()}
+                                          </span>
+                                        </div>
+                                        <button
+                                          onClick={() =>
+                                            handleDeleteFile(
+                                              order._id,
+                                              fileType,
+                                              index
+                                            )
+                                          }
+                                          className="text-red-500 hover:text-red-700"
+                                        >
+                                          Usuń
+                                        </button>
+                                      </li>
+                                    )
+                                  )
                                 ) : (
                                   <li className="text-sm flex justify-between items-center">
                                     <div>
-                                      <a href={order.attachments[fileType].url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+                                      <a
+                                        href={order.attachments[fileType].url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-500 hover:underline"
+                                      >
                                         {order.attachments[fileType].filename}
                                       </a>
                                       <br />
                                       <span className="text-xs text-gray-500">
-                                        Dodano: {new Date(order.attachments[fileType].uploadDate).toLocaleString()}
+                                        Dodano:{' '}
+                                        {new Date(
+                                          order.attachments[fileType].uploadDate
+                                        ).toLocaleString()}
                                       </span>
                                     </div>
                                     <button
-                                      onClick={() => handleDeleteFile(order._id, fileType, 0)}
+                                      onClick={() =>
+                                        handleDeleteFile(order._id, fileType, 0)
+                                      }
                                       className="text-red-500 hover:text-red-700"
                                     >
                                       Usuń
@@ -650,30 +826,44 @@ const AdminOrders: React.FC = () => {
                                 )}
                               </ul>
                             ) : (
-                              <p className="text-sm text-gray-500">Brak plików</p>
+                              <p className="text-sm text-gray-500">
+                                Brak plików
+                              </p>
                             )}
                           </div>
                         ))}
-
                       </div>
                       <div className="mt-6">
                         <h4 className="font-semibold mb-2">Komentarze:</h4>
                         <div className="space-y-2">
-                          {comments.map(comment => (
-                            <div key={comment._id} className="bg-white p-3 rounded shadow">
-                              <p className="font-semibold">{comment.user.name} ({new Date(comment.createdAt).toLocaleString()})</p>
+                          {comments.map((comment) => (
+                            <div
+                              key={comment._id}
+                              className="bg-white p-3 rounded shadow"
+                            >
+                              <p className="font-semibold">
+                                {comment.user.name} (
+                                {new Date(comment.createdAt).toLocaleString()})
+                              </p>
                               <p>{comment.content}</p>
                               {comment.attachments.length > 0 && (
                                 <div className="mt-2">
                                   <p className="font-semibold">Załączniki:</p>
                                   <ul>
-                                    {comment.attachments.map((attachment, index) => (
-                                      <li key={index}>
-                                        <a href={attachment.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
-                                          {attachment.filename}
-                                        </a>
-                                      </li>
-                                    ))}
+                                    {comment.attachments.map(
+                                      (attachment, index) => (
+                                        <li key={index}>
+                                          <a
+                                            href={attachment.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-500 hover:underline"
+                                          >
+                                            {attachment.filename}
+                                          </a>
+                                        </li>
+                                      )
+                                    )}
                                   </ul>
                                 </div>
                               )}
@@ -696,16 +886,27 @@ const AdminOrders: React.FC = () => {
                                 className="hidden"
                                 id="comment-file-upload"
                               />
-                              <label htmlFor="comment-file-upload" className="cursor-pointer bg-gray-200 text-gray-700 px-4 py-2 rounded-md flex items-center hover:bg-gray-300 transition-colors">
-                                <Paperclip className="mr-2" size={18} /> Dodaj załączniki
+                              <label
+                                htmlFor="comment-file-upload"
+                                className="cursor-pointer bg-gray-200 text-gray-700 px-4 py-2 rounded-md flex items-center hover:bg-gray-300 transition-colors"
+                              >
+                                <Paperclip className="mr-2" size={18} /> Dodaj
+                                załączniki
                               </label>
                               <div className="mt-2 space-y-2">
                                 {commentAttachments.map((file, index) => (
-                                  <div key={index} className="flex items-center space-x-2 text-sm bg-gray-100 p-2 rounded">
+                                  <div
+                                    key={index}
+                                    className="flex items-center space-x-2 text-sm bg-gray-100 p-2 rounded"
+                                  >
                                     <Paperclip size={14} />
-                                    <span className="flex-grow truncate">{file.name}</span>
+                                    <span className="flex-grow truncate">
+                                      {file.name}
+                                    </span>
                                     <button
-                                      onClick={() => removeCommentAttachment(index)}
+                                      onClick={() =>
+                                        removeCommentAttachment(index)
+                                      }
                                       className="text-gray-500 hover:text-red-500 transition-colors"
                                     >
                                       <X size={14} />
@@ -723,6 +924,20 @@ const AdminOrders: React.FC = () => {
                           </div>
                         </div>
                       </div>
+                      <div className="mt-6">
+                        <h4 className="font-semibold mb-2">
+                          Przepływ generowania treści:
+                        </h4>
+                        <div
+                          className="bg-white rounded-lg shadow-lg"
+                          style={{ height: '600px' }}
+                        >
+                          <ContentGenerationFlow
+                            orderId={order._id}
+                            itemId={order.items[0]?._id}
+                          />
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 )}
@@ -730,7 +945,6 @@ const AdminOrders: React.FC = () => {
             ))}
           </tbody>
         </table>
-
 
         {isEditModalOpen && selectedOrder && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
@@ -765,7 +979,9 @@ const AdminOrders: React.FC = () => {
         {isStatusModalOpen && selectedOrder && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
             <div className="bg-white p-6 rounded-lg w-full max-w-md">
-              <h3 className="text-lg font-medium mb-4">Zmień status zamówienia</h3>
+              <h3 className="text-lg font-medium mb-4">
+                Zmień status zamówienia
+              </h3>
               <select
                 value={newStatus}
                 onChange={(e) => setNewStatus(e.target.value)}
@@ -780,7 +996,14 @@ const AdminOrders: React.FC = () => {
               {newStatus === 'zakończone' && (
                 <div className="mb-4">
                   <p className="mb-2">Dodaj pliki do wysłania:</p>
-                  <input type="file" multiple onChange={(e) => setSelectedFiles(Array.from(e.target.files || []))} className="w-full" />
+                  <input
+                    type="file"
+                    multiple
+                    onChange={(e) =>
+                      setSelectedFiles(Array.from(e.target.files || []))
+                    }
+                    className="w-full"
+                  />
                 </div>
               )}
               <div className="flex justify-end">
@@ -804,7 +1027,9 @@ const AdminOrders: React.FC = () => {
         {isFileModalOpen && selectedOrder && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center overflow-y-auto">
             <div className="bg-white p-6 rounded-lg w-full max-w-2xl">
-              <h3 className="text-lg font-medium mb-4">Dodaj pliki do zamówienia</h3>
+              <h3 className="text-lg font-medium mb-4">
+                Dodaj pliki do zamówienia
+              </h3>
               {renderFileUploadSection('pdf', 'Plik PDF')}
               {renderFileUploadSection('docx', 'Plik DOCX')}
               {renderFileUploadSection('image', 'Grafika')}
@@ -820,8 +1045,6 @@ const AdminOrders: React.FC = () => {
             </div>
           </div>
         )}
-
-
       </div>
     </Layout>
   );

@@ -11,6 +11,7 @@ const multer = require('multer');
 const errorHandler = require('./src/middlewares/errorHandler');
 const makeWebhookRoutes = require('./src/routes/makeWebhookRoutes');
 const userRoutes = require('./src/routes/userRoutes');
+const contentGenerationRoutes = require('./src/routes/contentGenerationRoutes');
 const workTypeRoutes = require('./src/routes/workTypeRoutes');
 const workTypePageRoutes = require('./src/routes/workTypePageRoutes');
 const paperRoutes = require('./src/routes/paperRoutes');
@@ -30,6 +31,25 @@ const exampleRoutes = require('./src/routes/exampleRoutes');
 const app = express();
 const server = http.createServer(app);
 
+const io = require('socket.io')(server, {
+  cors: {
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    methods: ['GET', 'POST'],
+  },
+});
+
+// Zapisz io w app dla dostępu z controllerów
+app.set('io', io);
+
+// WebSocket connection handling
+io.on('connection', (socket) => {
+  console.log('Client connected:', socket.id);
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected:', socket.id);
+  });
+});
+
 app.use(cookieParser());
 app.use(helmet());
 
@@ -44,6 +64,8 @@ app.use(
       'https://piszemy.com.pl.s3.eu-north-1.amazonaws.com',
       'https://app-reactapp.ngrok.app',
       'https://server-reactapp.ngrok.app',
+      'https://www.smart-edu.ai',
+      'https://smart-edu.ai',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'stripe-signature'],
@@ -79,6 +101,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/examples', exampleRoutes);
 app.use('/api/articles', require('./src/routes/articleRoutes'));
 app.use('/api/categories', require('./src/routes/categoryRoutes'));
+app.use('/api/content', contentGenerationRoutes);
 app.use('/api/orders', require('./src/routes/orderRoutes'));
 app.use('/api/notifications', require('./src/routes/notificationRoutes'));
 app.use('/api/messages', require('./src/routes/messageRoutes'));
