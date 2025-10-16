@@ -106,13 +106,32 @@ exports.updateOrderStatus = async (req, res) => {
       order.status = status;
       order.lastUpdated = new Date();
 
+      // DODANE: Aktualizuj status WSZYSTKICH itemów
+      if (status === 'zakończone') {
+        order.items.forEach((item) => {
+          item.status = 'zakończone';
+        });
+      } else if (status === 'w trakcie') {
+        order.items.forEach((item) => {
+          if (item.status === 'oczekujące') {
+            item.status = 'w trakcie';
+            if (!item.startTime) {
+              item.startTime = new Date();
+            }
+          }
+        });
+      } else if (status === 'anulowane') {
+        order.items.forEach((item) => {
+          item.status = 'oczekujące';
+        });
+      }
+
       // Jeśli załączono pliki do zamówienia zakończonego
       if (req.file && status === 'zakończone') {
         const fileExtension = path.extname(req.file.originalname);
         const fileName = `order-${orderId}-${Date.now()}${fileExtension}`;
         const s3Key = `orders/${orderId}/completed/${fileName}`;
 
-        // Upload do S3
         const uploadParams = {
           Bucket: process.env.AWS_S3_BUCKET_NAME,
           Key: s3Key,
@@ -124,7 +143,6 @@ exports.updateOrderStatus = async (req, res) => {
 
         const fileUrl = `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${s3Key}`;
 
-        // Dodaj do attachments
         if (!order.attachments) {
           order.attachments = {};
         }
@@ -139,19 +157,6 @@ exports.updateOrderStatus = async (req, res) => {
       }
 
       await order.save();
-
-      {
-        /*{
-         Wyślij powiadomienie przez Socket.IO
-      const io = req.app.get('io');
-      if (io) {
-        io.emit('orderStatusUpdated', {
-          orderId: order._id,
-          status: order.status,
-        });
-      
-      }*/
-      }
 
       return res.status(200).json({
         success: true,

@@ -39,7 +39,10 @@ export const useOrderStatus = (
   const [error, setError] = useState<Error | null>(null);
   const [lastPollTime, setLastPollTime] = useState(0);
 
-  const POLLING_INTERVAL = 10000;
+  // DODANE: Dynamiczny interval pollingu
+  const [currentPollingInterval, setCurrentPollingInterval] = useState(10000);
+  const FAST_POLLING = 3000; // Dla zamówień w trakcie
+  const SLOW_POLLING = 10000; // Dla zakończonych
   const POLLING_COOLDOWN = 2000;
 
   const setOrders = useCallback((orders: Order[]) => {
@@ -98,13 +101,17 @@ export const useOrderStatus = (
               items: filteredItems,
             };
           })
-          .filter((order: Order) => {
-            const hasItems = order.items.length > 0;
-
-            return hasItems;
-          });
+          .filter((order: Order) => order.items.length > 0);
 
         setActiveOrders(filteredOrders);
+
+        // DODANE: Ustaw szybszy polling jeśli są zamówienia w trakcie
+        const hasInProgressItems = filteredOrders.some((order: Order) =>
+          order.items.some((item: OrderItem) => item.status === 'w trakcie')
+        );
+        setCurrentPollingInterval(
+          hasInProgressItems ? FAST_POLLING : SLOW_POLLING
+        );
 
         const newVisible: Set<string> = new Set(
           filteredOrders.map((order: Order) => order._id)
@@ -159,12 +166,13 @@ export const useOrderStatus = (
 
   const refreshOrders = useCallback(() => fetchOrders(), [fetchOrders]);
 
+  // ZMIENIONE: Używa dynamicznego intervalu
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null;
 
     if (isPolling) {
       fetchOrders();
-      intervalId = setInterval(fetchOrders, POLLING_INTERVAL);
+      intervalId = setInterval(fetchOrders, currentPollingInterval);
     }
 
     return () => {
@@ -172,8 +180,9 @@ export const useOrderStatus = (
         clearInterval(intervalId);
       }
     };
-  }, [isPolling, fetchOrders]);
+  }, [isPolling, fetchOrders, currentPollingInterval]);
 
+  // ZACHOWANE: Automatyczne start/stop pollingu
   useEffect(() => {
     const hasInProgressOrders = activeOrders.some((order) =>
       order.items.some((item) => item.status === 'w trakcie')
@@ -186,9 +195,10 @@ export const useOrderStatus = (
     }
   }, [activeOrders, isPolling, startPolling, stopPolling]);
 
+  // ZACHOWANE: Początkowe fetch
   useEffect(() => {
     fetchOrders();
-  }, [fetchOrders]);
+  }, []);
 
   const hideOrderItem = useCallback(
     async (orderId: string, itemId: string) => {
@@ -196,7 +206,6 @@ export const useOrderStatus = (
         const token = localStorage.getItem('token');
         if (!token) throw new Error('No authentication token found');
 
-        // Tymczasowo ukrywamy w localStorage do czasu odświeżenia z backendu
         localStorage.setItem(`order-item-${itemId}-hidden`, 'true');
 
         const response = await fetch(
@@ -216,10 +225,7 @@ export const useOrderStatus = (
           throw new Error(errorData.message || 'Failed to hide item');
         }
 
-        // Po udanym ukryciu w bazie, odświeżamy dane
         await fetchOrders();
-
-        // Możemy usunąć wpis z localStorage, bo teraz mamy już zaktualizowane dane z bazy
         localStorage.removeItem(`order-item-${itemId}-hidden`);
       } catch (error) {
         console.error('Error hiding order item:', error);
