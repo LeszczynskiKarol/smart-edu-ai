@@ -41,6 +41,12 @@ interface UserDetails {
   stats: {
     totalOrders: number;
     totalSpent: number;
+    payments: {
+      totalPayments: number;
+      totalPaid: number;
+      totalTopUps: number;
+      totalOrderPayments: number;
+    };
   };
   recentOrders: Array<{
     _id: string;
@@ -48,6 +54,16 @@ interface UserDetails {
     totalPrice: number;
     status: string;
     createdAt: string;
+  }>;
+  recentPayments: Array<{
+    _id: string;
+    type: string;
+    paidAmount: number;
+    currency: string;
+    createdAt: string;
+    relatedOrder?: {
+      orderNumber: string;
+    };
   }>;
 }
 
@@ -209,7 +225,7 @@ export default function UserDetailsPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-6">
         <div
           className={`p-6 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
         >
@@ -235,7 +251,22 @@ export default function UserDetailsPage() {
             <ShoppingCart className="text-blue-500" size={32} />
           </div>
         </div>
-
+        <div
+          className={`p-6 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-500">Zapłacone</p>
+              <p className="text-2xl font-bold text-green-600">
+                {stats.payments.totalPaid.toFixed(2)} PLN
+              </p>
+              <p className="text-xs text-gray-500 mt-1">
+                {stats.payments.totalPayments} płatności
+              </p>
+            </div>
+            <CheckCircle className="text-green-500" size={32} />
+          </div>
+        </div>
         <div
           className={`p-6 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
         >
@@ -338,6 +369,69 @@ export default function UserDetailsPage() {
               </div>
             </div>
           )}
+      </div>
+      {/* Recent Payments */}
+      <div
+        className={`p-6 rounded-lg shadow mb-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+      >
+        <h2 className="text-xl font-bold mb-4">Ostatnie płatności</h2>
+        {recentPayments && recentPayments.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead
+                className={theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'}
+              >
+                <tr>
+                  <th className="px-4 py-2 text-left text-sm">Data</th>
+                  <th className="px-4 py-2 text-left text-sm">Typ</th>
+                  <th className="px-4 py-2 text-left text-sm">Kwota</th>
+                  <th className="px-4 py-2 text-left text-sm">Powiązane</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                {recentPayments.map((payment) => (
+                  <tr key={payment._id}>
+                    <td className="px-4 py-3 text-sm">
+                      {formatDate(payment.createdAt)}
+                    </td>
+                    <td className="px-4 py-3 text-sm">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs ${
+                          payment.type === 'top_up'
+                            ? 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+                            : 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
+                        }`}
+                      >
+                        {payment.type === 'top_up' ? 'Doładowanie' : 'Płatność'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-sm font-medium text-green-600">
+                      {payment.paidAmount.toFixed(2)} {payment.currency}
+                    </td>
+                    <td className="px-4 py-3 text-sm">
+                      {payment.relatedOrder ? (
+                        <button
+                          onClick={() =>
+                            router.push(
+                              `/admin/orders/${payment.relatedOrder?._id}`
+                            )
+                          }
+                          className="text-blue-600 hover:text-blue-800"
+                        >
+                          #{payment.relatedOrder.orderNumber}
+                        </button>
+                      ) : (
+                        <span className="text-gray-400">-</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="text-gray-500">Brak płatności</p>
+        )}
       </div>
 
       {/* Recent Orders */}

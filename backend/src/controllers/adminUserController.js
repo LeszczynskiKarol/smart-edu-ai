@@ -51,6 +51,7 @@ exports.getAllUsers = async (req, res) => {
     // Pobierz statystyki dla każdego użytkownika
     const usersWithStats = await Promise.all(
       users.map(async (user) => {
+        // Statystyki zamówień
         const orderStats = await Order.aggregate([
           { $match: { user: user._id } },
           {
@@ -62,9 +63,48 @@ exports.getAllUsers = async (req, res) => {
           },
         ]);
 
+        // NOWE - Statystyki płatności
+        const paymentStats = await Payment.aggregate([
+          {
+            $match: {
+              user: user._id,
+              status: 'completed', // tylko ukończone płatności
+            },
+          },
+          {
+            $group: {
+              _id: null,
+              totalPayments: { $sum: 1 },
+              totalPaid: { $sum: '$paidAmount' }, // suma zapłaconych kwot
+              totalTopUps: {
+                $sum: {
+                  $cond: [{ $eq: ['$type', 'top_up'] }, '$paidAmount', 0],
+                },
+              },
+              totalOrderPayments: {
+                $sum: {
+                  $cond: [
+                    { $eq: ['$type', 'order_payment'] },
+                    '$paidAmount',
+                    0,
+                  ],
+                },
+              },
+            },
+          },
+        ]);
+
         return {
           ...user,
-          stats: orderStats[0] || { totalOrders: 0, totalSpent: 0 },
+          stats: {
+            ...(orderStats[0] || { totalOrders: 0, totalSpent: 0 }),
+            payments: paymentStats[0] || {
+              totalPayments: 0,
+              totalPaid: 0,
+              totalTopUps: 0,
+              totalOrderPayments: 0,
+            },
+          },
         };
       })
     );
@@ -102,7 +142,7 @@ exports.getUserById = async (req, res) => {
       });
     }
 
-    // Pobierz statystyki
+    // Pobierz statystyki zamówień
     const orderStats = await Order.aggregate([
       { $match: { user: user._id } },
       {
@@ -114,6 +154,43 @@ exports.getUserById = async (req, res) => {
       },
     ]);
 
+    // NOWE - Pobierz statystyki płatności
+    const paymentStats = await Payment.aggregate([
+      {
+        $match: {
+          user: user._id,
+          status: 'completed',
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalPayments: { $sum: 1 },
+          totalPaid: { $sum: '$paidAmount' },
+          totalTopUps: {
+            $sum: {
+              $cond: [{ $eq: ['$type', 'top_up'] }, '$paidAmount', 0],
+            },
+          },
+          totalOrderPayments: {
+            $sum: {
+              $cond: [{ $eq: ['$type', 'order_payment'] }, '$paidAmount', 0],
+            },
+          },
+        },
+      },
+    ]);
+
+    // NOWE - Pobierz ostatnie płatności
+    const recentPayments = await Payment.find({
+      user: user._id,
+      status: 'completed',
+    })
+      .sort('-createdAt')
+      .limit(10)
+      .select('type paidAmount currency createdAt stripeSessionId')
+      .populate('relatedOrder', 'orderNumber');
+
     const recentOrders = await Order.find({ user: user._id })
       .sort('-createdAt')
       .limit(5)
@@ -123,8 +200,17 @@ exports.getUserById = async (req, res) => {
       success: true,
       data: {
         user,
-        stats: orderStats[0] || { totalOrders: 0, totalSpent: 0 },
+        stats: {
+          ...(orderStats[0] || { totalOrders: 0, totalSpent: 0 }),
+          payments: paymentStats[0] || {
+            totalPayments: 0,
+            totalPaid: 0,
+            totalTopUps: 0,
+            totalOrderPayments: 0,
+          },
+        },
         recentOrders,
+        recentPayments, // NOWE
       },
     });
   } catch (error) {
@@ -137,9 +223,7 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-// @desc    Update user
-// @route   PUT /api/admin/users/:id
-// @access  Private/Admin
+// Reszta funkcji pozostaje bez zmian...
 exports.updateUser = async (req, res) => {
   try {
     const { name, email, role, companyDetails, isVerified } = req.body;
@@ -153,7 +237,6 @@ exports.updateUser = async (req, res) => {
       });
     }
 
-    // Update fields
     if (name) user.name = name;
     if (email) user.email = email;
     if (role) user.role = role;
@@ -177,9 +260,6 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// @desc    Delete user
-// @route   DELETE /api/admin/users/:id
-// @access  Private/Admin
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -191,7 +271,6 @@ exports.deleteUser = async (req, res) => {
       });
     }
 
-    // Nie pozwalaj usunąć swojego konta
     if (user._id.toString() === req.user.id) {
       return res.status(400).json({
         success: false,
@@ -215,9 +294,6 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-// @desc    Adjust user balance
-// @route   POST /api/admin/users/:id/balance
-// @access  Private/Admin
 exports.adjustUserBalance = async (req, res) => {
   try {
     const { amount, reason } = req.body;
@@ -243,19 +319,23 @@ exports.adjustUserBalance = async (req, res) => {
     const oldBalance = user.accountBalance;
     user.accountBalance += parseFloat(amount);
 
-    // Zapisz transakcję w Payment
     const payment = await Payment.create({
       user: user._id,
       amount: Math.abs(amount),
-      type: amount > 0 ? 'admin_top_up' : 'admin_deduction',
+      paidAmount: Math.abs(amount),
+      amountPLN: Math.abs(amount),
+      currency: 'PLN',
+      type: amount > 0 ? 'top_up' : 'order_payment',
       status: 'completed',
-      description: reason || 'Korekta salda przez admina',
-      adminNote: `Zmiana: ${amount} (${oldBalance} → ${user.accountBalance})`,
+      metadata: {
+        adminAdjustment: true,
+        reason: reason || 'Korekta salda przez admina',
+        adminNote: `Zmiana: ${amount} (${oldBalance} → ${user.accountBalance})`,
+      },
     });
 
     await user.save();
 
-    // Wyślij email do użytkownika
     const emailContent = `
       <h2>Zmiana salda konta</h2>
       <p>Twoje saldo zostało ${amount > 0 ? 'zwiększone' : 'zmniejszone'} przez administratora.</p>
@@ -307,9 +387,6 @@ exports.adjustUserBalance = async (req, res) => {
   }
 };
 
-// @desc    Reset user password
-// @route   POST /api/admin/users/:id/reset-password
-// @access  Private/Admin
 exports.resetUserPassword = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -323,13 +400,12 @@ exports.resetUserPassword = async (req, res) => {
       });
     }
 
-    // Wygeneruj token resetowania
     const resetToken = crypto.randomBytes(20).toString('hex');
     user.resetPasswordToken = crypto
       .createHash('sha256')
       .update(resetToken)
       .digest('hex');
-    user.resetPasswordExpire = Date.now() + 24 * 60 * 60 * 1000; // 24 godziny
+    user.resetPasswordExpire = Date.now() + 24 * 60 * 60 * 1000;
 
     await user.save();
 
@@ -374,9 +450,6 @@ exports.resetUserPassword = async (req, res) => {
   }
 };
 
-// @desc    Get user orders
-// @route   GET /api/admin/users/:id/orders
-// @access  Private/Admin
 exports.getUserOrders = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;

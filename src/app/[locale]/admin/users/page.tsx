@@ -33,6 +33,12 @@ interface User {
   stats: {
     totalOrders: number;
     totalSpent: number;
+    payments: {
+      totalPayments: number;
+      totalPaid: number;
+      totalTopUps: number;
+      totalOrderPayments: number;
+    };
   };
 }
 
@@ -293,6 +299,10 @@ export default function AdminUsersPage() {
               <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                 Zamówienia
               </th>
+              {/* NOWA KOLUMNA */}
+              <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                Płatności
+              </th>
               <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                 Data rej.
               </th>
@@ -401,6 +411,25 @@ export default function AdminUsersPage() {
                     >
                       <Trash2 size={18} />
                     </button>
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                  <div className="flex flex-col">
+                    <span className="font-medium text-green-600 dark:text-green-400">
+                      ✓ {u.stats.payments.totalPaid.toFixed(2)} PLN
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {u.stats.payments.totalPayments} płatności
+                    </span>
+                    <div className="flex gap-2 mt-1">
+                      <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded">
+                        Doład: {u.stats.payments.totalTopUps.toFixed(2)} PLN
+                      </span>
+                      <span className="text-xs px-2 py-0.5 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded">
+                        Zam: {u.stats.payments.totalOrderPayments.toFixed(2)}{' '}
+                        PLN
+                      </span>
+                    </div>
                   </div>
                 </td>
               </tr>
