@@ -121,6 +121,37 @@ const AdminOrders: React.FC = () => {
 
   const { user } = useAuth();
 
+  const handleDeleteOrder = async (orderId: string) => {
+    if (
+      !confirm(
+        'Czy na pewno chcesz USUNĄĆ to zamówienie? Ta operacja jest nieodwracalna!'
+      )
+    )
+      return;
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${orderId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        await fetchOrders();
+        alert('Zamówienie zostało usunięte');
+      } else {
+        throw new Error('Błąd podczas usuwania');
+      }
+    } catch (error) {
+      console.error('Błąd:', error);
+      alert('Nie można usunąć zamówienia');
+    }
+  };
+
   const fetchComments = async (orderId: string) => {
     try {
       const response = await fetch(
@@ -613,7 +644,7 @@ const AdminOrders: React.FC = () => {
   if (loading) {
     return (
       <Layout title="Zarządzanie Zamówieniami">
-        <div className="container mx-auto px-4 py-8 bg-gray-900 min-h-screen">
+        <div className="container mx-auto px-4 py-20 bg-gray-900 min-h-screen">
           <div className="flex items-center justify-center min-h-screen">
             <div className="text-center">
               <Loader className="w-12 h-12 animate-spin text-blue-400 mx-auto mb-4" />
@@ -726,8 +757,12 @@ const AdminOrders: React.FC = () => {
                   className="py-2 px-4 border border-gray-600 cursor-pointer text-gray-200"
                   onClick={() => handleSort('_id')}
                 >
-                  ID / Numer zamówienia{' '}
+                  ID{' '}
                   {sortField === '_id' && (sortDirection === 'asc' ? '↑' : '↓')}
+                </th>
+                {/* NOWA KOLUMNA - Tytuł */}
+                <th className="py-2 px-4 border border-gray-600 text-gray-200">
+                  Tytuł zamówienia
                 </th>
                 <th className="py-2 px-4 border border-gray-600 text-gray-200">
                   Klient
@@ -736,7 +771,7 @@ const AdminOrders: React.FC = () => {
                   className="py-2 px-4 border border-gray-600 cursor-pointer text-gray-200"
                   onClick={() => handleSort('createdAt')}
                 >
-                  Data i godzina{' '}
+                  Data{' '}
                   {sortField === 'createdAt' &&
                     (sortDirection === 'asc' ? '↑' : '↓')}
                 </th>
@@ -757,10 +792,7 @@ const AdminOrders: React.FC = () => {
                     (sortDirection === 'asc' ? '↑' : '↓')}
                 </th>
                 <th className="py-2 px-4 border border-gray-600 text-gray-200">
-                  Ostatnia aktualizacja
-                </th>
-                <th className="py-2 px-4 border border-gray-600 text-gray-200">
-                  Notatki admina
+                  Notatki
                 </th>
                 <th className="py-2 px-4 border border-gray-600 text-gray-200">
                   Akcje
@@ -768,254 +800,225 @@ const AdminOrders: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredAndSearchedOrders.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan={8}
-                    className="py-8 text-center text-gray-500 border border-gray-600"
-                  >
-                    Brak zamówień spełniających kryteria wyszukiwania
-                  </td>
-                </tr>
-              ) : (
-                filteredAndSearchedOrders.map((order) => (
-                  <React.Fragment key={order._id}>
-                    <tr className="border-b border-gray-700 hover:bg-gray-750">
-                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
-                        {order._id}
-                        <br />
-                        <span className="text-sm text-gray-500">
-                          #{order._id.slice(-6)}
-                        </span>
-                      </td>
-                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
-                        {order.user?.name || 'N/A'}
-                        <br />
-                        <span className="text-sm text-gray-500">
-                          {order.user?.email || 'N/A'}
-                        </span>
-                      </td>
-                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
-                        {new Date(order.createdAt).toLocaleDateString()}
-                        <br />
-                        <span className="text-sm text-gray-500">
-                          {new Date(order.createdAt).toLocaleTimeString()}
-                        </span>
-                      </td>
-                      <td className="py-2 px-4 border border-gray-600">
-                        <span
-                          className={`px-2 py-1 rounded ${
-                            order.status === 'zakończone'
-                              ? 'bg-green-900 text-green-200'
-                              : order.status === 'w trakcie'
-                                ? 'bg-yellow-900 text-yellow-200'
-                                : order.status === 'anulowane'
-                                  ? 'bg-red-900 text-red-200'
-                                  : 'bg-gray-700 text-gray-300'
-                          }`}
-                        >
-                          {order.status}
-                        </span>
-                      </td>
-                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
-                        {order.totalPrice?.toFixed(2) || '0.00'} zł
-                      </td>
-                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
-                        {order.lastUpdated
-                          ? new Date(order.lastUpdated).toLocaleString()
-                          : 'N/A'}
-                      </td>
-                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
-                        {order.adminNotes || 'Brak'}
-                      </td>
-                      <td className="py-2 px-4 border border-gray-600">
-                        <button
-                          onClick={() => handleEditClick(order)}
-                          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded mr-2 mb-1 transition-colors"
-                        >
-                          Edytuj
-                        </button>
-                        <button
-                          onClick={() => toggleOrderExpansion(order._id)}
-                          className="bg-gray-700 hover:bg-gray-600 text-gray-300 px-2 py-1 rounded transition-colors"
-                        >
-                          {expandedOrder === order._id ? (
-                            <ChevronUp />
-                          ) : (
-                            <ChevronDown />
-                          )}
-                        </button>
-                      </td>
-                    </tr>
-                    {expandedOrder === order._id && (
-                      <tr>
-                        <td
-                          colSpan={8}
-                          className="py-4 px-4 border border-gray-600 bg-gray-850"
-                        >
-                          <h4 className="font-semibold mb-2 text-gray-200">
-                            Szczegóły zamówienia:
-                          </h4>
-                          <ul className="space-y-2">
-                            {order.items?.map((item, index) => (
-                              <li
-                                key={item._id || index}
-                                className="flex flex-col bg-gray-800 p-3 rounded"
-                              >
-                                <div className="flex justify-between items-start">
-                                  <div className="flex-1">
-                                    <div className="text-gray-200">
-                                      Temat:{' '}
-                                      <span className="font-medium">
-                                        {item.topic}
-                                      </span>
-                                    </div>
-                                    <div className="ml-6 text-sm text-gray-400 mt-2">
-                                      <span>
-                                        {item.length} znaków -{' '}
-                                        {item.price
-                                          ?.toFixed(2)
-                                          .replace('.', ',') || '0,00'}{' '}
-                                        zł
-                                      </span>
-                                      <br />
-                                      <span className="bg-gray-700 px-2 py-1 rounded mr-2 inline-block mt-1">
-                                        Język: {item.language}
-                                      </span>
-                                      <span className="bg-gray-700 px-2 py-1 rounded inline-block mt-1">
-                                        Typ: {item.contentType}
-                                      </span>
-                                      {item.guidelines && (
-                                        <div className="mt-2">
-                                          <strong className="text-gray-300">
-                                            Wytyczne:
-                                          </strong>
-                                          <p className="bg-gray-900 p-2 rounded text-gray-300">
-                                            {item.guidelines}
-                                          </p>
-                                        </div>
-                                      )}
-                                    </div>
+              {filteredAndSearchedOrders.map((order) => (
+                <React.Fragment key={order._id}>
+                  <tr className="border-b border-gray-700 hover:bg-gray-750">
+                    <td className="py-2 px-4 border border-gray-600 text-gray-300">
+                      #{order._id.slice(-6)}
+                    </td>
+                    {/* NOWA KOLUMNA - Tytuł rozwijaný */}
+                    <td className="py-2 px-4 border border-gray-600 text-gray-300">
+                      <details className="cursor-pointer">
+                        <summary className="text-sm">
+                          {order.items?.[0]?.topic?.substring(0, 20) ||
+                            'Brak tematu'}
+                          {order.items?.[0]?.topic?.length > 20 && '...'}
+                        </summary>
+                        <div className="mt-2 text-xs bg-gray-900 p-2 rounded">
+                          {order.items?.map((item, idx) => (
+                            <div key={idx} className="mb-1">
+                              • {item.topic}
+                            </div>
+                          ))}
+                        </div>
+                      </details>
+                    </td>
+                    <td className="py-2 px-4 border border-gray-600 text-gray-300">
+                      {order.user?.name || 'N/A'}
+                      <br />
+                      <span className="text-sm text-gray-500">
+                        {order.user?.email || 'N/A'}
+                      </span>
+                    </td>
+                    <td className="py-2 px-4 border border-gray-600 text-gray-300">
+                      {new Date(order.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="py-2 px-4 border border-gray-600">
+                      <span
+                        className={`px-2 py-1 rounded ${
+                          order.status === 'zakończone'
+                            ? 'bg-green-900 text-green-200'
+                            : order.status === 'w trakcie'
+                              ? 'bg-yellow-900 text-yellow-200'
+                              : order.status === 'anulowane'
+                                ? 'bg-red-900 text-red-200'
+                                : 'bg-gray-700 text-gray-300'
+                        }`}
+                      >
+                        {order.status}
+                      </span>
+                    </td>
+                    <td className="py-2 px-4 border border-gray-600 text-gray-300">
+                      {order.totalPrice?.toFixed(2) || '0.00'} zł
+                    </td>
+                    <td className="py-2 px-4 border border-gray-600 text-gray-300">
+                      {order.adminNotes || 'Brak'}
+                    </td>
+                    <td className="py-2 px-4 border border-gray-600">
+                      <button
+                        onClick={() => handleEditClick(order)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded mr-1 mb-1"
+                      >
+                        Edytuj
+                      </button>
+                      <button
+                        onClick={() => toggleOrderExpansion(order._id)}
+                        className="bg-gray-700 hover:bg-gray-600 text-gray-300 px-2 py-1 rounded mr-1 mb-1"
+                      >
+                        {expandedOrder === order._id ? (
+                          <ChevronUp />
+                        ) : (
+                          <ChevronDown />
+                        )}
+                      </button>
+                      {/* NOWY PRZYCISK - Usuń */}
+                      <button
+                        onClick={() => handleDeleteOrder(order._id)}
+                        className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded mb-1"
+                      >
+                        Usuń
+                      </button>
+                    </td>
+                  </tr>
+
+                  {expandedOrder === order._id && (
+                    <tr>
+                      <td
+                        colSpan={8}
+                        className="py-4 px-4 border border-gray-600 bg-gray-850"
+                      >
+                        <h4 className="font-semibold mb-2 text-gray-200">
+                          Szczegóły zamówienia:
+                        </h4>
+                        <ul className="space-y-2">
+                          {order.items?.map((item, index) => (
+                            <li
+                              key={item._id || index}
+                              className="flex flex-col bg-gray-800 p-3 rounded"
+                            >
+                              <div className="flex justify-between items-start">
+                                <div className="flex-1">
+                                  <div className="text-gray-200">
+                                    Temat:{' '}
+                                    <span className="font-medium">
+                                      {item.topic}
+                                    </span>
                                   </div>
-                                  {/* Content Actions */}
-                                  <div className="flex gap-2 ml-4">
-                                    {item.content && (
-                                      <button
-                                        onClick={() =>
-                                          handleOpenContentEditor(item, 'view')
-                                        }
-                                        className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded flex items-center gap-1 transition-colors"
-                                        title="Podgląd treści"
-                                      >
-                                        <Eye size={16} />
-                                        Podgląd
-                                      </button>
+                                  <div className="ml-6 text-sm text-gray-400 mt-2">
+                                    <span>
+                                      {item.length} znaków -{' '}
+                                      {item.price
+                                        ?.toFixed(2)
+                                        .replace('.', ',') || '0,00'}{' '}
+                                      zł
+                                    </span>
+                                    <br />
+                                    <span className="bg-gray-700 px-2 py-1 rounded mr-2 inline-block mt-1">
+                                      Język: {item.language}
+                                    </span>
+                                    <span className="bg-gray-700 px-2 py-1 rounded inline-block mt-1">
+                                      Typ: {item.contentType}
+                                    </span>
+                                    {item.guidelines && (
+                                      <div className="mt-2">
+                                        <strong className="text-gray-300">
+                                          Wytyczne:
+                                        </strong>
+                                        <p className="bg-gray-900 p-2 rounded text-gray-300">
+                                          {item.guidelines}
+                                        </p>
+                                      </div>
                                     )}
-                                    <button
-                                      onClick={() => {
-                                        setSelectedOrder(order);
-                                        handleOpenContentEditor(item, 'edit');
-                                      }}
-                                      className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded flex items-center gap-1 transition-colors"
-                                      title="Edytuj treść"
-                                    >
-                                      <Edit3 size={16} />
-                                      {item.content ? 'Edytuj' : 'Dodaj treść'}
-                                    </button>
                                   </div>
                                 </div>
-                                {/* Content Preview */}
-                                {item.content && (
-                                  <div className="mt-3 bg-gray-900 p-2 rounded">
-                                    <div className="text-xs text-gray-500 mb-1">
-                                      Podgląd treści ({item.content.length}{' '}
-                                      znaków)
-                                    </div>
-                                    <div className="text-sm text-gray-400 line-clamp-2">
-                                      {item.content.substring(0, 200)}
-                                      {item.content.length > 200 && '...'}
-                                    </div>
-                                  </div>
-                                )}
-                              </li>
-                            ))}
-                          </ul>
-
-                          <div className="mt-4 text-gray-300">
-                            <p>
-                              <strong>Całkowita cena:</strong>{' '}
-                              {order.totalPrice?.toFixed(2).replace('.', ',') ||
-                                '0,00'}{' '}
-                              zł
-                            </p>
-                            <p>
-                              <strong>Status płatności:</strong>{' '}
-                              {order.paymentStatus}
-                            </p>
-                            <p>
-                              <strong>Data utworzenia:</strong>{' '}
-                              {new Date(order.createdAt).toLocaleString()}
-                            </p>
-                            <p>
-                              <strong>Termin realizacji:</strong>{' '}
-                              {new Date(
-                                order.declaredDeliveryDate
-                              ).toLocaleString()}
-                            </p>
-                          </div>
-
-                          {order.userAttachments &&
-                            order.userAttachments.length > 0 && (
-                              <div className="mt-4">
-                                <strong className="text-gray-200">
-                                  Załączniki użytkownika:
-                                </strong>
-                                {order.userAttachments.map(
-                                  (attachment, index) => (
-                                    <div key={index} className="mb-1">
-                                      <a
-                                        href={attachment.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-400 hover:text-blue-300 hover:underline"
-                                      >
-                                        {attachment.filename}
-                                      </a>
-                                    </div>
-                                  )
-                                )}
+                                {/* Content Actions */}
+                                <div className="flex gap-2 ml-4">
+                                  {item.content && (
+                                    <button
+                                      onClick={() =>
+                                        handleOpenContentEditor(item, 'view')
+                                      }
+                                      className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded flex items-center gap-1 transition-colors"
+                                      title="Podgląd treści"
+                                    >
+                                      <Eye size={16} />
+                                      Podgląd
+                                    </button>
+                                  )}
+                                  <button
+                                    onClick={() => {
+                                      setSelectedOrder(order);
+                                      handleOpenContentEditor(item, 'edit');
+                                    }}
+                                    className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded flex items-center gap-1 transition-colors"
+                                    title="Edytuj treść"
+                                  >
+                                    <Edit3 size={16} />
+                                    {item.content ? 'Edytuj' : 'Dodaj treść'}
+                                  </button>
+                                </div>
                               </div>
-                            )}
-
-                          {/* Content Generation Flow */}
-                          <div className="mt-6">
-                            <h4 className="font-semibold mb-2 text-gray-200">
-                              Przepływ generowania treści:
-                            </h4>
-                            <div
-                              className="bg-gray-800 rounded-lg shadow-lg border border-gray-700"
-                              style={{ height: '600px' }}
-                            >
-                              {order.items &&
-                              order.items.length > 0 &&
-                              order.items[0]._id ? (
-                                <ContentGenerationFlow
-                                  orderId={order._id}
-                                  itemId={order.items[0]._id}
-                                />
-                              ) : (
-                                <div className="flex items-center justify-center h-full text-gray-500">
-                                  Brak itemów do generowania
+                              {/* Content Preview */}
+                              {item.content && (
+                                <div className="mt-3 bg-gray-900 p-2 rounded">
+                                  <div className="text-xs text-gray-500 mb-1">
+                                    Podgląd treści ({item.content.length}{' '}
+                                    znaków)
+                                  </div>
+                                  <div className="text-sm text-gray-400 line-clamp-2">
+                                    {item.content.substring(0, 200)}
+                                    {item.content.length > 200 && '...'}
+                                  </div>
                                 </div>
                               )}
+                            </li>
+                          ))}
+                        </ul>
+
+                        <div className="mt-4 text-gray-300">
+                          <p>
+                            <strong>Całkowita cena:</strong>{' '}
+                            {order.totalPrice?.toFixed(2).replace('.', ',') ||
+                              '0,00'}{' '}
+                            zł
+                          </p>
+                          <p>
+                            <strong>Status płatności:</strong>{' '}
+                            {order.paymentStatus}
+                          </p>
+                          <p>
+                            <strong>Data utworzenia:</strong>{' '}
+                            {new Date(order.createdAt).toLocaleString()}
+                          </p>
+                        </div>
+
+                        {order.userAttachments &&
+                          order.userAttachments.length > 0 && (
+                            <div className="mt-4">
+                              <strong className="text-gray-200">
+                                Załączniki użytkownika:
+                              </strong>
+                              {order.userAttachments.map(
+                                (attachment, index) => (
+                                  <div key={index} className="mb-1">
+                                    <a
+                                      href={attachment.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-blue-400 hover:text-blue-300 hover:underline"
+                                    >
+                                      {attachment.filename}
+                                    </a>
+                                  </div>
+                                )
+                              )}
                             </div>
-                          </div>
-                        </td>
-                      </tr>
-                    )}
-                  </React.Fragment>
-                ))
-              )}
+                          )}
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
+              ))}
             </tbody>
           </table>
         </div>
@@ -1101,18 +1104,21 @@ const AdminOrders: React.FC = () => {
               <div className="flex-1 overflow-hidden p-4">
                 {contentMode === 'view' ? (
                   <div className="h-full overflow-y-auto bg-gray-900 p-4 rounded border border-gray-700">
-                    <div className="prose prose-invert max-w-none">
-                      <pre className="whitespace-pre-wrap text-gray-300 font-sans">
-                        {editedContent || 'Brak treści'}
-                      </pre>
-                    </div>
+                    <div
+                      className="prose prose-invert max-w-none text-gray-300"
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          editedContent ||
+                          '<p class="text-gray-500">Brak treści</p>',
+                      }}
+                    />
                   </div>
                 ) : (
                   <textarea
                     value={editedContent}
                     onChange={(e) => setEditedContent(e.target.value)}
                     className="w-full h-full p-4 bg-gray-900 text-gray-200 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm resize-none"
-                    placeholder="Wpisz treść zamówienia..."
+                    placeholder="Wpisz treść jako HTML..."
                     spellCheck={false}
                   />
                 )}

@@ -10,6 +10,7 @@ router.use(auth.authorize('admin'));
 
 // Zamówienia
 router.get('/orders', adminOrderController.getAllOrders);
+router.delete('/orders/:orderId', adminOrderController.deleteOrder);
 router.get('/orders/:orderId', adminOrderController.getOrderById);
 router.put('/orders/:orderId/status', adminOrderController.updateOrderStatus);
 router.post('/orders/:orderId/attach', adminOrderController.attachFileToOrder);

@@ -391,6 +391,25 @@ exports.addOrderComment = async (req, res) => {
       });
     }
 
+    exports.deleteOrder = async (req, res) => {
+      try {
+        const { orderId } = req.params;
+        const order = await Order.findByIdAndDelete(orderId);
+
+        if (!order) {
+          return res
+            .status(404)
+            .json({ success: false, message: 'Zamówienie nie znalezione' });
+        }
+
+        return res
+          .status(200)
+          .json({ success: true, message: 'Zamówienie usunięte' });
+      } catch (error) {
+        return res.status(500).json({ success: false, message: error.message });
+      }
+    };
+
     {
       /*// Wyślij powiadomienie przez Socket.IO
     const io = req.app.get('io');
