@@ -319,6 +319,7 @@ export default function AdminUsersPage() {
                 key={u._id}
                 className={`${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-50'} transition-colors`}
               >
+                {/* 1. Użytkownik */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div>
@@ -337,9 +338,13 @@ export default function AdminUsersPage() {
                     </div>
                   </div>
                 </td>
+
+                {/* 2. Email */}
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   {u.email}
                 </td>
+
+                {/* 3. Rola */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span
                     className={`px-2 py-1 text-xs rounded-full ${
@@ -351,9 +356,13 @@ export default function AdminUsersPage() {
                     {u.role === 'admin' ? 'Administrator' : 'Klient'}
                   </span>
                 </td>
+
+                {/* 4. Saldo */}
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   {u.accountBalance.toFixed(2)} PLN
                 </td>
+
+                {/* 5. Zamówienia */}
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <div className="flex flex-col">
                     <span className="font-medium">{u.stats.totalOrders}</span>
@@ -362,9 +371,34 @@ export default function AdminUsersPage() {
                     </span>
                   </div>
                 </td>
+
+                {/* 6. Płatności - POPRAWIONA KOLEJNOŚĆ */}
+                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                  <div className="flex flex-col">
+                    <span className="font-medium text-green-600 dark:text-green-400">
+                      ✓ {u.stats.payments.totalPaid.toFixed(2)} PLN
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {u.stats.payments.totalPayments} płatności
+                    </span>
+                    <div className="flex gap-2 mt-1">
+                      <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded">
+                        Doład: {u.stats.payments.totalTopUps.toFixed(2)} PLN
+                      </span>
+                      <span className="text-xs px-2 py-0.5 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded">
+                        Zam: {u.stats.payments.totalOrderPayments.toFixed(2)}{' '}
+                        PLN
+                      </span>
+                    </div>
+                  </div>
+                </td>
+
+                {/* 7. Data rejestracji - POPRAWIONA KOLEJNOŚĆ */}
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {formatDate(u.createdAt)}
                 </td>
+
+                {/* 8. Akcje */}
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
                   <div className="flex items-center gap-2">
                     <button
@@ -411,25 +445,6 @@ export default function AdminUsersPage() {
                     >
                       <Trash2 size={18} />
                     </button>
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm">
-                  <div className="flex flex-col">
-                    <span className="font-medium text-green-600 dark:text-green-400">
-                      ✓ {u.stats.payments.totalPaid.toFixed(2)} PLN
-                    </span>
-                    <span className="text-xs text-gray-500">
-                      {u.stats.payments.totalPayments} płatności
-                    </span>
-                    <div className="flex gap-2 mt-1">
-                      <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded">
-                        Doład: {u.stats.payments.totalTopUps.toFixed(2)} PLN
-                      </span>
-                      <span className="text-xs px-2 py-0.5 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded">
-                        Zam: {u.stats.payments.totalOrderPayments.toFixed(2)}{' '}
-                        PLN
-                      </span>
-                    </div>
                   </div>
                 </td>
               </tr>
