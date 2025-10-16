@@ -293,19 +293,6 @@ const OrderForm: React.FC = () => {
           }
           window.location.href = data.paymentUrl;
         } else {
-          // Zamówienie opłacone z salda - BEZ płatności
-
-          // DODAJ TEN KOD TUTAJ - PRZED localStorage.setItem:
-          window.dispatchEvent(
-            new CustomEvent('orderStatusUpdate', {
-              detail: {
-                orderAdded: true,
-                order: data.order,
-              },
-            })
-          );
-          // KONIEC NOWEGO KODU
-
           localStorage.setItem(
             'lastOrderConfirmed',
             JSON.stringify({

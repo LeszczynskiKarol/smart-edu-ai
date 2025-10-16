@@ -194,11 +194,12 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
         const orderValue = Number(data.totalPrice) || 0;
 
         if (window.ttq && !sessionStorage.getItem(trackingKey)) {
+          // Zmodyfikowane parametry eventu zgodnie z wymaganiami TikToka
           window.ttq.track('CompletePayment', {
             contents: [
               {
                 content_id: data.orderId || 'order',
-                content_type: 'product',
+                content_type: 'product', // Zmienione na 'product' zgodnie z wymaganiami
                 content_name: data.orderNumber
                   ? `Order #${data.orderNumber}`
                   : 'Order',
@@ -233,19 +234,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
         });
 
         setShowPaymentSuccessModal(true);
-
-        // DODAJ TEN KOD TUTAJ - Trigger dla OrderWorkCommencedModal:
-        window.dispatchEvent(
-          new CustomEvent('orderStatusUpdate', {
-            detail: {
-              orderAdded: true,
-              order: data, // dane z API
-            },
-          })
-        );
-
         await refreshUserData();
-        await refreshOrders(); // DODAJ TEŻ refreshOrders
       }
     } catch (error) {
       console.error('Error fetching payment details:', error);

@@ -8,7 +8,6 @@ import { useTranslations } from 'next-intl';
 import { useTracking } from '@/hooks/useTracking';
 import { Order, OrderItem } from '../types/order';
 import { useTheme } from '../context/ThemeContext';
-import OrderWorkCommencedModal from './OrderWorkCommencedModal';
 
 interface OrderStatusBoxProps {
   orders: Order[];
@@ -24,12 +23,6 @@ const OrderStatusBox: React.FC<OrderStatusBoxProps> = ({
   const [lastCompletedItems, setLastCompletedItems] = useState<Set<string>>(
     new Set()
   );
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [modalData, setModalData] = useState<{
-    estimatedTime: string;
-    orderNumber: string;
-  } | null>(null);
-
   const [isCollapsed, setIsCollapsed] = useState(() => {
     const savedState = sessionStorage.getItem('orderStatusBoxCollapsed');
     return savedState ? savedState === 'true' : false;
@@ -47,49 +40,6 @@ const OrderStatusBox: React.FC<OrderStatusBoxProps> = ({
     await hideOrderItem(orderId, itemId);
     await refreshOrders();
   };
-
-  const getEstimatedTimeText = (items: OrderItem[]) => {
-    const maxTime = Math.max(
-      ...items.map((item) => {
-        if (item.contentType.toLowerCase().includes('magister')) return 90;
-        if (item.contentType.toLowerCase().includes('licenc')) return 60;
-        return 30;
-      })
-    );
-
-    if (maxTime >= 60) {
-      const hours = Math.floor(maxTime / 60);
-      const mins = maxTime % 60;
-      return mins > 0 ? `${hours} godz. ${mins} min` : `${hours} godz.`;
-    }
-    return `${maxTime} minut`;
-  };
-
-  // DODAJ useEffect do wykrywania nowego zamówienia
-  useEffect(() => {
-    const handleOrderUpdate = (e: CustomEvent) => {
-      if (e.detail?.orderAdded && e.detail?.order) {
-        const order = e.detail.order;
-        setModalData({
-          estimatedTime: getEstimatedTimeText(order.items),
-          orderNumber: order.orderNumber,
-        });
-        setShowSuccessModal(true);
-        refreshOrders();
-      }
-    };
-
-    window.addEventListener(
-      'orderStatusUpdate',
-      handleOrderUpdate as EventListener
-    );
-    return () => {
-      window.removeEventListener(
-        'orderStatusUpdate',
-        handleOrderUpdate as EventListener
-      );
-    };
-  }, [refreshOrders]);
 
   const visibleOrders = orders
     .map((order) => ({
@@ -349,14 +299,6 @@ const OrderStatusBox: React.FC<OrderStatusBoxProps> = ({
             </div>
           </div>
         </motion.div>
-      )}
-      {showSuccessModal && modalData && (
-        <OrderWorkCommencedModal
-          isOpen={showSuccessModal}
-          onClose={() => setShowSuccessModal(false)}
-          estimatedTime={modalData.estimatedTime}
-          orderNumber={modalData.orderNumber}
-        />
       )}
     </AnimatePresence>
   );
