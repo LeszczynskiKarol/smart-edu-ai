@@ -85,6 +85,43 @@ const AdminOrders: React.FC = () => {
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
   const [isFileModalOpen, setIsFileModalOpen] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [isItemStatusModalOpen, setIsItemStatusModalOpen] = useState(false);
+  const [selectedItemForStatus, setSelectedItemForStatus] =
+    useState<OrderItem | null>(null);
+  const [newItemStatus, setNewItemStatus] = useState('');
+  const handleItemStatusChange = async () => {
+    if (!selectedOrder || !selectedItemForStatus) return;
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${selectedOrder._id}/items/${selectedItemForStatus._id}/status`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ status: newItemStatus }),
+        }
+      );
+
+      if (response.ok) {
+        await fetchOrders();
+        setIsItemStatusModalOpen(false);
+        setNewItemStatus('');
+        alert('Status itemu został zaktualizowany pomyślnie.');
+      } else {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || 'Błąd podczas aktualizacji statusu'
+        );
+      }
+    } catch (error) {
+      console.error('Błąd:', error);
+      alert('Wystąpił błąd podczas aktualizacji statusu itemu');
+    }
+  };
+
   const [newStatus, setNewStatus] = useState('');
   const [pdfFile, setPdfFile] = useState<FileUpload>({
     file: null,
@@ -910,6 +947,21 @@ const AdminOrders: React.FC = () => {
                                 </div>
                                 {/* Content Actions */}
                                 <div className="flex gap-2 ml-4">
+                                  <button
+                                    onClick={() => {
+                                      setSelectedOrder(order);
+                                      setSelectedItemForStatus(item);
+                                      setNewItemStatus(
+                                        item.status || 'oczekujące'
+                                      );
+                                      setIsItemStatusModalOpen(true);
+                                    }}
+                                    className="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1 rounded flex items-center gap-1 transition-colors"
+                                    title="Zmień status itemu"
+                                  >
+                                    Status
+                                  </button>
+
                                   {item.content && (
                                     <button
                                       onClick={() =>
@@ -1226,6 +1278,50 @@ const AdminOrders: React.FC = () => {
                 className="bg-gray-700 hover:bg-gray-600 text-gray-200 px-4 py-2 rounded transition-colors"
               >
                 Zamknij
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Item Status Change Modal */}
+      {isItemStatusModalOpen && selectedItemForStatus && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md border border-gray-700">
+            <h3 className="text-lg font-medium mb-4 text-gray-100">
+              Zmień status: {selectedItemForStatus.topic}
+            </h3>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Nowy status:
+              </label>
+              <select
+                value={newItemStatus}
+                onChange={(e) => setNewItemStatus(e.target.value)}
+                className="w-full p-2 border border-gray-600 rounded bg-gray-700 text-gray-200"
+              >
+                <option value="oczekujące">Oczekujące</option>
+                <option value="w trakcie">W trakcie</option>
+                <option value="zakończone">Zakończone</option>
+              </select>
+            </div>
+
+            <div className="flex justify-end gap-2 mt-6">
+              <button
+                onClick={() => {
+                  setIsItemStatusModalOpen(false);
+                  setNewItemStatus('');
+                  setSelectedItemForStatus(null);
+                }}
+                className="bg-gray-700 hover:bg-gray-600 text-gray-200 px-4 py-2 rounded transition-colors"
+              >
+                Anuluj
+              </button>
+              <button
+                onClick={handleItemStatusChange}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors"
+              >
+                Zapisz
               </button>
             </div>
           </div>

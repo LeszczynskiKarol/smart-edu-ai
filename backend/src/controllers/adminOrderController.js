@@ -477,4 +477,64 @@ exports.updateItemContent = async (req, res) => {
   }
 };
 
+exports.updateItemStatus = async (req, res) => {
+  try {
+    const { orderId, itemId } = req.params;
+    const { status } = req.body;
+
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: 'Zamówienie nie znalezione',
+      });
+    }
+
+    const item = order.items.id(itemId);
+    if (!item) {
+      return res.status(404).json({
+        success: false,
+        message: 'Item nie znaleziony',
+      });
+    }
+
+    // Aktualizuj status itemu
+    item.status = status;
+
+    // Jeśli status to "w trakcie", ustaw startTime
+    if (status === 'w trakcie' && !item.startTime) {
+      item.startTime = new Date();
+    }
+
+    // Sprawdź czy wszystkie itemy są zakończone
+    const allItemsCompleted = order.items.every(
+      (item) => item.status === 'zakończone'
+    );
+
+    // Jeśli wszystkie itemy zakończone, zmień status całego zamówienia
+    if (allItemsCompleted) {
+      order.status = 'zakończone';
+    } else if (order.items.some((item) => item.status === 'w trakcie')) {
+      order.status = 'w trakcie';
+    } else if (order.items.every((item) => item.status === 'oczekujące')) {
+      order.status = 'oczekujące';
+    }
+
+    await order.save();
+
+    return res.status(200).json({
+      success: true,
+      data: order,
+      message: 'Status itemu zaktualizowany',
+    });
+  } catch (error) {
+    console.error('Error updating item status:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Błąd podczas aktualizacji statusu',
+      error: error.message,
+    });
+  }
+};
+
 module.exports = exports;
