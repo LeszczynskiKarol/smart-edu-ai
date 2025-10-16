@@ -42,7 +42,6 @@ const OrderStatusItem: React.FC<OrderStatusItemProps> = ({
   const [displayProgress, setDisplayProgress] = useState(0);
   const [progressColor, setProgressColor] = useState('text-gray-600');
   const [remainingSeconds, setRemainingSeconds] = useState<number>(0);
-  const [smoothProgress, setSmoothProgress] = useState(0);
   const { theme } = useTheme();
   const { trackInteraction } = useTracking('OrderStatusItem');
 
@@ -55,7 +54,7 @@ const OrderStatusItem: React.FC<OrderStatusItemProps> = ({
       // 90 minut dla prac magisterskich
       return new Date(startTime.getTime() + 90 * 60 * 1000).toISOString();
     } else if (item.contentType.toLowerCase().includes('licenc')) {
-      // 60 minut dla prac licencjackich
+      // 60 minut dla prac licencjackich - POPRAWIONE!
       return new Date(startTime.getTime() + 60 * 60 * 1000).toISOString();
     }
 
@@ -89,36 +88,41 @@ const OrderStatusItem: React.FC<OrderStatusItemProps> = ({
     return () => clearInterval(interval);
   }, [item, isCompleted]);
 
-  // Nowy efekt dla płynnej aktualizacji postępu na podstawie czasu
+  // NAPRAWIONY efekt dla paska postępu - tylko na podstawie CZASU
   useEffect(() => {
     if (isCompleted) {
-      setSmoothProgress(100);
+      setDisplayProgress(100);
       return;
     }
 
     const customEstimatedTime = getCustomEstimatedCompletionTime(item);
     if (!item.startTime || !customEstimatedTime) {
-      setSmoothProgress(0);
+      setDisplayProgress(0);
       return;
     }
 
-    const updateSmoothProgress = () => {
+    const updateProgress = () => {
       const startTime = new Date(item.startTime!).getTime();
       const endTime = new Date(customEstimatedTime).getTime();
       const currentTime = Date.now();
       const totalDuration = endTime - startTime;
       const elapsedTime = currentTime - startTime;
-      const calculatedProgress = (elapsedTime / totalDuration) * 100;
 
-      const maxProgress = Math.min(98, progress);
-      setSmoothProgress(Math.min(maxProgress, calculatedProgress));
+      // Oblicz postęp na podstawie TYLKO czasu (0-98%)
+      const calculatedProgress = (elapsedTime / totalDuration) * 98;
+
+      // Ogranicz do max 98% (ostatnie 2% zostają dla statusu "zakończone")
+      const finalProgress = Math.max(0, Math.min(98, calculatedProgress));
+
+      setDisplayProgress(finalProgress);
     };
 
-    const intervalId = setInterval(updateSmoothProgress, 100);
-    updateSmoothProgress();
+    // Aktualizuj co 100ms dla płynności
+    const intervalId = setInterval(updateProgress, 100);
+    updateProgress();
 
     return () => clearInterval(intervalId);
-  }, [item, isCompleted, progress]);
+  }, [item, isCompleted]);
 
   // Formatowanie czasu w formacie M:SS
   const formatTimeRemaining = (seconds: number): string => {
@@ -127,54 +131,6 @@ const OrderStatusItem: React.FC<OrderStatusItemProps> = ({
     const remainingSecs = seconds % 60;
     return `${minutes}:${remainingSecs.toString().padStart(2, '0')}`;
   };
-
-  useEffect(() => {
-    let targetProgress: number;
-
-    if (isCompleted) {
-      targetProgress = 100;
-    } else {
-      if (item.estimatedCompletionTime) {
-        const now = Date.now();
-        const end = new Date(item.estimatedCompletionTime).getTime();
-
-        if (now > end) {
-          targetProgress = 98;
-        } else {
-          const calculatedProgress = Math.min(98, Math.max(0, smoothProgress));
-          targetProgress = calculatedProgress;
-        }
-      } else {
-        targetProgress = Math.min(98, Math.max(0, smoothProgress));
-      }
-    }
-
-    let animationFrame: number;
-    const animate = () => {
-      setDisplayProgress((prev) => {
-        const diff = targetProgress - prev;
-        const step = Math.max(0.5, Math.abs(diff) * 0.1);
-
-        if (Math.abs(diff) < 0.5) {
-          return targetProgress;
-        }
-
-        return prev + (diff > 0 ? step : -step);
-      });
-
-      if (displayProgress !== targetProgress) {
-        animationFrame = requestAnimationFrame(animate);
-      }
-    };
-
-    animationFrame = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
-    };
-  }, [progress, isCompleted, item.estimatedCompletionTime, smoothProgress]);
 
   useEffect(() => {
     if (isCompleted) {
@@ -306,7 +262,7 @@ const OrderStatusItem: React.FC<OrderStatusItemProps> = ({
           )}
         </div>
 
-        {/* Przycisk View zostaje bez zmian */}
+        {/* Przycisk View */}
         {isCompleted && (
           <motion.div
             initial={{ opacity: 0, y: -10 }}
