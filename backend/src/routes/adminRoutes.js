@@ -24,10 +24,6 @@ router.put(
   adminOrderController.updateItemContent
 );
 
-// Komentarze
-router.get('/orders/:orderId/comments', adminOrderController.getOrderComments);
-router.post('/orders/:orderId/comments', adminOrderController.addOrderComment);
-
 // Statystyki
 router.get('/stats', adminOrderController.getAdminStats);
 

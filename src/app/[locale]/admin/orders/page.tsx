@@ -1137,6 +1137,100 @@ const AdminOrders: React.FC = () => {
           </div>
         )}
       </div>
+      {/* Status Change Modal - DODAJ TO */}
+      {isStatusModalOpen && selectedOrder && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md border border-gray-700">
+            <h3 className="text-lg font-medium mb-4 text-gray-100">
+              Zmień status zamówienia
+            </h3>
+
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Nowy status:
+              </label>
+              <select
+                value={newStatus}
+                onChange={(e) => setNewStatus(e.target.value)}
+                className="w-full p-2 border border-gray-600 rounded bg-gray-700 text-gray-200"
+              >
+                <option value="">Wybierz status</option>
+                <option value="oczekujące">Oczekujące</option>
+                <option value="w trakcie">W trakcie</option>
+                <option value="zakończone">Zakończone</option>
+                <option value="anulowane">Anulowane</option>
+              </select>
+            </div>
+
+            {newStatus === 'zakończone' && (
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Załącz pliki (opcjonalnie):
+                </label>
+                <input
+                  type="file"
+                  multiple
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files || []);
+                    setSelectedFiles(files);
+                  }}
+                  className="w-full p-2 border border-gray-600 rounded bg-gray-700 text-gray-200"
+                />
+                {selectedFiles.length > 0 && (
+                  <div className="mt-2 text-sm text-gray-400">
+                    Wybrano plików: {selectedFiles.length}
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div className="flex justify-end gap-2 mt-6">
+              <button
+                onClick={() => {
+                  setIsStatusModalOpen(false);
+                  setNewStatus('');
+                  setSelectedFiles([]);
+                }}
+                className="bg-gray-700 hover:bg-gray-600 text-gray-200 px-4 py-2 rounded transition-colors"
+              >
+                Anuluj
+              </button>
+              <button
+                onClick={handleStatusChange}
+                disabled={!newStatus}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Zapisz
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* File Upload Modal - DODAJ TO TEŻ */}
+      {isFileModalOpen && selectedOrder && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-gray-800 p-6 rounded-lg w-full max-w-2xl border border-gray-700 max-h-[90vh] overflow-y-auto">
+            <h3 className="text-lg font-medium mb-4 text-gray-100">
+              Dodaj pliki do zamówienia
+            </h3>
+
+            {renderFileUploadSection('pdf', 'Plik PDF')}
+            {renderFileUploadSection('docx', 'Plik DOCX')}
+            {renderFileUploadSection('image', 'Obraz')}
+            {renderFileUploadSection('other', 'Inne pliki')}
+
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={() => setIsFileModalOpen(false)}
+                className="bg-gray-700 hover:bg-gray-600 text-gray-200 px-4 py-2 rounded transition-colors"
+              >
+                Zamknij
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 };
