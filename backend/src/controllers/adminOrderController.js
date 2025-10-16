@@ -1,7 +1,7 @@
 // backend/src/controllers/adminOrderController.js
 const Order = require('../models/Order');
 const User = require('../models/User');
-const Comment = require('../models/Comment');
+// const Comment = require('../models/Comment');
 const multer = require('multer');
 const {
   S3Client,
@@ -140,13 +140,17 @@ exports.updateOrderStatus = async (req, res) => {
 
       await order.save();
 
-      // Wyślij powiadomienie przez Socket.IO
+      {
+        /*{
+         Wyślij powiadomienie przez Socket.IO
       const io = req.app.get('io');
       if (io) {
         io.emit('orderStatusUpdated', {
           orderId: order._id,
           status: order.status,
         });
+      
+      }*/
       }
 
       return res.status(200).json({
@@ -387,13 +391,15 @@ exports.addOrderComment = async (req, res) => {
       });
     }
 
-    // Wyślij powiadomienie przez Socket.IO
+    {
+      /*// Wyślij powiadomienie przez Socket.IO
     const io = req.app.get('io');
     if (io) {
       io.emit('newOrderComment', {
         orderId,
         comment,
       });
+    }*/
     }
 
     return res.status(201).json({

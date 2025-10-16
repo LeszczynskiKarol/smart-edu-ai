@@ -31,25 +31,6 @@ const exampleRoutes = require('./src/routes/exampleRoutes');
 const app = express();
 const server = http.createServer(app);
 
-const io = require('socket.io')(server, {
-  cors: {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-    methods: ['GET', 'POST'],
-  },
-});
-
-// Zapisz io w app dla dostępu z controllerów
-app.set('io', io);
-
-// WebSocket connection handling
-io.on('connection', (socket) => {
-  console.log('Client connected:', socket.id);
-
-  socket.on('disconnect', () => {
-    console.log('Client disconnected:', socket.id);
-  });
-});
-
 app.use(cookieParser());
 app.use(helmet());
 

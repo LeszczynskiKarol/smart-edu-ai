@@ -13,10 +13,16 @@ import {
   X,
   Send,
   Loader,
+  FileText,
+  Maximize2,
+  Minimize2,
+  Save,
+  Eye,
+  Edit3,
 } from 'lucide-react';
 
 interface OrderItem {
-  _id: string; // DODANE!
+  _id: string;
   topic: string;
   length: number;
   price: number;
@@ -37,7 +43,7 @@ interface Order {
   _id: string;
   orderNumber: number;
   user: { name: string; email: string };
-  items: OrderItem[]; // ZMIENIONE!
+  items: OrderItem[];
   totalPrice: number;
   status: string;
   paymentStatus: string;
@@ -102,8 +108,16 @@ const AdminOrders: React.FC = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState('');
   const [commentAttachments, setCommentAttachments] = useState<File[]>([]);
-  const [loading, setLoading] = useState(true); // DODANE!
-  const [error, setError] = useState<string | null>(null); // DODANE!
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Content Editor States
+  const [isContentModalOpen, setIsContentModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<OrderItem | null>(null);
+  const [editedContent, setEditedContent] = useState('');
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isSavingContent, setIsSavingContent] = useState(false);
+  const [contentMode, setContentMode] = useState<'view' | 'edit'>('view');
 
   const { user } = useAuth();
 
@@ -133,8 +147,6 @@ const AdminOrders: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      console.log('Fetching orders...'); // Debug
-
       const token = localStorage.getItem('token');
       if (!token) {
         throw new Error('Brak tokena autoryzacji');
@@ -150,21 +162,16 @@ const AdminOrders: React.FC = () => {
         }
       );
 
-      console.log('Response status:', response.status); // Debug
-
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Błąd pobierania zamówień');
       }
 
       const data = await response.json();
-      console.log('Received data:', data); // Debug
 
       if (data.success && Array.isArray(data.data)) {
-        console.log('Orders count:', data.data.length); // Debug
         setOrders(data.data);
       } else {
-        console.error('Nieprawidłowy format danych:', data);
         throw new Error('Nieprawidłowy format danych');
       }
     } catch (error) {
@@ -193,6 +200,50 @@ const AdminOrders: React.FC = () => {
   const handleEditClick = (order: Order) => {
     setSelectedOrder(order);
     setIsEditModalOpen(true);
+  };
+
+  // Content Editor Functions
+  const handleOpenContentEditor = (
+    item: OrderItem,
+    mode: 'view' | 'edit' = 'view'
+  ) => {
+    setSelectedItem(item);
+    setEditedContent(item.content || '');
+    setContentMode(mode);
+    setIsContentModalOpen(true);
+  };
+
+  const handleSaveContent = async () => {
+    if (!selectedOrder || !selectedItem) return;
+
+    setIsSavingContent(true);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${selectedOrder._id}/items/${selectedItem._id}/content`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ content: editedContent }),
+        }
+      );
+
+      if (response.ok) {
+        await fetchOrders();
+        alert('Treść zapisana pomyślnie!');
+        setIsContentModalOpen(false);
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Błąd podczas zapisywania');
+      }
+    } catch (error) {
+      console.error('Błąd:', error);
+      alert('Wystąpił błąd podczas zapisywania treści');
+    } finally {
+      setIsSavingContent(false);
+    }
   };
 
   const handleCommentSubmit = async (orderId: string) => {
@@ -292,7 +343,6 @@ const AdminOrders: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log('User effect triggered:', user); // Debug
     if (user && user.role === 'admin') {
       fetchOrders();
     } else if (user && user.role !== 'admin') {
@@ -493,27 +543,27 @@ const AdminOrders: React.FC = () => {
       case 'other':
         return (
           <div key={fileType} className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-300 mb-2">
               {label}
             </label>
             <input
               type="file"
               onChange={(e) => handleFileChange(e, 'other')}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border border-gray-600 rounded bg-gray-700 text-gray-200"
               multiple
             />
             {otherFiles.map((file, index) => (
               <div key={index} className="mt-2 flex items-center">
-                <span className="mr-2">{file.file?.name}</span>
+                <span className="mr-2 text-gray-300">{file.file?.name}</span>
                 <button
                   onClick={() => handleFileUpload('other', file.file as File)}
-                  className="bg-blue-500 text-white px-2 py-1 rounded text-sm"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-sm"
                   disabled={file.uploading}
                 >
                   {file.uploading ? 'Przesyłanie...' : 'Prześlij'}
                 </button>
                 {file.error && (
-                  <span className="text-red-500 ml-2">{file.error}</span>
+                  <span className="text-red-400 ml-2">{file.error}</span>
                 )}
               </div>
             ))}
@@ -523,7 +573,7 @@ const AdminOrders: React.FC = () => {
 
     return (
       <div key={fileType} className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-gray-300 mb-2">
           {label}
         </label>
         <input
@@ -538,14 +588,14 @@ const AdminOrders: React.FC = () => {
                   ? 'image/*'
                   : undefined
           }
-          className="w-full p-2 border rounded mb-2"
+          className="w-full p-2 border border-gray-600 rounded bg-gray-700 text-gray-200 mb-2"
         />
         {fileState.file && (
           <div className="flex items-center">
-            <span className="mr-2">{fileState.file.name}</span>
+            <span className="mr-2 text-gray-300">{fileState.file.name}</span>
             <button
               onClick={() => handleFileUpload(fileType, fileState.file as File)}
-              className="bg-blue-500 text-white px-2 py-1 rounded text-sm"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-sm"
               disabled={fileState.uploading}
             >
               {fileState.uploading ? 'Przesyłanie...' : 'Prześlij'}
@@ -553,21 +603,21 @@ const AdminOrders: React.FC = () => {
           </div>
         )}
         {fileState.error && (
-          <p className="text-red-500 mt-1">{fileState.error}</p>
+          <p className="text-red-400 mt-1">{fileState.error}</p>
         )}
       </div>
     );
   };
 
-  // Obsługa stanów ładowania i błędów
+  // Loading state
   if (loading) {
     return (
       <Layout title="Zarządzanie Zamówieniami">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 bg-gray-900 min-h-screen">
           <div className="flex items-center justify-center min-h-screen">
             <div className="text-center">
-              <Loader className="w-12 h-12 animate-spin text-blue-500 mx-auto mb-4" />
-              <p className="text-gray-600">Ładowanie zamówień...</p>
+              <Loader className="w-12 h-12 animate-spin text-blue-400 mx-auto mb-4" />
+              <p className="text-gray-400">Ładowanie zamówień...</p>
             </div>
           </div>
         </div>
@@ -575,18 +625,19 @@ const AdminOrders: React.FC = () => {
     );
   }
 
+  // Error state
   if (error) {
     return (
       <Layout title="Zarządzanie Zamówieniami">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 bg-gray-900 min-h-screen">
           <div className="flex items-center justify-center min-h-screen">
             <div className="text-center">
-              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+              <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded">
                 <p className="font-bold">Błąd</p>
                 <p>{error}</p>
                 <button
                   onClick={fetchOrders}
-                  className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                  className="mt-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
                 >
                   Spróbuj ponownie
                 </button>
@@ -598,18 +649,21 @@ const AdminOrders: React.FC = () => {
     );
   }
 
+  // No orders state
   if (orders.length === 0) {
     return (
       <Layout title="Zarządzanie Zamówieniami">
-        <div className="container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold mb-6">Zarządzanie Zamówieniami</h1>
-          <div className="bg-gray-100 border border-gray-300 rounded-lg p-8 text-center">
-            <p className="text-gray-600 text-lg">
+        <div className="container mx-auto px-4 py-8 bg-gray-900 min-h-screen">
+          <h1 className="text-3xl font-bold mb-6 text-gray-100">
+            Zarządzanie Zamówieniami
+          </h1>
+          <div className="bg-gray-800 border border-gray-700 rounded-lg p-8 text-center">
+            <p className="text-gray-400 text-lg">
               Brak zamówień do wyświetlenia
             </p>
             <button
               onClick={fetchOrders}
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
             >
               Odśwież
             </button>
@@ -621,17 +675,21 @@ const AdminOrders: React.FC = () => {
 
   return (
     <Layout title="Zarządzanie Zamówieniami">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 bg-gray-900 min-h-screen">
+        {/* Header */}
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">Zarządzanie Zamówieniami</h1>
+          <h1 className="text-3xl font-bold text-gray-100">
+            Zarządzanie Zamówieniami
+          </h1>
           <button
             onClick={fetchOrders}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition-colors"
           >
             Odśwież
           </button>
         </div>
 
+        {/* Filters */}
         <div className="mb-4 flex justify-between items-center">
           <div className="flex items-center">
             <Search className="text-gray-400 mr-2" />
@@ -640,7 +698,7 @@ const AdminOrders: React.FC = () => {
               placeholder="Szukaj po ID, nazwie klienta lub email"
               value={searchTerm}
               onChange={handleSearch}
-              className="p-2 border rounded"
+              className="p-2 border border-gray-700 rounded bg-gray-800 text-gray-200 placeholder-gray-500"
             />
           </div>
           <div className="flex items-center">
@@ -648,7 +706,7 @@ const AdminOrders: React.FC = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="p-2 border rounded"
+              className="p-2 border border-gray-700 rounded bg-gray-800 text-gray-200"
             >
               <option value="all">Wszystkie statusy</option>
               <option value="oczekujące">Oczekujące</option>
@@ -659,20 +717,23 @@ const AdminOrders: React.FC = () => {
           </div>
         </div>
 
+        {/* Orders Table */}
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border-collapse">
+          <table className="min-w-full bg-gray-800 border-collapse rounded-lg overflow-hidden">
             <thead>
-              <tr className="bg-gray-100">
+              <tr className="bg-gray-700">
                 <th
-                  className="py-2 px-4 border cursor-pointer"
+                  className="py-2 px-4 border border-gray-600 cursor-pointer text-gray-200"
                   onClick={() => handleSort('_id')}
                 >
                   ID / Numer zamówienia{' '}
                   {sortField === '_id' && (sortDirection === 'asc' ? '↑' : '↓')}
                 </th>
-                <th className="py-2 px-4 border">Klient</th>
+                <th className="py-2 px-4 border border-gray-600 text-gray-200">
+                  Klient
+                </th>
                 <th
-                  className="py-2 px-4 border cursor-pointer"
+                  className="py-2 px-4 border border-gray-600 cursor-pointer text-gray-200"
                   onClick={() => handleSort('createdAt')}
                 >
                   Data i godzina{' '}
@@ -680,7 +741,7 @@ const AdminOrders: React.FC = () => {
                     (sortDirection === 'asc' ? '↑' : '↓')}
                 </th>
                 <th
-                  className="py-2 px-4 border cursor-pointer"
+                  className="py-2 px-4 border border-gray-600 cursor-pointer text-gray-200"
                   onClick={() => handleSort('status')}
                 >
                   Status{' '}
@@ -688,86 +749,95 @@ const AdminOrders: React.FC = () => {
                     (sortDirection === 'asc' ? '↑' : '↓')}
                 </th>
                 <th
-                  className="py-2 px-4 border cursor-pointer"
+                  className="py-2 px-4 border border-gray-600 cursor-pointer text-gray-200"
                   onClick={() => handleSort('totalPrice')}
                 >
                   Cena{' '}
                   {sortField === 'totalPrice' &&
                     (sortDirection === 'asc' ? '↑' : '↓')}
                 </th>
-                <th className="py-2 px-4 border">Ostatnia aktualizacja</th>
-                <th className="py-2 px-4 border">Notatki admina</th>
-                <th className="py-2 px-4 border">Akcje</th>
+                <th className="py-2 px-4 border border-gray-600 text-gray-200">
+                  Ostatnia aktualizacja
+                </th>
+                <th className="py-2 px-4 border border-gray-600 text-gray-200">
+                  Notatki admina
+                </th>
+                <th className="py-2 px-4 border border-gray-600 text-gray-200">
+                  Akcje
+                </th>
               </tr>
             </thead>
             <tbody>
               {filteredAndSearchedOrders.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-8 text-center text-gray-500">
+                  <td
+                    colSpan={8}
+                    className="py-8 text-center text-gray-500 border border-gray-600"
+                  >
                     Brak zamówień spełniających kryteria wyszukiwania
                   </td>
                 </tr>
               ) : (
                 filteredAndSearchedOrders.map((order) => (
                   <React.Fragment key={order._id}>
-                    <tr className="border-b hover:bg-gray-50">
-                      <td className="py-2 px-4 border">
+                    <tr className="border-b border-gray-700 hover:bg-gray-750">
+                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
                         {order._id}
                         <br />
                         <span className="text-sm text-gray-500">
                           #{order._id.slice(-6)}
                         </span>
                       </td>
-                      <td className="py-2 px-4 border">
+                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
                         {order.user?.name || 'N/A'}
                         <br />
                         <span className="text-sm text-gray-500">
                           {order.user?.email || 'N/A'}
                         </span>
                       </td>
-                      <td className="py-2 px-4 border">
+                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
                         {new Date(order.createdAt).toLocaleDateString()}
                         <br />
                         <span className="text-sm text-gray-500">
                           {new Date(order.createdAt).toLocaleTimeString()}
                         </span>
                       </td>
-                      <td className="py-2 px-4 border">
+                      <td className="py-2 px-4 border border-gray-600">
                         <span
                           className={`px-2 py-1 rounded ${
                             order.status === 'zakończone'
-                              ? 'bg-green-200 text-green-800'
+                              ? 'bg-green-900 text-green-200'
                               : order.status === 'w trakcie'
-                                ? 'bg-yellow-200 text-yellow-800'
+                                ? 'bg-yellow-900 text-yellow-200'
                                 : order.status === 'anulowane'
-                                  ? 'bg-red-200 text-red-800'
-                                  : 'bg-gray-200 text-gray-800'
+                                  ? 'bg-red-900 text-red-200'
+                                  : 'bg-gray-700 text-gray-300'
                           }`}
                         >
                           {order.status}
                         </span>
                       </td>
-                      <td className="py-2 px-4 border">
+                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
                         {order.totalPrice?.toFixed(2) || '0.00'} zł
                       </td>
-                      <td className="py-2 px-4 border">
+                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
                         {order.lastUpdated
                           ? new Date(order.lastUpdated).toLocaleString()
                           : 'N/A'}
                       </td>
-                      <td className="py-2 px-4 border">
+                      <td className="py-2 px-4 border border-gray-600 text-gray-300">
                         {order.adminNotes || 'Brak'}
                       </td>
-                      <td className="py-2 px-4 border">
+                      <td className="py-2 px-4 border border-gray-600">
                         <button
                           onClick={() => handleEditClick(order)}
-                          className="bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-1"
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded mr-2 mb-1 transition-colors"
                         >
                           Edytuj
                         </button>
                         <button
                           onClick={() => toggleOrderExpansion(order._id)}
-                          className="bg-gray-200 text-gray-700 px-2 py-1 rounded"
+                          className="bg-gray-700 hover:bg-gray-600 text-gray-300 px-2 py-1 rounded transition-colors"
                         >
                           {expandedOrder === order._id ? (
                             <ChevronUp />
@@ -779,50 +849,99 @@ const AdminOrders: React.FC = () => {
                     </tr>
                     {expandedOrder === order._id && (
                       <tr>
-                        <td colSpan={8} className="py-4 px-4 border bg-gray-50">
-                          <h4 className="font-semibold mb-2">
+                        <td
+                          colSpan={8}
+                          className="py-4 px-4 border border-gray-600 bg-gray-850"
+                        >
+                          <h4 className="font-semibold mb-2 text-gray-200">
                             Szczegóły zamówienia:
                           </h4>
                           <ul className="space-y-2">
                             {order.items?.map((item, index) => (
                               <li
                                 key={item._id || index}
-                                className="flex flex-col"
+                                className="flex flex-col bg-gray-800 p-3 rounded"
                               >
-                                <div>
-                                  Temat:{' '}
-                                  <span className="font-medium">
-                                    {item.topic}
-                                  </span>
-                                </div>
-                                <div className="ml-6 text-sm text-gray-600">
-                                  <span>
-                                    {item.length} znaków -{' '}
-                                    {item.price?.toFixed(2).replace('.', ',') ||
-                                      '0,00'}{' '}
-                                    zł
-                                  </span>
-                                  <br />
-                                  <span className="bg-gray-200 px-2 py-1 rounded mr-2">
-                                    Język: {item.language}
-                                  </span>
-                                  <span className="bg-gray-200 px-2 py-1 rounded">
-                                    Typ: {item.contentType}
-                                  </span>
-                                  {item.guidelines && (
-                                    <div className="mt-2">
-                                      <strong>Wytyczne:</strong>
-                                      <p className="bg-gray-100 p-2 rounded">
-                                        {item.guidelines}
-                                      </p>
+                                <div className="flex justify-between items-start">
+                                  <div className="flex-1">
+                                    <div className="text-gray-200">
+                                      Temat:{' '}
+                                      <span className="font-medium">
+                                        {item.topic}
+                                      </span>
                                     </div>
-                                  )}
+                                    <div className="ml-6 text-sm text-gray-400 mt-2">
+                                      <span>
+                                        {item.length} znaków -{' '}
+                                        {item.price
+                                          ?.toFixed(2)
+                                          .replace('.', ',') || '0,00'}{' '}
+                                        zł
+                                      </span>
+                                      <br />
+                                      <span className="bg-gray-700 px-2 py-1 rounded mr-2 inline-block mt-1">
+                                        Język: {item.language}
+                                      </span>
+                                      <span className="bg-gray-700 px-2 py-1 rounded inline-block mt-1">
+                                        Typ: {item.contentType}
+                                      </span>
+                                      {item.guidelines && (
+                                        <div className="mt-2">
+                                          <strong className="text-gray-300">
+                                            Wytyczne:
+                                          </strong>
+                                          <p className="bg-gray-900 p-2 rounded text-gray-300">
+                                            {item.guidelines}
+                                          </p>
+                                        </div>
+                                      )}
+                                    </div>
+                                  </div>
+                                  {/* Content Actions */}
+                                  <div className="flex gap-2 ml-4">
+                                    {item.content && (
+                                      <button
+                                        onClick={() =>
+                                          handleOpenContentEditor(item, 'view')
+                                        }
+                                        className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded flex items-center gap-1 transition-colors"
+                                        title="Podgląd treści"
+                                      >
+                                        <Eye size={16} />
+                                        Podgląd
+                                      </button>
+                                    )}
+                                    <button
+                                      onClick={() => {
+                                        setSelectedOrder(order);
+                                        handleOpenContentEditor(item, 'edit');
+                                      }}
+                                      className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded flex items-center gap-1 transition-colors"
+                                      title="Edytuj treść"
+                                    >
+                                      <Edit3 size={16} />
+                                      {item.content ? 'Edytuj' : 'Dodaj treść'}
+                                    </button>
+                                  </div>
                                 </div>
+                                {/* Content Preview */}
+                                {item.content && (
+                                  <div className="mt-3 bg-gray-900 p-2 rounded">
+                                    <div className="text-xs text-gray-500 mb-1">
+                                      Podgląd treści ({item.content.length}{' '}
+                                      znaków)
+                                    </div>
+                                    <div className="text-sm text-gray-400 line-clamp-2">
+                                      {item.content.substring(0, 200)}
+                                      {item.content.length > 200 && '...'}
+                                    </div>
+                                  </div>
+                                )}
                               </li>
                             ))}
                           </ul>
 
-                          <div className="mt-4">
+                          <div className="mt-4 text-gray-300">
                             <p>
                               <strong>Całkowita cena:</strong>{' '}
                               {order.totalPrice?.toFixed(2).replace('.', ',') ||
@@ -845,28 +964,36 @@ const AdminOrders: React.FC = () => {
                             </p>
                           </div>
 
-                          {/* Reszta istniejącego kodu dla expandedOrder pozostaje bez zmian */}
                           {order.userAttachments &&
-                            order.userAttachments.map((attachment, index) => (
-                              <div key={index} className="mb-1">
-                                <a
-                                  href={attachment.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-blue-600 hover:underline"
-                                >
-                                  {attachment.filename}
-                                </a>
+                            order.userAttachments.length > 0 && (
+                              <div className="mt-4">
+                                <strong className="text-gray-200">
+                                  Załączniki użytkownika:
+                                </strong>
+                                {order.userAttachments.map(
+                                  (attachment, index) => (
+                                    <div key={index} className="mb-1">
+                                      <a
+                                        href={attachment.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-blue-400 hover:text-blue-300 hover:underline"
+                                      >
+                                        {attachment.filename}
+                                      </a>
+                                    </div>
+                                  )
+                                )}
                               </div>
-                            ))}
+                            )}
 
-                          {/* Sekcja z przepływem generowania - POPRAWIONA */}
+                          {/* Content Generation Flow */}
                           <div className="mt-6">
-                            <h4 className="font-semibold mb-2">
+                            <h4 className="font-semibold mb-2 text-gray-200">
                               Przepływ generowania treści:
                             </h4>
                             <div
-                              className="bg-white rounded-lg shadow-lg"
+                              className="bg-gray-800 rounded-lg shadow-lg border border-gray-700"
                               style={{ height: '600px' }}
                             >
                               {order.items &&
@@ -877,14 +1004,12 @@ const AdminOrders: React.FC = () => {
                                   itemId={order.items[0]._id}
                                 />
                               ) : (
-                                <div className="flex items-center justify-center h-full text-gray-400">
+                                <div className="flex items-center justify-center h-full text-gray-500">
                                   Brak itemów do generowania
                                 </div>
                               )}
                             </div>
                           </div>
-
-                          {/* Reszta kodu (załączniki, komentarze) pozostaje bez zmian */}
                         </td>
                       </tr>
                     )}
@@ -895,21 +1020,124 @@ const AdminOrders: React.FC = () => {
           </table>
         </div>
 
-        {/* Modale pozostają bez zmian */}
+        {/* Content Editor Modal */}
+        {isContentModalOpen && selectedItem && (
+          <div
+            className={`fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50 ${
+              isFullscreen ? 'p-0' : 'p-4'
+            }`}
+          >
+            <div
+              className={`bg-gray-800 rounded-lg ${
+                isFullscreen ? 'w-full h-full' : 'w-full max-w-6xl max-h-[90vh]'
+              } flex flex-col`}
+            >
+              {/* Modal Header */}
+              <div className="flex justify-between items-center p-4 border-b border-gray-700">
+                <div>
+                  <h3 className="text-lg font-medium text-gray-100">
+                    {contentMode === 'view'
+                      ? 'Podgląd treści'
+                      : 'Edycja treści'}
+                  </h3>
+                  <p className="text-sm text-gray-400 mt-1">
+                    {selectedItem.topic}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="text-sm text-gray-400 mr-4">
+                    Znaków: {editedContent.length} / {selectedItem.length}
+                  </div>
+                  {contentMode === 'view' ? (
+                    <button
+                      onClick={() => setContentMode('edit')}
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded flex items-center gap-1"
+                    >
+                      <Edit3 size={16} />
+                      Edytuj
+                    </button>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => setContentMode('view')}
+                        className="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded flex items-center gap-1"
+                      >
+                        <Eye size={16} />
+                        Podgląd
+                      </button>
+                      <button
+                        onClick={handleSaveContent}
+                        disabled={isSavingContent}
+                        className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded flex items-center gap-1 disabled:opacity-50"
+                      >
+                        <Save size={16} />
+                        {isSavingContent ? 'Zapisywanie...' : 'Zapisz'}
+                      </button>
+                    </>
+                  )}
+                  <button
+                    onClick={() => setIsFullscreen(!isFullscreen)}
+                    className="bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded"
+                  >
+                    {isFullscreen ? (
+                      <Minimize2 size={18} />
+                    ) : (
+                      <Maximize2 size={18} />
+                    )}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsContentModalOpen(false);
+                      setIsFullscreen(false);
+                    }}
+                    className="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Modal Content */}
+              <div className="flex-1 overflow-hidden p-4">
+                {contentMode === 'view' ? (
+                  <div className="h-full overflow-y-auto bg-gray-900 p-4 rounded border border-gray-700">
+                    <div className="prose prose-invert max-w-none">
+                      <pre className="whitespace-pre-wrap text-gray-300 font-sans">
+                        {editedContent || 'Brak treści'}
+                      </pre>
+                    </div>
+                  </div>
+                ) : (
+                  <textarea
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value)}
+                    className="w-full h-full p-4 bg-gray-900 text-gray-200 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm resize-none"
+                    placeholder="Wpisz treść zamówienia..."
+                    spellCheck={false}
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Edit Modal */}
         {isEditModalOpen && selectedOrder && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-lg w-full max-w-2xl">
-              <h3 className="text-lg font-medium mb-4">Edytuj zamówienie</h3>
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+            <div className="bg-gray-800 p-6 rounded-lg w-full max-w-2xl border border-gray-700">
+              <h3 className="text-lg font-medium mb-4 text-gray-100">
+                Edytuj zamówienie
+              </h3>
               <div className="mb-4">
                 <button
                   onClick={() => setIsStatusModalOpen(true)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mr-2 transition-colors"
                 >
                   Zmień status
                 </button>
                 <button
                   onClick={handleAddFilesClick}
-                  className="bg-green-500 text-white px-4 py-2 rounded"
+                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition-colors"
                 >
                   Dodaj pliki
                 </button>
@@ -917,7 +1145,7 @@ const AdminOrders: React.FC = () => {
               <div className="flex justify-end mt-4">
                 <button
                   onClick={() => setIsEditModalOpen(false)}
-                  className="bg-gray-300 text-gray-800 px-4 py-2 rounded"
+                  className="bg-gray-700 hover:bg-gray-600 text-gray-200 px-4 py-2 rounded transition-colors"
                 >
                   Zamknij
                 </button>
@@ -925,8 +1153,6 @@ const AdminOrders: React.FC = () => {
             </div>
           </div>
         )}
-
-        {/* Pozostałe modale bez zmian */}
       </div>
     </Layout>
   );
