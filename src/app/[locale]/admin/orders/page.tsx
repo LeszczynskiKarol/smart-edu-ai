@@ -2,7 +2,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import ContentGenerationFlow from '@/components/admin/ContentGenerationFlow';
 import Layout from '@/components/layout/Layout';
 import {
   ChevronDown,
@@ -149,27 +148,6 @@ const AdminOrders: React.FC = () => {
     } catch (error) {
       console.error('Błąd:', error);
       alert('Nie można usunąć zamówienia');
-    }
-  };
-
-  const fetchComments = async (orderId: string) => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/admin/orders/${orderId}/comments`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setComments(data.data);
-      } else {
-        console.error('Błąd pobierania komentarzy');
-      }
-    } catch (error) {
-      console.error('Błąd:', error);
     }
   };
 
@@ -369,7 +347,6 @@ const AdminOrders: React.FC = () => {
       setExpandedOrder(null);
     } else {
       setExpandedOrder(orderId);
-      fetchComments(orderId);
     }
   };
 

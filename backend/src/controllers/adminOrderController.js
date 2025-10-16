@@ -350,89 +350,22 @@ exports.getOrderComments = async (req, res) => {
   }
 };
 
-// Dodaj komentarz do zamówienia
-exports.addOrderComment = async (req, res) => {
+exports.deleteOrder = async (req, res) => {
   try {
     const { orderId } = req.params;
-    const { content } = req.body;
+    const order = await Order.findByIdAndDelete(orderId);
 
-    if (!content || content.trim() === '') {
-      return res.status(400).json({
-        success: false,
-        message: 'Treść komentarza jest wymagana',
-      });
-    }
-
-    // Sprawdź czy zamówienie istnieje
-    const order = await Order.findById(orderId);
     if (!order) {
-      return res.status(404).json({
-        success: false,
-        message: 'Zamówienie nie znalezione',
-      });
+      return res
+        .status(404)
+        .json({ success: false, message: 'Zamówienie nie znalezione' });
     }
 
-    // Sprawdź czy istnieje model Comment
-    let comment;
-    try {
-      const Comment = require('../models/Comment');
-      comment = new Comment({
-        order: orderId,
-        user: req.user._id,
-        content: content.trim(),
-      });
-      await comment.save();
-      await comment.populate('user', 'name email role');
-    } catch (err) {
-      return res.status(500).json({
-        success: false,
-        message:
-          'Model Comment nie istnieje. Proszę utworzyć model komentarzy.',
-      });
-    }
-
-    exports.deleteOrder = async (req, res) => {
-      try {
-        const { orderId } = req.params;
-        const order = await Order.findByIdAndDelete(orderId);
-
-        if (!order) {
-          return res
-            .status(404)
-            .json({ success: false, message: 'Zamówienie nie znalezione' });
-        }
-
-        return res
-          .status(200)
-          .json({ success: true, message: 'Zamówienie usunięte' });
-      } catch (error) {
-        return res.status(500).json({ success: false, message: error.message });
-      }
-    };
-
-    {
-      /*// Wyślij powiadomienie przez Socket.IO
-    const io = req.app.get('io');
-    if (io) {
-      io.emit('newOrderComment', {
-        orderId,
-        comment,
-      });
-    }*/
-    }
-
-    return res.status(201).json({
-      success: true,
-      data: comment,
-      message: 'Komentarz został dodany',
-    });
+    return res
+      .status(200)
+      .json({ success: true, message: 'Zamówienie usunięte' });
   } catch (error) {
-    console.error('Error adding comment:', error);
-    return res.status(500).json({
-      success: false,
-      message: 'Błąd podczas dodawania komentarza',
-      error: error.message,
-    });
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
