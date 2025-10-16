@@ -62,6 +62,7 @@ interface UserDetails {
     currency: string;
     createdAt: string;
     relatedOrder?: {
+      _id: string;
       orderNumber: string;
     };
   }>;
@@ -165,7 +166,8 @@ export default function UserDetailsPage() {
     );
   }
 
-  const { user, stats, recentOrders } = userDetails;
+  // POPRAWKA: Wyciągnij wszystkie dane z userDetails
+  const { user, stats, recentOrders, recentPayments } = userDetails;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -251,6 +253,7 @@ export default function UserDetailsPage() {
             <ShoppingCart className="text-blue-500" size={32} />
           </div>
         </div>
+
         <div
           className={`p-6 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
         >
@@ -267,6 +270,7 @@ export default function UserDetailsPage() {
             <CheckCircle className="text-green-500" size={32} />
           </div>
         </div>
+
         <div
           className={`p-6 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
         >
@@ -370,6 +374,7 @@ export default function UserDetailsPage() {
             </div>
           )}
       </div>
+
       {/* Recent Payments */}
       <div
         className={`p-6 rounded-lg shadow mb-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
