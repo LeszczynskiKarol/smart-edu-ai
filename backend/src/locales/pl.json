@@ -55,6 +55,19 @@
       "subject": "Twoje zamówienie nr {{orderNumber}} zostało zrealizowane",
       "message": "Twoje zamówienie nr {{orderNumber}} zostało zrealizowane. Zaloguj się do panelu klienta, aby zobaczyć wygenerowane treści.",
       "allCompleted": "Twoje zamówienie nr {{orderNumber}} zostało w całości zrealizowane. Zaloguj się do panelu klienta, aby zobaczyć wygenerowane treści."
+    },
+    "itemCompletion": {
+      "subject": "Zamówienie #{{orderNumber}} zakończone - {{topic}}",
+      "title": "Twoje zamówienie zostało zakończone!",
+      "greeting": "Dzień dobry {{name}},",
+      "mainMessage": "Z przyjemnością informujemy, że praca \"<strong>{{topic}}</strong>\" została ukończona.",
+      "detailsTitle": "Szczegóły:",
+      "orderNumber": "Numer zamówienia:",
+      "topic": "Temat:",
+      "contentType": "Typ treści:",
+      "viewMessage": "Możesz teraz zobaczyć gotową pracę logując się do swojego panelu.",
+      "buttonText": "Zobacz zamówienie",
+      "thanks": "Dziękujemy za skorzystanie z naszych usług!"
     }
   }
 }

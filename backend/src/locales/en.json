@@ -62,6 +62,19 @@
       "subject": "Your order #{{orderNumber}} has been completed",
       "message": "Your order #{{orderNumber}} has been completed. Log in to your client panel to see the generated content.",
       "allCompleted": "Your order #{{orderNumber}} has been fully completed. Log in to your client panel to see all generated content."
+    },
+    "itemCompletion": {
+      "subject": "Order #{{orderNumber}} completed - {{topic}}",
+      "title": "Your order has been completed!",
+      "greeting": "Hello {{name}},",
+      "mainMessage": "We are pleased to inform you that the work \"<strong>{{topic}}</strong>\" has been completed.",
+      "detailsTitle": "Details:",
+      "orderNumber": "Order number:",
+      "topic": "Topic:",
+      "contentType": "Content type:",
+      "viewMessage": "You can now view your completed work by logging into your panel.",
+      "buttonText": "View order",
+      "thanks": "Thank you for using our services!"
     }
   }
 }

@@ -52,11 +52,11 @@ const OrderStatusItem: React.FC<OrderStatusItemProps> = ({
     const startTime = new Date(item.startTime);
 
     if (item.contentType.toLowerCase().includes('magister')) {
-      // 45 minut dla prac magisterskich
-      return new Date(startTime.getTime() + 45 * 60 * 1000).toISOString();
+      // 90 minut dla prac magisterskich
+      return new Date(startTime.getTime() + 90 * 60 * 1000).toISOString();
     } else if (item.contentType.toLowerCase().includes('licenc')) {
-      // 35 minut dla prac licencjackich
-      return new Date(startTime.getTime() + 35 * 60 * 1000).toISOString();
+      // 60 minut dla prac licencjackich
+      return new Date(startTime.getTime() + 60 * 60 * 1000).toISOString();
     }
 
     return item.estimatedCompletionTime;

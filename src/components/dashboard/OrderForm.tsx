@@ -1,5 +1,5 @@
 // src/components/dashboard/OrderForm.tsx
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useLoader } from '../../context/LoaderContext';
@@ -21,32 +21,48 @@ const contentTypes = [
   { value: 'category_description', label: 'Opis kategorii' },
   { value: 'website_content', label: 'Tekst na stronę firmową' },
   { value: 'social_media_post', label: 'Post do mediów społecznościowych' },
-  { value: 'other', label: 'Inny (określ w wytycznych)' }
+  { value: 'other', label: 'Inny (określ w wytycznych)' },
 ];
 
 const languages = [
   { value: 'polish', label: 'Polski', flag: '/images/pl-flag.png' },
   { value: 'english', label: 'Angielski', flag: '/images/en-flag.png' },
-  { value: 'german', label: 'Niemiecki', flag: '/images/de-flag.png' }
+  { value: 'german', label: 'Niemiecki', flag: '/images/de-flag.png' },
 ];
-
 
 const OrderForm: React.FC = () => {
   const { user, refreshUserData } = useAuth();
   const { showLoader, hideLoader } = useLoader();
-  const [orderItems, setOrderItems] = useState([{ topic: '', length: 1000, guidelines: '', contentType: 'article', language: 'polish' }]);
+  const [orderItems, setOrderItems] = useState([
+    {
+      topic: '',
+      length: 1000,
+      guidelines: '',
+      contentType: 'article',
+      language: 'polish',
+    },
+  ]);
   const [files, setFiles] = useState<File[]>([]);
-  const [uploadedFiles, setUploadedFiles] = useState<{ originalname: string, location: string }[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<
+    { originalname: string; location: string }[]
+  >([]);
   const [totalPrice, setTotalPrice] = useState('0,00');
   const [discountedPrice, setDiscountedPrice] = useState('0,00');
   const [appliedDiscount, setAppliedDiscount] = useState(0);
-  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
-  const [declaredDeliveryDate, setDeclaredDeliveryDate] = useState<Date | null>(null);
+  const [notification, setNotification] = useState<{
+    message: string;
+    type: 'success' | 'error' | 'info';
+  } | null>(null);
+  const [declaredDeliveryDate, setDeclaredDeliveryDate] = useState<Date | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-  const [showOrderConfirmationModal, setShowOrderConfirmationModal] = useState(false);
-  const [confirmedOrder, setConfirmedOrder] = useState<ConfirmedOrder | null>(null);
-
+  const [showOrderConfirmationModal, setShowOrderConfirmationModal] =
+    useState(false);
+  const [confirmedOrder, setConfirmedOrder] = useState<ConfirmedOrder | null>(
+    null
+  );
 
   useEffect(() => {
     calculatePrices();
@@ -84,13 +100,13 @@ const OrderForm: React.FC = () => {
     }
 
     setDeclaredDeliveryDate(deliveryDate);
-
-
   };
 
-
   const calculatePrices = () => {
-    const subtotal = orderItems.reduce((sum, item) => sum + (item.length || 0) * 0.020, 0);
+    const subtotal = orderItems.reduce(
+      (sum, item) => sum + (item.length || 0) * 0.02,
+      0
+    );
     let discount = 0;
     if (subtotal >= 500) {
       discount = 20;
@@ -105,16 +121,27 @@ const OrderForm: React.FC = () => {
   };
 
   const addOrderItem = () => {
-    setOrderItems([...orderItems, { topic: '', length: 1000, guidelines: '', contentType: 'article', language: 'polish' }]);
+    setOrderItems([
+      ...orderItems,
+      {
+        topic: '',
+        length: 1000,
+        guidelines: '',
+        contentType: 'article',
+        language: 'polish',
+      },
+    ]);
   };
-
-
 
   const removeOrderItem = (index: number) => {
     setOrderItems(orderItems.filter((_, i) => i !== index));
   };
 
-  const updateOrderItem = (index: number, field: string, value: string | number) => {
+  const updateOrderItem = (
+    index: number,
+    field: string,
+    value: string | number
+  ) => {
     const newItems = [...orderItems];
     newItems[index] = { ...newItems[index], [field]: value };
     setOrderItems(newItems);
@@ -122,7 +149,11 @@ const OrderForm: React.FC = () => {
 
   const getDiscountMessage = () => {
     const subtotal = parseFloat(totalPrice.replace(',', '.'));
-    const formatPrice = (price: number) => price.toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' zł';
+    const formatPrice = (price: number) =>
+      price.toLocaleString('pl-PL', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }) + ' zł';
 
     if (subtotal < 200) {
       const remainingTo10Percent = 200 - subtotal;
@@ -137,7 +168,10 @@ const OrderForm: React.FC = () => {
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newFiles = Array.from(e.target.files || []);
     if (files.length + newFiles.length > 5) {
-      setNotification({ message: 'Możesz dodać maksymalnie 5 plików.', type: 'error' });
+      setNotification({
+        message: 'Możesz dodać maksymalnie 5 plików.',
+        type: 'error',
+      });
       return;
     }
 
@@ -152,9 +186,9 @@ const OrderForm: React.FC = () => {
         const response = await fetch('/api/upload', {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-          body: formData
+          body: formData,
         });
 
         console.log('Response status:', response.status);
@@ -162,7 +196,10 @@ const OrderForm: React.FC = () => {
         if (response.ok) {
           const data = await response.json();
           console.log('Upload successful:', data);
-          setUploadedFiles(prev => [...prev, { originalname: data.originalname, location: data.url }]);
+          setUploadedFiles((prev) => [
+            ...prev,
+            { originalname: data.originalname, location: data.url },
+          ]);
         } else {
           const errorData = await response.json();
           console.error('Server error:', errorData);
@@ -172,12 +209,11 @@ const OrderForm: React.FC = () => {
         console.error('Error uploading file:', error);
         setNotification({
           message: `Błąd podczas przesyłania pliku: ${file.name}. ${error instanceof Error ? error.message : 'Nieznany błąd'}`,
-          type: 'error'
+          type: 'error',
         });
       }
     }
   };
-
 
   const removeFile = (index: number) => {
     setFiles(files.filter((_, i) => i !== index));
@@ -196,17 +232,17 @@ const OrderForm: React.FC = () => {
     }
 
     try {
-      const orderItemsData = orderItems.map(item => ({
+      const orderItemsData = orderItems.map((item) => ({
         topic: item.topic,
         length: item.length,
         contentType: item.contentType || 'article',
         language: item.language || 'polish',
-        guidelines: item.guidelines
+        guidelines: item.guidelines,
       }));
 
-      const filesData = uploadedFiles.map(file => ({
+      const filesData = uploadedFiles.map((file) => ({
         filename: file.originalname,
-        url: file.location
+        url: file.location,
       }));
 
       console.log('Sending data:', {
@@ -215,29 +251,34 @@ const OrderForm: React.FC = () => {
         appliedDiscount,
         declaredDeliveryDate: declaredDeliveryDate?.toISOString(),
         missingAmount,
-        files: filesData
+        files: filesData,
       });
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/orders`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          orderItems: orderItemsData,
-          totalPrice: totalPriceValue,
-          appliedDiscount,
-          declaredDeliveryDate: declaredDeliveryDate?.toISOString(),
-          missingAmount,
-          userAttachments: filesData
-        })
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/orders`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            orderItems: orderItemsData,
+            totalPrice: totalPriceValue,
+            appliedDiscount,
+            declaredDeliveryDate: declaredDeliveryDate?.toISOString(),
+            missingAmount,
+            userAttachments: filesData,
+          }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
         console.error('Server error response:', errorData);
-        throw new Error(errorData.message || 'Wystąpił problem podczas składania zamówienia');
+        throw new Error(
+          errorData.message || 'Wystąpił problem podczas składania zamówienia'
+        );
       }
 
       const data = await response.json();
@@ -252,12 +293,28 @@ const OrderForm: React.FC = () => {
           }
           window.location.href = data.paymentUrl;
         } else {
-          localStorage.setItem('lastOrderConfirmed', JSON.stringify({
-            orderNumber: data.order.orderNumber,
-            totalPrice: data.order.totalPrice,
-            discount: appliedDiscount,
-            itemsCount: orderItems.length,
-          }));
+          // Zamówienie opłacone z salda - BEZ płatności
+
+          // DODAJ TEN KOD TUTAJ - PRZED localStorage.setItem:
+          window.dispatchEvent(
+            new CustomEvent('orderStatusUpdate', {
+              detail: {
+                orderAdded: true,
+                order: data.order,
+              },
+            })
+          );
+          // KONIEC NOWEGO KODU
+
+          localStorage.setItem(
+            'lastOrderConfirmed',
+            JSON.stringify({
+              orderNumber: data.order.orderNumber,
+              totalPrice: data.order.totalPrice,
+              discount: appliedDiscount,
+              itemsCount: orderItems.length,
+            })
+          );
           setConfirmedOrder({
             orderNumber: parseInt(data.order.orderNumber, 10),
             totalPrice: data.order.totalPrice,
@@ -265,7 +322,15 @@ const OrderForm: React.FC = () => {
             itemsCount: orderItems.length,
           });
           setIsConfirmationModalOpen(true);
-          setOrderItems([{ topic: '', length: 1000, guidelines: '', contentType: 'article', language: 'polish' }]);
+          setOrderItems([
+            {
+              topic: '',
+              length: 1000,
+              guidelines: '',
+              contentType: 'article',
+              language: 'polish',
+            },
+          ]);
           setFiles([]);
           await refreshUserData();
         }
@@ -273,15 +338,17 @@ const OrderForm: React.FC = () => {
     } catch (error: unknown) {
       console.error('Błąd podczas składania zamówienia:', error);
       setNotification({
-        message: error instanceof Error ? error.message : 'Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie później.',
-        type: 'error'
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Wystąpił błąd podczas składania zamówienia. Spróbuj ponownie później.',
+        type: 'error',
       });
     } finally {
       hideLoader();
       setIsLoading(false);
     }
   };
-
 
   return (
     <>
@@ -294,26 +361,37 @@ const OrderForm: React.FC = () => {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-
-
         {orderItems.map((item, index) => (
-          <div key={index} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+          <div
+            key={index}
+            className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow"
+          >
             <div className="flex justify-between items-center mb-2">
-              <h3 className="text-lg font-medium dark:text-white">Zamówienie {index + 1}</h3>
+              <h3 className="text-lg font-medium dark:text-white">
+                Zamówienie {index + 1}
+              </h3>
               {orderItems.length > 1 && (
-                <button type="button" onClick={() => removeOrderItem(index)} className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">
+                <button
+                  type="button"
+                  onClick={() => removeOrderItem(index)}
+                  className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                >
                   <X size={20} />
                 </button>
               )}
             </div>
             <select
               value={item.contentType}
-              onChange={(e) => updateOrderItem(index, 'contentType', e.target.value)}
+              onChange={(e) =>
+                updateOrderItem(index, 'contentType', e.target.value)
+              }
               className="w-full p-2 border rounded mb-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               required
             >
               {contentTypes.map((type) => (
-                <option key={type.value} value={type.value}>{type.label}</option>
+                <option key={type.value} value={type.value}>
+                  {type.label}
+                </option>
               ))}
             </select>
             <input
@@ -326,19 +404,41 @@ const OrderForm: React.FC = () => {
             />
             <div className="flex items-center mb-2">
               <label className="mr-2 dark:text-white">Długość:</label>
-              <button type="button" onClick={() => updateOrderItem(index, 'length', Math.max(1000, item.length - 1000))} className="p-1 bg-gray-200 dark:bg-gray-600 rounded-l">
+              <button
+                type="button"
+                onClick={() =>
+                  updateOrderItem(
+                    index,
+                    'length',
+                    Math.max(1000, item.length - 1000)
+                  )
+                }
+                className="p-1 bg-gray-200 dark:bg-gray-600 rounded-l"
+              >
                 <Minus size={16} />
               </button>
               <input
                 type="number"
                 value={item.length}
-                onChange={(e) => updateOrderItem(index, 'length', Math.max(1000, parseInt(e.target.value)))}
+                onChange={(e) =>
+                  updateOrderItem(
+                    index,
+                    'length',
+                    Math.max(1000, parseInt(e.target.value))
+                  )
+                }
                 className="w-24 p-2 border-y text-center dark:bg-gray-700 dark:border-gray-600 dark:text-white appearance-none"
                 min="1000"
                 step="1000"
                 required
               />
-              <button type="button" onClick={() => updateOrderItem(index, 'length', item.length + 1000)} className="p-1 bg-gray-200 dark:bg-gray-600 rounded-r">
+              <button
+                type="button"
+                onClick={() =>
+                  updateOrderItem(index, 'length', item.length + 1000)
+                }
+                className="p-1 bg-gray-200 dark:bg-gray-600 rounded-r"
+              >
                 <Plus size={16} />
               </button>
               <span className="ml-2 dark:text-white">znaków</span>
@@ -350,10 +450,18 @@ const OrderForm: React.FC = () => {
                   <button
                     key={lang.value}
                     type="button"
-                    onClick={() => updateOrderItem(index, 'language', lang.value)}
+                    onClick={() =>
+                      updateOrderItem(index, 'language', lang.value)
+                    }
                     className={`flex items-center mr-2 p-2 border rounded ${item.language === lang.value ? 'border-blue-500' : 'border-gray-300'}`}
                   >
-                    <Image src={lang.flag} alt={lang.label} width={20} height={20} className="mr-2" />
+                    <Image
+                      src={lang.flag}
+                      alt={lang.label}
+                      width={20}
+                      height={20}
+                      className="mr-2"
+                    />
                     <span>{lang.label}</span>
                   </button>
                 ))}
@@ -362,18 +470,26 @@ const OrderForm: React.FC = () => {
             <textarea
               placeholder="Wytyczne"
               value={item.guidelines}
-              onChange={(e) => updateOrderItem(index, 'guidelines', e.target.value)}
+              onChange={(e) =>
+                updateOrderItem(index, 'guidelines', e.target.value)
+              }
               className="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               rows={3}
             />
           </div>
         ))}
 
-        <button type="button" onClick={addOrderItem} className="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
+        <button
+          type="button"
+          onClick={addOrderItem}
+          className="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-600"
+        >
           <Plus size={20} className="inline mr-2" /> Dodaj kolejny tekst
         </button>
         <div className="mt-4">
-          <label className="block mb-2 dark:text-white">Dodaj pliki (max 5, każdy do 10 MB):</label>
+          <label className="block mb-2 dark:text-white">
+            Dodaj pliki (max 5, każdy do 10 MB):
+          </label>
           <input
             type="file"
             onChange={handleFileChange}
@@ -382,14 +498,24 @@ const OrderForm: React.FC = () => {
             className="hidden"
             id="file-upload"
           />
-          <label htmlFor="file-upload" className="cursor-pointer bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 px-4 py-2">
+          <label
+            htmlFor="file-upload"
+            className="cursor-pointer bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 px-4 py-2"
+          >
             <Upload size={16} className="inline mr-2" /> Wybierz pliki
           </label>
           <div className="mt-2">
             {files.map((file, index) => (
-              <div key={index} className="flex items-center justify-between bg-gray-100 dark:bg-gray-700 p-2 rounded mb-2">
+              <div
+                key={index}
+                className="flex items-center justify-between bg-gray-100 dark:bg-gray-700 p-2 rounded mb-2"
+              >
                 <span className="dark:text-white">{file.name}</span>
-                <button type="button" onClick={() => removeFile(index)} className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">
+                <button
+                  type="button"
+                  onClick={() => removeFile(index)}
+                  className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                >
                   <X size={16} />
                 </button>
               </div>
@@ -408,8 +534,6 @@ const OrderForm: React.FC = () => {
               <p className="text-xl font-semibold text-green-700 dark:text-green-300 mt-2">
                 Cena po rabacie: {discountedPrice} zł
               </p>
-
-
             </>
           )}
 
@@ -419,14 +543,31 @@ const OrderForm: React.FC = () => {
             </p>
           )}
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-            Przewidywany termin realizacji: {declaredDeliveryDate ? declaredDeliveryDate.toLocaleString('pl-PL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Obliczanie...'}
+            Przewidywany termin realizacji:{' '}
+            {declaredDeliveryDate
+              ? declaredDeliveryDate.toLocaleString('pl-PL', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })
+              : 'Obliczanie...'}
           </p>
           <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-            Twoje saldo: {user?.accountBalance !== undefined ? user.accountBalance.toFixed(2).replace('.', ',') : '0,00'} zł
+            Twoje saldo:{' '}
+            {user?.accountBalance !== undefined
+              ? user.accountBalance.toFixed(2).replace('.', ',')
+              : '0,00'}{' '}
+            zł
           </p>
         </div>
 
-        <button type="submit" className="w-full bg-blue-500 dark:bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 dark:hover:bg-blue-700 transition duration-300">
+        <button
+          type="submit"
+          className="w-full bg-blue-500 dark:bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 dark:hover:bg-blue-700 transition duration-300"
+        >
           Złóż zamówienie
         </button>
       </form>
@@ -441,6 +582,5 @@ const OrderForm: React.FC = () => {
     </>
   );
 };
-
 
 export default OrderForm;

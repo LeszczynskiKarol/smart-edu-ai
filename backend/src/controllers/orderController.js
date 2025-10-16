@@ -1319,42 +1319,67 @@ exports.updateOrderContent = async (req, res) => {
     const locale = user?.locale || 'pl';
     i18n.setLocale(locale);
 
-    // Znajdujemy konkretny item
-    const item = order.items.id(itemId);
-    if (!item) {
-      return res.status(404).json({
-        success: false,
-        message: 'Item nie znaleziony',
-      });
-    }
-
-    // Aktualizujemy content i status konkretnego itemu
     item.content = content;
     item.status = 'zakończone';
 
-    // Sprawdzamy czy wszystkie itemy są zakończone
     const allItemsCompleted = order.items.every(
       (item) => item.status === 'zakończone'
     );
 
-    // Tylko jeśli wszystkie itemy są zakończone, zmieniamy status całego zamówienia
     if (allItemsCompleted) {
       order.status = 'zakończone';
-
-      if (user && user.email) {
-        await sendEmail({
-          email: user.email,
-          subject: i18n.__('orders.completion.subject', {
-            orderNumber: order.orderNumber,
-          }),
-          message: i18n.__('orders.completion.allCompleted', {
-            orderNumber: order.orderNumber,
-          }),
-        });
-      }
     }
 
     await order.save();
+
+    // WYSYŁKA EMAILA
+    if (user && user.email && item.status === 'zakończone') {
+      const emailContent = `
+    <h2>${i18n.__('orders.itemCompletion.title')}</h2>
+    <p>${i18n.__mf('orders.itemCompletion.greeting', { name: user.name })}</p>
+    <p>${i18n.__mf('orders.itemCompletion.mainMessage', { topic: item.topic })}</p>
+    <div class="card">
+      <p class="card-title">${i18n.__('orders.itemCompletion.detailsTitle')}</p>
+      <ul>
+        <li><strong>${i18n.__('orders.itemCompletion.orderNumber')}</strong> #${order.orderNumber}</li>
+        <li><strong>${i18n.__('orders.itemCompletion.topic')}</strong> ${item.topic}</li>
+        <li><strong>${i18n.__('orders.itemCompletion.contentType')}</strong> ${item.contentType}</li>
+      </ul>
+    </div>
+    <p>${i18n.__('orders.itemCompletion.viewMessage')}</p>
+    <p style="text-align: center; margin-top: 30px;">
+      <a href="${process.env.FRONTEND_URL}/dashboard/orders/${order._id}" class="button">
+        ${i18n.__('orders.itemCompletion.buttonText')}
+      </a>
+    </p>
+    <p>${i18n.__('orders.itemCompletion.thanks')}</p>
+  `;
+
+      const emailData = {
+        title: i18n.__mf('orders.itemCompletion.subject', {
+          orderNumber: order.orderNumber,
+          topic: item.topic,
+        }),
+        headerTitle: 'Smart-Edu.ai',
+        content: emailContent,
+      };
+
+      const emailHtml = generateEmailTemplate(emailData);
+
+      try {
+        await sendEmail({
+          email: user.email,
+          subject: `✅ ${i18n.__mf('orders.itemCompletion.subject', {
+            orderNumber: order.orderNumber,
+            topic: item.topic,
+          })}`,
+          message: emailHtml,
+          isHtml: true,
+        });
+      } catch (emailError) {
+        console.error('Błąd podczas wysyłania emaila:', emailError);
+      }
+    }
 
     res.status(200).json({
       success: true,
