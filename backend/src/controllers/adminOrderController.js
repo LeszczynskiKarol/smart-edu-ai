@@ -419,4 +419,57 @@ exports.getAdminStats = async (req, res) => {
   }
 };
 
+exports.updateItemContent = async (req, res) => {
+  try {
+    const { orderId, itemId } = req.params;
+    const { content } = req.body;
+
+    if (!content && content !== '') {
+      return res.status(400).json({
+        success: false,
+        message: 'Brak treści do zapisania',
+      });
+    }
+
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: 'Zamówienie nie znalezione',
+      });
+    }
+
+    const item = order.items.id(itemId);
+    if (!item) {
+      return res.status(404).json({
+        success: false,
+        message: 'Item nie znaleziony',
+      });
+    }
+
+    item.content = content;
+
+    if (content && content.length > 0 && item.status === 'oczekujące') {
+      item.status = 'w trakcie';
+    }
+
+    await order.save();
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        item,
+        message: 'Treść została zaktualizowana',
+      },
+    });
+  } catch (error) {
+    console.error('Error updating item content:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Błąd podczas aktualizacji treści',
+      error: error.message,
+    });
+  }
+};
+
 module.exports = exports;
