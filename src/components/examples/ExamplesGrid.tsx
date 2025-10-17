@@ -111,9 +111,6 @@ export function ExamplesGrid({ examples }: Props) {
               <p>
                 {example.workType.name} • {example.length} {t('words')}
               </p>
-              <p>
-                {example.views} {t('views')}
-              </p>
             </div>
           </Link>
         ))}

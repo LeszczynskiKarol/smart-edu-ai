@@ -38,21 +38,11 @@ const AdminDashboard = () => {
   }
 
   const dashboardItems = [
-    //{
-    //  title: 'Zarządzaj Artykułami',
-    //link: '/admin/articles',
-    //buttonText: 'Zobacz artykuły',
-    //},
     {
       title: 'Dodaj Nowy Artykuł',
       link: '/admin/articles/new',
       buttonText: 'Dodaj artykuł',
     },
-    //{
-    //title: 'Zarządzaj Kategoriami',
-    //link: '/admin/categories',
-    //buttonText: 'Zobacz kategorie',
-    //},
     {
       title: 'Dodaj Nową Kategorię',
       link: '/admin/categories/new',
@@ -68,11 +58,16 @@ const AdminDashboard = () => {
       link: '/admin/orders',
       buttonText: 'Zobacz zamówienia',
     },
-    //{
-    //      title: 'Zarządzaj przykładowymi pracami',
-    //link: '/admin/examples',
-    //buttonText: 'Zobacz przykładowe prace',
-    //},
+    {
+      title: 'Zarządzaj Przykładami Prac', // NOWA SEKCJA
+      link: '/admin/dashboard/thesis-examples',
+      buttonText: 'Zobacz przykłady',
+    },
+    {
+      title: 'Dodaj Nowy Przykład Pracy', // NOWA SEKCJA
+      link: '/admin/dashboard/thesis-examples/new',
+      buttonText: 'Dodaj przykład',
+    },
     {
       title: 'Analityka',
       link: '/admin/analytics',

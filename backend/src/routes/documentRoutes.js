@@ -1,19 +1,21 @@
 // backend/src/routes/documentRoutes.js
 const express = require('express');
 const router = express.Router();
-const { protect } = require('../middlewares/auth');
 const {
   generatePDF,
   generateDOCX,
 } = require('../controllers/documentController');
 const { parseHTML } = require('../utils/htmlParser');
 
-router.post('/generate-pdf', protect, generatePDF);
-router.post('/parse-html', protect, (req, res) => {
+// ✅ PUBLICZNE - bez protect middleware!
+router.post('/generate-pdf', generatePDF);
+router.post('/generate-docx', generateDOCX);
+
+// ✅ To też może być publiczne, jeśli chcesz
+router.post('/parse-html', (req, res) => {
   const { html } = req.body;
   const parsedHTML = parseHTML(html);
   res.json(parsedHTML);
 });
-router.post('/generate-docx', protect, generateDOCX);
 
 module.exports = router;

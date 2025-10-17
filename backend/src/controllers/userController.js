@@ -877,34 +877,43 @@ exports.adminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    console.log('=== ADMIN LOGIN ATTEMPT ===');
+    console.log('Email:', email);
+    console.log('Password provided:', password ? 'YES' : 'NO');
+
     const user = await User.findOne({ email }).select('+password');
+    console.log('User found:', user ? 'YES' : 'NO');
 
     if (!user) {
-      console.log('Nie znaleziono użytkownika:', email);
+      console.log('User not found:', email);
       return res.status(401).json({
         success: false,
         message: 'Nieprawidłowe dane logowania',
       });
     }
 
+    console.log('User role:', user.role);
     if (user.role !== 'admin') {
-      console.log('Użytkownik nie jest adminem:', email);
+      console.log('User is not admin:', email);
       return res.status(401).json({
         success: false,
         message: 'Nieprawidłowe dane logowania',
       });
     }
 
+    console.log('Checking password...');
     const isMatch = await user.matchPassword(password);
+    console.log('Password match:', isMatch);
+
     if (!isMatch) {
-      console.log('Nieprawidłowe hasło dla:', email);
+      console.log('Password incorrect for:', email);
       return res.status(401).json({
         success: false,
-        message: 'Nieprawidłowe dane logowania',
+        message: 'Nieprawidłowe hasło',
       });
     }
 
-    console.log('Udane logowanie admina:', email);
+    console.log('Login successful for:', email);
     const token = user.getSignedJwtToken();
 
     res.status(200).json({
@@ -918,10 +927,11 @@ exports.adminLogin = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error('Błąd logowania admina:', error);
+    console.error('Admin login error:', error);
     res.status(500).json({
       success: false,
       message: 'Błąd serwera',
+      error: error.message,
     });
   }
 };

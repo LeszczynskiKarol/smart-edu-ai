@@ -238,6 +238,7 @@
       }
     }
   },
+
   "site": {
     "name": "Pisanie Prac Zaliczeniowych z AI - Sztuczna Inteligencja do generowania zadań domowych",
     "description": "Generuj profesjonalne teksty z AI. Oszczędzaj czas i pieniądze dzięki pisaniu z AI",
@@ -1604,117 +1605,40 @@
     }
   },
   "examples": {
-    "createdBy": "Praca w 100% stworzona przez Smart-Edu.AI.",
-    "tags": "Tagi",
-    "length": "Długość",
-    "subjectDescriptions": {
-      "description": "{subject}, {level} - przykładowe prace pisemne i zaliczeniowe wygenerowane przez Smart-Edu.AI || Załóż darmowe konto i wygeneruj własną pracę ze sztuczną inteligencją!"
-    },
-    "workTypeDescriptions": {
-      "description": "{workType}, {level} - przykładowe prace pisemne i zaliczeniowe wygenerowane przez Smart-Edu.AI || Załóż darmowe konto i wygeneruj własną pracę ze sztuczną inteligencją!"
-    },
-    "mainDescription": "Baza przykładowych prac pisemnych i zaliczeniowych tworzonych przez sztuczną inteligencję dla uczniów i studentów. Wybierz poziom nauczania i sprawdź, jakie materiały możesz wygenerować w ciągu kilku minut w Smart-Edu.AI!",
-    "meta": {
-      "subject": {
-        "title": "{subject} - przykładowe prace ({level}) | Smart-Edu.AI",
-        "description": "Przykładowe prace z przedmiotu {subject} dla {level}. Gotowe wzory wypracowań, referatów i esejów generowanych przez AI."
-      },
-      "level": {
-        "title": "{level} - przykładowe prace | Smart-Edu.AI",
-        "description": "{description}"
-      },
-      "workType": {
-        "title": "{workType} - przykładowe prace ({level}) | Smart-Edu.AI",
-        "description": "Przykładowe {workType} dla {level}. Gotowe wzory prac pisemnych generowanych przez AI."
-      },
-      "main": {
-        "title": "Bank przykładowych prac | Smart-Edu.AI",
-        "description": "Przykładowe prace pisemne i zaliczeniowe generowane przez AI. Wzory wypracowań, referatów i esejów dla uczniów i studentów."
-      }
-    },
-    "examplesList": "Lista wszystkich prac",
-    "loading": "loading",
-    "signup": {
-      "banner": {
-        "title": "Stwórz własną pracę!",
-        "description": "Zarejestruj się i wygeneruj spersonalizowaną pracę dopasowaną do Twoich potrzeb na dowolny temat.",
-        "cta": "Załóż darmowe konto"
-      }
-    },
-    "relatedExamples": "Podobne prace",
-    "sort": {
-      "date": "Data dodania",
-      "views": "Liczba wyświetleń",
-      "desc": "Malejąco",
-      "asc": "Rosnąco"
-    },
-
-    "filters": {
-      "allSubjects": "Przedmiot",
-      "noResults": "Nie znaleziono przykładów spełniających kryteria.",
-      "allWorkTypes": "Rodzaj pracy",
-      "allLengths": "Długość",
-      "newest": "Najnowsze",
-      "oldest": "Najstarsze",
-      "mostPopular": "Najpopularniejsze",
-      "leastPopular": "Najmniej popularne",
-      "titleAZ": "A-Z",
-      "titleZA": "Z-A"
-    },
-    "lengths": {
-      "2000": "Bardzo krótki (250 słów)",
-      "3000": "Krótki (350 słów)",
-      "4000": "Średni (500 słów)",
-      "7000": "Długi (800-900 słów)",
-      "10000": "Bardzo długi (1300 słów)",
-      "20000": "Najdłuższy (ok. 2500 słów)"
-    },
-    "title": "Przykładowe prace zaliczeniowe ze Smart-Edu.AI",
-    "searchPlaceholder": "Szukaj...",
-    "levels": {
-      "primary": {
-        "name": "Szkoła podstawowa",
-        "title": "Szkoła podstawowa",
-        "description": "Przykładowe prace pisemne i zaliczeniowe dla uczniów szkół podstawowych (klasy 4-8) wygenerowane przez Smart-Edu.AI. Sprawdź, jakie materiały możesz tworzyć ze sztuczną inteligencją w ciągu kilku minut, zarejestruj się i wygeneruj z AI pracę pisemną dla siebie!"
-      },
-      "secondary": {
-        "name": "Szkoła średnia",
-        "title": "Szkoła średnia",
-        "description": "Przykładowe prace pisemne i zaliczeniowe dla licealistów i uczniów techników wygenerowane przez Smart-Edu.AI. Sprawdź, jakie materiały możesz tworzyć ze sztuczną inteligencją w ciągu kilku minut, zarejestruj się i wygeneruj z AI pracę pisemną dla siebie!"
-      },
-      "university": {
-        "name": "Studia",
-        "title": "Studia",
-        "description": "Przykładowe prace pisemne i zaliczeniowe dla studentów wszystkich kierunków  wygenerowane przez Smart-Edu.AI. Sprawdź, jakie materiały możesz tworzyć ze sztuczną inteligencją w ciągu kilku minut, zarejestruj się i wygeneruj z AI pracę pisemną dla siebie!"
-      }
-    },
-
-    "categories": "Kategorie prac",
-    "subjects": "Przedmioty",
-    "allExamples": "Lista wszystkich prac",
-    "subjectDescription": {
-      "one": "{{count}} praca",
-      "few": "{{count}} prace",
-      "many": "{{count}} prac",
-      "other": "{{count}} prac"
-    },
+    "title": "Przykłady prac",
     "words": "słów",
     "views": "wyświetleń",
-
-    "filter": {
-      "allLevels": "Wszystkie poziomy",
-      "allWorkTypes": "Wszystkie typy prac",
-      "allSubjects": "Wszystkie przedmioty"
+    "copyToClipboard": "Kopiuj do schowka",
+    "copyHTML": "Kopiuj jako HTML",
+    "downloadPDF": "Pobierz PDF",
+    "downloadDOCX": "Pobierz DOCX",
+    "share": "Udostępnij",
+    "showMore": "Pokaż więcej",
+    "showLess": "Pokaż mniej",
+    "bachelor": {
+      "title": "Przykłady prac licencjackich",
+      "description": "Przeglądaj profesjonalne przykłady prac licencjackich"
     },
-
-    "readingTime": "{minutes} min czytania",
-    "subjectCount": "{count} prac",
-    "addExample": "Dodaj pracę",
-    "editExample": "Edytuj pracę",
-    "deleteExample": "Usuń pracę",
-    "confirmDelete": "Czy na pewno chcesz usunąć tę pracę?"
+    "master": {
+      "title": "Przykłady prac magisterskich",
+      "description": "Przeglądaj profesjonalne przykłady prac magisterskich"
+    },
+    "coursework": {
+      "title": "Przykłady prac zaliczeniowych",
+      "description": "Przeglądaj przykłady wypracowań, referatów i innych prac"
+    },
+    "meta": {
+      "main": {
+        "title": "Przykłady Prac - Smart-Edu.AI",
+        "description": "Zobacz przykłady prac licencjackich, magisterskich i zaliczeniowych wygenerowanych przez Smart-Edu.AI"
+      }
+    },
+    "search": "Szukaj przykładów...",
+    "noResults": "Nie znaleziono przykładów",
+    "readMore": "Czytaj więcej",
+    "subject": "Przedmiot",
+    "backToList": "Wróć do listy"
   },
-
   "admin": {
     "examples": {
       "lengths": {

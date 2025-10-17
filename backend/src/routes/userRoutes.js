@@ -17,6 +17,7 @@ const {
   refreshSession,
   getLatestTopUp,
   getUserStats,
+  adminLogin,
 } = require('../controllers/userController');
 const { protect } = require('../middlewares/auth');
 
@@ -25,6 +26,7 @@ const router = express.Router();
 // Publiczne trasy
 router.post('/register', register);
 router.post('/login', login);
+router.post('/admin-login', adminLogin);
 router.post('/verify-account', verifyAccount);
 router.post('/google-login', handleGoogleLogin);
 router.get('/tiktok-callback', handleTikTokCallback);

@@ -1,53 +1,72 @@
 // src/app/[locale]/examples/page.tsx
-import Layout from '@/components/layout/Layout';
 import { useTranslations } from 'next-intl';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { ExampleCategories } from '@/components/examples/ExampleCategories';
-import { ExamplesContent } from '@/components/examples/ExamplesContent';
-import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import Link from 'next/link';
+import Layout from '@/components/layout/Layout';
 
-type Props = {
-  params: {
-    locale: string;
-  };
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale } = params;
-  const messages = (await import(`@/messages/${locale}.json`)).default;
-  const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || 'https://www.smart-edu.ai';
-  const path = '/examples';
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({ locale, namespace: 'examples' });
 
   return {
-    metadataBase: new URL(baseUrl),
-    title: messages.examples.title,
-    description: messages.examples.mainDescription,
-    alternates: {
-      canonical: `${baseUrl}/${locale}${path}`,
-      languages: {
-        pl: `${baseUrl}/pl${path}`,
-        en: `${baseUrl}/en${path}`,
-      },
-    },
+    title: t('title'),
+    description: t('bachelor.description'),
   };
 }
 
-export default function ExamplesPage() {
+export default function ExamplesPage({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
   const t = useTranslations('examples');
+
+  const categories = [
+    {
+      slug: 'bachelor',
+      title: t('bachelor.title'),
+      description: t('bachelor.description'),
+      icon: '🎓',
+    },
+    {
+      slug: 'master',
+      title: t('master.title'),
+      description: t('master.description'),
+      icon: '📚',
+    },
+    {
+      slug: 'coursework',
+      title: t('coursework.title'),
+      description: t('coursework.description'),
+      icon: '📝',
+    },
+  ];
 
   return (
     <Layout title={t('title')}>
-      <div className="container mx-auto px-4 mt-10 py-8">
-        <h1 className="text-3xl font-bold mb-4">{t('title')}</h1>
-        <Breadcrumbs items={[{ label: t('title') }]} />
+      <div className="container mx-auto px-4 py-12 mt-14">
+        <h1 className="text-4xl font-bold mb-8 text-center">{t('title')}</h1>
 
-        <p className="text-gray-600 dark:text-gray-300 mb-8 mt-2">
-          {t('mainDescription')}
-        </p>
-
-        <ExampleCategories />
-        <ExamplesContent />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          {categories.map((category) => (
+            <Link
+              key={category.slug}
+              href={`/${locale}/examples/${category.slug}`}
+              className="block p-8 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+            >
+              <div className="text-6xl mb-4 text-center">{category.icon}</div>
+              <h2 className="text-2xl font-bold mb-3 text-center">
+                {category.title}
+              </h2>
+              <p className="text-gray-600 text-center">
+                {category.description}
+              </p>
+            </Link>
+          ))}
+        </div>
       </div>
     </Layout>
   );
