@@ -792,6 +792,16 @@
     "popularBadge": "Most Popular",
     "priceFrom": "from",
     "priceUnit": "/ work",
+    "features": [
+      "250 words for ${price250}",
+      "350 words for ${price350}",
+      "500 words for ${price500}",
+      "800 words for ${price800}",
+      "1300 words for ${price1300}",
+      "2500 words for ${price2500}",
+      "Bachelor's thesis for ${bachelor}",
+      "Master's thesis for ${master}"
+    ],
     "words": "words",
     "cta": "Get Started",
     "discount": "Get attractive discounts on larger orders and account top-ups!",
