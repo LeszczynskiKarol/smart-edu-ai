@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import HeroSection from '@/components/report/HeroSection';
 import BenefitsSection from '@/components/report/BenefitsSection';
 import ServicesSection from '@/components/report/ServicesSection';
-import PricingSection from '@/components/report/PricingSection';
+import PricingSection from '@/components/home/PricingSection';
 import ProcessSection from '@/components/report/ProcessSection';
 import HowItWorksSection from '@/components/report/HowItWorksSection';
 import EducationLevelsSection from '@/components/report/EducationLevelsSection';

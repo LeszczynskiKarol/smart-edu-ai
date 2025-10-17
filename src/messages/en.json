@@ -788,19 +788,19 @@
   },
   "PricingSection": {
     "title": "Transparent Pricing",
-    "subtitle": "Choose the plan that fits your needs",
+    "subtitle": " ",
     "popularBadge": "Most Popular",
     "priceFrom": "from",
     "priceUnit": "/ work",
     "features": [
-      "250 words for ${price250}",
-      "350 words for ${price350}",
-      "500 words for ${price500}",
-      "800 words for ${price800}",
-      "1300 words for ${price1300}",
-      "2500 words for ${price2500}",
-      "Bachelor's thesis for ${bachelor}",
-      "Master's thesis for ${master}"
+      "250 words for {price250}",
+      "350 words for {price350}",
+      "500 words for {price500}",
+      "800 words for {price800}",
+      "1300 words for {price1300}",
+      "2500 words for {price2500}",
+      "Bachelor's thesis for {bachelor}",
+      "Master's thesis for {master}"
     ],
     "words": "words",
     "cta": "Get Started",
@@ -943,7 +943,7 @@
       "register": "Register",
       "login": "Login",
       "example": "Example works",
-      "paper": "AI Paper Writer",
+      "paper": "AI School Report Writer",
       "composition": "AI Composition Writer",
       "writerPaper": "AI Paper Writer"
     },

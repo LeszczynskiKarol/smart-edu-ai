@@ -767,26 +767,26 @@
   },
   "PricingSection": {
     "title": "Przejrzyste ceny",
-    "subtitle": "Wybierz plan dopasowany do Twoich potrzeb",
+    "subtitle": " ",
     "popularBadge": "Najpopularniejsze",
     "priceFrom": "od",
     "priceUnit": "/ praca",
     "features": [
-      "250 słów za ${price250}",
-      "350 słów za ${price350}",
-      "500 słów za ${price500}",
-      "800 słów za ${price800}",
-      "1300 słów za ${price1300}",
-      "2500 słów za ${price2500}",
-      "Praca licencjacka za ${bachelor}",
-      "Praca magisterska za ${master}"
+      "250 słów za {price250}",
+      "350 słów za {price350}",
+      "500 słów za {price500}",
+      "800 słów za {price800}",
+      "1300 słów za {price1300}",
+      "2500 słów za {price2500}",
+      "Praca licencjacka za {bachelor}",
+      "Praca magisterska za {master}"
     ],
     "words": "słów",
     "cta": "Zamów teraz",
     "discount": "Otrzymuj atrakcyjne zniżki przy większych zamówieniach i doładowaniach konta!",
     "plans": {
       "bachelor": {
-        "title": "Praca Licencjacka",
+        "title": "Praca licencjacka",
         "subtitle": "60-90 stron",
         "features": [
           "Kompletna praca licencjacka",
@@ -798,7 +798,7 @@
         ]
       },
       "master": {
-        "title": "Praca Magisterska",
+        "title": "Praca magisterska",
         "subtitle": "90-120 stron",
         "features": [
           "Kompletna praca magisterska",
@@ -811,7 +811,7 @@
         ]
       },
       "regular": {
-        "title": "Zwykłe Prace",
+        "title": "Inne prace",
         "subtitle": "Eseje, referaty, wypracowania",
         "features": [
           "Dowolna długość od 250 słów",

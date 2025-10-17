@@ -6,7 +6,7 @@ import VideoSection from '@/components/page/VideoSection';
 import HeroSection from '@/components/page/HeroSection';
 import BenefitsSection from '@/components/page/BenefitsSection';
 import ServicesSection from '@/components/page/ServicesSection';
-import PricingSection from '@/components/page/PricingSection';
+import PricingSection from '@/components/home/PricingSection';
 import ProcessSection from '@/components/page/ProcessSection';
 import HowItWorksSection from '@/components/page/HowItWorksSection';
 import EducationLevelsSection from '@/components/page/EducationLevelsSection';
