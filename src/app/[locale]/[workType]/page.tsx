@@ -169,21 +169,7 @@ export default async function WorkTypePage({
         />
       )}
 
-      {data.sectionsVisibility.pricing && (
-        <PricingSection
-          title={
-            locale === 'pl'
-              ? data.pricingSectionTitle
-              : data.pricingSectionTitleEn
-          }
-          plans={data.pricingPlans.map((plan) => ({
-            name: locale === 'pl' ? plan.name : plan.nameEn,
-            price: plan.price,
-            features: locale === 'pl' ? plan.features : plan.featuresEn,
-            isPopular: plan.isPopular,
-          }))}
-        />
-      )}
+      {data.sectionsVisibility.pricing && <PricingSection />}
     </Layout>
   );
 }
