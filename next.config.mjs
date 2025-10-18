@@ -23,7 +23,7 @@ const nextConfig = {
       'piszemy.com.pl.s3.eu-north-1.amazonaws.com',
       `${process.env.NEXT_AWS_BUCKET_NAME}.s3.eu-north-1.amazonaws.com`,
     ],
-    unoptimized: true,
+
   },
   webpack: (config, { isServer }) => {
     config.resolve.alias = {
@@ -48,7 +48,7 @@ const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {
             key: 'Access-Control-Allow-Origin',
-            value: 'https://app-reactapp.ngrok.app',
+            value: 'https://www.smart-edu.ai',
           },
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           {
@@ -67,7 +67,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://server-reactapp.ngrok.app/api/:path*',
+        destination: 'https://www.smart-edu.ai/api/:path*',
       },
     ];
   },
