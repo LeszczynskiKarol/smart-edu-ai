@@ -1,12 +1,11 @@
 // src/app/[locale]/layout.tsx
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { Inter } from 'next/font/google';
 import Script from 'next/script';
-import { unstable_setRequestLocale } from 'next-intl/server';
-import { ClientProviders } from './ClientProviders';
 import TikTokPixel from '../../components/TikTokPixel';
+import { ClientProviders } from './ClientProviders';
 
 import '@/styles/globals.css';
-//import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,13 +16,11 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  // Sprawdź URL po stronie serwera
   const headers = new Headers();
   const url = headers.get('x-url') || '';
   const isAdminRoute = url.includes('/admin');
 
   if (isAdminRoute) {
-    // Dla ścieżek admin zwróć tylko podstawowy layout
     return (
       <html lang={locale} suppressHydrationWarning>
         <body>{children}</body>
@@ -31,7 +28,6 @@ export default async function RootLayout({
     );
   }
 
-  // Dla pozostałych ścieżek użyj pełnego layoutu z providerami
   let messages;
   try {
     messages = (await import(`@/messages/${locale}.json`)).default;
@@ -41,11 +37,37 @@ export default async function RootLayout({
 
   unstable_setRequestLocale(locale);
 
+  const baseUrl = 'https://www.smart-edu.ai';
+
+  // Schema dla Organization
   const organizationJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    name: 'Smart-Edu.AI',
+    url: baseUrl,
+    logo: `${baseUrl}/logo.png`,
+    description: messages.site.description,
+    sameAs: [
+      // dodaj linki do social media jeśli masz
+    ],
+  };
+
+  // Schema dla WebSite
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
     name: messages.site.name,
-    url: 'https://www.smart-edu.ai',
+    description: messages.site.description,
+    url: baseUrl,
+    inLanguage: locale,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${baseUrl}/search?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
   };
 
   return (
@@ -54,17 +76,17 @@ export default async function RootLayout({
         <link
           rel="alternate"
           hrefLang="x-default"
-          href="http://localhost:3000"
+          href="https://www.smart-edu.ai"
         />
         <link
           rel="alternate"
           hrefLang="en"
-          href="http://http://localhost:3000/en"
+          href="https://www.smart-edu.ai/en"
         />
         <link
           rel="alternate"
           hrefLang="pl"
-          href="http://http://localhost:3000/pl"
+          href="https://www.smart-edu.ai/pl"
         />
         <meta
           name="google-site-verification"
@@ -72,7 +94,13 @@ export default async function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        {/*<GoogleAnalytics />*/}
+        <Script
+          id="website-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd),
+          }}
+        />
         <Script
           id="organization-schema"
           type="application/ld+json"
