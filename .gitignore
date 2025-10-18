@@ -3,3 +3,5 @@ backend/node_modules/
 .next/
 backend/.env
 .env.local
+backend/.env.save
+*.save
