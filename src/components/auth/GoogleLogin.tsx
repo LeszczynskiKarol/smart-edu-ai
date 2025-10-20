@@ -20,6 +20,10 @@ const GoogleLogin: React.FC = () => {
   const { updateUser } = useAuth();
 
   const handleGoogleAuth = async (response: GoogleLoginResponse) => {
+    console.log('🔍 Google callback fired!');
+    console.log('🔍 Token length:', response.credential?.length);
+    console.log('🔍 Token preview:', response.credential?.substring(0, 50));
+
     try {
       const firstReferrer = sessionStorage.getItem('firstReferrer');
       const originalReferrer = sessionStorage.getItem('originalReferrer');
