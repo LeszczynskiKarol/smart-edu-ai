@@ -4,7 +4,6 @@ import { useRef, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { ContentActions } from '@/components/examples/ContentActions';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { RelatedExamples } from '@/components/examples/RelatedExamples';
 import { SignupBanner } from '@/components/examples/SignupBanner';
 import Layout from '@/components/layout/Layout';
 import { useTranslations } from 'next-intl';
