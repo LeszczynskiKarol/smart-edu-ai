@@ -1,7 +1,6 @@
-// src/components/home/ServicesSection.tsx
-
+// src/components/home/ServicesSection_new.tsx
 'use client';
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../../context/ThemeContext';
@@ -18,172 +17,303 @@ import {
   GlobeAltIcon,
   NewspaperIcon,
 } from '@heroicons/react/24/outline';
+import { ArrowRight, Sparkles } from 'lucide-react';
 
 interface Service {
   id: string;
   titleKey: string;
   descriptionKey: string;
-  icon: React.ReactNode;
+  icon: React.ElementType;
   category?: string;
+  gradient: string;
 }
-
-const ServiceCard: React.FC<{
-  service: Service;
-  /*onSelect: (service: Service) => void;*/
-}> = ({ service }) => {
-  const { theme } = useTheme();
-  const t = useTranslations('ServicesSection.services');
-
-  return (
-    <motion.div
-      className={`p-6 rounded-lg shadow-lg ${
-        theme === 'dark' ? 'bg-gray-800' : 'bg-white'
-      } transition-all duration-300 ease-in-out hover:scale-105`}
-    >
-      <div className="flex items-center mb-4">
-        <div className="text-blue-500 mr-4">{service.icon}</div>
-        <h3
-          className={`text-xl font-semibold ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
-          }`}
-        >
-          {t(`${service.titleKey}.title`)}
-        </h3>
-      </div>
-      <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-        {t(`${service.titleKey}.description`)}
-      </p>
-    </motion.div>
-  );
-};
 
 const ServicesSection: React.FC = () => {
   const { theme } = useTheme();
   const t = useTranslations('ServicesSection');
-  const sectionRef = useRef<HTMLElement>(null);
   const { trackEvent } = useHomeTracking('ServicesSection');
-
-  const handleServiceSelect = (service: Service) => {
-    trackEvent('serviceInteraction', {
-      action: 'select',
-      serviceId: service.id,
-      serviceTitle: t(`services.${service.titleKey}.title`),
-      category: service.category,
-      timestamp: new Date().toISOString(),
-    });
-  };
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const services: Service[] = [
     {
       id: '1',
       titleKey: 'articles',
       descriptionKey: 'articles',
-      icon: <DocumentTextIcon className="h-6 w-6" />,
+      icon: DocumentTextIcon,
       category: 'content',
+      gradient: 'from-blue-500 to-cyan-500',
     },
-
     {
       id: '2',
       titleKey: 'descriptions',
       descriptionKey: 'descriptions',
-      icon: <ShoppingBagIcon className="h-6 w-6" />,
+      icon: ShoppingBagIcon,
       category: 'content',
+      gradient: 'from-purple-500 to-pink-500',
     },
     {
       id: '3',
       titleKey: 'category',
       descriptionKey: 'category',
-      icon: <FolderIcon className="h-6 w-6" />,
+      icon: FolderIcon,
       category: 'content',
+      gradient: 'from-green-500 to-emerald-500',
     },
     {
       id: '4',
       titleKey: 'business',
       descriptionKey: 'business',
-      icon: <BuildingOfficeIcon className="h-6 w-6" />,
+      icon: BuildingOfficeIcon,
       category: 'content',
+      gradient: 'from-orange-500 to-red-500',
     },
     {
       id: '5',
       titleKey: 'social',
       descriptionKey: 'social',
-      icon: <ChatBubbleBottomCenterTextIcon className="h-6 w-6" />,
+      icon: ChatBubbleBottomCenterTextIcon,
       category: 'content',
+      gradient: 'from-yellow-500 to-orange-500',
     },
     {
       id: '6',
       titleKey: 'reports',
       descriptionKey: 'reports',
-      icon: <ChartBarIcon className="h-6 w-6" />,
+      icon: ChartBarIcon,
       category: 'content',
+      gradient: 'from-indigo-500 to-purple-500',
     },
     {
       id: '7',
       titleKey: 'emails',
       descriptionKey: 'emails',
-      icon: <EnvelopeIcon className="h-6 w-6" />,
+      icon: EnvelopeIcon,
       category: 'content',
+      gradient: 'from-pink-500 to-rose-500',
     },
     {
       id: '8',
       titleKey: 'landing',
       descriptionKey: 'landing',
-      icon: <GlobeAltIcon className="h-6 w-6" />,
+      icon: GlobeAltIcon,
       category: 'content',
+      gradient: 'from-teal-500 to-cyan-500',
     },
     {
       id: '9',
       titleKey: 'pr',
       descriptionKey: 'pr',
-      icon: <NewspaperIcon className="h-6 w-6" />,
+      icon: NewspaperIcon,
       category: 'content',
+      gradient: 'from-rose-500 to-pink-500',
     },
   ];
 
   return (
     <section
-      ref={sectionRef}
-      className={`py-20 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
+      className={`py-24 relative overflow-hidden ${
+        theme === 'dark'
+          ? 'bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900'
+          : 'bg-gradient-to-b from-gray-50 via-white to-gray-50'
+      }`}
     >
-      <div className="container mx-auto px-4">
-        <motion.h2
-          className={`text-3xl md:text-4xl font-bold text-center mb-12 
-                               ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {t('title')}
-        </motion.h2>
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+          }}
+          transition={{ duration: 20, repeat: Infinity }}
+          className={`absolute top-1/4 right-0 w-96 h-96 ${
+            theme === 'dark' ? 'bg-blue-500/5' : 'bg-blue-400/10'
+          } rounded-full blur-3xl`}
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            rotate: [0, -90, 0],
+          }}
+          transition={{ duration: 25, repeat: Infinity }}
+          className={`absolute bottom-1/4 left-0 w-96 h-96 ${
+            theme === 'dark' ? 'bg-purple-500/5' : 'bg-purple-400/10'
+          } rounded-full blur-3xl`}
+        />
+      </div>
 
-        <AnimatePresence>
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 mb-6"
           >
-            {services.map((service, index) => (
+            <Sparkles className="w-5 h-5 text-blue-500" />
+            <span
+              className={`text-sm font-semibold ${
+                theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
+              }`}
+            >
+              Nasze usługi
+            </span>
+          </motion.div>
+
+          <h2
+            className={`text-4xl md:text-5xl font-bold mb-6 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}
+          >
+            {t('title')}
+          </h2>
+          <p
+            className={`text-xl max-w-3xl mx-auto ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}
+          >
+            Kompleksowe rozwiązania AI dla każdego rodzaju treści
+          </p>
+        </motion.div>
+
+        {/* Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            return (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+                onHoverStart={() => setHoveredIndex(index)}
+                onHoverEnd={() => setHoveredIndex(null)}
+                className="group relative"
               >
-                <ServiceCard
-                  service={service} /*onSelect={handleServiceSelect}*/
-                />
+                <div
+                  className={`relative h-full rounded-3xl overflow-hidden ${
+                    theme === 'dark'
+                      ? 'bg-gray-800/50 backdrop-blur-sm border border-gray-700'
+                      : 'bg-white border border-gray-200 shadow-lg'
+                  } transition-all duration-500 hover:shadow-2xl ${
+                    hoveredIndex === index ? 'scale-105' : ''
+                  }`}
+                >
+                  {/* Gradient Overlay */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: hoveredIndex === index ? 0.1 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`absolute inset-0 bg-gradient-to-br ${service.gradient}`}
+                  />
+
+                  <div className="relative p-8">
+                    {/* Icon */}
+                    <motion.div
+                      whileHover={{ rotate: 5, scale: 1.1 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                      className="mb-6"
+                    >
+                      <div
+                        className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow`}
+                      >
+                        <Icon className="w-8 h-8 text-white" />
+                      </div>
+                    </motion.div>
+
+                    {/* Title */}
+                    <h3
+                      className={`text-xl font-bold mb-3 ${
+                        theme === 'dark' ? 'text-white' : 'text-gray-900'
+                      }`}
+                    >
+                      {t(`services.${service.titleKey}.title`)}
+                    </h3>
+
+                    {/* Description */}
+                    <p
+                      className={`mb-4 leading-relaxed ${
+                        theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                      }`}
+                    >
+                      {t(`services.${service.titleKey}.description`)}
+                    </p>
+                  </div>
+
+                  {/* Bottom Accent */}
+                  <motion.div
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: hoveredIndex === index ? 1 : 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${service.gradient} origin-left`}
+                  />
+                </div>
               </motion.div>
-            ))}
-          </motion.div>
-          <div className="flex flex-col items-center">
-            <Link href="/examples">
-              <button className="mt-10 px-6 py-2 bg-blue-600 text-white rounded-2xl hover:bg-blue-700">
-                {t('footer')}
-              </button>
-            </Link>
+            );
+          })}
+        </div>
+
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className={`rounded-3xl overflow-hidden ${
+            theme === 'dark'
+              ? 'bg-gradient-to-r from-blue-900/50 to-purple-900/50 border border-gray-700'
+              : 'bg-gradient-to-r from-blue-50 to-purple-50 border border-gray-200'
+          } p-12 text-center relative`}
+        >
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <div
+              className="w-full h-full"
+              style={{
+                backgroundImage: `radial-gradient(circle at 2px 2px, ${
+                  theme === 'dark' ? '#fff' : '#000'
+                } 1px, transparent 0)`,
+                backgroundSize: '30px 30px',
+              }}
+            />
           </div>
-        </AnimatePresence>
+
+          <div className="relative z-10">
+            <h3
+              className={`text-3xl font-bold mb-4 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}
+            >
+              Potrzebujesz czegoś innego?
+            </h3>
+            <p
+              className={`text-lg mb-8 max-w-2xl mx-auto ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}
+            >
+              Oferujemy także niestandardowe rozwiązania dostosowane do Twoich
+              potrzeb
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link href="/examples">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-2"
+                >
+                  {t('footer')}
+                  <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </Link>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

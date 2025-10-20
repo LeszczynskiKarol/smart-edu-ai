@@ -54,9 +54,6 @@ const VideoSection = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10" />
-
           {/* Video iframe */}
           <iframe
             src={embedUrl}
