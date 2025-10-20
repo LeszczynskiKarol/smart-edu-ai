@@ -2,7 +2,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { notFound } from 'next/navigation';
 import Layout from '@/components/layout/Layout';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -10,8 +9,6 @@ import { ChevronRight, Clock, FileText } from 'lucide-react';
 import ExampleContent from '@/components/examples/ExampleContent';
 import ExampleSidebar from '@/components/examples/ExampleSidebar';
 import TableOfContents from '@/components/examples/TableOfContents';
-
-// ... reszta kodu ...
 
 export default function ExamplePage({
   params: { locale, category, slug },
@@ -38,7 +35,16 @@ export default function ExamplePage({
   if (!example) {
     return (
       <Layout title="">
-        <div>Loading...</div>
+        <div className="container mx-auto px-4 py-8 mt-14">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+              <p className="mt-4 text-gray-600 dark:text-gray-400">
+                Loading...
+              </p>
+            </div>
+          </div>
+        </div>
       </Layout>
     );
   }
@@ -57,7 +63,6 @@ export default function ExamplePage({
     <Layout title={t(`${category}.title`)}>
       <div className="container mx-auto px-4 py-8 mt-14">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Table of Contents - Left Sidebar */}
           <aside className="hidden lg:block lg:w-1/5">
             <TableOfContents
               content={content}
@@ -67,12 +72,50 @@ export default function ExamplePage({
             />
           </aside>
 
-          {/* Main Content - Center */}
           <article className="flex-1 lg:w-3/5">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-              {/* ... breadcrumbs i header ... */}
+              <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6">
+                {breadcrumbs.map((crumb, index) => (
+                  <div key={index} className="flex items-center">
+                    {index > 0 && <ChevronRight className="w-4 h-4 mx-2" />}
+                    {crumb.href ? (
+                      <Link
+                        href={crumb.href}
+                        className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      >
+                        {crumb.label}
+                      </Link>
+                    ) : (
+                      <span className="text-gray-900 dark:text-gray-100 font-medium">
+                        {crumb.label}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </nav>
 
-              {/* Mobile TOC */}
+              <header className="mb-8">
+                <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                  {title}
+                </h1>
+
+                <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="flex items-center gap-2">
+                    <FileText className="w-4 h-4" />
+                    <span>{subject}</span>
+                  </div>
+                  {example.readTime && (
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-4 h-4" />
+                      <span>
+                        {example.readTime}{' '}
+                        {locale === 'pl' ? 'min czytania' : 'min read'}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </header>
+
               <div className="lg:hidden mb-6">
                 <TableOfContents
                   content={content}
@@ -83,7 +126,6 @@ export default function ExamplePage({
                 />
               </div>
 
-              {/* Content with Actions */}
               <ExampleContent
                 content={content}
                 title={title}
@@ -94,7 +136,6 @@ export default function ExamplePage({
             </div>
           </article>
 
-          {/* CTA Sidebar - Right */}
           <aside className="lg:w-1/5">
             <ExampleSidebar locale={locale} />
           </aside>

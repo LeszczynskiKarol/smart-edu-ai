@@ -50,7 +50,7 @@ export default async function CategoryPage({
 
   return (
     <Layout title={t(`${category}.title`)}>
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-12 mt-12">
         <h1 className="text-4xl font-bold mb-4">{t(`${category}.title`)}</h1>
         <p className="text-xl text-gray-600 mb-8">
           {t(`${category}.description`)}
