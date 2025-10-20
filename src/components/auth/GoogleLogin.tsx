@@ -24,19 +24,22 @@ const GoogleLogin: React.FC = () => {
       const firstReferrer = sessionStorage.getItem('firstReferrer');
       const originalReferrer = sessionStorage.getItem('originalReferrer');
 
-      const result = await fetch('/api/users/google-login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token: response.credential,
-          sessionId: getSessionId(),
-          path: window.location.pathname,
-          firstReferrer: firstReferrer,
-          originalReferrer: originalReferrer,
-        }),
-      });
+      const result = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/google-login`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            token: response.credential,
+            sessionId: getSessionId(),
+            path: window.location.pathname,
+            firstReferrer: firstReferrer,
+            originalReferrer: originalReferrer,
+          }),
+        }
+      );
       const data = await result.json();
 
       if (data.success) {

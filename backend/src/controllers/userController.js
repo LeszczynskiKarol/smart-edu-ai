@@ -409,19 +409,27 @@ exports.register = async (req, res) => {
 
 exports.handleGoogleLogin = async (req, res) => {
   try {
+    console.log('🔍 Google login started');
     const { token, sessionId } = req.body;
+    console.log('🔍 Token received:', token ? 'YES' : 'NO');
+
     const payload = await verifyGoogleToken(token);
+    console.log('🔍 Payload:', payload ? 'VALID' : 'NULL');
 
     if (!payload) {
+      console.log('❌ Invalid token');
       return res.status(401).json({
         success: false,
         message: 'Invalid Google token',
       });
     }
 
+    console.log('👤 Email:', payload.email);
     let user = await User.findOne({ email: payload.email });
+    console.log('👤 User exists:', user ? 'YES' : 'NO');
 
     if (!user) {
+      console.log('📝 Creating new user...');
       user = new User({
         name: payload.name,
         email: payload.email,
@@ -432,6 +440,7 @@ exports.handleGoogleLogin = async (req, res) => {
       });
 
       await user.save();
+      console.log('✅ User created:', user._id);
 
       const referrerSource = req.body.firstReferrer || 'unknown';
       await ConversionService.trackConversion(
@@ -469,12 +478,14 @@ exports.handleGoogleLogin = async (req, res) => {
       }
     }
 
+    console.log('🔑 Generating JWT...');
     const jwtToken = jwt.sign(
       { id: user._id, role: user.role, email: user.email },
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRE }
     );
 
+    console.log('✅ Google login success');
     res.status(200).json({
       success: true,
       token: jwtToken,
@@ -487,10 +498,12 @@ exports.handleGoogleLogin = async (req, res) => {
       },
     });
   } catch (error) {
-    console.error('Google auth error:', error);
+    console.error('❌ Google auth error:', error);
+    console.error('❌ Stack:', error.stack);
     res.status(500).json({
       success: false,
       message: 'Error processing Google authentication',
+      error: error.message, // Dodaj to żeby wiedzieć co się wywala
     });
   }
 };
