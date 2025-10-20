@@ -24,16 +24,28 @@ export async function generateMetadata({
 }
 
 async function getExamples(category: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/thesis-examples/${category}`,
-    { cache: 'no-store' }
-  );
+  // ✅ ZMIENIONY URL - używamy nowego endpointa
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/thesis-examples/by-category/${category}`;
+
+  console.log('🔗 Fetching from:', url);
+
+  const res = await fetch(url, {
+    cache: 'no-store',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 
   if (!res.ok) {
-    throw new Error('Failed to fetch examples');
+    const errorText = await res.text();
+    console.error('❌ Fetch failed:', res.status, errorText);
+    throw new Error(`Failed to fetch examples: ${res.status}`);
   }
 
-  return res.json();
+  const data = await res.json();
+  console.log('✅ Received examples:', data.length);
+
+  return data;
 }
 
 export default async function CategoryPage({
@@ -46,13 +58,20 @@ export default async function CategoryPage({
   }
 
   const t = await getTranslations('examples');
-  const examples = await getExamples(category);
+
+  let examples = [];
+  try {
+    examples = await getExamples(category);
+  } catch (error) {
+    console.error('Failed to load examples:', error);
+    // Możesz zwrócić pustą listę zamiast crashować
+  }
 
   return (
     <Layout title={t(`${category}.title`)}>
       <div className="container mx-auto px-4 py-12 mt-12">
         <h1 className="text-4xl font-bold mb-4">{t(`${category}.title`)}</h1>
-        <p className="text-xl text-gray-600 mb-8">
+        <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
           {t(`${category}.description`)}
         </p>
 

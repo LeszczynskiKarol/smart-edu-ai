@@ -101,6 +101,38 @@ exports.getExamplesBySubject = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getExamplesByCategory = async (req, res, next) => {
+  try {
+    const { category } = req.params;
+
+    console.log('🔍 Fetching examples for category:', category);
+
+    // bachelor, master, coursework są slugami workType
+    const workTypeDoc = await WorkType.findOne({ slugEn: category });
+
+    if (!workTypeDoc) {
+      console.log('❌ WorkType not found:', category);
+      throw createError(404, `WorkType '${category}' not found`);
+    }
+
+    console.log('✅ Found WorkType:', workTypeDoc.name);
+
+    const examples = await Example.find({
+      workType: workTypeDoc._id,
+    })
+      .populate(['subject', 'workType'])
+      .sort({ createdAt: -1 });
+
+    console.log(`📊 Found ${examples.length} examples`);
+
+    res.json(examples);
+  } catch (error) {
+    console.error('❌ Error in getExamplesByCategory:', error);
+    next(error);
+  }
+};
+
 exports.getExampleBySlug = async (req, res, next) => {
   try {
     const { locale, level, workType, subject, slug } = req.params;

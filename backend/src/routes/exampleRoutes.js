@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const exampleController = require('../controllers/exampleController');
 
+router.get('/by-category/:category', exampleController.getExamplesByCategory);
 router.get('/related', exampleController.getRelatedExamples);
 router.get('/search', exampleController.searchExamples);
 router.get('/subjects', exampleController.getSubjectsByLevel);
