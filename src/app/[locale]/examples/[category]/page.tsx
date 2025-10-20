@@ -24,8 +24,8 @@ export async function generateMetadata({
 }
 
 async function getExamples(category: string) {
-  // ✅ ZMIENIONY URL - używamy nowego endpointa
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/thesis-examples/by-category/${category}`;
+  // ✅ USUŃ /by-category - po prostu użyj /:category
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/thesis-examples/${category}`;
 
   console.log('🔗 Fetching from:', url);
 
