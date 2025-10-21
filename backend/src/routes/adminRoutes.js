@@ -1,12 +1,19 @@
 // backend/src/routes/adminRoutes.js
+// ZAKTUALIZOWANA WERSJA Z AUTOMATION ROUTES
+
 const express = require('express');
 const router = express.Router();
 const adminOrderController = require('../controllers/adminOrderController');
-const adminUserController = require('../controllers/adminUserController'); // NOWY
+const adminUserController = require('../controllers/adminUserController');
 const auth = require('../middlewares/auth');
 
+// Wszystkie route'y wymagają autoryzacji admina
 router.use(auth.protect);
 router.use(auth.authorize('admin'));
+
+// ==================== AUTOMATION FLOW (NOWE!) ====================
+const automationRoutes = require('./automationRoutes');
+router.use('/automation', automationRoutes);
 
 // ==================== ZAMÓWIENIA ====================
 router.get('/orders', adminOrderController.getAllOrders);
@@ -23,6 +30,10 @@ router.delete(
 router.put(
   '/orders/:orderId/items/:itemId/content',
   adminOrderController.updateItemContent
+);
+router.put(
+  '/orders/:orderId/items/:itemId/status',
+  adminOrderController.updateItemStatus
 );
 
 // ==================== UŻYTKOWNICY ====================
