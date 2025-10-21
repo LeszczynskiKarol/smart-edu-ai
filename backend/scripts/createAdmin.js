@@ -1,12 +1,19 @@
-// backend/scripts/createAdmin.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-require('dotenv').config();
+const path = require('path');
+
+// Ładuj .env z głównego katalogu
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const User = require('../src/models/User');
 
 async function createAdmin() {
   try {
+    // Sprawdź czy MONGODB_URI istnieje
+    if (!process.env.MONGODB_URI) {
+      throw new Error('MONGODB_URI nie jest ustawione w pliku .env');
+    }
+
     await mongoose.connect(process.env.MONGODB_URI);
     console.log('✅ Connected to MongoDB');
 

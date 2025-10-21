@@ -27,6 +27,13 @@ const ScrapedContentSchema = new mongoose.Schema(
       enum: ['pending', 'scraping', 'completed', 'failed'],
       default: 'pending',
     },
+    selectedForGeneration: {
+      type: Boolean,
+      default: false,
+    },
+    selectionReason: {
+      type: String,
+    },
     errorMessage: String,
     scrapedAt: Date,
     textLength: {
@@ -34,6 +41,7 @@ const ScrapedContentSchema = new mongoose.Schema(
       default: 0,
     },
   },
+
   {
     timestamps: true,
   }
