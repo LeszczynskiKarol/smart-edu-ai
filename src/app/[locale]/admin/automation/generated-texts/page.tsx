@@ -52,8 +52,11 @@ export default function GeneratedTextsPage() {
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
-    if (user?.role !== 'admin') {
-      router.push('/dashboard');
+    if (user) {
+      setLoading(false);
+      if (user.role !== 'admin') {
+        router.push('/dashboard');
+      }
     }
   }, [user, router]);
 
@@ -148,6 +151,10 @@ export default function GeneratedTextsPage() {
         <Loader />
       </div>
     );
+  }
+
+  if (loading) {
+    return <Loader />;
   }
 
   return (

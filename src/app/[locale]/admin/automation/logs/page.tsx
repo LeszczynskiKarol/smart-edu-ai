@@ -34,7 +34,7 @@ export default function SystemLogsPage() {
   const [autoRefresh, setAutoRefresh] = useState(false);
 
   useEffect(() => {
-    if (user?.role !== 'admin') {
+    if (user && user.role !== 'admin') {
       router.push('/dashboard');
     }
   }, [user, router]);
