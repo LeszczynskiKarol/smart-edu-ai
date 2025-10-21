@@ -3,6 +3,7 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const textGenerationRoutes = require('./routes/textGenerationRoutes');
 const http = require('http');
 const mongoose = require('mongoose');
 const makeRoutes = require('./src/routes/makeRoutes');
@@ -104,6 +105,7 @@ app.use('/api/admin/examples', require('./src/routes/adminExampleRoutes'));
 // Content and Orders
 app.use('/api/content', contentGenerationRoutes);
 app.use('/api/orders', require('./src/routes/orderRoutes'));
+app.use('/api/text-generation', textGenerationRoutes);
 
 // Notifications and Messages
 app.use('/api/notifications', require('./src/routes/notificationRoutes'));
