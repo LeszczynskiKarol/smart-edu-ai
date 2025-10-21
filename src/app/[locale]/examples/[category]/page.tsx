@@ -1,6 +1,6 @@
 // src/app/[locale]/examples/[category]/page.tsx
 import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import ExamplesList from '@/components/examples/ExamplesList';
 import Layout from '@/components/layout/Layout';
 
@@ -24,9 +24,7 @@ export async function generateMetadata({
 }
 
 async function getExamples(category: string) {
-  // ✅ USUŃ /by-category - po prostu użyj /:category
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/thesis-examples/${category}`;
-
   console.log('🔗 Fetching from:', url);
 
   const res = await fetch(url, {
@@ -44,7 +42,6 @@ async function getExamples(category: string) {
 
   const data = await res.json();
   console.log('✅ Received examples:', data.length);
-
   return data;
 }
 
@@ -53,6 +50,9 @@ export default async function CategoryPage({
 }: {
   params: { locale: string; category: string };
 }) {
+  // ✅ DODAJ TĘ LINIJKĘ
+  unstable_setRequestLocale(locale);
+
   if (!validCategories.includes(category)) {
     notFound();
   }
@@ -64,7 +64,6 @@ export default async function CategoryPage({
     examples = await getExamples(category);
   } catch (error) {
     console.error('Failed to load examples:', error);
-    // Możesz zwrócić pustą listę zamiast crashować
   }
 
   return (
@@ -74,7 +73,6 @@ export default async function CategoryPage({
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
           {t(`${category}.description`)}
         </p>
-
         <ExamplesList examples={examples} category={category} locale={locale} />
       </div>
     </Layout>

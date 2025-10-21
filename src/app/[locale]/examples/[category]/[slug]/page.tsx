@@ -1,12 +1,11 @@
 // src/app/[locale]/examples/[category]/[slug]/page.tsx
 import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Layout from '@/components/layout/Layout';
 import ExamplePageClient from '@/components/examples/ExamplePageClient';
 
 const validCategories = ['bachelor', 'master', 'coursework'];
 
-// ✅ Funkcja do pobierania przykładu
 async function getExample(category: string, slug: string) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/thesis-examples/${category}/${slug}`,
@@ -25,7 +24,6 @@ async function getExample(category: string, slug: string) {
   return res.json();
 }
 
-// ✅ METADATA
 export async function generateMetadata({
   params: { locale, category, slug },
 }: {
@@ -60,12 +58,14 @@ export async function generateMetadata({
   };
 }
 
-// ✅ SERVER COMPONENT
 export default async function ExamplePage({
   params: { locale, category, slug },
 }: {
   params: { locale: string; category: string; slug: string };
 }) {
+  // ✅ DODAJ TĘ LINIJKĘ
+  unstable_setRequestLocale(locale);
+
   if (!validCategories.includes(category)) {
     notFound();
   }
@@ -91,7 +91,6 @@ export default async function ExamplePage({
     <Layout title={t(`${category}.title`)}>
       <div className="container mx-auto px-4 py-8 mt-14">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Breadcrumbs i content w client component */}
           <ExamplePageClient
             locale={locale}
             category={category}
