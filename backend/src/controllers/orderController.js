@@ -1,5 +1,6 @@
 // backend/src/controllers/orderController.js
 const https = require('https');
+const OrderedText = require('../models/OrderedText');
 const User = require('../models/User');
 const UserActivity = require('../models/UserActivity');
 const sendEmail = require('../utils/sendEmail');
@@ -497,6 +498,54 @@ const sendDataToMake = async (order, user) => {
     (item) => item.contentType !== 'post_social_media'
   );
 
+  // ===== NOWE: Zapisz do MongoDB =====
+  try {
+    console.log('💾 Zapisywanie zamówionych tekstów do MongoDB...');
+
+    const orderedTextsToSave = filteredItems.map((item) => ({
+      temat: item.topic,
+      idZamowienia: order._id.toString(),
+      itemId: item._id.toString(),
+      cena: parseFloat(item.price),
+      cenaZamowienia: parseFloat(order.totalPrice),
+      rodzajTresci: item.contentType,
+      dlugoscTekstu: item.length,
+      liczbaZnakow: item.length,
+      wytyczneIndywidualne: item.guidelines,
+      tonIStyl: item.tone,
+      jezyk: languageMap[item.language] || item.language,
+      jezykWyszukiwania: item.searchLanguage || 'en',
+      countryCode: item.searchLanguageFull || 'polski',
+      model: 'Claude 2.0',
+      bibliografia: item.bibliography,
+      faq: item.includeFAQ,
+      tabele: item.includeTable,
+      boldowanie: false,
+      listyWypunktowane: true,
+      frazy: (item.keywords || []).join(', '),
+      link1: item.sourceLinks[0] || '',
+      link2: item.sourceLinks[1] || '',
+      link3: item.sourceLinks[2] || '',
+      link4: item.sourceLinks[3] || '',
+      status: 'Oczekujące',
+      startDate: new Date(),
+      email: user.email,
+      userId: user._id,
+      ileTekstow: 1,
+      lacznaLiczbaZnakow: item.length,
+      originalOrderId: order._id,
+      originalItemId: item._id,
+    }));
+
+    // Bulk insert do MongoDB
+    const savedTexts = await OrderedText.insertMany(orderedTextsToSave);
+    console.log(`✅ Zapisano ${savedTexts.length} tekstów do MongoDB`);
+  } catch (mongoError) {
+    console.error('❌ Błąd zapisywania do MongoDB:', mongoError);
+    // Nie przerywamy procesu - Make.com nadal dostanie dane
+  }
+
+  // ===== ISTNIEJĄCE: Wysyłka do Make.com =====
   const makeData = [
     {
       User_ID: user._id.toString(),
@@ -572,16 +621,17 @@ const sendDataToMake = async (order, user) => {
 
       makeResponse.on('end', () => {
         if (makeResponse.statusCode === 200) {
+          console.log('✅ Dane wysłane do Make.com');
           resolve(responseData);
         } else {
-          console.error('Error response from Make.com:', responseData);
+          console.error('❌ Błąd odpowiedzi z Make.com:', responseData);
           reject(new Error('Error response from Make.com'));
         }
       });
     });
 
     makeRequest.on('error', (error) => {
-      console.error('Error sending data to Make.com:', error);
+      console.error('❌ Błąd wysyłania do Make.com:', error);
       reject(error);
     });
 
