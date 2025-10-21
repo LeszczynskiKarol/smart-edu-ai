@@ -1,11 +1,11 @@
-// backend/server.js
+// backend/server.js - POPRAWIONA WERSJA
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const http = require('http');
 const mongoose = require('mongoose');
-const makeRoutes = require('./routes/makeRoutes');
+const makeRoutes = require('./src/routes/makeRoutes');
 const cors = require('cors');
 const helmet = require('helmet');
 const multer = require('multer');
@@ -51,7 +51,12 @@ app.use(
       'https://smart-edu.ai',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'stripe-signature'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'stripe-signature',
+      'x-make-webhook-secret',
+    ],
     credentials: true,
     exposedHeaders: ['stripe-signature', 'ETag'],
   })
@@ -78,32 +83,69 @@ app.use((req, res, next) => {
 
 // URL-encoded bodies parsing
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
-app.use('/wp-json/moj-custom-endpoint/v1', makeWebhookRoutes);
+
+// ========================================
+// ROUTES REGISTRATION
+// ========================================
+
+// Stripe
 app.use('/api/stripe', require('./src/routes/stripeWebhookRoutes'));
+
+// Users and Auth
 app.use('/api/users', userRoutes);
+
+// Examples and Articles
 app.use('/api/examples', exampleRoutes);
 app.use('/api/articles', require('./src/routes/articleRoutes'));
 app.use('/api/categories', require('./src/routes/categoryRoutes'));
 app.use('/api/thesis-examples', thesisExampleRoutes);
+app.use('/api/admin/examples', require('./src/routes/adminExampleRoutes'));
+
+// Content and Orders
 app.use('/api/content', contentGenerationRoutes);
 app.use('/api/orders', require('./src/routes/orderRoutes'));
+
+// Notifications and Messages
 app.use('/api/notifications', require('./src/routes/notificationRoutes'));
 app.use('/api/messages', require('./src/routes/messageRoutes'));
-app.use('/api/payments', paymentRoutes);
-app.use('/api/upload', uploadRoutes);
-app.use('/api/make', makeRoutes);
-app.use('/api/work-types', workTypeRoutes);
-app.use('/api/admin/examples', require('./src/routes/adminExampleRoutes'));
-app.use('/api/newsletter', newsletterRoutes);
-app.use('/api/subjects', subjectRoutes);
-app.use('/api/contact', contactRoutes);
-app.use('/api/terms', termsRoutes);
-app.use('/api/paper', paperRoutes);
-app.use('/api/policy', policyRoutes);
-app.use('/api/make', makeWebhookRoutes);
 app.use('/api/threads', require('./src/routes/threadRoutes'));
-app.use('/api', documentRoutes);
+
+// Payments
+app.use('/api/payments', paymentRoutes);
+
+// File Upload
+app.use('/api/upload', uploadRoutes);
+
+// ========================================
+// MAKE.COM ROUTES - NOWY SYSTEM
+// ========================================
+app.use('/api/make', makeRoutes); // GŁÓWNE ENDPOINTY MAKE.COM
+
+// Stary webhook (jeśli potrzebny dla backward compatibility)
+// Rejestrujemy na innej ścieżce żeby nie było konfliktu
+app.use('/wp-json/moj-custom-endpoint/v1', makeWebhookRoutes);
+// ========================================
+
+// Work Types
+app.use('/api/work-types', workTypeRoutes);
 app.use('/api/work-type-pages', workTypePageRoutes);
+
+// Newsletter and Contact
+app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/contact', contactRoutes);
+
+// Subjects and Paper
+app.use('/api/subjects', subjectRoutes);
+app.use('/api/paper', paperRoutes);
+
+// Terms and Policy
+app.use('/api/terms', termsRoutes);
+app.use('/api/policy', policyRoutes);
+
+// Documents
+app.use('/api', documentRoutes);
+
+// Analytics and Admin
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/admin', adminRoutes);
 
@@ -114,6 +156,11 @@ app.get('/api/health', (req, res) => {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV,
     webhook_url: `${process.env.NEXT_PUBLIC_API_URL}/api/stripe/webhook`,
+    make_endpoints: {
+      test: `${process.env.NEXT_PUBLIC_API_URL}/api/make/test`,
+      ordered_texts: `${process.env.NEXT_PUBLIC_API_URL}/api/make/ordered-texts`,
+      generated_texts: `${process.env.NEXT_PUBLIC_API_URL}/api/make/generated-texts`,
+    },
   });
 });
 
@@ -123,17 +170,30 @@ app.use(errorHandler);
 // MongoDB connection
 mongoose
   .connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+  .then(() => {
+    console.log('✅ Connected to MongoDB');
+    console.log('📦 Database:', mongoose.connection.name);
+  })
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
 
 // Server initialization
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`\n🚀 Server running on port ${PORT}`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
+  console.log(`\n📡 Available endpoints:`);
   console.log(
-    `Webhook endpoint: ${process.env.NEXT_PUBLIC_API_URL}/api/stripe/webhook`
+    `   Stripe Webhook: ${process.env.NEXT_PUBLIC_API_URL}/api/stripe/webhook`
   );
-  console.log('Environment:', process.env.NODE_ENV);
+  console.log(
+    `   Make.com Test: ${process.env.NEXT_PUBLIC_API_URL}/api/make/test`
+  );
+  console.log(
+    `   Make.com Orders: ${process.env.NEXT_PUBLIC_API_URL}/api/make/ordered-texts`
+  );
+  console.log(
+    `   Health Check: ${process.env.NEXT_PUBLIC_API_URL}/api/health\n`
+  );
 });
 
 // Graceful shutdown
