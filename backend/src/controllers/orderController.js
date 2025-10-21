@@ -367,6 +367,19 @@ exports.createOrder = async (req, res) => {
 
       if (hasOtherContent) {
         await sendDataToMake(order, user);
+        const textGenerationService = require('../services/textGenerationService');
+
+        // Dla każdego OrderedText uruchom proces generowania
+        const orderedTexts = await OrderedText.find({
+          idZamowienia: order._id.toString(),
+        });
+
+        for (const orderedText of orderedTexts) {
+          console.log(`🚀 Rozpoczynam proces dla: ${orderedText._id}`);
+          textGenerationService
+            .processOrderedText(orderedText._id)
+            .catch((err) => console.error('Błąd procesu:', err));
+        }
       }
     }
 
