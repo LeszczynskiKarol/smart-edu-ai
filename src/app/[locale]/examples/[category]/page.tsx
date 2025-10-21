@@ -1,27 +1,14 @@
 // src/app/[locale]/examples/[category]/page.tsx
 import { notFound } from 'next/navigation';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import ExamplesList from '@/components/examples/ExamplesList';
 import Layout from '@/components/layout/Layout';
+import { metadata } from './metadata';
 
 const validCategories = ['bachelor', 'master', 'coursework'];
 
-export async function generateMetadata({
-  params: { locale, category },
-}: {
-  params: { locale: string; category: string };
-}) {
-  if (!validCategories.includes(category)) {
-    return {};
-  }
-
-  const t = await getTranslations({ locale, namespace: 'examples' });
-
-  return {
-    title: t(`${category}.title`),
-    description: t(`${category}.description`),
-  };
-}
+export { metadata };
+export const dynamic = 'force-dynamic';
 
 async function getExamples(category: string) {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/thesis-examples/${category}`;
@@ -50,9 +37,6 @@ export default async function CategoryPage({
 }: {
   params: { locale: string; category: string };
 }) {
-  // ✅ DODAJ TĘ LINIJKĘ
-  unstable_setRequestLocale(locale);
-
   if (!validCategories.includes(category)) {
     notFound();
   }

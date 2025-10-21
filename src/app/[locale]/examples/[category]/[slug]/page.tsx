@@ -1,10 +1,14 @@
 // src/app/[locale]/examples/[category]/[slug]/page.tsx
 import { notFound } from 'next/navigation';
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import Layout from '@/components/layout/Layout';
 import ExamplePageClient from '@/components/examples/ExamplePageClient';
+import { metadata } from './metadata';
 
 const validCategories = ['bachelor', 'master', 'coursework'];
+
+export { metadata };
+export const dynamic = 'force-dynamic';
 
 async function getExample(category: string, slug: string) {
   const res = await fetch(
@@ -24,48 +28,11 @@ async function getExample(category: string, slug: string) {
   return res.json();
 }
 
-export async function generateMetadata({
-  params: { locale, category, slug },
-}: {
-  params: { locale: string; category: string; slug: string };
-}) {
-  if (!validCategories.includes(category)) {
-    return {};
-  }
-
-  const example = await getExample(category, slug);
-
-  if (!example) {
-    return {};
-  }
-
-  const title =
-    locale === 'pl'
-      ? example.metaTitlePl || example.title
-      : example.metaTitleEn || example.titleEn;
-
-  const description =
-    locale === 'pl' ? example.metaDescriptionPl : example.metaDescriptionEn;
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      type: 'article',
-    },
-  };
-}
-
 export default async function ExamplePage({
   params: { locale, category, slug },
 }: {
   params: { locale: string; category: string; slug: string };
 }) {
-  // ✅ DODAJ TĘ LINIJKĘ
-  unstable_setRequestLocale(locale);
-
   if (!validCategories.includes(category)) {
     notFound();
   }
