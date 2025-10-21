@@ -1,20 +1,19 @@
 // src/components/Providers.tsx
 'use client';
 
-import React from 'react';
-import { NextIntlClientProvider } from 'next-intl';
-import { ThemeProvider } from '@/context/ThemeContext';
-import { AuthProvider } from '@/context/AuthContext';
-import { LoaderProvider } from '@/context/LoaderContext';
-import { AnalyticsProvider } from '@/context/AnalyticsContext';
-import { usePathname } from 'next/navigation';
-import { LocaleProvider } from '@/context/LocaleContext';
-import { ConsentProvider } from '@/context/ConsentContext';
 import BackgroundDecoration from '@/components/BackgroundDecoration';
 import GlobalLoader from '@/components/GlobalLoader';
+import { AnalyticsProvider } from '@/context/AnalyticsContext';
+import { AuthProvider } from '@/context/AuthContext';
+import { ConsentProvider } from '@/context/ConsentContext';
+import { LoaderProvider } from '@/context/LoaderContext';
+import { LocaleProvider } from '@/context/LocaleContext';
+import { ThemeProvider } from '@/context/ThemeContext';
+import { NextIntlClientProvider } from 'next-intl';
+import { usePathname } from 'next/navigation';
+import React from 'react';
 import CookieConsent from './CookieConsent';
-//import GoogleAnalytics from './GoogleAnalytics';
-//import ClarityAnalytics from './ClarityAnalytics';
+import GoogleAnalytics from './GoogleAnalytics';
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -48,8 +47,8 @@ export function Providers({ children, locale, messages }: ProvidersProps) {
             <AuthProvider>
               <AnalyticsProvider>
                 <LoaderProvider>
-                  {/*<GoogleAnalytics />*/}
-                  {/*<ClarityAnalytics />*/}
+                  <GoogleAnalytics />
+
                   <BackgroundDecoration />
                   <GlobalLoader />
                   {children}
