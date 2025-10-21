@@ -37,5 +37,14 @@ router.get(
   protect,
   textGenerationController.getProcessingStatus
 );
+router.get(
+  '/selected-sources/:orderedTextId',
+  protect,
+  textGenerationController.getSelectedSources
+);
+router.get(
+  '/process-flow/:orderedTextId',
+  textGenerationController.getProcessFlow
+);
 
 module.exports = router;

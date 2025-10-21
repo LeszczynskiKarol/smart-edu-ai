@@ -113,42 +113,65 @@ const searchGoogle = async (query, language) => {
     console.log(`📞 Wywołuję Google API z:`);
     console.log(`   Query: "${query}"`);
     console.log(`   Language: ${language}`);
-    console.log(`   API Key: ${GOOGLE_API_KEY ? '✓ Ustawiony' : '✗ BRAK'}`);
-    console.log(`   CX: ${GOOGLE_CX}`);
 
-    const response = await axios.get(
-      'https://www.googleapis.com/customsearch/v1',
-      {
-        params: {
-          key: GOOGLE_API_KEY,
-          cx: GOOGLE_CX,
-          q: query,
-          num: 8,
-          hl: language,
-        },
-        timeout: 10000, // 🆕 timeout 10s
+    // 🆕 Pierwsza próba - 10 wyników
+    let allItems = [];
+
+    for (let start = 1; start <= 11; start += 10) {
+      if (allItems.length >= 15) break; // Zatrzymaj się po 15
+
+      try {
+        const response = await axios.get(
+          'https://www.googleapis.com/customsearch/v1',
+          {
+            params: {
+              key: GOOGLE_API_KEY,
+              cx: GOOGLE_CX,
+              q: query,
+              num: 10, // Zawsze 10 (max w darmowym planie)
+              hl: language,
+              start: start, // Offset: 1, 11, 21...
+            },
+            timeout: 10000,
+          }
+        );
+
+        const items = response.data.items || [];
+        allItems = [...allItems, ...items];
+
+        console.log(
+          `✅ Pobrano ${items.length} wyników (strona ${Math.ceil(start / 10)})`
+        );
+
+        // Jeśli mniej niż 10, to koniec wyników
+        if (items.length < 10) break;
+
+        // Poczekaj 500ms między zapytaniami
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      } catch (pageError) {
+        console.error(
+          `⚠️ Błąd pobierania strony ${Math.ceil(start / 10)}:`,
+          pageError.message
+        );
+        break; // Zakończ jeśli błąd (np. brak kolejnej strony)
       }
-    );
-
-    console.log(
-      `✅ Google zwrócił ${response.data.items?.length || 0} wyników`
-    );
-
-    // 🆕 Loguj pełną odpowiedź jeśli brak wyników
-    if (!response.data.items || response.data.items.length === 0) {
-      console.error('❌ Google zwrócił 0 wyników. Pełna odpowiedź:');
-      console.error(JSON.stringify(response.data, null, 2));
     }
 
+    console.log(`\n🔗 Łącznie znaleziono ${allItems.length} linków:`);
+    allItems.forEach((item, index) => {
+      console.log(`   ${index + 1}. ${item.link}`);
+    });
+    console.log('');
+
     return {
-      items: response.data.items || [],
-      searchInformation: response.data.searchInformation || {},
+      items: allItems.slice(0, 15), // Max 15
+      searchInformation: {}, // Aggregate info jeśli potrzeba
     };
   } catch (error) {
     console.error('❌ Błąd wyszukiwania Google:', error.message);
 
-    // 🆕 Szczegółowe logi błędów
     if (error.response) {
+      console.error('\n📋 SZCZEGÓŁY BŁĘDU:');
       console.error('Status:', error.response.status);
       console.error('Data:', JSON.stringify(error.response.data, null, 2));
     }
@@ -306,80 +329,113 @@ const selectBestSources = async (orderedText, scrapedContents) => {
   try {
     console.log(`🎯 Claude wybiera najlepsze źródła dla: ${orderedText.temat}`);
 
-    // Przygotuj dane źródeł dla Claude
     const sourcesData = scrapedContents
       .filter((s) => s.status === 'completed' && s.scrapedText)
       .map((source, index) => ({
         numer: index + 1,
         url: source.url,
         dlugosc: source.textLength,
-        fragment: source.scrapedText.substring(0, 1000), // pierwsze 1000 znaków
+        fragment: source.scrapedText.substring(0, 1500), // Zwiększone z 1000
       }));
 
     if (sourcesData.length === 0) {
       throw new Error('Brak zescrapowanych źródeł do analizy');
     }
 
-    // Prompt dla Claude
+    console.log(`📊 Analizuję ${sourcesData.length} źródeł...`);
+
     const prompt = `Jesteś ekspertem od oceny jakości źródeł internetowych. 
 
-ZADANIE: Przeanalizuj poniższe źródła i wybierz 3-5 NAJLEPSZYCH do napisania tekstu na temat: "${orderedText.temat}"
+ZADANIE: Przeanalizuj poniższe źródła i wybierz 3-8 NAJLEPSZYCH do napisania tekstu na temat: "${orderedText.temat}"
 
 RODZAJ PRACY: ${orderedText.rodzajTresci}
 JĘZYK: ${orderedText.countryCode}
 
-KRYTERIA WYBORU:
-- Merytoryczność i rzetelność treści
-- Zgodność z tematem
-- Aktualność informacji
-- Poziom szczegółowości
-- Brak treści reklamowych/sprzedażowych
+KRYTERIA WYBORU (w kolejności ważności):
+1. Merytoryczność i rzetelność treści
+2. Zgodność z tematem  
+3. Aktualność informacji
+4. Poziom szczegółowości
+5. Brak treści reklamowych/sprzedażowych
+6. Autorytet źródła
+
+ZASADY:
+- Jeśli są 3-5 bardzo dobrych źródeł → wybierz 3-5
+- Jeśli jest 6-8 dobrych źródeł → wybierz 6-8  
+- MAKSYMALNIE 8 źródeł
+- Preferuj różnorodność perspektyw
+- Dla prac naukowych: preferuj źródła .edu, .gov, PDF, czasopisma
 
 DOSTĘPNE ŹRÓDŁA:
 ${sourcesData
   .map(
     (s) => `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ŹRÓDŁO ${s.numer}:
 URL: ${s.url}
 Długość: ${s.dlugosc} znaków
+
 Fragment treści:
 ${s.fragment}
----
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 `
   )
   .join('\n')}
 
 ODPOWIEDŹ:
-Zwróć TYLKO numery wybranych źródeł oddzielone przecinkami (np: 1,3,5,7)
+Zwróć TYLKO numery wybranych źródeł oddzielone przecinkami (np: 1,3,5,7,9,11)
 Bez żadnego dodatkowego tekstu!`;
 
     const message = await anthropic.messages.create({
       model: 'claude-3-5-sonnet-20240620',
-      max_tokens: 100,
+      max_tokens: 150,
+      temperature: 0.3,
       messages: [{ role: 'user', content: prompt }],
     });
 
-    // Parsuj odpowiedź Claude
     const response = message.content[0].text.trim();
+    console.log(`🤖 Claude odpowiedział: "${response}"`);
+
     const selectedNumbers = response
       .split(',')
       .map((n) => parseInt(n.trim()))
       .filter((n) => !isNaN(n) && n > 0 && n <= sourcesData.length);
 
+    if (selectedNumbers.length === 0) {
+      console.warn(
+        '⚠️ Claude nie wybrał żadnych źródeł, wybieram 3 pierwsze...'
+      );
+      selectedNumbers.push(1, 2, 3);
+    }
+
     console.log(
       `✅ Claude wybrał ${selectedNumbers.length} źródeł: ${selectedNumbers.join(', ')}`
     );
 
-    // Oznacz wybrane źródła w bazie
+    // Oznacz wybrane źródła
     const selectedSources = [];
     for (const num of selectedNumbers) {
       const sourceIndex = num - 1;
       const scrapedContent = scrapedContents[sourceIndex];
 
       scrapedContent.selectedForGeneration = true;
+      scrapedContent.selectionReason = `Wybrane przez Claude (${selectedNumbers.length}/${sourcesData.length})`;
       await scrapedContent.save();
+
       selectedSources.push(scrapedContent);
+
+      // 🆕 LOGOWANIE WYBRANYCH ŹRÓDEŁ
+      console.log(
+        `   ✓ Źródło ${num}: ${scrapedContent.url.substring(0, 60)}...`
+      );
     }
+
+    console.log(`\n📋 PODSUMOWANIE WYBORU:`);
+    console.log(`   Przeanalizowano: ${sourcesData.length} źródeł`);
+    console.log(`   Wybrano: ${selectedSources.length} źródeł`);
+    console.log(
+      `   Wskaźnik selekcji: ${Math.round((selectedSources.length / sourcesData.length) * 100)}%\n`
+    );
 
     return selectedSources;
   } catch (error) {

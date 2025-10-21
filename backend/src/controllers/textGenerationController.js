@@ -200,3 +200,159 @@ function calculateOverallProgress(orderedText, googleSearch, scrapedContent) {
 
   return Math.min(progress, 80);
 }
+
+// 🆕 Pobierz wybrane źródła
+exports.getSelectedSources = async (req, res) => {
+  try {
+    const { orderedTextId } = req.params;
+
+    const selectedSources = await ScrapedContent.find({
+      orderedTextId,
+      selectedForGeneration: true,
+    })
+      .populate('googleSearchResultId')
+      .sort({ createdAt: 1 });
+
+    res.status(200).json({
+      success: true,
+      count: selectedSources.length,
+      data: selectedSources,
+    });
+  } catch (error) {
+    console.error('Błąd pobierania wybranych źródeł:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Błąd pobierania wybranych źródeł',
+      error: error.message,
+    });
+  }
+};
+
+// 🆕 Pobierz pełny przebieg procesu (dla admina)
+exports.getProcessFlow = async (req, res) => {
+  try {
+    const { orderedTextId } = req.params;
+
+    // 1. OrderedText
+    const orderedText = await OrderedText.findById(orderedTextId);
+    if (!orderedText) {
+      return res.status(404).json({
+        success: false,
+        message: 'OrderedText nie znaleziony',
+      });
+    }
+
+    // 2. Google Search Results
+    const googleSearch = await GoogleSearchResult.findOne({ orderedTextId });
+
+    // 3. All Scraped Content
+    const allScraped = await ScrapedContent.find({ orderedTextId }).sort({
+      createdAt: 1,
+    });
+
+    // 4. Selected Sources
+    const selectedSources = allScraped.filter((s) => s.selectedForGeneration);
+
+    // 5. Processing Timeline
+    const timeline = [
+      {
+        step: 1,
+        name: 'Utworzenie zamówienia',
+        timestamp: orderedText.createdAt,
+        status: 'completed',
+      },
+      {
+        step: 2,
+        name: 'Generowanie zapytania Google',
+        timestamp: googleSearch?.createdAt,
+        status: googleSearch ? 'completed' : 'pending',
+        data: googleSearch
+          ? {
+              query: googleSearch.searchQuery,
+              language: googleSearch.language,
+              resultsCount: googleSearch.results.length,
+            }
+          : null,
+      },
+      {
+        step: 3,
+        name: 'Scrapowanie stron',
+        timestamp: allScraped[0]?.createdAt,
+        status:
+          allScraped.length > 0
+            ? allScraped.every((s) => s.status === 'completed')
+              ? 'completed'
+              : 'in_progress'
+            : 'pending',
+        data: {
+          total: allScraped.length,
+          completed: allScraped.filter((s) => s.status === 'completed').length,
+          failed: allScraped.filter((s) => s.status === 'failed').length,
+        },
+      },
+      {
+        step: 4,
+        name: 'Wybór źródeł przez Claude',
+        timestamp: selectedSources[0]?.updatedAt,
+        status: selectedSources.length > 0 ? 'completed' : 'pending',
+        data: {
+          selected: selectedSources.length,
+          total: allScraped.filter((s) => s.status === 'completed').length,
+        },
+      },
+      {
+        step: 5,
+        name: 'Generowanie tekstu',
+        status: 'pending',
+      },
+    ];
+
+    res.status(200).json({
+      success: true,
+      data: {
+        orderedText: {
+          _id: orderedText._id,
+          temat: orderedText.temat,
+          rodzajTresci: orderedText.rodzajTresci,
+          status: orderedText.status,
+          createdAt: orderedText.createdAt,
+        },
+        googleSearch: googleSearch
+          ? {
+              query: googleSearch.searchQuery,
+              language: googleSearch.language,
+              resultsCount: googleSearch.results.length,
+              results: googleSearch.results,
+            }
+          : null,
+        scraping: {
+          total: allScraped.length,
+          completed: allScraped.filter((s) => s.status === 'completed').length,
+          failed: allScraped.filter((s) => s.status === 'failed').length,
+          sources: allScraped.map((s) => ({
+            _id: s._id,
+            url: s.url,
+            status: s.status,
+            textLength: s.textLength,
+            selected: s.selectedForGeneration || false,
+            selectionReason: s.selectionReason,
+          })),
+        },
+        selectedSources: selectedSources.map((s) => ({
+          _id: s._id,
+          url: s.url,
+          textLength: s.textLength,
+          snippet: s.scrapedText.substring(0, 300),
+        })),
+        timeline,
+      },
+    });
+  } catch (error) {
+    console.error('Błąd pobierania przebiegu procesu:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Błąd pobierania przebiegu procesu',
+      error: error.message,
+    });
+  }
+};

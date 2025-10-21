@@ -15,6 +15,7 @@ import {
   FileText,
   Globe,
   Search,
+  Sparkles,
   Trash2,
 } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
@@ -307,6 +308,25 @@ export default function OrderedTextDetailsPage() {
               ID: {orderedText._id}
             </p>
           </div>
+          <button
+            onClick={handleDelete}
+            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center gap-2"
+          >
+            <Trash2 size={18} />
+            Usuń
+          </button>
+        </div>
+        <div className="flex gap-2">
+          <button
+            onClick={() =>
+              router.push(`/admin/automation/process-flow/${params.id}`)
+            }
+            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2"
+          >
+            <Sparkles size={18} />
+            Analiza procesu
+          </button>
+
           <button
             onClick={handleDelete}
             className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center gap-2"
