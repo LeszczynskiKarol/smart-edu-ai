@@ -214,7 +214,7 @@ const OrderStatusItem: React.FC<OrderStatusItemProps> = ({
                   {t('language')}: {t(`languages.${item.language}`)}
                 </p>
                 <p className="text-sm text-gray-200 dark:text-gray-300">
-                  {t('contentType')}: {t(`contentTypes.${item.contentType}`)}
+                  {t('contentType')}: {item.contentType}
                 </p>
               </div>
             </motion.div>

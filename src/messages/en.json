@@ -85,7 +85,7 @@
       "searchLanguage": "Choose sources language",
       "topicPlaceholder": "Enter thesis topic",
       "topic": "Thesis topic",
-      "guidelines": "Guidelines"
+      "guidelines": "Guidelines (optional)"
     },
     "tooltips": {
       "contentType": "Choose content type or enter your own",

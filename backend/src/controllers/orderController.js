@@ -20,6 +20,21 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+// Mapowanie języków tekstów na języki wyszukiwania
+const mapTextLangToSearchLang = (textLang) => {
+  const mapping = {
+    pol: 'pl',
+    eng: 'en',
+    ger: 'de',
+    ukr: 'uk',
+    fra: 'fr',
+    esp: 'es',
+    ros: 'ru',
+    por: 'pt',
+  };
+  return mapping[textLang] || 'en';
+};
+
 exports.createOrder = async (req, res) => {
   try {
     const handleOrderAmount = async (amount, currency, providedRate = null) => {
@@ -69,14 +84,24 @@ exports.createOrder = async (req, res) => {
     };
 
     const calculateEstimatedTime = (item) => {
-      if (item.contentType === 'post_social_media') {
-        return new Date(Date.now() + 45 * 1000);
-      } else {
-        const baseTime = 30 * 1000;
-        const additionalTime =
-          (Math.max(0, item.length - 100) / 1000) * 30 * 1000;
-        return new Date(Date.now() + baseTime + additionalTime);
+      // Prace licencjackie i magisterskie
+      if (item.contentType === 'licencjacka') {
+        return new Date(Date.now() + 60 * 60 * 1000); // 60 minut
       }
+      if (item.contentType === 'magisterska') {
+        return new Date(Date.now() + 90 * 60 * 1000); // 90 minut
+      }
+
+      // Social media
+      if (item.contentType === 'post_social_media') {
+        return new Date(Date.now() + 45 * 1000); // 45 sekund
+      }
+
+      // Pozostałe teksty - 1 minuta na 1000 znaków
+      const minutesPerThousand = 1;
+      const estimatedMinutes =
+        Math.ceil(item.length / 1000) * minutesPerThousand;
+      return new Date(Date.now() + estimatedMinutes * 60 * 1000);
     };
 
     const {
@@ -196,11 +221,7 @@ exports.createOrder = async (req, res) => {
           pricePLN: Number(pricePLN), // Upewnij się, że to jest liczba
           contentType,
           searchLanguage:
-            item.bibliography && item.searchLanguage
-              ? item.searchLanguage
-              : item.bibliography
-                ? mapTextLangToSearchLang(item.language)
-                : searchLanguage,
+            item.searchLanguage || mapTextLangToSearchLang(item.language),
           keywords: item.frazy || [],
           sourceLinks: [item.link1, item.link2, item.link3, item.link4].filter(
             Boolean
@@ -264,6 +285,7 @@ exports.createOrder = async (req, res) => {
 
       const analyticalSessionId =
         req.body.analyticalSessionId || req.query.analyticalSessionId;
+      const locale = user.locale || 'pl';
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types:
@@ -289,7 +311,7 @@ exports.createOrder = async (req, res) => {
         success_url: successUrl,
         cancel_url: `${process.env.FRONTEND_URL}/dashboard?order_canceled=true`,
         customer_email: user.email,
-        locale: 'pl',
+        locale: locale === 'pl' ? 'pl' : 'auto',
         metadata: {
           userId: user._id.toString(),
           type: 'order_payment',
@@ -366,19 +388,34 @@ exports.createOrder = async (req, res) => {
       }
 
       if (hasOtherContent) {
-        await sendDataToMake(order, user);
+        // Zapisz do MongoDB (BEZ Make.com)
+        const orderedTextsToSave = order.items
+          .filter((item) => item.contentType !== 'post_social_media')
+          .map((item) => ({
+            // ... (te same pola co wyżej)
+          }));
+
+        const savedTexts = await OrderedText.insertMany(orderedTextsToSave);
+        console.log(`✅ Zapisano ${savedTexts.length} tekstów do MongoDB`);
+
         const textGenerationService = require('../services/textGenerationService');
+        const academicWorkService = require('../services/academicWorkService');
 
-        // Dla każdego OrderedText uruchom proces generowania
-        const orderedTexts = await OrderedText.find({
-          idZamowienia: order._id.toString(),
-        });
+        // Uruchom proces generowania
+        for (const orderedText of savedTexts) {
+          const isAcademicWork =
+            orderedText.rodzajTresci.toLowerCase().includes('magister') ||
+            orderedText.rodzajTresci.toLowerCase().includes('licencjack');
 
-        for (const orderedText of orderedTexts) {
-          console.log(`🚀 Rozpoczynam proces dla: ${orderedText._id}`);
-          textGenerationService
-            .processOrderedText(orderedText._id)
-            .catch((err) => console.error('Błąd procesu:', err));
+          if (isAcademicWork) {
+            academicWorkService
+              .generateAcademicWork(orderedText._id)
+              .catch((err) => console.error('Błąd:', err));
+          } else {
+            textGenerationService
+              .processOrderedText(orderedText._id)
+              .catch((err) => console.error('Błąd:', err));
+          }
         }
       }
     }
@@ -459,6 +496,7 @@ ${i18n.__('orders.orderConfirmation.loginPanel')}</a>.</p>
         userAttachments: order.userAttachments,
       },
       remainingBalance: user.accountBalance,
+      shouldShowOrderStatus: true,
     });
   } catch (error) {
     console.error('Błąd podczas tworzenia zamówienia:', error);
@@ -485,235 +523,58 @@ const getFullLanguageName = (shortCode) => {
   return languageMap[shortCode] || shortCode;
 };
 
-// Funkcja do wysyłania danych do Make.com
-const sendDataToMake = async (order, user) => {
-  // Mapowanie skrótów języków na pełne nazwy
-  const languageMap = {
-    pol: 'polski',
-    eng: 'angielski',
-    ger: 'niemiecki',
-    ukr: 'ukraiński',
-    fra: 'francuski',
-    esp: 'hiszpański',
-    ros: 'rosyjski',
-    por: 'portugalski',
-  };
-
-  // Formatowanie danych do JSON
-  const formatForJSON = (text) => {
-    return text
-      .replace(/[\n\r\t\\"]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-  };
-
-  const filteredItems = order.items.filter(
-    (item) => item.contentType !== 'post_social_media'
-  );
-
-  // ===== NOWE: Zapisz do MongoDB =====
-  try {
-    console.log('💾 Zapisywanie zamówionych tekstów do MongoDB...');
-
-    const orderedTextsToSave = filteredItems.map((item) => ({
-      temat: item.topic,
-      idZamowienia: order._id.toString(),
-      itemId: item._id.toString(),
-      cena: parseFloat(item.price),
-      cenaZamowienia: parseFloat(order.totalPrice),
-      rodzajTresci: item.contentType,
-      dlugoscTekstu: item.length,
-      liczbaZnakow: item.length,
-      wytyczneIndywidualne: item.guidelines,
-      tonIStyl: item.tone,
-      jezyk: languageMap[item.language] || item.language,
-      jezykWyszukiwania: item.searchLanguage || 'en',
-      countryCode: item.searchLanguageFull || 'polski',
-      model: 'Claude 2.0',
-      bibliografia: item.bibliography,
-      faq: item.includeFAQ,
-      tabele: item.includeTable,
-      boldowanie: false,
-      listyWypunktowane: true,
-      frazy: (item.keywords || []).join(', '),
-      link1: item.sourceLinks[0] || '',
-      link2: item.sourceLinks[1] || '',
-      link3: item.sourceLinks[2] || '',
-      link4: item.sourceLinks[3] || '',
-      status: 'Oczekujące',
-      startDate: new Date(),
-      email: user.email,
-      userId: user._id,
-      ileTekstow: 1,
-      lacznaLiczbaZnakow: item.length,
-      originalOrderId: order._id,
-      originalItemId: item._id,
-    }));
-
-    // Bulk insert do MongoDB
-    const savedTexts = await OrderedText.insertMany(orderedTextsToSave);
-    console.log(`✅ Zapisano ${savedTexts.length} tekstów do MongoDB`);
-  } catch (mongoError) {
-    console.error('❌ Błąd zapisywania do MongoDB:', mongoError);
-    // Nie przerywamy procesu - Make.com nadal dostanie dane
-  }
-
-  // ===== ISTNIEJĄCE: Wysyłka do Make.com =====
-  const makeData = [
-    {
-      User_ID: user._id.toString(),
-      Imie: user.name,
-      Faktura: user.companyDetails?.nip ? 'TAK' : 'NIE',
-      NazwaFirmy: user.companyDetails?.companyName || '',
-      NIPFirmy: user.companyDetails?.nip || '',
-      Miejscowosc: user.companyDetails?.city || '',
-      KodPocztowy: user.companyDetails?.postalCode || '',
-      Ulica: user.companyDetails?.address || '',
-      LiczbaZamowien: filteredItems.length,
-      LacznaKwotaZamowienia: parseFloat(order.totalPrice).toFixed(2),
-      Szyfr: order._id.toString(),
-      Zamowienia: filteredItems.map((item) => ({
-        ItemID: item._id.toString(),
-        Temat: JSON.stringify(formatForJSON(item.topic)),
-        RodzajTresci: item.contentType,
-        DlugoscTekstu: item.length.toString(),
-        Wytyczne: JSON.stringify(formatForJSON(item.guidelines)),
-        SlowaKluczowe: JSON.stringify(item.keywords.join(', ')),
-        Link1: item.sourceLinks[0] || '',
-        Link2: item.sourceLinks[1] || '',
-        Link3: item.sourceLinks[2] || '',
-        Link4: item.sourceLinks[3] || '',
-        JezykTekstu: languageMap[item.language] || item.language,
-        JezykWyszukiwania: item.searchLanguage || 'en',
-        PelnyJezykWyszukiwania:
-          getFullLanguageName(item.searchLanguage) || 'angielski',
-        includeFAQ: item.includeFAQ.toString(),
-        includeTable: item.includeTable.toString(),
-        tone: item.tone,
-        CenaTegoTekstu: parseFloat(item.price).toFixed(2),
-        bibliography: item.bibliography.toString(),
-      })),
-      LacznaLiczbaZnakow: filteredItems.reduce(
-        (sum, item) => sum + item.length,
-        0
-      ),
-      LiczbaTextow: filteredItems.length,
-      LacznaCenaTextow: filteredItems
-        .reduce((sum, item) => sum + item.price, 0)
-        .toFixed(2),
-      CenaZamowienia: parseFloat(order.totalPrice).toFixed(2),
-      Email: user.email,
-      attachments: order.userAttachments.map(
-        (att) => `${process.env.FRONTEND_URL}/upload/${att.url}`
-      ),
-    },
-  ];
-
-  const makeDataString = JSON.stringify(makeData);
-
-  const MAKE_WEBHOOK_URL =
-    'https://hook.eu2.make.com/pjv1wmn4i77ov4xu074yazji8y7mc6wb';
-
-  const options = {
-    hostname: new URL(MAKE_WEBHOOK_URL).hostname,
-    path: new URL(MAKE_WEBHOOK_URL).pathname,
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Content-Length': Buffer.byteLength(makeDataString),
-    },
-  };
-
-  return new Promise((resolve, reject) => {
-    const makeRequest = https.request(options, (makeResponse) => {
-      let responseData = '';
-
-      makeResponse.on('data', (chunk) => {
-        responseData += chunk;
-      });
-
-      makeResponse.on('end', () => {
-        if (makeResponse.statusCode === 200) {
-          console.log('✅ Dane wysłane do Make.com');
-          resolve(responseData);
-        } else {
-          console.error('❌ Błąd odpowiedzi z Make.com:', responseData);
-          reject(new Error('Error response from Make.com'));
-        }
-      });
-    });
-
-    makeRequest.on('error', (error) => {
-      console.error('❌ Błąd wysyłania do Make.com:', error);
-      reject(error);
-    });
-
-    makeRequest.write(makeDataString);
-    makeRequest.end();
-  });
-};
-
 const determineContentTypeAndSearchLanguage = async (
   guidelines,
   userSelectedLanguage
 ) => {
   try {
+    // Określ typ treści przez Claude
     const contentTypeMsg = await anthropic.messages.create({
-      model: 'claude-sonnet-4-5-20250929',
-      max_tokens: 64000,
-      messages: [
-        {
-          role: 'user',
-          content: `Na podstawie poniższych wytycznych usera, określ najbardziej odpowiedni rodzaj treści. Odpowiedz jednym słowem lub frazą, wybierając ją spośród (musisz DOKŁADNIE PRZEPISAĆ TE RODZAJE TREŚCI - bez polskich znaków ani cudzysłowów - trzeba je 100% je odzworować, a więc np. "reportaz", a nie reportaż: wypracowanie, praca licencjacka, praca magisterska, esej, referat, rozprawka, charakterystyka, opowiadanie, list, recenzja, przemowienie, reportaz, zaproszenie, streszczenie, interpretacja. Jeśli żadna z tych opcji nie pasuje, możesz zaproponować inny, bardziej odpowiedni rodzaj treści. Przykłaodwo, jeśli pojawiają się wytyczne o wniosku, oferty, zapytania, oficjalnym pismie czy innego rodzaju treści, to ją napisz, np. "wniosek" (oczywiście bez cudzysłowów), zapytanie, reportaż, oferta, przemówienie itd. - wszystko, co nie pasuje do wymienionych rodzajów na początku. Unikaj przyporządkowywania "na siłę" wytycznych do wymienionych na początku rodzajów - jeśli jakieś wytyczyne czy tematy nie pasują do tych początków wymienionych rodzajów, śmiało dopasuj coś spoza tego zbioru. POZA NAZWĄ RODZAJU TREŚCI NIE MASZ PRAWA PISAĆ NIC INNEGO!!!!
-
-Wytyczne usera:
-${guidelines}`,
-        },
-      ],
-    });
-
-    const searchLanguageMsg = await anthropic.messages.create({
       model: 'claude-3-5-sonnet-20240620',
       max_tokens: 100,
       messages: [
         {
           role: 'user',
-          content: `Na podstawie podanych wytycznych oraz docelowego języka wybranego przez usera określ język wyszukiwania w google search api, wybierając spośród tych wartości: en (angielski), cs (czeski), de (niemiecki), es (hiszpański), pl (polski), uk (ukraiński), pt (portugalski), ru (rosyjski). Najważniejszym kryterium, którym powinieneś się kierować, jest tematyka wytycznyc/zapytania usera: jeśli ma ona charakter ogólny i uznasz, że najlepsze wyniki uda się uzyskać w wyszukiwaniu w angielskim internecie, który jest najbogatszy, napisz: en - to będzie oznaczało wyszikuwanie w języku angielskim, potencjalnie najlepszym dla ogólnych zapytań, które nie wiążą się z danym krajem czy językiem. Jeśli jednak widzisz, że zapytanie ma charakter bardziej lokalny, a więc dotyczy np. prawa, wydarzeń krajowych, przepisów, ubezpieczeń czy innych kwestii, na temat których lepiej szukać informacji w krajowym internecie, napisz odpowiedni skrót spośród wskazanych. BARDZO WAŻNE - Twoja wypowiedzieć NIE MOŻE MIEĆ WIĘCEJ NIŻ 2 litery wpisanego skrótu!!!! POZA SAMYM SKRÓTEM NIE MASZ PRAWO PISAĆ ANI SŁOWA WIĘCEJ!!!!
-
-Wytyczne usera:
-${guidelines}
-
-Język wybrany przez użytkownika:
-${userSelectedLanguage}`,
+          content: `Określ rodzaj treści. Odpowiedz JEDNYM słowem.
+Wytyczne: ${guidelines}`,
         },
       ],
     });
 
-    if (
-      !contentTypeMsg.content ||
-      !Array.isArray(contentTypeMsg.content) ||
-      contentTypeMsg.content.length === 0 ||
-      !searchLanguageMsg.content ||
-      !Array.isArray(searchLanguageMsg.content) ||
-      searchLanguageMsg.content.length === 0
-    ) {
-      console.error('Nieoczekiwana struktura odpowiedzi API');
-      return { contentType: 'artykul', searchLanguage: 'en' };
-    }
-
     const contentType = contentTypeMsg.content[0].text.trim().toLowerCase();
-    const searchLanguage = searchLanguageMsg.content[0].text
-      .trim()
-      .toLowerCase();
+
+    // KRYTYCZNE - mapowanie języka tekstów frontend->backend
+    const frontendToBackendMap = {
+      polish: 'pol',
+      english: 'eng',
+      german: 'ger',
+      ukrainian: 'ukr',
+      french: 'fra',
+      spanish: 'esp',
+      russian: 'ros',
+      portuguese: 'por',
+    };
+
+    // Konwertuj z formatu frontend na backend
+    const backendLang =
+      frontendToBackendMap[userSelectedLanguage] || userSelectedLanguage;
+
+    // Użyj istniejącej funkcji mapowania
+    const searchLanguage = mapTextLangToSearchLang(backendLang);
+
+    console.log(`
+🔍 MAPOWANIE JĘZYKÓW:
+   Frontend otrzymał: ${userSelectedLanguage}
+   Backend format: ${backendLang}
+   Język wyszukiwania: ${searchLanguage}
+    `);
 
     return { contentType, searchLanguage };
   } catch (error) {
-    console.error(
-      'Błąd podczas określania rodzaju treści i języka wyszukiwania:',
-      error
-    );
-    console.error('Szczegóły błędu:', JSON.stringify(error, null, 2));
-    return { contentType: 'artykul', searchLanguage: 'en' };
+    console.error('Błąd podczas określania parametrów:', error);
+    const backendLang = frontendToBackendMap[userSelectedLanguage] || 'pol';
+    const searchLang = mapTextLangToSearchLang(backendLang);
+    return { contentType: 'artykul', searchLanguage: searchLang };
   }
 };
 

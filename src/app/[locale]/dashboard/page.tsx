@@ -655,16 +655,54 @@ export default function Dashboard() {
         //),
         //});
 
-        if (window.ttq) {
-          window.ttq.track('InitiateCheckout', {
-            contents: textForms.map((form) => ({
-              content_id: `text_${form.id}`,
-              content_type: 'product',
-              content_name: form.contentType || 'text_content',
-            })),
-            value: totalPrice,
-            currency: isUSD ? 'USD' : 'PLN',
-          });
+        if (data.success) {
+          if (window.ttq) {
+            window.ttq.track('InitiateCheckout', {
+              contents: textForms.map((form) => ({
+                content_id: `text_${form.id}`,
+                content_type: 'product',
+                content_name: form.contentType || 'text_content',
+              })),
+              value: totalPrice,
+              currency: isUSD ? 'USD' : 'PLN',
+            });
+          }
+
+          if (data.paymentUrl) {
+            localStorage.setItem(
+              'auth_token_temp',
+              localStorage.getItem('token') || ''
+            );
+            localStorage.setItem('savedFormData', JSON.stringify(textForms));
+            localStorage.setItem('analytical_session_id', currentSessionId);
+            localStorage.setItem('payment_pending', 'true');
+            window.location.href = data.paymentUrl;
+          } else {
+            // KLUCZOWE: Najpierw czyść stare zamówienia
+            await refreshOrders();
+
+            setOrderDetails(data.order);
+            setShowSuccessModal(true);
+            setCurrentOrder(data.order);
+
+            // Czekamy chwilę na odświeżenie
+            setTimeout(async () => {
+              // Dopiero teraz dodajemy nowe zamówienie
+              const event = new CustomEvent('orderStatusUpdate', {
+                detail: {
+                  orderAdded: true,
+                  order: data.order,
+                  forceRefresh: true, // Dodajemy flagę wymuszającą
+                },
+              });
+              window.dispatchEvent(event);
+
+              // Odśwież jeszcze raz dla pewności
+              await refreshOrders();
+            }, 100);
+
+            await refreshUserData();
+          }
         }
 
         if (data.paymentUrl) {
@@ -681,6 +719,16 @@ export default function Dashboard() {
           setOrderDetails(data.order);
           setShowSuccessModal(true);
           setCurrentOrder(data.order);
+          if (data.shouldShowOrderStatus) {
+            // Wymuszamy pokazanie OrderStatusBox
+            const event = new CustomEvent('orderStatusUpdate', {
+              detail: {
+                orderAdded: true,
+                order: data.order,
+              },
+            });
+            window.dispatchEvent(event);
+          }
 
           // Od razu ustawiamy nowe zamówienie
 
@@ -821,6 +869,16 @@ export default function Dashboard() {
           setOrderDetails(data.order);
           setShowSuccessModal(true);
           setCurrentOrder(data.order);
+          if (data.shouldShowOrderStatus) {
+            // Wymuszamy pokazanie OrderStatusBox
+            const event = new CustomEvent('orderStatusUpdate', {
+              detail: {
+                orderAdded: true,
+                order: data.order,
+              },
+            });
+            window.dispatchEvent(event);
+          }
 
           // Od razu ustawiamy nowe zamówienie
 

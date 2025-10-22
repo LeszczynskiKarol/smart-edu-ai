@@ -61,8 +61,23 @@ const OrderStatusBox: React.FC<OrderStatusBoxProps> = ({
 
   useEffect(() => {
     const handleOrderUpdate = (e: CustomEvent) => {
+      console.log('🔄 OrderStatusBox otrzymał event:', e.detail);
+
       if (e.detail?.orderAdded) {
+        // Jeśli to nowe zamówienie z flagą forceRefresh
+        if (e.detail.forceRefresh) {
+          // Wyczyść cache starych zamówień
+          sessionStorage.removeItem('visibleOrders');
+          sessionStorage.removeItem('orderStatusBoxCollapsed');
+        }
+
         refreshOrders();
+
+        // Wymuś otwarcie boxa dla nowego zamówienia
+        setTimeout(() => {
+          setIsCollapsed(false);
+          setUserClosedManually(false);
+        }, 200);
       }
     };
 
@@ -105,7 +120,11 @@ const OrderStatusBox: React.FC<OrderStatusBoxProps> = ({
   }, [orders]);
 
   useEffect(() => {
+    console.log('📦 OrderStatusBox - forceShow:', forceShow);
+    console.log('📦 OrderStatusBox - visibleOrders:', visibleOrders.length);
+
     if (forceShow) {
+      console.log('🔓 Wymuszanie otwarcia OrderStatusBox');
       setIsCollapsed(false);
       sessionStorage.removeItem('orderStatusBoxManualClose');
       setUserClosedManually(false);

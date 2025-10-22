@@ -103,7 +103,7 @@ async function generateContentWithLogging(orderId, itemId, logId, io) {
       length: item.length,
       tone: item.tone,
       bibliography: item.bibliography,
-      searchLanguage: item.searchLanguage,
+      searchLanguage: searchLanguage,
       keywords: item.keywords,
       userAttachments: order.userAttachments,
     };

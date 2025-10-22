@@ -19,6 +19,21 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
+// Mapowanie języków tekstów na języki wyszukiwania
+const mapTextLangToSearchLang = (textLang) => {
+  const mapping = {
+    pol: 'pl',
+    eng: 'en',
+    ger: 'de',
+    ukr: 'uk',
+    fra: 'fr',
+    esp: 'es',
+    ros: 'ru',
+    por: 'pt',
+  };
+  return mapping[textLang] || 'en';
+};
+
 async function handleOrderPaymentAndTopUp(session) {
   const amount = session.amount_total / 100;
   const userId = session.metadata.userId;
@@ -79,14 +94,136 @@ async function handleOrderPaymentAndTopUp(session) {
     order.status = 'w trakcie';
 
     // Aktualizacja statusów wszystkich elementów zamówienia
-    order.items = order.items.map((item) => ({
-      ...item,
-      status: 'w trakcie',
-      startTime: new Date(),
-      progress: 0,
+    order.items = order.items.map((item) => {
+      // Oblicz rzeczywisty czas na podstawie długości
+      let estimatedMinutes;
+
+      if (item.contentType === 'licencjacka') {
+        estimatedMinutes = 60;
+      } else if (item.contentType === 'magisterska') {
+        estimatedMinutes = 90;
+      } else if (item.contentType === 'post_social_media') {
+        estimatedMinutes = 0.75; // 45 sekund
+      } else {
+        // 1 minuta na 1000 znaków
+        estimatedMinutes = Math.ceil(item.length / 1000);
+      }
+
+      return {
+        ...item,
+        status: 'w trakcie',
+        startTime: new Date(),
+        progress: 0,
+        estimatedCompletionTime: new Date(
+          Date.now() + estimatedMinutes * 60 * 1000
+        ),
+        hiddenByUser: false,
+      };
+    });
+
+    await order.save();
+    await Order.findByIdAndUpdate(orderId, {
+      $set: {
+        'items.$[].hiddenByUser': false,
+        lastActivityAt: new Date(),
+      },
+    });
+
+    // ✅ URUCHOM GENEROWANIE PO PŁATNOŚCI
+    console.log('🚀 Uruchamiam generowanie tekstów po płatności...');
+
+    // Zapisz do MongoDB (tak jak w orderController.js)
+    const OrderedText = require('../models/OrderedText');
+    const textGenerationService = require('../services/textGenerationService');
+    const academicWorkService = require('../services/academicWorkService');
+
+    // Mapowanie języków
+    const languageMap = {
+      pol: 'polski',
+      eng: 'angielski',
+      ger: 'niemiecki',
+      ukr: 'ukraiński',
+      fra: 'francuski',
+      esp: 'hiszpański',
+      ros: 'rosyjski',
+      por: 'portugalski',
+    };
+
+    const filteredItems = order.items.filter(
+      (item) => item.contentType !== 'post_social_media'
+    );
+
+    // Zapisz do MongoDB
+    const orderedTextsToSave = filteredItems.map((item) => ({
+      temat: item.topic,
+      idZamowienia: order._id.toString(),
+      itemId: item._id.toString(),
+      cena: parseFloat(item.price),
+      cenaZamowienia: parseFloat(order.totalPrice),
+      rodzajTresci: item.contentType,
+      dlugoscTekstu: item.length,
+      liczbaZnakow: item.length,
+      wytyczneIndywidualne: item.guidelines,
+      tonIStyl: item.tone,
+      jezyk: languageMap[item.language] || item.language,
+      jezykWyszukiwania:
+        item.searchLanguage || mapTextLangToSearchLang(item.language),
+      countryCode: languageMap[item.language] || item.language,
+      model: 'Claude 2.0',
+      bibliografia: item.bibliography,
+      faq: item.includeFAQ,
+      tabele: item.includeTable,
+      boldowanie: false,
+      listyWypunktowane: true,
+      frazy: (item.keywords || []).join(', '),
+      link1: item.sourceLinks?.[0] || '',
+      link2: item.sourceLinks?.[1] || '',
+      link3: item.sourceLinks?.[2] || '',
+      link4: item.sourceLinks?.[3] || '',
+      status: 'Oczekujące',
+      startDate: new Date(),
+      email: user.email,
+      userId: user._id,
+      originalOrderId: order._id,
+      originalItemId: item._id,
     }));
 
-    await Promise.all([user.save(), order.save()]);
+    const savedTexts = await OrderedText.insertMany(orderedTextsToSave);
+    console.log(`✅ Zapisano ${savedTexts.length} tekstów do MongoDB`);
+
+    // Uruchom proces generowania dla każdego tekstu
+    for (const orderedText of savedTexts) {
+      const isAcademicWork =
+        orderedText.rodzajTresci.toLowerCase().includes('magister') ||
+        orderedText.rodzajTresci.toLowerCase().includes('licencjack');
+
+      if (isAcademicWork) {
+        console.log(
+          `🎓 Uruchamiam academicWorkService dla: ${orderedText._id}`
+        );
+        academicWorkService
+          .generateAcademicWork(orderedText._id)
+          .catch((err) =>
+            console.error('Błąd generowania pracy akademickiej:', err)
+          );
+      } else {
+        console.log(
+          `📝 Uruchamiam textGenerationService dla: ${orderedText._id}`
+        );
+        textGenerationService
+          .processOrderedText(orderedText._id)
+          .catch((err) => console.error('Błąd procesu:', err));
+      }
+    }
+
+    // Obsługa postów social media (jeśli są)
+    const socialMediaItems = order.items.filter(
+      (item) => item.contentType === 'post_social_media'
+    );
+    for (const item of socialMediaItems) {
+      const orderController = require('../controllers/orderController');
+      orderController.generateSocialMediaPostAsync(order._id, item);
+    }
 
     // Sprawdzamy, czy to zamówienie na post social media
     //if (order.items[0].contentType === 'post_social_media') {
@@ -96,9 +233,6 @@ async function handleOrderPaymentAndTopUp(session) {
     // Dla innych typów treści, wysyłamy dane do Make.com
     //      await sendOrderToMake(order, user);
     //}
-
-    // Wysyłanie danych do Make.com
-    await sendOrderToMake(order, user);
 
     // Tworzenie faktury w Stripe
     const stripeInvoice = await createStripeInvoice(
@@ -750,198 +884,3 @@ exports.getSessionToken = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
-const getFullLanguageName = (shortCode) => {
-  const languageMap = {
-    en: 'angielski',
-    cs: 'czeski',
-    de: 'niemiecki',
-    es: 'hiszpański',
-    pl: 'polski',
-    uk: 'ukraiński',
-    pt: 'portugalski',
-    ru: 'rosyjski',
-  };
-  return languageMap[shortCode] || shortCode;
-};
-
-async function sendOrderToMake(order, user) {
-  const languageMap = {
-    pol: 'polski',
-    eng: 'angielski',
-    ger: 'niemiecki',
-    ukr: 'ukraiński',
-    fra: 'francuski',
-    esp: 'hiszpański',
-    ros: 'rosyjski',
-    por: 'portugalski',
-  };
-
-  // Formatowanie danych do JSON
-  const formatForJSON = (text) => {
-    return text
-      .replace(/[\n\r\t\\"]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
-  };
-
-  const filteredItems = order.items.filter(
-    (item) => item.contentType !== 'post_social_media'
-  );
-
-  const makeData = [
-    {
-      User_ID: user._id.toString(),
-      Imie: user.name,
-      Faktura: user.companyDetails?.nip ? 'TAK' : 'NIE',
-      NazwaFirmy: user.companyDetails?.companyName || '',
-      NIPFirmy: user.companyDetails?.nip || '',
-      Miejscowosc: user.companyDetails?.city || '',
-      KodPocztowy: user.companyDetails?.postalCode || '',
-      Ulica: user.companyDetails?.address || '',
-      LiczbaZamowien: filteredItems.length,
-      LacznaKwotaZamowienia: parseFloat(order.totalPrice).toFixed(2),
-      Szyfr: order._id.toString(),
-      Zamowienia: filteredItems.map((item) => ({
-        ItemID: item._id.toString(),
-        Temat: JSON.stringify(formatForJSON(item.topic)),
-        RodzajTresci: item.contentType,
-        DlugoscTekstu: item.length.toString(),
-        Wytyczne: JSON.stringify(formatForJSON(item.guidelines)),
-        SlowaKluczowe: JSON.stringify(item.keywords.join(', ')),
-        Link1: item.sourceLinks[0] || '',
-        Link2: item.sourceLinks[1] || '',
-        Link3: item.sourceLinks[2] || '',
-        Link4: item.sourceLinks[3] || '',
-        JezykTekstu: languageMap[item.language] || item.language,
-        JezykWyszukiwania: item.searchLanguage || 'en',
-        PelnyJezykWyszukiwania:
-          getFullLanguageName(item.searchLanguage) || 'angielski',
-        includeFAQ: item.includeFAQ.toString(),
-        includeTable: item.includeTable.toString(),
-        tone: item.tone,
-        CenaTegoTekstu: parseFloat(item.price).toFixed(2),
-        bibliography: item.bibliography.toString(),
-      })),
-      LacznaLiczbaZnakow: filteredItems.reduce(
-        (sum, item) => sum + item.length,
-        0
-      ),
-      LiczbaTextow: filteredItems.length,
-      LacznaCenaTextow: filteredItems
-        .reduce((sum, item) => sum + item.price, 0)
-        .toFixed(2),
-      CenaZamowienia: parseFloat(order.totalPrice).toFixed(2),
-      Email: user.email,
-      attachments: order.userAttachments.map(
-        (att) => `${process.env.FRONTEND_URL}/upload/${att.url}`
-      ),
-    },
-  ];
-
-  const makeDataString = JSON.stringify(makeData);
-
-  const MAKE_WEBHOOK_URL =
-    'https://hook.eu2.make.com/pjv1wmn4i77ov4xu074yazji8y7mc6wb';
-
-  const options = {
-    hostname: new URL(MAKE_WEBHOOK_URL).hostname,
-    path: new URL(MAKE_WEBHOOK_URL).pathname,
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Content-Length': Buffer.byteLength(makeDataString),
-    },
-  };
-
-  return new Promise((resolve, reject) => {
-    const makeRequest = https.request(options, (makeResponse) => {
-      let responseData = '';
-
-      makeResponse.on('data', (chunk) => {
-        responseData += chunk;
-      });
-
-      makeResponse.on('end', () => {
-        if (makeResponse.statusCode === 200) {
-          resolve(responseData);
-        } else {
-          console.error('Error response from Make.com:', responseData);
-          reject(new Error('Error response from Make.com'));
-        }
-      });
-    });
-
-    makeRequest.on('error', (error) => {
-      console.error('Error sending data to Make.com:', error);
-      reject(error);
-    });
-
-    makeRequest.write(makeDataString);
-    makeRequest.end();
-  });
-}
-
-async function generateSocialMediaPostAsync(orderId) {
-  try {
-    const order = await Order.findById(orderId);
-    if (!order) {
-      console.error('Nie znaleziono zamówienia:', orderId);
-      return;
-    }
-
-    const generatedContent = await generateSocialMediaPost(order.items[0]);
-    order.items[0].content = generatedContent;
-    order.status = 'zakończone';
-    await order.save();
-
-    // Powiadomienie użytkownika emailem
-    const user = await User.findById(order.user);
-    if (user && user.email) {
-      const locale = user.locale || 'pl'; // Używamy locale użytkownika lub domyślnego
-      i18n.setLocale(locale);
-
-      const emailContent = i18n.__('orders.completion.message', {
-        orderNumber: order.orderNumber,
-      });
-      const emailSubject = i18n.__('orders.completion.subject', {
-        orderNumber: order.orderNumber,
-      });
-
-      await sendEmail({
-        email: user.email,
-        subject: emailSubject,
-        message: emailContent,
-      });
-    }
-  } catch (error) {
-    console.error('Błąd podczas generowania postu social media:', error);
-  }
-}
-
-async function generateSocialMediaPost(orderItem) {
-  try {
-    const reducedLength = Math.max(orderItem.length - 1000, 100);
-
-    const msg = await anthropic.messages.create({
-      model: 'claude-sonnet-4-5-20250929',
-      max_tokens: 64000,
-      messages: [
-        {
-          role: 'user',
-          content: `Napisz post do social media zgodnie z poniższymi wytycznymi. Użyj kilku odpowiednio dobranych emotikon. Post powinien mieć długość około ${reducedLength} znaków i być napisany w języku ${orderItem.language}. CAŁY POST ZAPISZ JAKO KOD HTML!!!!
-
-Wytyczne:
-${orderItem.guidelines}
-
-Post:`,
-        },
-      ],
-    });
-
-    return msg.content[0].text.trim();
-  } catch (error) {
-    console.error('Błąd podczas generowania posta do social media:', error);
-    throw error;
-  }
-}

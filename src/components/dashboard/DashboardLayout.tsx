@@ -659,7 +659,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
             </Link>
           ))}
 
-          <button
+          {/*<button
             onClick={() => {
               trackModal('open', 'topUpModal', { source: 'dashboard' });
               setIsTopUpModalOpen(true);
@@ -668,7 +668,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
           >
             <CreditCard className="w-5 h-5 mr-2" />
             {t('topUp')}
-          </button>
+          </button>*/}
         </nav>
 
         <div className="p-4 bg-gray-100 dark:bg-gray-700">

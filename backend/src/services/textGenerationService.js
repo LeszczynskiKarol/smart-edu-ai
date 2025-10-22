@@ -51,7 +51,7 @@ const generateGoogleQuery = async (orderedText) => {
       'rozprawa',
     ].includes(orderedText.rodzajTresci);
 
-    const prompt = `Twoim zadaniem jest stworzenie w języku ${orderedText.countryCode} zapytania do Google.
+    const prompt = `Twoim zadaniem jest stworzenie w języku ${orderedText.jezyk} zapytania do Google.
 
 ${needsAcademicSources ? 'WAŻNE: To praca naukowa - użyj terminologii akademickiej.' : ''}
 
@@ -204,8 +204,19 @@ const processOrderedText = async (orderedTextId) => {
     console.log(`✅ Wygenerowane zapytanie: "${query}"`);
 
     // 2. Wyszukaj w Google
-    const languageCode = getLanguageCode(orderedText.countryCode);
-    console.log(`🌐 Wyszukiwanie w języku: ${languageCode}`);
+    const languageCode =
+      orderedText.jezykWyszukiwania ||
+      getLanguageCode(orderedText.jezyk) ||
+      'en';
+
+    console.log(`
+🔍 FINALNA DECYZJA O JĘZYKU:
+   jezyk tekstu: ${orderedText.jezyk}
+   jezykWyszukiwania z bazy: ${orderedText.jezykWyszukiwania}
+   countryCode: ${orderedText.countryCode}
+   ➡️ UŻYWAM DLA GOOGLE: ${languageCode}
+`);
+
     const searchResults = await searchGoogle(query, languageCode);
 
     // 🆕 WALIDACJA wyników Google
