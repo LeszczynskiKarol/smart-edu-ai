@@ -11,6 +11,7 @@ import {
   ChevronDown,
   ChevronUp,
   Clock,
+  Download,
   ExternalLink,
   FileText,
   Globe,
@@ -96,6 +97,17 @@ interface ProcessingStatus {
   overallProgress: number;
 }
 
+interface GeneratedContent {
+  _id: string;
+  fullContent: string;
+  totalWords: number;
+  totalCharacters: number;
+  status: string;
+  generationTime: number;
+  tokensUsed: number;
+  createdAt: string;
+}
+
 export default function OrderedTextDetailsPage() {
   const { user, getToken } = useAuth();
   const router = useRouter();
@@ -115,6 +127,8 @@ export default function OrderedTextDetailsPage() {
   const [expandedScrapes, setExpandedScrapes] = useState<Set<string>>(
     new Set()
   );
+  const [generatedContent, setGeneratedContent] =
+    useState<GeneratedContent | null>(null);
 
   useEffect(() => {
     if (user && user.role !== 'admin') {
@@ -130,12 +144,31 @@ export default function OrderedTextDetailsPage() {
     }
   }, [params.id]);
 
+  const fetchGeneratedContent = async () => {
+    try {
+      const token = getToken();
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/text-generation/generated-content/${params.id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      const data = await response.json();
+      if (data.success) {
+        setGeneratedContent(data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching generated content:', error);
+    }
+  };
+
   const fetchAllData = async () => {
     await Promise.all([
       fetchOrderedText(),
       fetchGoogleSearch(),
       fetchScrapedContent(),
       fetchProcessingStatus(),
+      fetchGeneratedContent(),
     ]);
     setLoading(false);
   };
@@ -317,6 +350,7 @@ export default function OrderedTextDetailsPage() {
           </button>
         </div>
         <div className="flex gap-2">
+          {/* Przycisk Analiza procesu */}
           <button
             onClick={() =>
               router.push(`/admin/automation/process-flow/${params.id}`)
@@ -327,6 +361,29 @@ export default function OrderedTextDetailsPage() {
             Analiza procesu
           </button>
 
+          {/* Przycisk Pobierz treść - TYLKO jeśli jest wygenerowana */}
+          {generatedContent && (
+            <button
+              onClick={() => {
+                const element = document.createElement('a');
+                const file = new Blob([generatedContent.fullContent], {
+                  type: 'text/html',
+                });
+                element.href = URL.createObjectURL(file);
+                element.download = `${orderedText?.temat.substring(0, 30) || 'text'}.html`;
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+              }}
+              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"
+            >
+              <Download size={18} />
+              Pobierz treść ({generatedContent.totalCharacters.toLocaleString()}{' '}
+              znaków)
+            </button>
+          )}
+
+          {/* Przycisk Usuń */}
           <button
             onClick={handleDelete}
             className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center gap-2"
@@ -583,6 +640,56 @@ export default function OrderedTextDetailsPage() {
           </div>
         </div>
       </div>
+      {generatedContent && (
+        <div
+          className={`p-6 rounded-lg shadow mb-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+        >
+          <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+            ✍️ Wygenerowana treść
+          </h2>
+
+          <div className="grid grid-cols-3 gap-4 mb-4">
+            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Znaki</p>
+              <p className="text-2xl font-bold text-green-600">
+                {generatedContent.totalCharacters.toLocaleString()}
+              </p>
+            </div>
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded">
+              <p className="text-sm text-gray-600 dark:text-gray-400">Słowa</p>
+              <p className="text-2xl font-bold text-blue-600">
+                {generatedContent.totalWords.toLocaleString()}
+              </p>
+            </div>
+            <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Czas generowania
+              </p>
+              <p className="text-2xl font-bold text-purple-600">
+                {(generatedContent.generationTime / 1000).toFixed(1)}s
+              </p>
+            </div>
+          </div>
+
+          <div className="border-t dark:border-gray-700 pt-4">
+            <details>
+              <summary className="cursor-pointer text-blue-600 hover:text-blue-800 font-medium mb-4">
+                Kliknij aby zobaczyć podgląd treści
+              </summary>
+              <div
+                className={`mt-4 p-6 rounded max-h-96 overflow-y-auto ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}`}
+              >
+                <div
+                  className="prose dark:prose-invert max-w-none"
+                  dangerouslySetInnerHTML={{
+                    __html: generatedContent.fullContent,
+                  }}
+                />
+              </div>
+            </details>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

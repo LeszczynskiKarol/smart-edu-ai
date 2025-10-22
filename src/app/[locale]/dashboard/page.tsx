@@ -1265,6 +1265,7 @@ export default function Dashboard() {
                                         ? 'bg-gray-600 text-gray-200'
                                         : 'bg-white text-gray-800'
                                     }`}
+                                    required
                                   />
                                 )}
                               </div>
@@ -1726,10 +1727,17 @@ export default function Dashboard() {
               const invalidForms = textForms.filter((form) => {
                 if (!form.textLength || !form.prompt) return true;
                 // Dodana walidacja pola temat dla prac licencjackich i magisterskich
+
                 if (
                   (form.contentType === 'licencjacka' ||
                     form.contentType === 'magisterska') &&
                   !form.topic
+                )
+                  return true;
+                // Walidacja customContentType gdy wybrano "Inny"
+                if (
+                  form.contentType === 'custom' &&
+                  !form.customContentType.trim()
                 )
                   return true;
                 return false;
@@ -1746,6 +1754,14 @@ export default function Dashboard() {
                     !form.topic
                   )
                     missingFields.push('Temat pracy');
+                  // Walidacja customContentType w komunikacie
+                  if (
+                    form.contentType === 'custom' &&
+                    !form.customContentType.trim()
+                  )
+                    missingFields.push(
+                      'Podaj własny rodzaj tekstu w sekcji „Wpisz własny rodzaj pracy"'
+                    );
                   return `${te('text')} ${index + 1}: ${missingFields.join(` ${te('and')} `)}`;
                 });
                 setAlertMessage(

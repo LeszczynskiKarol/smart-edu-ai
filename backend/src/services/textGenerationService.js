@@ -1,9 +1,12 @@
 // backend/src/services/textGenerationService.js
 const Anthropic = require('@anthropic-ai/sdk');
 const axios = require('axios');
+const { generateStructure } = require('./structureGenerationService');
 const OrderedText = require('../models/OrderedText');
 const GoogleSearchResult = require('../models/GoogleSearchResult');
 const scraperService = require('./scraperService');
+const { generateContent } = require('./contentGenerationService');
+const SourceSelection = require('../models/SourceSelection');
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -71,8 +74,8 @@ PRZYKŁADY DOBRYCH ZAPYTAŃ:
 TWOJE ZAPYTANIE (TYLKO SŁOWA KLUCZOWE):`;
 
     const message = await anthropic.messages.create({
-      model: 'claude-3-haiku-20240307',
-      max_tokens: 100,
+      model: 'claude-sonnet-4-5-20250929',
+      max_tokens: 1000,
       temperature: 0.3, // 🆕 niższa temperatura = bardziej przewidywalne
       messages: [{ role: 'user', content: prompt }],
     });
@@ -186,7 +189,6 @@ const processOrderedText = async (orderedTextId) => {
     if (!orderedText) {
       throw new Error('OrderedText nie znaleziony');
     }
-
     orderedText.status = 'W trakcie';
     await orderedText.save();
 
@@ -283,6 +285,30 @@ const processOrderedText = async (orderedTextId) => {
     );
     console.log(`✅ Wybrano ${selectedSources.length} najlepszych źródeł`);
 
+    console.log(`\n🏗️ === KROK 4: GENEROWANIE STRUKTURY ===\n`);
+
+    try {
+      await generateStructure(orderedText._id);
+      console.log(`✅ Struktura wygenerowana pomyślnie\n`);
+    } catch (error) {
+      console.error('❌ Błąd generowania struktury:', error);
+      throw error;
+    }
+
+    console.log(`\n✅ === PROCES ZAKOŃCZONY POMYŚLNIE ===\n`);
+
+    console.log(`\n📝 === KROK 5: GENEROWANIE TREŚCI ===\n`);
+
+    try {
+      await generateContent(orderedText._id);
+      console.log(`✅ Treść wygenerowana pomyślnie\n`);
+    } catch (error) {
+      console.error('❌ Błąd generowania treści:', error);
+      throw error;
+    }
+
+    console.log(`\n🎊 === CAŁY PROCES ZAKOŃCZONY POMYŚLNIE ===\n`);
+
     return {
       googleSearchResult,
       scrapedResults,
@@ -324,7 +350,7 @@ const processMultipleOrderedTexts = async (orderedTextIds) => {
   return results;
 };
 
-// 🆕 NOWA FUNKCJA - Wybór najlepszych źródeł
+// Wybór najlepszych źródeł
 const selectBestSources = async (orderedText, scrapedContents) => {
   try {
     console.log(`🎯 Claude wybiera najlepsze źródła dla: ${orderedText.temat}`);
@@ -335,7 +361,7 @@ const selectBestSources = async (orderedText, scrapedContents) => {
         numer: index + 1,
         url: source.url,
         dlugosc: source.textLength,
-        fragment: source.scrapedText.substring(0, 1500), // Zwiększone z 1000
+        fragment: source.scrapedText.substring(0, 1500),
       }));
 
     if (sourcesData.length === 0) {
@@ -374,7 +400,6 @@ ${sourcesData
 ŹRÓDŁO ${s.numer}:
 URL: ${s.url}
 Długość: ${s.dlugosc} znaków
-
 Fragment treści:
 ${s.fragment}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -387,7 +412,7 @@ Zwróć TYLKO numery wybranych źródeł oddzielone przecinkami (np: 1,3,5,7,9,1
 Bez żadnego dodatkowego tekstu!`;
 
     const message = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20240620',
+      model: 'claude-sonnet-4-5-20250929',
       max_tokens: 150,
       temperature: 0.3,
       messages: [{ role: 'user', content: prompt }],
@@ -412,19 +437,24 @@ Bez żadnego dodatkowego tekstu!`;
       `✅ Claude wybrał ${selectedNumbers.length} źródeł: ${selectedNumbers.join(', ')}`
     );
 
+    // 🆕 ZAPISZ DO BAZY
+    await SourceSelection.create({
+      orderedTextId: orderedText._id,
+      promptUsed: prompt,
+      selectedIndices: selectedNumbers.join(','),
+      response: response,
+    });
+
     // Oznacz wybrane źródła
     const selectedSources = [];
     for (const num of selectedNumbers) {
       const sourceIndex = num - 1;
       const scrapedContent = scrapedContents[sourceIndex];
-
       scrapedContent.selectedForGeneration = true;
       scrapedContent.selectionReason = `Wybrane przez Claude (${selectedNumbers.length}/${sourcesData.length})`;
       await scrapedContent.save();
-
       selectedSources.push(scrapedContent);
 
-      // 🆕 LOGOWANIE WYBRANYCH ŹRÓDEŁ
       console.log(
         `   ✓ Źródło ${num}: ${scrapedContent.url.substring(0, 60)}...`
       );
@@ -444,6 +474,7 @@ Bez żadnego dodatkowego tekstu!`;
   }
 };
 
+// ✅ TYLKO TEN EKSPORT - BEZ exports.processOrderedText PRZED TYM!
 module.exports = {
   generateGoogleQuery,
   searchGoogle,

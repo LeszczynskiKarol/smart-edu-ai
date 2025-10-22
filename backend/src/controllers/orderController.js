@@ -659,8 +659,8 @@ const determineContentTypeAndSearchLanguage = async (
 ) => {
   try {
     const contentTypeMsg = await anthropic.messages.create({
-      model: 'claude-3-5-haiku-20241022',
-      max_tokens: 100,
+      model: 'claude-sonnet-4-5-20250929',
+      max_tokens: 64000,
       messages: [
         {
           role: 'user',

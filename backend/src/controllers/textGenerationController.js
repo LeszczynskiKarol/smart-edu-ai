@@ -3,6 +3,8 @@ const textGenerationService = require('../services/textGenerationService');
 const OrderedText = require('../models/OrderedText');
 const GoogleSearchResult = require('../models/GoogleSearchResult');
 const ScrapedContent = require('../models/ScrapedContent');
+const TextStructure = require('../models/TextStructure');
+const GeneratedTextContent = require('../models/GeneratedTextContent');
 
 exports.startTextGeneration = async (req, res) => {
   try {
@@ -141,6 +143,45 @@ exports.getProcessingStatus = async (req, res) => {
     const googleSearch = await GoogleSearchResult.findOne({ orderedTextId });
     const scrapedContent = await ScrapedContent.find({ orderedTextId });
 
+    // 🆕 Sprawdź strukturę i treść
+    const TextStructure = require('../models/TextStructure');
+    const GeneratedTextContent = require('../models/GeneratedTextContent');
+
+    const textStructure = await TextStructure.findOne({ orderedTextId });
+    const generatedContent = await GeneratedTextContent.findOne({
+      orderedTextId,
+    });
+
+    // 🆕 NOWA FUNKCJA OBLICZANIA PROGRESU
+    let progress = 0;
+
+    // Krok 1: OrderedText (10%)
+    if (orderedText) progress += 10;
+
+    // Krok 2: Google Search (20%)
+    if (googleSearch && googleSearch.status === 'completed') {
+      progress += 20;
+    }
+
+    // Krok 3: Scraping (30%)
+    if (scrapedContent.length > 0) {
+      const completedCount = scrapedContent.filter(
+        (s) => s.status === 'completed'
+      ).length;
+      const scrapingProgress = (completedCount / scrapedContent.length) * 30;
+      progress += scrapingProgress;
+    }
+
+    // 🆕 Krok 4: Struktura (20%)
+    if (textStructure && textStructure.status === 'completed') {
+      progress += 20;
+    }
+
+    // 🆕 Krok 5: Treść (20%)
+    if (generatedContent && generatedContent.status === 'completed') {
+      progress += 20;
+    }
+
     const status = {
       orderedText: {
         exists: !!orderedText,
@@ -160,11 +201,18 @@ exports.getProcessingStatus = async (req, res) => {
           (s) => s.status === 'pending' || s.status === 'scraping'
         ).length,
       },
-      overallProgress: calculateOverallProgress(
-        orderedText,
-        googleSearch,
-        scrapedContent
-      ),
+      structure: {
+        exists: !!textStructure,
+        status: textStructure?.status,
+        headersCount: textStructure?.headersCount,
+      },
+      content: {
+        exists: !!generatedContent,
+        status: generatedContent?.status,
+        characters: generatedContent?.totalCharacters,
+        words: generatedContent?.totalWords,
+      },
+      overallProgress: Math.round(progress),
     };
 
     res.status(200).json({
@@ -184,21 +232,28 @@ exports.getProcessingStatus = async (req, res) => {
 function calculateOverallProgress(orderedText, googleSearch, scrapedContent) {
   let progress = 0;
 
+  // Krok 1: OrderedText utworzony (10%)
   if (orderedText) progress += 10;
 
+  // Krok 2: Google Search zakończony (20%)
   if (googleSearch && googleSearch.status === 'completed') {
-    progress += 30;
+    progress += 20;
   }
 
+  // Krok 3: Scraping zakończony (30%)
   if (scrapedContent.length > 0) {
     const completedCount = scrapedContent.filter(
       (s) => s.status === 'completed'
     ).length;
-    const scrapingProgress = (completedCount / scrapedContent.length) * 40;
+    const scrapingProgress = (completedCount / scrapedContent.length) * 30;
     progress += scrapingProgress;
   }
 
-  return Math.min(progress, 80);
+  // 🆕 Krok 4: Struktura wygenerowana (20%)
+  // 🆕 Krok 5: Treść wygenerowana (20%)
+  // Te sprawdzimy asynchronicznie w endpoint
+
+  return Math.round(progress);
 }
 
 // 🆕 Pobierz wybrane źródła
@@ -253,7 +308,19 @@ exports.getProcessFlow = async (req, res) => {
     // 4. Selected Sources
     const selectedSources = allScraped.filter((s) => s.selectedForGeneration);
 
-    // 5. Processing Timeline
+    // 5. Text Structure
+    const textStructure = await TextStructure.findOne({ orderedTextId });
+
+    // 6. Generated Content
+    const generatedContent = await GeneratedTextContent.findOne({
+      orderedTextId,
+    });
+
+    // 🆕 7. Source Selection (Claude wybór źródeł)
+    const SourceSelection = require('../models/SourceSelection');
+    const sourceSelection = await SourceSelection.findOne({ orderedTextId });
+
+    // 8. Processing Timeline
     const timeline = [
       {
         step: 1,
@@ -271,6 +338,11 @@ exports.getProcessFlow = async (req, res) => {
               query: googleSearch.searchQuery,
               language: googleSearch.language,
               resultsCount: googleSearch.results.length,
+              promptInfo: {
+                topic: orderedText.temat,
+                contentType: orderedText.rodzajTresci,
+                language: orderedText.jezyk,
+              },
             }
           : null,
       },
@@ -298,12 +370,49 @@ exports.getProcessFlow = async (req, res) => {
         data: {
           selected: selectedSources.length,
           total: allScraped.filter((s) => s.status === 'completed').length,
+          promptUsed: sourceSelection?.promptUsed, // 🆕
+          response: sourceSelection?.selectedIndices, // 🆕
         },
       },
       {
         step: 5,
+        name: 'Generowanie struktury',
+        timestamp: textStructure?.createdAt,
+        status: textStructure
+          ? textStructure.status === 'completed'
+            ? 'completed'
+            : textStructure.status === 'failed'
+              ? 'failed'
+              : 'in_progress'
+          : 'pending',
+        data: textStructure
+          ? {
+              headersCount: textStructure.headersCount,
+              sourcesUsed: textStructure.usedSources.length,
+              totalLength: textStructure.totalSourcesLength,
+              promptUsed: textStructure.promptUsed, // 🆕
+            }
+          : null,
+      },
+      {
+        step: 6,
         name: 'Generowanie tekstu',
-        status: 'pending',
+        timestamp: generatedContent?.createdAt,
+        status: generatedContent
+          ? generatedContent.status === 'completed'
+            ? 'completed'
+            : generatedContent.status === 'failed'
+              ? 'failed'
+              : 'in_progress'
+          : 'pending',
+        data: generatedContent
+          ? {
+              totalWords: generatedContent.totalWords,
+              totalCharacters: generatedContent.totalCharacters,
+              tokensUsed: generatedContent.tokensUsed,
+              promptUsed: generatedContent.promptUsed, // 🆕
+            }
+          : null,
       },
     ];
 
@@ -316,6 +425,9 @@ exports.getProcessFlow = async (req, res) => {
           rodzajTresci: orderedText.rodzajTresci,
           status: orderedText.status,
           createdAt: orderedText.createdAt,
+          liczbaZnakow: orderedText.liczbaZnakow,
+          jezyk: orderedText.jezyk,
+          wytyczneIndywidualne: orderedText.wytyczneIndywidualne,
         },
         googleSearch: googleSearch
           ? {
@@ -344,6 +456,33 @@ exports.getProcessFlow = async (req, res) => {
           textLength: s.textLength,
           snippet: s.scrapedText.substring(0, 300),
         })),
+        structure: textStructure
+          ? {
+              _id: textStructure._id,
+              structure: textStructure.structure,
+              headersCount: textStructure.headersCount,
+              usedSources: textStructure.usedSources,
+              totalSourcesLength: textStructure.totalSourcesLength,
+              status: textStructure.status,
+              generationTime: textStructure.generationTime,
+              tokensUsed: textStructure.tokensUsed,
+              createdAt: textStructure.createdAt,
+              promptUsed: textStructure.promptUsed, // 🆕
+            }
+          : null,
+        generatedContent: generatedContent
+          ? {
+              _id: generatedContent._id,
+              fullContent: generatedContent.fullContent,
+              totalWords: generatedContent.totalWords,
+              totalCharacters: generatedContent.totalCharacters,
+              status: generatedContent.status,
+              generationTime: generatedContent.generationTime,
+              tokensUsed: generatedContent.tokensUsed,
+              createdAt: generatedContent.createdAt,
+              promptUsed: generatedContent.promptUsed, // 🆕
+            }
+          : null,
         timeline,
       },
     });
@@ -352,6 +491,64 @@ exports.getProcessFlow = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Błąd pobierania przebiegu procesu',
+      error: error.message,
+    });
+  }
+};
+
+exports.getStructure = async (req, res) => {
+  try {
+    const { orderedTextId } = req.params;
+
+    const structure = await TextStructure.findOne({ orderedTextId }).populate(
+      'orderedTextId'
+    );
+
+    if (!structure) {
+      return res.status(404).json({
+        success: false,
+        message: 'Struktura nie znaleziona',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: structure,
+    });
+  } catch (error) {
+    console.error('Błąd pobierania struktury:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Błąd pobierania struktury',
+      error: error.message,
+    });
+  }
+};
+
+exports.getGeneratedContent = async (req, res) => {
+  try {
+    const { orderedTextId } = req.params;
+
+    const generatedContent = await GeneratedTextContent.findOne({
+      orderedTextId,
+    });
+
+    if (!generatedContent) {
+      return res.status(404).json({
+        success: false,
+        message: 'Wygenerowana treść nie znaleziona',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: generatedContent,
+    });
+  } catch (error) {
+    console.error('Błąd pobierania wygenerowanej treści:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Błąd pobierania wygenerowanej treści',
       error: error.message,
     });
   }

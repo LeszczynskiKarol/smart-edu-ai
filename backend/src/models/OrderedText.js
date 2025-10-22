@@ -107,9 +107,23 @@ const OrderedTextSchema = new mongoose.Schema(
     // Status i daty
     status: {
       type: String,
-      enum: ['Oczekujące', 'W trakcie', 'Zakończone', 'Anulowane'],
+      enum: [
+        'Oczekujące',
+        'W trakcie',
+        'Wyszukiwanie', // 🆕
+        'Scrapowanie', // 🆕
+        'Wybór źródeł', // 🆕
+        'Generowanie struktury', // 🆕
+        'Struktura gotowa', // 🆕
+        'Generowanie treści', // 🆕
+        'Tekst wygenerowany', // 🆕
+        'Zakończone',
+        'Anulowane',
+        'Błąd', // 🆕 Ogólny błąd
+      ],
       default: 'Oczekujące',
     },
+
     startDate: {
       type: Date,
       default: Date.now,

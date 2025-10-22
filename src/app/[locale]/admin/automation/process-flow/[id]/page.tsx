@@ -11,8 +11,13 @@ import {
   ChevronDown,
   ChevronUp,
   Clock,
+  Download,
   ExternalLink,
   Sparkles,
+  Copy,
+  Check,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -24,6 +29,9 @@ interface ProcessFlowData {
     rodzajTresci: string;
     status: string;
     createdAt: string;
+    liczbaZnakow: number;
+    jezyk: string;
+    wytyczneIndywidualne?: string;
   };
   googleSearch: {
     query: string;
@@ -54,6 +62,34 @@ interface ProcessFlowData {
     textLength: number;
     snippet: string;
   }>;
+  structure?: {
+    _id: string;
+    structure: string;
+    headersCount: number;
+    usedSources: Array<{
+      url: string;
+      textLength: number;
+      snippet: string;
+      truncated: boolean;
+    }>;
+    totalSourcesLength: number;
+    status: string;
+    generationTime: number;
+    tokensUsed: number;
+    createdAt: string;
+    promptUsed?: string;
+  };
+  generatedContent?: {
+    _id: string;
+    fullContent: string;
+    totalWords: number;
+    totalCharacters: number;
+    status: string;
+    generationTime: number;
+    tokensUsed: number;
+    createdAt: string;
+    promptUsed?: string;
+  };
   timeline: Array<{
     step: number;
     name: string;
@@ -72,6 +108,10 @@ export default function ProcessFlowPage() {
   const [data, setData] = useState<ProcessFlowData | null>(null);
   const [loading, setLoading] = useState(true);
   const [expandedStep, setExpandedStep] = useState<number | null>(null);
+  const [expandedPrompts, setExpandedPrompts] = useState<Set<string>>(
+    new Set()
+  );
+  const [copiedPrompt, setCopiedPrompt] = useState<string | null>(null);
 
   useEffect(() => {
     if (user?.role !== 'admin') {
@@ -107,6 +147,24 @@ export default function ProcessFlowPage() {
     }
   };
 
+  const copyToClipboard = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedPrompt(id);
+    setTimeout(() => setCopiedPrompt(null), 2000);
+  };
+
+  const togglePrompt = (promptId: string) => {
+    setExpandedPrompts((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(promptId)) {
+        newSet.delete(promptId);
+      } else {
+        newSet.add(promptId);
+      }
+      return newSet;
+    });
+  };
+
   const getStepIcon = (status: string) => {
     switch (status) {
       case 'completed':
@@ -129,6 +187,106 @@ export default function ProcessFlowPage() {
       minute: '2-digit',
       second: '2-digit',
     });
+  };
+
+  // Komponent dla promptu
+  const PromptViewer = ({
+    prompt,
+    title,
+    id,
+    metadata,
+  }: {
+    prompt: string;
+    title: string;
+    id: string;
+    metadata?: any;
+  }) => {
+    const isExpanded = expandedPrompts.has(id);
+    const isCopied = copiedPrompt === id;
+
+    return (
+      <div className="mt-4 border border-purple-300 dark:border-purple-700 rounded-lg overflow-hidden">
+        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 flex justify-between items-center">
+          <h4 className="font-bold text-purple-700 dark:text-purple-300 flex items-center gap-2">
+            <Sparkles size={18} />
+            {title}
+          </h4>
+          <div className="flex gap-2">
+            <button
+              onClick={() => copyToClipboard(prompt, id)}
+              className="px-3 py-1 bg-purple-600 text-white rounded hover:bg-purple-700 flex items-center gap-1 text-sm"
+            >
+              {isCopied ? <Check size={14} /> : <Copy size={14} />}
+              {isCopied ? 'Skopiowano!' : 'Kopiuj'}
+            </button>
+            <button
+              onClick={() => togglePrompt(id)}
+              className="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 flex items-center gap-1 text-sm"
+            >
+              {isExpanded ? (
+                <>
+                  <EyeOff size={14} />
+                  Zwiń
+                </>
+              ) : (
+                <>
+                  <Eye size={14} />
+                  Zobacz cały prompt
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {isExpanded && (
+          <div className="bg-white dark:bg-gray-800 p-4 border-t border-purple-200 dark:border-purple-800">
+            <pre className="text-xs whitespace-pre-wrap font-mono overflow-x-auto">
+              {prompt}
+            </pre>
+            {metadata && (
+              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                  {metadata.tokensUsed && (
+                    <div className="bg-blue-50 dark:bg-blue-900/20 p-2 rounded">
+                      <p className="text-gray-600 dark:text-gray-400">Tokeny</p>
+                      <p className="font-bold text-blue-600">
+                        {metadata.tokensUsed.toLocaleString()}
+                      </p>
+                    </div>
+                  )}
+                  {metadata.generationTime && (
+                    <div className="bg-green-50 dark:bg-green-900/20 p-2 rounded">
+                      <p className="text-gray-600 dark:text-gray-400">Czas</p>
+                      <p className="font-bold text-green-600">
+                        {(metadata.generationTime / 1000).toFixed(2)}s
+                      </p>
+                    </div>
+                  )}
+                  {metadata.headersCount && (
+                    <div className="bg-purple-50 dark:bg-purple-900/20 p-2 rounded">
+                      <p className="text-gray-600 dark:text-gray-400">
+                        Nagłówki
+                      </p>
+                      <p className="font-bold text-purple-600">
+                        {metadata.headersCount}
+                      </p>
+                    </div>
+                  )}
+                  {metadata.totalCharacters && (
+                    <div className="bg-orange-50 dark:bg-orange-900/20 p-2 rounded">
+                      <p className="text-gray-600 dark:text-gray-400">Znaki</p>
+                      <p className="font-bold text-orange-600">
+                        {metadata.totalCharacters.toLocaleString()}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    );
   };
 
   if (loading) {
@@ -158,7 +316,6 @@ export default function ProcessFlowPage() {
           <ArrowLeft size={20} className="mr-2" />
           Powrót do listy
         </button>
-
         <div>
           <h1
             className={`text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
@@ -174,19 +331,26 @@ export default function ProcessFlowPage() {
             className={`text-sm mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
           >
             Rodzaj: {data.orderedText.rodzajTresci} | Status:{' '}
-            {data.orderedText.status}
+            {data.orderedText.status} | Długość docelowa:{' '}
+            {data.orderedText.liczbaZnakow} znaków
           </p>
         </div>
       </div>
 
       {/* Timeline */}
       <div className="space-y-6">
-        {data.timeline.map((step, index) => (
+        {data.timeline.map((step) => (
           <div
             key={step.step}
             className={`rounded-lg shadow-lg ${
               theme === 'dark' ? 'bg-gray-800' : 'bg-white'
-            } ${step.status === 'completed' ? 'border-l-4 border-green-500' : step.status === 'in_progress' ? 'border-l-4 border-blue-500' : 'border-l-4 border-gray-300'}`}
+            } ${
+              step.status === 'completed'
+                ? 'border-l-4 border-green-500'
+                : step.status === 'in_progress'
+                  ? 'border-l-4 border-blue-500'
+                  : 'border-l-4 border-gray-300'
+            }`}
           >
             <div
               className="p-6 cursor-pointer"
@@ -234,6 +398,36 @@ export default function ProcessFlowPage() {
                         <span>Wyników: {data.googleSearch.resultsCount}</span>
                       </div>
                     </div>
+
+                    {/* 🆕 PROMPT GENEROWANIA ZAPYTANIA */}
+                    {step.data?.promptInfo && (
+                      <PromptViewer
+                        id="query-generation"
+                        title="🤖 Prompt generowania zapytania Google"
+                        prompt={`Twoim zadaniem jest stworzenie w języku ${data.orderedText.jezyk} zapytania do Google.
+
+TEMAT: ${data.orderedText.temat}
+RODZAJ PRACY: ${data.orderedText.rodzajTresci}
+WYTYCZNE: ${data.orderedText.wytyczneIndywidualne || 'brak'}
+
+ZASADY:
+1. Zapytanie musi być KRÓTKIE (maksymalnie 5-7 słów)
+2. MUSISZ odpowiedzieć TYLKO samym zapytaniem, bez żadnego innego tekstu
+3. BEZ cudzysłowów, BEZ przedrostków typu "Oto zapytanie:"
+4. Użyj kluczowych słów, które znajdą merytoryczne źródła
+5. Unikaj ogólników - bądź konkretny
+
+PRZYKŁADY DOBRYCH ZAPYTAŃ:
+- "funkcje opiekuna medycznego demencja"
+- "wsparcie pacjenta z demencją opieka"
+- "rola pielęgniarki demencja starość"
+
+TWOJE ZAPYTANIE (TYLKO SŁOWA KLUCZOWE):`}
+                        metadata={{
+                          wygenerowane: data.googleSearch.query,
+                        }}
+                      />
+                    )}
 
                     <div className="space-y-2">
                       <h4 className="font-semibold">
@@ -285,7 +479,6 @@ export default function ProcessFlowPage() {
                         <p className="text-sm">Łącznie</p>
                       </div>
                     </div>
-
                     <div className="space-y-2">
                       {data.scraping.sources.map((source, idx) => (
                         <div
@@ -368,7 +561,20 @@ export default function ProcessFlowPage() {
                       </div>
                     </div>
 
-                    <div className="space-y-3">
+                    {/* 🆕 PROMPT WYBORU ŹRÓDEŁ */}
+                    {step.data?.promptUsed && (
+                      <PromptViewer
+                        id="source-selection"
+                        title="🎯 Prompt wyboru źródeł przez Claude"
+                        prompt={step.data.promptUsed}
+                        metadata={{
+                          wybrano: `${step.data.selected} z ${step.data.total}`,
+                          odpowiedz: step.data.response,
+                        }}
+                      />
+                    )}
+
+                    <div className="space-y-3 mt-4">
                       {data.selectedSources.map((source, idx) => (
                         <div
                           key={source._id}
@@ -405,10 +611,226 @@ export default function ProcessFlowPage() {
                     </div>
                   </div>
                 )}
+
+                {/* Krok 5: Struktura */}
+                {step.step === 5 && data.structure && (
+                  <div className="mt-4">
+                    <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded mb-4">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        Struktura wygenerowana przez Claude "Kierownika"
+                      </p>
+                      <div className="flex gap-4 mt-2 text-sm">
+                        <span>Nagłówków: {data.structure.headersCount}</span>
+                        <span>
+                          Źródeł użytych: {data.structure.usedSources.length}
+                        </span>
+                        <span>
+                          Długość źródeł:{' '}
+                          {data.structure.totalSourcesLength.toLocaleString()}{' '}
+                          znaków
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* 🆕 PROMPT GENEROWANIA STRUKTURY */}
+                    {data.structure.promptUsed && (
+                      <PromptViewer
+                        id="structure-generation"
+                        title="🏗️ Prompt generowania struktury"
+                        prompt={data.structure.promptUsed}
+                        metadata={{
+                          headersCount: data.structure.headersCount,
+                          tokensUsed: data.structure.tokensUsed,
+                          generationTime: data.structure.generationTime,
+                        }}
+                      />
+                    )}
+
+                    <div
+                      className="mt-4 prose dark:prose-invert max-w-none bg-white dark:bg-gray-800 p-6 rounded border border-gray-200 dark:border-gray-700"
+                      dangerouslySetInnerHTML={{
+                        __html: data.structure.structure,
+                      }}
+                    />
+                  </div>
+                )}
+
+                {/* Krok 6: Treść */}
+                {step.step === 6 && data.generatedContent && (
+                  <div className="mt-4">
+                    <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded mb-4">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        Treść wygenerowana przez Claude "Pisarza"
+                      </p>
+                      <div className="grid grid-cols-3 gap-4 mt-2 text-sm">
+                        <div>
+                          <span className="font-bold text-green-600">
+                            {data.generatedContent.totalCharacters.toLocaleString()}
+                          </span>
+                          <span className="text-gray-600 dark:text-gray-400">
+                            {' '}
+                            znaków
+                          </span>
+                        </div>
+                        <div>
+                          <span className="font-bold text-green-600">
+                            {data.generatedContent.totalWords.toLocaleString()}
+                          </span>
+                          <span className="text-gray-600 dark:text-gray-400">
+                            {' '}
+                            słów
+                          </span>
+                        </div>
+                        <div>
+                          <span className="font-bold text-green-600">
+                            {(
+                              data.generatedContent.generationTime / 1000
+                            ).toFixed(1)}
+                            s
+                          </span>
+                          <span className="text-gray-600 dark:text-gray-400">
+                            {' '}
+                            czas
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 🆕 PROMPT GENEROWANIA TREŚCI */}
+                    {data.generatedContent.promptUsed && (
+                      <PromptViewer
+                        id="content-generation"
+                        title="✍️ Prompt generowania treści"
+                        prompt={data.generatedContent.promptUsed}
+                        metadata={{
+                          totalCharacters:
+                            data.generatedContent.totalCharacters,
+                          totalWords: data.generatedContent.totalWords,
+                          tokensUsed: data.generatedContent.tokensUsed,
+                          generationTime: data.generatedContent.generationTime,
+                        }}
+                      />
+                    )}
+
+                    {/* Podgląd treści */}
+                    <div className="mt-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+                      <div className="flex justify-between items-center mb-4">
+                        <h4 className="font-semibold text-lg">
+                          Wygenerowana treść:
+                        </h4>
+                        <button
+                          onClick={() => {
+                            const element = document.createElement('a');
+                            const file = new Blob(
+                              [data.generatedContent!.fullContent],
+                              {
+                                type: 'text/html',
+                              }
+                            );
+                            element.href = URL.createObjectURL(file);
+                            element.download = `${data.orderedText.temat.substring(0, 30)}.html`;
+                            document.body.appendChild(element);
+                            element.click();
+                            document.body.removeChild(element);
+                          }}
+                          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 flex items-center gap-2"
+                        >
+                          <Download size={16} />
+                          Pobierz HTML
+                        </button>
+                      </div>
+                      <div
+                        className="prose dark:prose-invert max-w-none"
+                        dangerouslySetInnerHTML={{
+                          __html: data.generatedContent.fullContent,
+                        }}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
         ))}
+      </div>
+
+      {/* 🆕 STATYSTYKI NA DOLE */}
+      <div
+        className={`mt-8 p-6 rounded-lg shadow ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
+      >
+        <h2 className="text-2xl font-bold mb-4">📊 Podsumowanie statystyk</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {data.structure && (
+            <>
+              <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Tokeny (struktura)
+                </p>
+                <p className="text-2xl font-bold text-blue-600">
+                  {data.structure.tokensUsed?.toLocaleString()}
+                </p>
+              </div>
+              <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Czas (struktura)
+                </p>
+                <p className="text-2xl font-bold text-purple-600">
+                  {(data.structure.generationTime / 1000).toFixed(1)}s
+                </p>
+              </div>
+            </>
+          )}
+          {data.generatedContent && (
+            <>
+              <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Tokeny (treść)
+                </p>
+                <p className="text-2xl font-bold text-green-600">
+                  {data.generatedContent.tokensUsed?.toLocaleString()}
+                </p>
+              </div>
+              <div className="p-4 bg-orange-50 dark:bg-orange-900/20 rounded">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Czas (treść)
+                </p>
+                <p className="text-2xl font-bold text-orange-600">
+                  {(data.generatedContent.generationTime / 1000).toFixed(1)}s
+                </p>
+              </div>
+            </>
+          )}
+        </div>
+
+        {data.structure && data.generatedContent && (
+          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="grid grid-cols-2 gap-4 text-center">
+              <div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Tokeny łącznie
+                </p>
+                <p className="text-3xl font-bold text-purple-600">
+                  {(
+                    data.structure.tokensUsed + data.generatedContent.tokensUsed
+                  ).toLocaleString()}
+                </p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Czas łącznie
+                </p>
+                <p className="text-3xl font-bold text-green-600">
+                  {(
+                    (data.structure.generationTime +
+                      data.generatedContent.generationTime) /
+                    1000
+                  ).toFixed(1)}
+                  s
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -47,4 +47,11 @@ router.get(
   textGenerationController.getProcessFlow
 );
 
+router.get('/structure/:orderedTextId', textGenerationController.getStructure);
+
+router.get(
+  '/generated-content/:orderedTextId',
+  textGenerationController.getGeneratedContent
+);
+
 module.exports = router;

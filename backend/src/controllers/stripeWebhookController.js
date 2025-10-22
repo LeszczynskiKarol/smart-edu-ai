@@ -924,8 +924,8 @@ async function generateSocialMediaPost(orderItem) {
     const reducedLength = Math.max(orderItem.length - 1000, 100);
 
     const msg = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20240620',
-      max_tokens: 4000,
+      model: 'claude-sonnet-4-5-20250929',
+      max_tokens: 64000,
       messages: [
         {
           role: 'user',
