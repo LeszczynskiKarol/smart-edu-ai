@@ -17,8 +17,22 @@ const BackgroundDecoration: React.FC = () => {
       >
         <defs>
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style={{ stopColor: theme === 'dark' ? 'rgb(29, 78, 216)' : 'rgb(59, 130, 246)', stopOpacity: 0.1 }} />
-            <stop offset="100%" style={{ stopColor: theme === 'dark' ? 'rgb(30, 64, 175)' : 'rgb(37, 99, 235)', stopOpacity: 0.1 }} />
+            <stop
+              offset="0%"
+              style={{
+                stopColor:
+                  theme === 'dark' ? 'rgb(29, 78, 216)' : 'rgb(59, 130, 246)',
+                stopOpacity: 0.1,
+              }}
+            />
+            <stop
+              offset="100%"
+              style={{
+                stopColor:
+                  theme === 'dark' ? 'rgb(30, 64, 175)' : 'rgb(37, 99, 235)',
+                stopOpacity: 0.1,
+              }}
+            />
           </linearGradient>
         </defs>
         <path
@@ -27,7 +41,11 @@ const BackgroundDecoration: React.FC = () => {
         />
         <path
           d="M0,1000 C100,950 200,1000 300,950 C400,900 500,850 600,900 C700,950 800,1000 900,950 L1000,1000 L1000,0 L0,0 Z"
-          fill={theme === 'dark' ? 'rgba(30, 64, 175, 0.05)' : 'rgba(37, 99, 235, 0.05)'}
+          fill={
+            theme === 'dark'
+              ? 'rgba(30, 64, 175, 0.05)'
+              : 'rgba(37, 99, 235, 0.05)'
+          }
         />
       </svg>
     </div>

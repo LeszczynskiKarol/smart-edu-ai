@@ -105,6 +105,7 @@ export default function Dashboard() {
     { value: '7000', label: t('textLengths.7000') },
     { value: '10000', label: t('textLengths.10000') },
     { value: '20000', label: t('textLengths.20000') },
+    { value: '30000', label: t('textLengths.30000') },
   ];
 
   const { getSessionId } = useAnalytics();
@@ -578,23 +579,19 @@ export default function Dashboard() {
         form.sourceLinks.some((link) => link?.length > 0),
     });
 
-    if (!form || !form.textLength || !form.prompt) {
+    if (!form || !form.textLength) {
       trackError(
         new Error('Niekompletny formularz'),
         'order_validation_failed'
       );
-      alert('Proszę wybrać długość tekstu i uzupełnić wytyczne.');
+      alert('Proszę wybrać długość tekstu.');
       return;
     }
     setIsLoading(true);
 
     const orderData = {
       orderItems: textForms.map((form) => ({
-        topic:
-          form.contentType === 'licencjacka' ||
-          form.contentType === 'magisterska'
-            ? form.topic // Używamy dedykowanego pola dla prac licencjackich i magisterskich
-            : form.prompt, // Dla innych typów używamy prompt jako tematu
+        topic: form.topic || form.prompt,
         length: parseInt(form.textLength, 10),
         contentType:
           form.contentType === 'custom'
@@ -746,11 +743,7 @@ export default function Dashboard() {
 
     const orderData = {
       orderItems: textForms.map((form) => ({
-        topic:
-          form.contentType === 'licencjacka' ||
-          form.contentType === 'magisterska'
-            ? form.topic
-            : form.prompt,
+        topic: form.topic || form.prompt,
         length: parseInt(form.textLength, 10),
         contentType:
           form.contentType === 'custom'
@@ -1379,7 +1372,7 @@ export default function Dashboard() {
                                   </div>
                                 ))}
                               </div>*/}
-                            {shouldShowBibliography(form) && (
+                            {/*{shouldShowBibliography(form) && (
                               <div className="form-control">
                                 <label
                                   className={`label flex items-left justify-between ${
@@ -1426,7 +1419,7 @@ export default function Dashboard() {
                                   </div>
                                 </label>
 
-                                {/* Dodajemy select języka wyszukiwania, widoczny tylko gdy bibliografia jest włączona */}
+                                 Dodajemy select języka wyszukiwania, widoczny tylko gdy bibliografia jest włączona
                                 {form.bibliography && (
                                   <div className="mt-2">
                                     <label
@@ -1476,7 +1469,7 @@ export default function Dashboard() {
                                   </div>
                                 )}
                               </div>
-                            )}
+                            )}*/}
 
                             {/*<div className="flex items-center space-x-4">
                                                                 <div className="form-control">
@@ -1576,59 +1569,56 @@ export default function Dashboard() {
                                                             </div>*/}
                           </div>
                         </div>
-                        {/* Pole Temat - widoczne tylko dla prac licencjackich i magisterskich */}
-                        {(form.contentType === 'licencjacka' ||
-                          form.contentType === 'magisterska') && (
-                          <div className="mb-4">
-                            <label
-                              className={`label flex items-center ${
-                                theme === 'dark'
-                                  ? 'text-gray-300'
-                                  : 'text-gray-700'
-                              }`}
-                            >
-                              <span className="label-text block mt-4 mb-1">
-                                {t('inputs.topic')}
-                              </span>
-                            </label>
 
-                            <div
-                              className={`rounded-lg p-0 ${
+                        <div className="mb-4">
+                          <label
+                            className={`label flex items-center ${
+                              theme === 'dark'
+                                ? 'text-gray-300'
+                                : 'text-gray-700'
+                            }`}
+                          >
+                            <span className="label-text block mt-4 mb-1">
+                              {t('inputs.topic')}
+                            </span>
+                          </label>
+
+                          <div
+                            className={`rounded-lg p-0 ${
+                              theme === 'dark'
+                                ? 'bg-gray-700 text-gray-200'
+                                : 'bg-gray-100 text-gray-800'
+                            } border border-gray-300`}
+                          >
+                            <textarea
+                              value={form.topic}
+                              onChange={(e) => {
+                                updateForm(form.id, {
+                                  topic: e.target.value,
+                                });
+                              }}
+                              placeholder={t('inputs.topicPlaceholder')}
+                              className={`textarea w-full ${
                                 theme === 'dark'
                                   ? 'bg-gray-700 text-gray-200'
                                   : 'bg-gray-100 text-gray-800'
-                              } border border-gray-300`}
-                            >
-                              <textarea
-                                value={form.topic}
-                                onChange={(e) => {
-                                  updateForm(form.id, {
-                                    topic: e.target.value,
-                                  });
-                                }}
-                                placeholder={t('inputs.topicPlaceholder')}
-                                className={`textarea w-full ${
-                                  theme === 'dark'
-                                    ? 'bg-gray-700 text-gray-200'
-                                    : 'bg-gray-100 text-gray-800'
-                                }`}
-                                style={{
-                                  minHeight: '40px',
-                                  height: 'auto',
-                                  resize: 'none',
-                                  overflow: 'hidden',
-                                }}
-                                onInput={(e) => {
-                                  const target =
-                                    e.target as HTMLTextAreaElement;
-                                  target.style.height = 'auto';
-                                  target.style.height = `${target.scrollHeight}px`;
-                                }}
-                                required
-                              />
-                            </div>
+                              }`}
+                              style={{
+                                minHeight: '40px',
+                                height: 'auto',
+                                resize: 'none',
+                                overflow: 'hidden',
+                              }}
+                              onInput={(e) => {
+                                const target = e.target as HTMLTextAreaElement;
+                                target.style.height = 'auto';
+                                target.style.height = `${target.scrollHeight}px`;
+                              }}
+                              required
+                            />
                           </div>
-                        )}
+                        </div>
+
                         <span className="label-text block mt-4 mb-1">
                           {t('inputs.guidelines')}
                         </span>
@@ -1656,7 +1646,6 @@ export default function Dashboard() {
                                 ? 'bg-gray-700 text-gray-200'
                                 : 'bg-gray-100 text-gray-800'
                             } `}
-                            required
                           />
                         </div>
                         {form.textLength && (
@@ -1725,7 +1714,8 @@ export default function Dashboard() {
           <button
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               const invalidForms = textForms.filter((form) => {
-                if (!form.textLength || !form.prompt) return true;
+                if (!form.textLength) return true;
+
                 // Dodana walidacja pola temat dla prac licencjackich i magisterskich
 
                 if (
@@ -1746,14 +1736,7 @@ export default function Dashboard() {
                 const invalidFields = invalidForms.map((form, index) => {
                   const missingFields = [];
                   if (!form.textLength) missingFields.push(te('textLength'));
-                  if (!form.prompt) missingFields.push(te('guidelines'));
-                  // Dodana walidacja pola temat w komunikacie błędu
-                  if (
-                    (form.contentType === 'licencjacka' ||
-                      form.contentType === 'magisterska') &&
-                    !form.topic
-                  )
-                    missingFields.push('Temat pracy');
+
                   // Walidacja customContentType w komunikacie
                   if (
                     form.contentType === 'custom' &&

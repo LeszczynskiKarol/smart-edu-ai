@@ -297,14 +297,29 @@ const processOrderedText = async (orderedTextId) => {
 
     console.log(`\n✅ === PROCES ZAKOŃCZONY POMYŚLNIE ===\n`);
 
-    console.log(`\n📝 === KROK 5: GENEROWANIE TREŚCI ===\n`);
+    // Sprawdź czy to praca licencjacka/magisterska - one są generowane przez academicWorkService
+    // Sprawdź różne warianty pisowni
+    const isAcademicWork =
+      orderedText.rodzajTresci.toLowerCase().includes('licencjack') ||
+      orderedText.rodzajTresci.toLowerCase().includes('magister') ||
+      orderedText.rodzajTresci.toLowerCase().includes('lic') ||
+      orderedText.rodzajTresci.toLowerCase().includes('mgr') ||
+      orderedText.rodzajTresci === 'praca_licencjacka' ||
+      orderedText.rodzajTresci === 'praca_magisterska';
 
-    try {
-      await generateContent(orderedText._id);
-      console.log(`✅ Treść wygenerowana pomyślnie\n`);
-    } catch (error) {
-      console.error('❌ Błąd generowania treści:', error);
-      throw error;
+    if (!isAcademicWork) {
+      console.log(`\n📝 === KROK 5: GENEROWANIE TREŚCI ===\n`);
+      try {
+        await generateContent(orderedText._id);
+        console.log(`✅ Treść wygenerowana pomyślnie\n`);
+      } catch (error) {
+        console.error('❌ Błąd generowania treści:', error);
+        throw error;
+      }
+    } else {
+      console.log(
+        `\n📚 === PRACA AKADEMICKA - treść generowana przez academicWorkService ===\n`
+      );
     }
 
     console.log(`\n🎊 === CAŁY PROCES ZAKOŃCZONY POMYŚLNIE ===\n`);

@@ -55,15 +55,15 @@
     "logoutConfirmation": "Are you sure you want to logout?",
     "logoutDescription": "This action will log you out of your account.",
     "textLengths": {
-      "2000": "Very Short (250 words)",
-      "3000": "Short (350 words)",
-      "4000": "Medium (500 words)",
-      "7000": "Long (800-900 words)",
-      "10000": "Very Long (approx. 1300 words)",
-      "20000": "Longest (approx. 2500 words)",
+      "2000": "Very Short (~1 page, 250 words)",
+      "3000": "Short (~1.5-2 pages, 350 words)",
+      "4000": "Medium (~2 pages, 500 words)",
+      "7000": "Long (~4 pages, 800-900 words)",
+      "10000": "Very Long (~5-6 pages, approx. 1300 words)",
+      "20000": "Mega (~11 pages, approx. 2500 words)",
+      "30000": "Longest (~17 pages, approx. 4000 words)",
       "selectLength": "-- Select text length --"
     },
-
     "tone": {
       "informal": "Informal, direct (addressing reader as 'you')",
       "formal": "Official, formal (addressing as Sir/Madam)",

@@ -23,7 +23,8 @@ export interface OrderItem {
     | 17000
     | 18000
     | 19000
-    | 20000;
+    | 20000
+    | 30000;
   price: number;
   contentType: string;
   language: 'pol' | 'eng' | 'ger' | 'ukr' | 'fra' | 'esp' | 'ros' | 'por';

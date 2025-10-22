@@ -34,27 +34,40 @@ const determineWorkType = (rodzajTresci) => {
  * Ogranicz źródła do max 30,000 znaków
  */
 const limitSources = (scrapedContents, maxChars = 100000) => {
-  const limitedSources = [];
-  let totalLength = 0;
+  const validSources = scrapedContents.filter(
+    (s) => s.scrapedText && s.status === 'completed'
+  );
+
+  if (validSources.length === 0) {
+    return { sources: [], totalLength: 0 };
+  }
 
   console.log(
     `📏 Limitowanie źródeł do ${maxChars.toLocaleString()} znaków (Claude context window: 200k tokenów)...`
   );
 
-  for (const source of scrapedContents) {
-    if (!source.scrapedText || source.status !== 'completed') continue;
+  // 🆕 RÓWNOMIERNE ROZŁOŻENIE między źródła
+  const charsPerSource = Math.floor(maxChars / validSources.length);
+  console.log(
+    `   📊 ${validSources.length} źródeł × ${charsPerSource.toLocaleString()} znaków/źródło\n`
+  );
 
-    const availableSpace = maxChars - totalLength;
-    if (availableSpace <= 0) break;
+  const limitedSources = [];
+  let totalLength = 0;
 
+  for (const source of validSources) {
     let textToUse = source.scrapedText;
     let wasTruncated = false;
 
-    if (source.scrapedText.length > availableSpace) {
-      textToUse = source.scrapedText.substring(0, availableSpace);
+    if (source.scrapedText.length > charsPerSource) {
+      textToUse = source.scrapedText.substring(0, charsPerSource);
       wasTruncated = true;
       console.log(
-        `   ✂️ Skrócono: ${source.url.substring(0, 50)}... z ${source.scrapedText.length} do ${availableSpace} znaków`
+        `   ✂️ Skrócono: ${source.url.substring(0, 50)}... z ${source.scrapedText.length.toLocaleString()} do ${charsPerSource.toLocaleString()} znaków`
+      );
+    } else {
+      console.log(
+        `   ✅ Dodano: ${source.url.substring(0, 50)}... (${textToUse.length.toLocaleString()} znaków - bez przycinania)`
       );
     }
 
@@ -67,9 +80,6 @@ const limitSources = (scrapedContents, maxChars = 100000) => {
     });
 
     totalLength += textToUse.length;
-    console.log(
-      `   ✅ Dodano: ${source.url.substring(0, 50)}... (${textToUse.length.toLocaleString()} znaków)`
-    );
   }
 
   console.log(`\n📊 PODSUMOWANIE ŹRÓDEŁ:`);
@@ -252,39 +262,51 @@ const generateStructure = async (orderedTextId) => {
       structureData = await generateStructureForOther(orderedText, {
         sources: limitedSources,
       });
-    } else if (workType === 'lic') {
-      // TODO: W następnym kroku
-      throw new Error('Generowanie struktury dla prac licencjackich - wkrótce');
-    } else if (workType === 'mgr') {
-      // TODO: W następnym kroku
-      throw new Error('Generowanie struktury dla prac magisterskich - wkrótce');
+
+      // 6. Zapisz strukturę w bazie (tylko dla 'other')
+      const textStructure = await TextStructure.create({
+        orderedTextId,
+        idZamowienia: orderedText.idZamowienia,
+        itemId: orderedText.itemId,
+        workType,
+        usedSources: limitedSources.map((s) => ({
+          url: s.url,
+          textLength: s.textLength,
+          snippet: s.snippet,
+          truncated: s.truncated,
+        })),
+        totalSourcesLength: totalLength,
+        structure: structureData.structure,
+        headersCount: structureData.headersCount,
+        status: 'completed',
+        generationTime: structureData.generationTime,
+        tokensUsed: structureData.tokensUsed,
+        promptUsed: structureData.promptUsed,
+      });
+
+      console.log(`✅ Struktura zapisana w bazie (ID: ${textStructure._id})\n`);
+      console.log(`🎉 === GENEROWANIE STRUKTURY ZAKOŃCZONE ===\n`);
+
+      return textStructure;
+    } else if (workType === 'lic' || workType === 'mgr') {
+      // 🎓 DELEGUJ DO AKADEMICKIEGO SERWISU
+      console.log(
+        `🎓 Typ ${workType.toUpperCase()} - delegacja do academicWorkService\n`
+      );
+
+      const academicWorkService = require('./academicWorkService');
+      const academicWork = await academicWorkService.generateAcademicWork(
+        orderedText._id
+      );
+
+      // Zwróć AcademicWork zamiast TextStructure
+      // (academicWorkService już zsynchronizował z Order)
+      console.log(
+        `✅ Praca ${workType.toUpperCase()} ukończona przez academicWorkService\n`
+      );
+
+      return academicWork;
     }
-
-    // 6. Zapisz strukturę w bazie
-    const textStructure = await TextStructure.create({
-      orderedTextId,
-      idZamowienia: orderedText.idZamowienia,
-      itemId: orderedText.itemId,
-      workType,
-      usedSources: limitedSources.map((s) => ({
-        url: s.url,
-        textLength: s.textLength,
-        snippet: s.snippet,
-        truncated: s.truncated,
-      })),
-      totalSourcesLength: totalLength,
-      structure: structureData.structure,
-      headersCount: structureData.headersCount,
-      status: 'completed',
-      generationTime: structureData.generationTime,
-      tokensUsed: structureData.tokensUsed,
-      promptUsed: structureData.promptUsed, // 🆕
-    });
-
-    console.log(`✅ Struktura zapisana w bazie (ID: ${textStructure._id})\n`);
-    console.log(`🎉 === GENEROWANIE STRUKTURY ZAKOŃCZONE ===\n`);
-
-    return textStructure;
   } catch (error) {
     console.error('❌ Błąd podczas generowania struktury:', error);
 

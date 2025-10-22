@@ -23,7 +23,8 @@ export default function EditExamplePage() {
     { value: '4000', label: 'Średni (500 słów)' },
     { value: '7000', label: 'Długi (800-900 słów)' },
     { value: '10000', label: 'Bardzo długi (1300 słów)' },
-    { value: '20000', label: 'Najdłuższy (ok. 2500 słów)' },
+    { value: '20000', label: 'Mega długi (ok. 2500 słów)' },
+    { value: '30000', label: 'Najdłuższy (ok. 4000 słów)' },
   ];
 
   const [formData, setFormData] = useState({

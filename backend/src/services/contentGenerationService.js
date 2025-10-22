@@ -5,6 +5,11 @@ const OrderedText = require('../models/OrderedText');
 const TextStructure = require('../models/TextStructure');
 const ScrapedContent = require('../models/ScrapedContent');
 const GeneratedTextContent = require('../models/GeneratedTextContent');
+const Order = require('../models/Order');
+const User = require('../models/User');
+const sendEmail = require('../utils/sendEmail');
+const { generateEmailTemplate } = require('../utils/emailTemplate');
+const i18n = require('../../src/config/i18n');
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -248,7 +253,7 @@ const generateContent = async (orderedTextId) => {
     console.log(`OrderedText ID: ${orderedTextId}\n`);
 
     // 1. Pobierz OrderedText
-    const orderedText = await OrderedText.findById(orderedTextId);
+    let orderedText = await OrderedText.findById(orderedTextId); // 🔧 ZMIENIONO const → let
     if (!orderedText) {
       throw new Error('OrderedText nie znaleziony');
     }
@@ -333,14 +338,123 @@ const generateContent = async (orderedTextId) => {
     console.log(`✅ Treść zapisana w bazie (ID: ${generatedContent._id})\n`);
 
     console.log(`🎉 === GENEROWANIE TREŚCI ZAKOŃCZONE ===\n`);
-
     // 🆕 6. AKTUALIZUJ STATUS ORDEREDTEXT NA "Zakończone"
-    await OrderedText.findByIdAndUpdate(orderedTextId, {
-      status: 'Zakończone',
-      completedAt: new Date(),
-    });
+    orderedText = await OrderedText.findByIdAndUpdate(
+      // ✅ Przypisanie do istniejącej zmiennej
+      orderedTextId,
+      {
+        status: 'Zakończone',
+        completedAt: new Date(),
+      },
+      { new: true }
+    );
 
     console.log(`✅ Status OrderedText zaktualizowany na "Zakończone"\n`);
+
+    // 🆕 7. SYNCHRONIZUJ Z ORDER - zaktualizuj status itemu i sprawdź całe zamówienie
+    console.log(`🔄 Synchronizacja z Order...`);
+
+    try {
+      const order = await Order.findById(
+        orderedText.originalOrderId || orderedText.idZamowienia
+      );
+
+      if (order) {
+        // Znajdź odpowiedni item w order.items
+        const item = order.items.id(
+          orderedText.originalItemId || orderedText.itemId
+        );
+
+        if (item) {
+          // Zaktualizuj status itemu
+          item.status = 'zakończone';
+          item.content = contentData.fullContent; // Zapisz wygenerowaną treść w Order
+
+          console.log(`   ✅ Item ${item._id} zaktualizowany na "zakończone"`);
+
+          // Sprawdź czy WSZYSTKIE itemy w zamówieniu są zakończone
+          const allItemsCompleted = order.items.every(
+            (item) => item.status === 'zakończone'
+          );
+
+          if (allItemsCompleted) {
+            order.status = 'zakończone';
+            console.log(
+              `   🎉 Wszystkie itemy zakończone - Order status → "zakończone"`
+            );
+
+            // 🆕 8. WYŚLIJ EMAIL DO UŻYTKOWNIKA o zakończeniu całego zamówienia
+            const user = await User.findById(order.user);
+            if (user && user.email) {
+              const locale = user.locale || 'pl';
+              i18n.setLocale(locale);
+
+              const emailContent = `
+            <h2>🎉 Twoje zamówienie zostało ukończone!</h2>
+            <p>Witaj ${user.name},</p>
+            <p>Wspaniała wiadomość! Twoje zamówienie <strong>#${order.orderNumber}</strong> zostało w pełni ukończone.</p>
+            <p>Wszystkie teksty zostały wygenerowane i są już dostępne do pobrania w Twoim panelu.</p>
+            <div class="card">
+              <p class="card-title">Szczegóły zamówienia:</p>
+              <ul>
+                <li><strong>Numer zamówienia:</strong> #${order.orderNumber}</li>
+                <li><strong>Liczba tekstów:</strong> ${order.items.length}</li>
+                <li><strong>Łączna cena:</strong> ${order.totalPrice.toFixed(2)} ${order.currency}</li>
+              </ul>
+            </div>
+            <p style="text-align: center; margin-top: 30px;">
+              <a href="${process.env.FRONTEND_URL}/dashboard/orders/${order._id}" class="button">
+                Zobacz zamówienie
+              </a>
+            </p>
+            <p>Dziękujemy za skorzystanie z Smart-Edu.ai!</p>
+            <p>Pozdrawiamy,<br>Zespół Smart-Edu.ai</p>
+          `;
+
+              const emailData = {
+                title: `Zamówienie #${order.orderNumber} ukończone`,
+                headerTitle: 'Smart-Edu.ai',
+                content: emailContent,
+              };
+
+              const emailHtml = generateEmailTemplate(emailData);
+
+              try {
+                await sendEmail({
+                  email: user.email,
+                  subject: `✅ Zamówienie #${order.orderNumber} zostało ukończone`,
+                  message: emailHtml,
+                  isHtml: true,
+                });
+                console.log(`   📧 Email wysłany do ${user.email}`);
+              } catch (emailError) {
+                console.error('   ❌ Błąd wysyłania emaila:', emailError);
+              }
+            }
+          } else {
+            console.log(
+              `   ⏳ Czekam na pozostałe itemy (${order.items.filter((i) => i.status !== 'zakończone').length} pozostało)`
+            );
+          }
+
+          // Zapisz zmiany w Order
+          await order.save();
+          console.log(`   ✅ Order zapisany w bazie\n`);
+        } else {
+          console.warn(
+            `   ⚠️ Nie znaleziono itemu w Order (itemId: ${orderedText.itemId})\n`
+          );
+        }
+      } else {
+        console.warn(
+          `   ⚠️ Nie znaleziono Order (orderId: ${orderedText.idZamowienia})\n`
+        );
+      }
+    } catch (syncError) {
+      console.error('   ❌ Błąd synchronizacji z Order:', syncError);
+      // Nie przerywamy procesu - OrderedText i GeneratedTextContent są już zapisane
+    }
+
     console.log(`🎉 === GENEROWANIE TREŚCI ZAKOŃCZONE ===\n`);
 
     return generatedContent;

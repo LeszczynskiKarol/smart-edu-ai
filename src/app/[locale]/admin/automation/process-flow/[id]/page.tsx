@@ -22,6 +22,20 @@ import {
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+interface AcademicWork {
+  _id: string;
+  workType: string;
+  status: string;
+  tableOfContents?: string;
+  chaptersCount: number;
+  chaptersCompleted: number;
+  totalCharacters: number;
+  totalTokens: number;
+  totalGenerationTime: number;
+  createdAt: string;
+  completionTime?: string;
+}
+
 interface ProcessFlowData {
   orderedText: {
     _id: string;
@@ -97,6 +111,7 @@ interface ProcessFlowData {
     status: string;
     data?: any;
   }>;
+  academicWork?: AcademicWork;
 }
 
 export default function ProcessFlowPage() {
@@ -655,7 +670,76 @@ TWOJE ZAPYTANIE (TYLKO SŁOWA KLUCZOWE):`}
                   </div>
                 )}
 
-                {/* Krok 6: Treść */}
+                {/* Dla prac akademickich - spis treści */}
+                {step.step === 5 && !data.structure && data.academicWork && (
+                  <div className="mt-4">
+                    <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded mb-4">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        Praca {data.academicWork.workType} - Spis treści
+                      </p>
+                      <div className="flex gap-4 mt-2 text-sm">
+                        <span>
+                          Rozdziałów: {data.academicWork.chaptersCount}
+                        </span>
+                        <span>Status: {data.academicWork.status}</span>
+                      </div>
+                    </div>
+                    {data.academicWork.tableOfContents && (
+                      <div
+                        className="mt-4 prose dark:prose-invert max-w-none bg-white dark:bg-gray-800 p-6 rounded border border-gray-200 dark:border-gray-700"
+                        dangerouslySetInnerHTML={{
+                          __html: data.academicWork.tableOfContents,
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
+
+                {/* Krok 6 - dla prac akademickich */}
+                {step.step === 6 &&
+                  !data.generatedContent &&
+                  data.academicWork && (
+                    <div className="mt-4">
+                      <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded mb-4">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Generowanie pracy {data.academicWork.workType}
+                        </p>
+                        <div className="grid grid-cols-3 gap-4 mt-2 text-sm">
+                          <div>
+                            <span className="font-bold text-green-600">
+                              {data.academicWork.chaptersCompleted}/
+                              {data.academicWork.chaptersCount}
+                            </span>
+                            <span className="text-gray-600 dark:text-gray-400">
+                              {' '}
+                              rozdziałów
+                            </span>
+                          </div>
+                          <div>
+                            <span className="font-bold text-green-600">
+                              {data.academicWork.totalCharacters?.toLocaleString() ||
+                                0}
+                            </span>
+                            <span className="text-gray-600 dark:text-gray-400">
+                              {' '}
+                              znaków
+                            </span>
+                          </div>
+                          <div>
+                            <span className="font-bold text-green-600">
+                              {data.academicWork.totalGenerationTime || 0} min
+                            </span>
+                            <span className="text-gray-600 dark:text-gray-400">
+                              {' '}
+                              czas
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                {/* Krok 7: Treść */}
                 {step.step === 6 && data.generatedContent && (
                   <div className="mt-4">
                     <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded mb-4">

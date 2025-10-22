@@ -378,7 +378,8 @@ export default function OrderedTextDetailsPage() {
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"
             >
               <Download size={18} />
-              Pobierz treść ({generatedContent.totalCharacters.toLocaleString()}{' '}
+              Pobierz treść (
+              {generatedContent.totalCharacters?.toLocaleString() || '0'}
               znaków)
             </button>
           )}
@@ -658,7 +659,7 @@ export default function OrderedTextDetailsPage() {
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded">
               <p className="text-sm text-gray-600 dark:text-gray-400">Słowa</p>
               <p className="text-2xl font-bold text-blue-600">
-                {generatedContent.totalWords.toLocaleString()}
+                {generatedContent.totalWords?.toLocaleString() || '0'}Retry
               </p>
             </div>
             <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded">

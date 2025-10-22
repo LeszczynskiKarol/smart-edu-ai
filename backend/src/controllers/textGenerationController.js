@@ -3,6 +3,7 @@ const textGenerationService = require('../services/textGenerationService');
 const OrderedText = require('../models/OrderedText');
 const GoogleSearchResult = require('../models/GoogleSearchResult');
 const ScrapedContent = require('../models/ScrapedContent');
+const AcademicWork = require('../models/AcademicWork');
 const TextStructure = require('../models/TextStructure');
 const GeneratedTextContent = require('../models/GeneratedTextContent');
 
@@ -320,6 +321,9 @@ exports.getProcessFlow = async (req, res) => {
     const SourceSelection = require('../models/SourceSelection');
     const sourceSelection = await SourceSelection.findOne({ orderedTextId });
 
+    // 🆕 8. Academic Work (dla prac MGR/LIC)
+    const academicWork = await AcademicWork.findOne({ orderedTextId });
+
     // 8. Processing Timeline
     const timeline = [
       {
@@ -370,49 +374,87 @@ exports.getProcessFlow = async (req, res) => {
         data: {
           selected: selectedSources.length,
           total: allScraped.filter((s) => s.status === 'completed').length,
-          promptUsed: sourceSelection?.promptUsed, // 🆕
-          response: sourceSelection?.selectedIndices, // 🆕
+          promptUsed: sourceSelection?.promptUsed,
+          response: sourceSelection?.selectedIndices,
         },
       },
       {
         step: 5,
         name: 'Generowanie struktury',
-        timestamp: textStructure?.createdAt,
+        timestamp: textStructure?.createdAt || academicWork?.createdAt,
         status: textStructure
           ? textStructure.status === 'completed'
             ? 'completed'
-            : textStructure.status === 'failed'
-              ? 'failed'
-              : 'in_progress'
-          : 'pending',
+            : 'in_progress'
+          : academicWork
+            ? academicWork.status === 'toc_completed' ||
+              academicWork.tocGenerationTime > 0
+              ? 'completed'
+              : academicWork.status.includes('generating')
+                ? 'in_progress'
+                : 'pending'
+            : 'pending',
         data: textStructure
           ? {
               headersCount: textStructure.headersCount,
               sourcesUsed: textStructure.usedSources.length,
               totalLength: textStructure.totalSourcesLength,
-              promptUsed: textStructure.promptUsed, // 🆕
+              promptUsed: textStructure.promptUsed,
             }
-          : null,
+          : academicWork // 🆕 Alternatywnie dla AcademicWork
+            ? {
+                chaptersCount: academicWork.chapters?.length || 0,
+                tocTokens: academicWork.tocTokensUsed,
+                workType: academicWork.workType,
+                promptUsed: academicWork.tocPromptUsed,
+              }
+            : null,
       },
       {
         step: 6,
         name: 'Generowanie tekstu',
-        timestamp: generatedContent?.createdAt,
+        timestamp:
+          generatedContent?.createdAt ||
+          academicWork?.completionTime ||
+          (academicWork?.chapters?.length > 0
+            ? academicWork.chapters[0].startTime
+            : null),
         status: generatedContent
           ? generatedContent.status === 'completed'
             ? 'completed'
             : generatedContent.status === 'failed'
               ? 'failed'
               : 'in_progress'
-          : 'pending',
+          : academicWork
+            ? academicWork.status === 'completed'
+              ? 'completed'
+              : academicWork.status === 'failed'
+                ? 'failed'
+                : academicWork.chapters?.some(
+                      (ch) => ch.status === 'completed'
+                    ) || academicWork.status.includes('chapter')
+                  ? 'in_progress'
+                  : 'pending'
+            : 'pending',
         data: generatedContent
           ? {
               totalWords: generatedContent.totalWords,
               totalCharacters: generatedContent.totalCharacters,
               tokensUsed: generatedContent.tokensUsed,
-              promptUsed: generatedContent.promptUsed, // 🆕
+              promptUsed: generatedContent.promptUsed,
             }
-          : null,
+          : academicWork // 🆕 Dla AcademicWork
+            ? {
+                totalCharacters: academicWork.totalCharacterCount,
+                totalTokens: academicWork.totalTokensUsed,
+                chaptersCompleted: academicWork.chapters.filter(
+                  (ch) => ch.status === 'completed'
+                ).length,
+                generationTime: Math.round(
+                  academicWork.totalGenerationTime / 1000 / 60
+                ), // minuty
+              }
+            : null,
       },
     ];
 
@@ -467,7 +509,27 @@ exports.getProcessFlow = async (req, res) => {
               generationTime: textStructure.generationTime,
               tokensUsed: textStructure.tokensUsed,
               createdAt: textStructure.createdAt,
-              promptUsed: textStructure.promptUsed, // 🆕
+              promptUsed: textStructure.promptUsed,
+            }
+          : null,
+        // 🆕 Academic Work (jeśli istnieje)
+        academicWork: academicWork
+          ? {
+              _id: academicWork._id,
+              workType: academicWork.workType,
+              status: academicWork.status,
+              tableOfContents: academicWork.tableOfContents,
+              chaptersCount: academicWork.chapters.length,
+              chaptersCompleted: academicWork.chapters.filter(
+                (ch) => ch.status === 'completed'
+              ).length,
+              totalCharacters: academicWork.totalCharacterCount,
+              totalTokens: academicWork.totalTokensUsed,
+              totalGenerationTime: Math.round(
+                academicWork.totalGenerationTime / 1000 / 60
+              ), // minuty
+              createdAt: academicWork.createdAt,
+              completionTime: academicWork.completionTime,
             }
           : null,
         generatedContent: generatedContent
@@ -480,7 +542,7 @@ exports.getProcessFlow = async (req, res) => {
               generationTime: generatedContent.generationTime,
               tokensUsed: generatedContent.tokensUsed,
               createdAt: generatedContent.createdAt,
-              promptUsed: generatedContent.promptUsed, // 🆕
+              promptUsed: generatedContent.promptUsed,
             }
           : null,
         timeline,
@@ -500,15 +562,43 @@ exports.getStructure = async (req, res) => {
   try {
     const { orderedTextId } = req.params;
 
-    const structure = await TextStructure.findOne({ orderedTextId }).populate(
-      'orderedTextId'
-    );
+    // Najpierw pobierz orderedText
+    const orderedText = await OrderedText.findById(orderedTextId);
 
-    if (!structure) {
-      return res.status(404).json({
-        success: false,
-        message: 'Struktura nie znaleziona',
-      });
+    let structure = await TextStructure.findOne({ orderedTextId }).lean();
+
+    // 🆕 Dla prac MGR/LIC pobierz AcademicWork
+    if (!structure && orderedText) {
+      // ✅ DODAJ SPRAWDZENIE orderedText
+      const workType = orderedText.rodzajTresci.toLowerCase();
+      if (workType.includes('magister') || workType.includes('licencjat')) {
+        const academicWork = await AcademicWork.findOne({
+          orderedTextId,
+        }).lean();
+
+        if (academicWork) {
+          // Mapuj AcademicWork na format TextStructure
+          structure = {
+            _id: academicWork._id,
+            structure:
+              academicWork.tableOfContents || academicWork.fullStructure,
+            headersCount: academicWork.chapters?.length || 0,
+            usedSources: [],
+            totalSourcesLength: 0,
+            status:
+              academicWork.status.includes('completed') ||
+              academicWork.status.includes('chapter')
+                ? 'completed'
+                : academicWork.status.includes('generating')
+                  ? 'generating'
+                  : 'pending',
+            generationTime: academicWork.tocGenerationTime || 0,
+            tokensUsed: academicWork.tocTokensUsed || 0,
+            createdAt: academicWork.createdAt,
+            promptUsed: academicWork.tocPromptUsed,
+          };
+        }
+      }
     }
 
     res.status(200).json({
