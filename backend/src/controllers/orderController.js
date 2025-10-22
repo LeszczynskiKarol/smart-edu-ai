@@ -389,10 +389,52 @@ exports.createOrder = async (req, res) => {
 
       if (hasOtherContent) {
         // Zapisz do MongoDB (BEZ Make.com)
+        // Mapowanie języków
+        const languageMap = {
+          pol: 'polski',
+          eng: 'angielski',
+          ger: 'niemiecki',
+          ukr: 'ukraiński',
+          fra: 'francuski',
+          esp: 'hiszpański',
+          ros: 'rosyjski',
+          por: 'portugalski',
+        };
+
         const orderedTextsToSave = order.items
           .filter((item) => item.contentType !== 'post_social_media')
           .map((item) => ({
-            // ... (te same pola co wyżej)
+            temat: item.topic,
+            idZamowienia: order._id.toString(),
+            itemId: item._id.toString(),
+            cena: parseFloat(item.price),
+            cenaZamowienia: parseFloat(order.totalPrice),
+            rodzajTresci: item.contentType,
+            dlugoscTekstu: item.length,
+            liczbaZnakow: item.length,
+            wytyczneIndywidualne: item.guidelines,
+            tonIStyl: item.tone,
+            jezyk: languageMap[item.language] || item.language,
+            jezykWyszukiwania:
+              item.searchLanguage || mapTextLangToSearchLang(item.language),
+            countryCode: languageMap[item.language] || item.language,
+            model: 'Claude 2.0',
+            bibliografia: item.bibliography,
+            faq: item.includeFAQ,
+            tabele: item.includeTable,
+            boldowanie: false,
+            listyWypunktowane: true,
+            frazy: (item.keywords || []).join(', '),
+            link1: item.sourceLinks?.[0] || '',
+            link2: item.sourceLinks?.[1] || '',
+            link3: item.sourceLinks?.[2] || '',
+            link4: item.sourceLinks?.[3] || '',
+            status: 'Oczekujące',
+            startDate: new Date(),
+            email: user.email,
+            userId: user._id,
+            originalOrderId: order._id,
+            originalItemId: item._id,
           }));
 
         const savedTexts = await OrderedText.insertMany(orderedTextsToSave);
