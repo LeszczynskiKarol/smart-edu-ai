@@ -148,7 +148,7 @@
     "steps": {
       "language": {
         "title": "Wybierz język tekstu",
-        "description": "Tutaj możesz wybrać język, w jakim ma zostać napisany Twój tekst. Dostępnych jest wiele opcji językowych."
+        "description": "Tutaj możesz wybrać język, w jakim ma zostać napisany Twój tekst."
       },
       "length": {
         "title": "Wybierz długość tekstu",
@@ -156,7 +156,7 @@
       },
       "contentType": {
         "title": "Rodzaj treści",
-        "description": "Wybierz typ pracy: esej, referat, praca licencjacka lub magisterska. Jeśli chcesz zlecić inny rodzaj pracy, wybierz Inny i wprowadź nazwę typu pracy, którą chcesz wygenerować (np. felietion, poradnik)."
+        "description": "Wybierz typ pracy: esej, referat, praca licencjacka lub magisterska. Jeśli chcesz zlecić inny rodzaj pracy, kliknij kafelek „Inny” i wprowadź własną nazwę typu pracy, którą chcesz wygenerować (np. felieton, poradnik)."
       },
       "topic": {
         "title": "Wpisz temat",
