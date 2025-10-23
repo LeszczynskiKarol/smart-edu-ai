@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "NODE_OPTIONS='--max-old-space-size=8192' next build",
     "start": "node .next/standalone/server.js",
     "lint": "next lint"
   },
@@ -51,7 +51,6 @@
     "react-google-recaptcha-v3": "^1.10.1",
     "react-hook-form": "^7.53.0",
     "react-intersection-observer": "^9.13.1",
-    "react-joyride": "^2.9.3",
     "react-quill": "^2.0.0",
     "react-responsive": "^10.0.0",
     "react-table": "^7.8.0",

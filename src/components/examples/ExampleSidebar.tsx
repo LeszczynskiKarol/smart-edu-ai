@@ -24,7 +24,7 @@ export default function ExampleSidebar({ locale }: ExampleSidebarProps) {
   const content = {
     pl: {
       badge: 'Wygenerowane przez AI',
-      title: 'Ta praca została wygenerowana w 45 min przez Smart-Edu.AI',
+      title: 'Ta praca została wygenerowana w Smart-Edu.AI',
       description: 'Zarejestruj się i wygeneruj dowolną pracę dla siebie!',
       cta: 'Załóż darmowe konto',
       features: [
