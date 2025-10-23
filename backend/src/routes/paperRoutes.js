@@ -4,5 +4,6 @@ const router = express.Router();
 const { getPaper } = require('../controllers/paperController');
 
 router.get('/student-writer-report-generator', getPaper);
+router.get('/bachelors-thesis', getPaper);
 
 module.exports = router;

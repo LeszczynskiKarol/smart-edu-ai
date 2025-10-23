@@ -615,6 +615,265 @@
         "title": "100% unique"
       }
     },
+    "BachelorsThesis": {
+      "pageTitle": "Bachelor's Thesis AI Generator | Bachelor's Thesis Writing",
+      "meta": {
+        "title": "Bachelor's Thesis AI Generator | Bachelor's Thesis Writing with Artificial Intelligence",
+        "description": "AI for writing bachelor's thesis ✓ Online bachelor's thesis generator ✓ Create bachelor's thesis with AI in 60-90 minutes ✓ 60-90 pages ✓ Bibliography ✓ Verified sources ✓ From 199 PLN",
+        "keywords": "ai for bachelor thesis writing, bachelor thesis writing, bachelor thesis generator, bachelor thesis generation, bachelor thesis creation, artificial intelligence for bachelor thesis writing, bachelor thesis ai, bachelor thesis generator online, write bachelor thesis, bachelor thesis on demand"
+      },
+      "hero": {
+        "badge": "Bachelor's Thesis Generator",
+        "title": "Bachelor's Thesis Writing with Artificial Intelligence",
+        "subtitle": "Generate a complete 60-90 page bachelor's thesis with bibliography and verified sources within an hour. AI analyzes the topic and creates a professional academic paper.",
+        "cta": "Start writing thesis",
+        "features": {
+          "fast": "Ready in 60-90 min",
+          "quality": "Verified sources",
+          "complete": "60-90 pages + bibliography"
+        },
+        "stats": {
+          "pages": "pages",
+          "price": "per thesis",
+          "available": "availability"
+        },
+        "preview": {
+          "title": "Bachelor's Thesis AI",
+          "subtitle": "Complete academic structure",
+          "item1": "Title page and table of contents",
+          "item2": "Introduction and literature review",
+          "item3": "Substantive chapters with analysis",
+          "item4": "Conclusion and bibliography",
+          "status": "Generation active"
+        }
+      },
+      "benefits": {
+        "badge": "Benefits",
+        "title": "Why choose our bachelor's thesis generator?",
+        "subtitle": "Discover all the benefits of generating a bachelor's thesis with AI",
+        "speed": {
+          "title": "Fast generation",
+          "description": "Receive a complete bachelor's thesis in 60-90 minutes instead of weeks of writing",
+          "feature1": "Generation in 60-90 minutes",
+          "feature2": "Automatic formatting",
+          "feature3": "24/7 availability"
+        },
+        "structure": {
+          "title": "Proper structure",
+          "description": "Every thesis has a professional academic structure that meets university requirements",
+          "feature1": "Full academic structure",
+          "feature2": "Proper formatting",
+          "feature3": "Table of contents and numbering"
+        },
+        "research": {
+          "title": "Research and sources",
+          "description": "AI independently searches for and verifies sources for your thesis",
+          "feature1": "15-30 sources",
+          "feature2": "Verified information",
+          "feature3": "Complete bibliography"
+        },
+        "quality": {
+          "title": "Highest quality",
+          "description": "We use advanced Claude AI models to create the highest quality content",
+          "feature1": "Claude AI model",
+          "feature2": "Professional content",
+          "feature3": "Substantive analysis"
+        },
+        "formats": {
+          "title": "Multiple formats",
+          "description": "Download your thesis in a convenient format - PDF or DOCX for editing",
+          "feature1": "PDF format",
+          "feature2": "DOCX format",
+          "feature3": "Instant access"
+        },
+        "privacy": {
+          "title": "Privacy and security",
+          "description": "Your data and thesis are fully protected and never shared",
+          "feature1": "100% confidentiality",
+          "feature2": "Secure payments",
+          "feature3": "Data protection"
+        }
+      },
+      "howItWorks": {
+        "badge": "How it works",
+        "title": "Bachelor's thesis generation process",
+        "subtitle": "4 simple steps to a finished bachelor's thesis",
+        "mockup": {
+          "step": "Step {number}: {title}"
+        },
+        "steps": {
+          "input": {
+            "title": "Provide topic and requirements",
+            "description": "Enter thesis topic, field of study and additional requirements",
+            "detail1": "Bachelor's thesis topic",
+            "detail2": "Field and specialization",
+            "detail3": "University requirements"
+          },
+          "research": {
+            "title": "AI searches for sources",
+            "description": "Artificial intelligence analyzes the topic and searches for credible sources",
+            "detail1": "Topic analysis",
+            "detail2": "Source searching",
+            "detail3": "Information verification"
+          },
+          "generation": {
+            "title": "Thesis generation",
+            "description": "AI creates a complete thesis with proper structure and formatting",
+            "detail1": "Writing chapters",
+            "detail2": "Creating analysis",
+            "detail3": "Formatting and bibliography"
+          },
+          "download": {
+            "title": "Download finished thesis",
+            "description": "You receive a complete bachelor's thesis ready to download",
+            "detail1": "PDF/DOCX format",
+            "detail2": "Full editing",
+            "detail3": "Instant access"
+          }
+        }
+      },
+      "structure": {
+        "badge": "Thesis structure",
+        "title": "Complete bachelor's thesis structure",
+        "subtitle": "Every thesis contains all required elements of academic structure",
+        "pagesLabel": "pp.",
+        "elements": {
+          "titlePage": {
+            "title": "Title page",
+            "description": "Professional title page with all required information"
+          },
+          "tableOfContents": {
+            "title": "Table of contents",
+            "description": "Automatically generated table of contents with page numbering"
+          },
+          "introduction": {
+            "title": "Introduction",
+            "description": "Introduction to the topic, thesis objectives and research methodology"
+          },
+          "literature": {
+            "title": "Literature review",
+            "description": "Analysis of existing literature and research in the field"
+          },
+          "chapters": {
+            "title": "Substantive chapters",
+            "description": "Main part of the thesis with analysis, research and results"
+          },
+          "conclusion": {
+            "title": "Conclusion",
+            "description": "Summary of results, conclusions and recommendations"
+          },
+          "bibliography": {
+            "title": "Bibliography",
+            "description": "Complete list of sources in required citation format"
+          }
+        },
+        "stats": {
+          "totalPages": "total pages",
+          "sections": "sections",
+          "sources": "sources",
+          "complete": "completeness"
+        }
+      },
+      "process": {
+        "badge": "Process",
+        "title": "How to order a bachelor's thesis?",
+        "subtitle": "From registration to finished thesis in 4 simple steps",
+        "steps": {
+          "account": {
+            "title": "Create account",
+            "description": "Register and get access to the bachelor's thesis generator",
+            "item1": "Email registration",
+            "item2": "Account verification",
+            "item3": "Ready in 5 minutes"
+          },
+          "details": {
+            "title": "Fill in details",
+            "description": "Provide topic, field of study and thesis requirements",
+            "item1": "Thesis topic",
+            "item2": "Field of study",
+            "item3": "Additional requirements"
+          },
+          "wait": {
+            "title": "Wait 60-90 minutes",
+            "description": "AI generates complete bachelor's thesis with bibliography and sources",
+            "item1": "AI analyzes topic",
+            "item2": "Generation 60-90 min",
+            "item3": "Real-time status"
+          },
+          "download": {
+            "title": "Download thesis",
+            "description": "Download finished thesis in PDF or DOCX format",
+            "item1": "PDF format",
+            "item2": "DOCX format",
+            "item3": "Full editing capability"
+          }
+        },
+        "stats": {
+          "registration": "Registration",
+          "generation": "Generation",
+          "formats": "Formats",
+          "availability": "Availability"
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Frequently asked questions",
+        "subtitle": "Everything you need to know about the bachelor's thesis generator",
+        "questions": {
+          "q1": {
+            "question": "How long does it take to generate a bachelor's thesis?",
+            "answer": "Generating a complete bachelor's thesis (60-90 pages) takes 60 to 90 minutes. After this time, you will receive a finished thesis with bibliography and all required elements."
+          },
+          "q2": {
+            "question": "Will the thesis be unique?",
+            "answer": "Yes, every thesis is generated from scratch specifically for your requirements. AI creates 100% unique content based on the topic and guidelines you provide."
+          },
+          "q3": {
+            "question": "Can I edit the generated thesis?",
+            "answer": "Of course! You can download the thesis in DOCX format, which allows full editing in programs such as Microsoft Word or Google Docs. You can freely modify the content, formatting and add your own elements."
+          },
+          "q4": {
+            "question": "What sources does AI use?",
+            "answer": "AI uses verified academic sources, scientific publications, books and articles from credible sources. Each thesis contains a complete bibliography with 15-30 sources in appropriate citation format."
+          },
+          "q5": {
+            "question": "Will the thesis meet my university's requirements?",
+            "answer": "AI generates theses according to academic standards. You can provide specific requirements of your university (citation format, structure, formal requirements), and AI will adapt the thesis to these guidelines."
+          },
+          "q6": {
+            "question": "What if I'm not satisfied with the thesis?",
+            "answer": "After generating the thesis, you can download and review it. If something doesn't meet your expectations, you can edit the thesis yourself or contact our support."
+          }
+        },
+        "contact": {
+          "title": "Have more questions?",
+          "description": "Our support team is available 24/7 and happy to help",
+          "button": "Contact us"
+        }
+      },
+      "cta": {
+        "badge": "Start now",
+        "title": "Ready for your bachelor's thesis?",
+        "subtitle": "Generate a complete bachelor's thesis in 60-90 minutes",
+        "button": "Start writing thesis",
+        "features": {
+          "fast": "Fast generation",
+          "secure": "Secure payments",
+          "quality": "Highest quality"
+        },
+        "trust": {
+          "indicator1": "100% secure payments",
+          "indicator2": "Personal data protection",
+          "indicator3": "Instant access"
+        },
+        "stats": {
+          "pages": "pages",
+          "price": "price",
+          "time": "generation time",
+          "support": "support"
+        }
+      }
+    },
     "features": {
       "topic": {
         "title": "Any Subject and Assignment Type",
@@ -1705,7 +1964,6 @@
         "description": "See examples of bachelor, master and coursework papers generated by Smart-Edu.AI"
       }
     },
-
     "search": "Search examples...",
     "noResults": "No examples found",
     "readMore": "Read more",

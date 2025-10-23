@@ -135,6 +135,265 @@
       "confirm": "Wyloguj"
     }
   },
+  "BachelorsThesis": {
+    "pageTitle": "Generator Pracy Licencjackiej AI | Pisanie Prac Licencjackich",
+    "meta": {
+      "title": "Generator Pracy Licencjackiej AI | Pisanie Prac Licencjackich ze Sztuczną Inteligencją",
+      "description": "AI do pisania prac licencjackich ✓ Generator pracy licencjackiej online ✓ Tworzenie pracy licencjackiej z AI w 60-90 minut ✓ 60-90 stron ✓ Bibliografia ✓ Sprawdzone źródła ✓ Od 199 zł",
+      "keywords": "ai do pisania prac licencjackich, pisanie prac licencjackich, generator prac licencjackich, generowanie pracy licencjackiej, tworzenie pracy licencjackiej, sztuczna inteligencja do pisania pracy licencjackiej, praca licencjacka ai, generator pracy licencjackiej online, napisz pracę licencjacką, praca licencjacka na zamówienie"
+    },
+    "hero": {
+      "badge": "Generator pracy licencjackiej",
+      "title": "AI do prac licencjackich",
+      "subtitle": "Wygeneruj kompletną pracę licencjacką 60-90 stron z bibliografią i sprawdzonymi źródłami w ciągu godziny. AI analizuje temat i tworzy profesjonalną pracę akademicką.",
+      "cta": "Rozpocznij pisanie pracy",
+      "features": {
+        "fast": "Gotowa w 60-90 min",
+        "quality": "Sprawdzone źródła",
+        "complete": "60-90 stron + bibliografia"
+      },
+      "stats": {
+        "pages": "stron",
+        "price": "za pracę",
+        "available": "dostępność"
+      },
+      "preview": {
+        "title": "Praca Licencjacka AI",
+        "subtitle": "Kompletna struktura akademicka",
+        "item1": "Strona tytułowa i spis treści",
+        "item2": "Wstęp i przegląd literatury",
+        "item3": "Rozdziały merytoryczne z analizą",
+        "item4": "Zakończenie i bibliografia",
+        "status": "Generowanie aktywne"
+      }
+    },
+    "benefits": {
+      "badge": "Zalety",
+      "title": "Dlaczego warto wybrać nasz generator prac licencjackich?",
+      "subtitle": "Poznaj wszystkie korzyści z generowania pracy licencjackiej z AI",
+      "speed": {
+        "title": "Szybkie generowanie",
+        "description": "Otrzymaj kompletną pracę licencjacką w ciągu 60-90 minut zamiast tygodni pisania",
+        "feature1": "Generowanie w 60-90 minut",
+        "feature2": "Automatyczne formatowanie",
+        "feature3": "Dostępność 24/7"
+      },
+      "structure": {
+        "title": "Prawidłowa struktura",
+        "description": "Każda praca ma profesjonalną strukturę akademicką zgodną z wymaganiami uczelni",
+        "feature1": "Pełna struktura akademicka",
+        "feature2": "Prawidłowe formatowanie",
+        "feature3": "Spis treści i numeracja"
+      },
+      "research": {
+        "title": "Badania i źródła",
+        "description": "AI samodzielnie wyszukuje i weryfikuje źródła do Twojej pracy",
+        "feature1": "15-30 źródeł",
+        "feature2": "Zweryfikowane informacje",
+        "feature3": "Kompletna bibliografia"
+      },
+      "quality": {
+        "title": "Najwyższa jakość",
+        "description": "Wykorzystujemy zaawansowane modele AI Claude do tworzenia treści najwyższej jakości",
+        "feature1": "Model Claude AI",
+        "feature2": "Profesjonalne treści",
+        "feature3": "Analiza merytoryczna"
+      },
+      "formats": {
+        "title": "Wiele formatów",
+        "description": "Pobierz swoją pracę w wygodnym formacie - PDF lub DOCX do edycji",
+        "feature1": "Format PDF",
+        "feature2": "Format DOCX",
+        "feature3": "Natychmiastowy dostęp"
+      },
+      "privacy": {
+        "title": "Prywatność i bezpieczeństwo",
+        "description": "Twoje dane i praca są w pełni chronione i nigdy nie są udostępniane",
+        "feature1": "100% poufności",
+        "feature2": "Bezpieczne płatności",
+        "feature3": "Ochrona danych"
+      }
+    },
+    "howItWorks": {
+      "badge": "Jak to działa",
+      "title": "Proces generowania pracy licencjackiej",
+      "subtitle": "4 proste kroki do gotowej pracy licencjackiej",
+      "mockup": {
+        "step": "Krok {number}: {title}"
+      },
+      "steps": {
+        "input": {
+          "title": "Podaj temat i wymagania",
+          "description": "Wprowadź temat pracy, kierunek studiów i dodatkowe wymagania",
+          "detail1": "Temat pracy licencjackiej",
+          "detail2": "Kierunek i specjalizacja",
+          "detail3": "Wymagania uczelni"
+        },
+        "research": {
+          "title": "AI wyszukuje źródła",
+          "description": "Sztuczna inteligencja analizuje temat i wyszukuje wiarygodne źródła",
+          "detail1": "Analiza tematu",
+          "detail2": "Wyszukiwanie źródeł",
+          "detail3": "Weryfikacja informacji"
+        },
+        "generation": {
+          "title": "Generowanie pracy",
+          "description": "AI tworzy kompletną pracę z właściwą strukturą i formatowaniem",
+          "detail1": "Pisanie rozdziałów",
+          "detail2": "Tworzenie analizy",
+          "detail3": "Formatowanie i bibliografia"
+        },
+        "download": {
+          "title": "Pobierz gotową pracę",
+          "description": "Otrzymujesz kompletną pracę licencjacką gotową do pobrania",
+          "detail1": "Format PDF/DOCX",
+          "detail2": "Pełna edycja",
+          "detail3": "Natychmiastowy dostęp"
+        }
+      }
+    },
+    "structure": {
+      "badge": "Struktura pracy",
+      "title": "Kompletna struktura pracy licencjackiej",
+      "subtitle": "Każda praca zawiera wszystkie wymagane elementy struktury akademickiej",
+      "pagesLabel": "str.",
+      "elements": {
+        "titlePage": {
+          "title": "Strona tytułowa",
+          "description": "Profesjonalna strona tytułowa z wszystkimi wymaganymi informacjami"
+        },
+        "tableOfContents": {
+          "title": "Spis treści",
+          "description": "Automatycznie generowany spis treści z numeracją stron"
+        },
+        "introduction": {
+          "title": "Wstęp",
+          "description": "Wprowadzenie do tematu, cel pracy i metodologia badawcza"
+        },
+        "literature": {
+          "title": "Przegląd literatury",
+          "description": "Analiza istniejącej literatury i badań w danej dziedzinie"
+        },
+        "chapters": {
+          "title": "Rozdziały merytoryczne",
+          "description": "Główna część pracy z analizą, badaniami i wynikami"
+        },
+        "conclusion": {
+          "title": "Zakończenie",
+          "description": "Podsumowanie wyników, wnioski i rekomendacje"
+        },
+        "bibliography": {
+          "title": "Bibliografia",
+          "description": "Kompletna lista źródeł w wymaganym formacie cytowania"
+        }
+      },
+      "stats": {
+        "totalPages": "stron w sumie",
+        "sections": "sekcji",
+        "sources": "źródeł",
+        "complete": "kompletności"
+      }
+    },
+    "process": {
+      "badge": "Proces",
+      "title": "Jak zamówić pracę licencjacką?",
+      "subtitle": "Od rejestracji do gotowej pracy w 4 prostych krokach",
+      "steps": {
+        "account": {
+          "title": "Załóż konto",
+          "description": "Zarejestruj się i uzyskaj dostęp do generatora prac licencjackich",
+          "item1": "Rejestracja e-mailem",
+          "item2": "Weryfikacja konta",
+          "item3": "Gotowe w 5 minut"
+        },
+        "details": {
+          "title": "Wypełnij szczegóły",
+          "description": "Podaj temat, kierunek studiów i wymagania dotyczące pracy",
+          "item1": "Temat pracy",
+          "item2": "Kierunek studiów",
+          "item3": "Dodatkowe wymagania"
+        },
+        "wait": {
+          "title": "Poczekaj 60-90 minut",
+          "description": "AI generuje kompletną pracę licencjacką z bibliografią i źródłami",
+          "item1": "AI analizuje temat",
+          "item2": "Generowanie 60-90 min",
+          "item3": "Status w czasie rzeczywistym"
+        },
+        "download": {
+          "title": "Pobierz pracę",
+          "description": "Pobierz gotową pracę w formacie PDF lub DOCX",
+          "item1": "Format PDF",
+          "item2": "Format DOCX",
+          "item3": "Pełna możliwość edycji"
+        }
+      },
+      "stats": {
+        "registration": "Rejestracja",
+        "generation": "Generowanie",
+        "formats": "Formaty",
+        "availability": "Dostępność"
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Najczęściej zadawane pytania",
+      "subtitle": "Wszystko, co musisz wiedzieć o generatorze prac licencjackich",
+      "questions": {
+        "q1": {
+          "question": "Jak długo trwa generowanie pracy licencjackiej?",
+          "answer": "Generowanie kompletnej pracy licencjackiej (60-90 stron) zajmuje od 60 do 90 minut. Po tym czasie otrzymasz gotową pracę z bibliografią i wszystkimi wymaganymi elementami."
+        },
+        "q2": {
+          "question": "Czy praca będzie unikalna?",
+          "answer": "Tak, każda praca jest generowana od podstaw specjalnie dla Twoich wymagań. AI tworzy 100% unikalną treść na podstawie tematu i wytycznych, które podasz."
+        },
+        "q3": {
+          "question": "Czy mogę edytować wygenerowaną pracę?",
+          "answer": "Oczywiście! Pracę możesz pobrać w formacie DOCX, który pozwala na pełną edycję w programach takich jak Microsoft Word czy Google Docs. Możesz swobodnie modyfikować treść, formatowanie i dodawać własne elementy."
+        },
+        "q4": {
+          "question": "Jakie źródła wykorzystuje AI?",
+          "answer": "AI wykorzystuje zweryfikowane źródła akademickie, naukowe publikacje, książki i artykuły z wiarygodnych źródeł. Każda praca zawiera kompletną bibliografię z 15-30 źródłami w odpowiednim formacie cytowania."
+        },
+        "q5": {
+          "question": "Czy praca będzie zgodna z wymaganiami mojej uczelni?",
+          "answer": "AI generuje prace zgodnie ze standardami akademickimi. Możesz podać szczegółowe wymagania swojej uczelni (format cytowania, struktura, wymagania formalne), a AI dostosuje pracę do tych wytycznych."
+        },
+        "q6": {
+          "question": "Co jeśli nie będę zadowolony z pracy?",
+          "answer": "Po wygenerowaniu pracy możesz ją pobrać i przejrzeć. Jeśli coś nie będzie odpowiadało Twoim oczekiwaniom, możesz edytować pracę we własnym zakresie lub skontaktować się z naszym wsparciem."
+        }
+      },
+      "contact": {
+        "title": "Masz więcej pytań?",
+        "description": "Nasz zespół wsparcia jest dostępny 24/7 i chętnie pomoże",
+        "button": "Skontaktuj się z nami"
+      }
+    },
+    "cta": {
+      "badge": "Rozpocznij teraz",
+      "title": "Zamów swoją pracę licencjacką?",
+      "subtitle": "Wygeneruj kompletną pracę licencjacką w 60-90 minut",
+      "button": "Rozpocznij pisanie pracy",
+      "features": {
+        "fast": "Szybkie generowanie",
+        "secure": "Bezpieczne płatności",
+        "quality": "Najwyższa jakość"
+      },
+      "trust": {
+        "indicator1": "100% bezpieczne płatności",
+        "indicator2": "Ochrona danych osobowych",
+        "indicator3": "Natychmiastowy dostęp"
+      },
+      "stats": {
+        "pages": "stron",
+        "price": "cena",
+        "time": "czas generowania",
+        "support": "wsparcie"
+      }
+    }
+  },
   "Video": {
     "headerVideo": "2 kliknięcia i praca gotowa w 5 min"
   },

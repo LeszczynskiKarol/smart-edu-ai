@@ -3,14 +3,15 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import ExamplesList from '@/components/examples/ExamplesList';
 import Layout from '@/components/layout/Layout';
-import { metadata } from './metadata';
+import { generateMetadata } from './metadata';
 
 const validCategories = ['bachelor', 'master', 'coursework'];
 
-export { metadata };
+export { generateMetadata };
 export const dynamic = 'force-dynamic';
 
 async function getExamples(category: string) {
+  // ZMIENIONE - używaj thesis-examples zamiast examples
   const url = `${process.env.NEXT_PUBLIC_API_URL}/api/thesis-examples/${category}`;
   console.log('🔗 Fetching from:', url);
 
@@ -61,8 +62,4 @@ export default async function CategoryPage({
       </div>
     </Layout>
   );
-}
-
-export function generateStaticParams() {
-  return validCategories.map((category) => ({ category }));
 }

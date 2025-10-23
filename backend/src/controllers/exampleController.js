@@ -420,3 +420,49 @@ exports.getRelatedExamples = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.getExampleByCategoryAndSlug = async (req, res, next) => {
+  try {
+    const { category, slug } = req.params;
+
+    // Znajdź workType po slugEn
+    const workTypeDoc = await WorkType.findOne({ slugEn: category });
+    if (!workTypeDoc) {
+      throw createError(404, 'WorkType not found');
+    }
+
+    // Znajdź przykład po workType i slug
+    const example = await Example.findOne({
+      workType: workTypeDoc._id,
+      $or: [{ slug: slug }, { slugEn: slug }],
+    }).populate(['subject', 'workType']);
+
+    if (!example) {
+      throw createError(404, 'Example not found');
+    }
+
+    // Dekoduj HTML
+    const decodedExample = {
+      ...example.toObject(),
+      content: example.content
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&amp;/g, '&'),
+      contentEn: example.contentEn
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&amp;/g, '&'),
+    };
+
+    // Zwiększ licznik wyświetleń
+    await Example.findByIdAndUpdate(example._id, { $inc: { views: 1 } });
+
+    res.json(decodedExample);
+  } catch (error) {
+    next(error);
+  }
+};

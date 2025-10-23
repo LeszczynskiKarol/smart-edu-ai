@@ -3,14 +3,15 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import Layout from '@/components/layout/Layout';
 import ExamplePageClient from '@/components/examples/ExamplePageClient';
-import { metadata } from './metadata';
+import { generateMetadata } from './metadata';
 
 const validCategories = ['bachelor', 'master', 'coursework'];
 
-export { metadata };
+export { generateMetadata };
 export const dynamic = 'force-dynamic';
 
 async function getExample(category: string, slug: string) {
+  // ZMIENIONE - używaj thesis-examples
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/thesis-examples/${category}/${slug}`,
     {
