@@ -93,23 +93,6 @@ const TrustSection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 mb-6"
-          >
-            <Award className="w-5 h-5 text-blue-500" />
-            <span
-              className={`text-sm font-semibold ${
-                theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
-              }`}
-            >
-              Zaufaj nam
-            </span>
-          </motion.div>
-
           <h2
             className={`text-4xl md:text-5xl font-bold mb-6 ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
@@ -202,30 +185,6 @@ const TrustSection: React.FC = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className={`mt-20 rounded-3xl p-8 md:p-12 ${
-            theme === 'dark'
-              ? 'bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700'
-              : 'bg-gradient-to-r from-blue-50 to-purple-50 border border-gray-200'
-          } relative overflow-hidden`}
-        >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage: `radial-gradient(circle at 1px 1px, ${theme === 'dark' ? '#fff' : '#000'} 1px, transparent 0)`,
-                backgroundSize: '40px 40px',
-              }}
-            />
-          </div>
-        </motion.div>
       </div>
     </section>
   );

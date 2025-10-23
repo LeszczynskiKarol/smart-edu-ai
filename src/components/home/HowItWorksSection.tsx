@@ -21,9 +21,9 @@ const HowItWorksSection: React.FC = () => {
       description: t('steps.analysis.description'),
       gradient: 'from-blue-500 to-cyan-500',
       details: [
-        'Wpisz temat pracy',
-        'Wybierz poziom i długość',
-        'Dodaj wymagania',
+        t('steps.analysis.detail1'),
+        t('steps.analysis.detail2'),
+        t('steps.analysis.detail3'),
       ],
     },
     {
@@ -32,9 +32,9 @@ const HowItWorksSection: React.FC = () => {
       description: t('steps.research.description'),
       gradient: 'from-purple-500 to-pink-500',
       details: [
-        'AI analizuje temat',
-        'Wyszukuje źródła',
-        'Weryfikuje informacje',
+        t('steps.research.detail1'),
+        t('steps.research.detail2'),
+        t('steps.research.detail3'),
       ],
     },
     {
@@ -43,9 +43,9 @@ const HowItWorksSection: React.FC = () => {
       description: t('steps.processing.description'),
       gradient: 'from-green-500 to-emerald-500',
       details: [
-        'Generuje treść',
-        'Strukturyzuje dokument',
-        'Formatuje profesjonalnie',
+        t('steps.processing.detail1'),
+        t('steps.processing.detail2'),
+        t('steps.processing.detail3'),
       ],
     },
     {
@@ -54,9 +54,9 @@ const HowItWorksSection: React.FC = () => {
       description: t('steps.delivery.description'),
       gradient: 'from-orange-500 to-red-500',
       details: [
-        'Pobierz PDF/DOCX',
-        'Edytuj online',
-        'Eksportuj w różnych formatach',
+        t('steps.delivery.detail1'),
+        t('steps.delivery.detail2'),
+        t('steps.delivery.detail3'),
       ],
     },
   ];
@@ -99,22 +99,6 @@ const HowItWorksSection: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 mb-6"
-          >
-            <Cpu className="w-5 h-5 text-blue-500" />
-            <span
-              className={`text-sm font-semibold ${
-                theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
-              }`}
-            >
-              Jak to działa
-            </span>
-          </motion.div>
-
           <h2
             className={`text-4xl md:text-5xl font-bold mb-6 ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
@@ -122,13 +106,6 @@ const HowItWorksSection: React.FC = () => {
           >
             {t('title')}
           </h2>
-          <p
-            className={`text-xl max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}
-          >
-            Prosty proces w 4 krokach od pomysłu do gotowej pracy
-          </p>
         </motion.div>
 
         {/* Main Content Grid */}
@@ -400,23 +377,6 @@ const HowItWorksSection: React.FC = () => {
             </AnimatePresence>
           </motion.div>
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
-          >
-            Rozpocznij teraz
-            <ArrowRight className="w-5 h-5" />
-          </motion.button>
-        </motion.div>
       </div>
     </section>
   );

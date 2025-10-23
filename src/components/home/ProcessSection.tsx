@@ -1,4 +1,4 @@
-// src/components/home/ProcessSection_new.tsx
+// src/components/home/ProcessSection.tsx
 'use client';
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -31,28 +31,44 @@ const ProcessSection: React.FC = () => {
       description: t('steps.account.description'),
       icon: UserPlus,
       gradient: 'from-blue-500 to-cyan-500',
-      items: ['Email & hasło', 'Weryfikacja', 'Gotowe w 30 sek'],
+      items: [
+        t('steps.account.item1'),
+        t('steps.account.item2'),
+        t('steps.account.item3'),
+      ],
     },
     {
       title: t('steps.details.title'),
       description: t('steps.details.description'),
       icon: FileText,
       gradient: 'from-purple-500 to-pink-500',
-      items: ['Temat', 'Długość', 'Poziom trudności'],
+      items: [
+        t('steps.details.item1'),
+        t('steps.details.item2'),
+        t('steps.details.item3'),
+      ],
     },
     {
       title: t('steps.wait.title'),
       description: t('steps.wait.description'),
       icon: Clock,
       gradient: 'from-green-500 to-emerald-500',
-      items: ['AI pracuje', '5-10 minut', 'Real-time status'],
+      items: [
+        t('steps.wait.item1'),
+        t('steps.wait.item2'),
+        t('steps.wait.item3'),
+      ],
     },
     {
       title: t('steps.download.title'),
       description: t('steps.download.description'),
       icon: Download,
       gradient: 'from-orange-500 to-red-500',
-      items: ['PDF', 'DOCX', 'LaTeX'],
+      items: [
+        t('steps.download.item1'),
+        t('steps.download.item2'),
+        t('steps.download.item3'),
+      ],
     },
   ];
 
@@ -63,7 +79,6 @@ const ProcessSection: React.FC = () => {
         theme === 'dark' ? 'bg-gray-900' : 'bg-blue-50'
       }`}
     >
-      {/* Background Decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
           className={`absolute top-1/4 left-1/4 w-96 h-96 ${
@@ -78,7 +93,6 @@ const ProcessSection: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +111,7 @@ const ProcessSection: React.FC = () => {
                 theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
               }`}
             >
-              Proces
+              {t('badge')}
             </span>
           </motion.div>
 
@@ -113,13 +127,11 @@ const ProcessSection: React.FC = () => {
               theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
             }`}
           >
-            Od pomysłu do gotowej pracy w kilka prostych kroków
+            {t('subtitle')}
           </p>
         </motion.div>
 
-        {/* Timeline */}
         <div className="relative max-w-6xl mx-auto">
-          {/* Vertical Line - Desktop */}
           <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-1 -translate-x-1/2">
             <div
               className={`absolute inset-0 ${
@@ -132,7 +144,6 @@ const ProcessSection: React.FC = () => {
             />
           </div>
 
-          {/* Steps */}
           <div className="space-y-12 lg:space-y-24">
             {steps.map((step, index) => (
               <motion.div
@@ -145,7 +156,6 @@ const ProcessSection: React.FC = () => {
                   index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
                 }`}
               >
-                {/* Content Card */}
                 <div
                   className={`flex-1 ${
                     index % 2 === 0 ? 'lg:pr-12' : 'lg:pl-12'
@@ -159,12 +169,10 @@ const ProcessSection: React.FC = () => {
                         : 'bg-white/80 backdrop-blur-sm border border-gray-200 shadow-xl'
                     } transition-all duration-300`}
                   >
-                    {/* Gradient Overlay */}
                     <div
                       className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${step.gradient} opacity-0 hover:opacity-5 transition-opacity duration-300`}
                     />
 
-                    {/* Step Number */}
                     <div
                       className={`absolute -top-4 ${
                         index % 2 === 0 ? 'left-8' : 'right-8'
@@ -176,7 +184,6 @@ const ProcessSection: React.FC = () => {
                     </div>
 
                     <div className="relative">
-                      {/* Icon */}
                       <div className="flex items-start gap-4 mb-4">
                         <div
                           className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center shadow-lg flex-shrink-0`}
@@ -203,7 +210,6 @@ const ProcessSection: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Items List */}
                       <div className="space-y-2 mt-6">
                         {step.items.map((item, i) => (
                           <motion.div
@@ -235,7 +241,6 @@ const ProcessSection: React.FC = () => {
                   </motion.div>
                 </div>
 
-                {/* Center Circle - Desktop Only */}
                 <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 w-20 h-20 z-10">
                   <motion.div
                     initial={{ scale: 0 }}
@@ -248,14 +253,12 @@ const ProcessSection: React.FC = () => {
                   </motion.div>
                 </div>
 
-                {/* Spacer for alternating layout */}
                 <div className="flex-1 hidden lg:block" />
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Bottom Stats */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -263,10 +266,10 @@ const ProcessSection: React.FC = () => {
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
         >
           {[
-            { value: '30 sek', label: 'Rejestracja' },
-            { value: '5-10 min', label: 'Generowanie' },
-            { value: '3 formaty', label: 'Eksportu' },
-            { value: '24/7', label: 'Dostępność' },
+            { value: '30 sek', label: t('stats.registration') },
+            { value: '5-10 min', label: t('stats.generation') },
+            { value: '3', label: t('stats.formats') },
+            { value: '24/7', label: t('stats.availability') },
           ].map((stat, i) => (
             <motion.div
               key={i}

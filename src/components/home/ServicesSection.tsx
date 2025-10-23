@@ -172,13 +172,6 @@ const ServicesSection: React.FC = () => {
           >
             {t('title')}
           </h2>
-          <p
-            className={`text-xl max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}
-          >
-            Kompleksowe rozwiązania AI dla każdego rodzaju treści
-          </p>
         </motion.div>
 
         {/* Services Grid */}
@@ -258,62 +251,6 @@ const ServicesSection: React.FC = () => {
             );
           })}
         </div>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className={`rounded-3xl overflow-hidden ${
-            theme === 'dark'
-              ? 'bg-gradient-to-r from-blue-900/50 to-purple-900/50 border border-gray-700'
-              : 'bg-gradient-to-r from-blue-50 to-purple-50 border border-gray-200'
-          } p-12 text-center relative`}
-        >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div
-              className="w-full h-full"
-              style={{
-                backgroundImage: `radial-gradient(circle at 2px 2px, ${
-                  theme === 'dark' ? '#fff' : '#000'
-                } 1px, transparent 0)`,
-                backgroundSize: '30px 30px',
-              }}
-            />
-          </div>
-
-          <div className="relative z-10">
-            <h3
-              className={`text-3xl font-bold mb-4 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}
-            >
-              Potrzebujesz czegoś innego?
-            </h3>
-            <p
-              className={`text-lg mb-8 max-w-2xl mx-auto ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-              }`}
-            >
-              Oferujemy także niestandardowe rozwiązania dostosowane do Twoich
-              potrzeb
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/examples">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center gap-2"
-                >
-                  {t('footer')}
-                  <ArrowRight className="w-5 h-5" />
-                </motion.button>
-              </Link>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

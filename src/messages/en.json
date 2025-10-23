@@ -606,6 +606,15 @@
     "heroTitle": "Need an assignment written? Let Smart-Edu.AI do it!",
     "heroSubtitle": "Order an essay, report, research paper or any other written assignment and AI will generate it for you in 5 minutes",
     "heroCta": "Create Account",
+    "floating": {
+      "speed": {
+        "title": "Fast",
+        "description": "Results in minutes"
+      },
+      "unique": {
+        "title": "100% unique"
+      }
+    },
     "features": {
       "topic": {
         "title": "Any Subject and Assignment Type",
@@ -637,45 +646,83 @@
     "benefit4Description": "Use our generator for homework, academic papers and assignments in primary school, high school, technical school and university."
   },
   "HowItWorksSection": {
-    "title": "How does Smart-Edu.AI work?",
+    "badge": "How It Works",
+    "title": "Simple generation process",
+    "subtitle": "Simple 4-step process from idea to finished paper",
+    "mockup": {
+      "step": "Step {number}: {title}"
+    },
+    "cta": "Start Now",
     "steps": {
       "analysis": {
-        "title": "Topic and Guidelines Analysis",
-        "description": "Enter your topic and optional guidelines to help AI better understand your assignment requirements and expectations."
+        "title": "Requirements Analysis",
+        "description": "Define your paper details",
+        "detail1": "Enter paper topic",
+        "detail2": "Choose level and length",
+        "detail3": "Add requirements"
       },
       "research": {
-        "title": "Information Research",
-        "description": "AI searches the internet to find current and reliable sources to base your academic paper on."
+        "title": "Topic Research",
+        "description": "AI analyzes and gathers information",
+        "detail1": "AI analyzes topic",
+        "detail2": "Searches for sources",
+        "detail3": "Verifies information"
       },
       "processing": {
-        "title": "Information Processing",
-        "description": "AI analyzes collected data and creates academically sound content for your homework, coursework, or research paper."
+        "title": "Content Generation",
+        "description": "Creating professional paper",
+        "detail1": "Generates content",
+        "detail2": "Structures document",
+        "detail3": "Formats professionally"
       },
       "delivery": {
-        "title": "Ready Content to Download",
-        "description": "Download your text in PDF or DOCX format and use it according to your needs."
+        "title": "Ready Paper",
+        "description": "Download your paper",
+        "detail1": "Download PDF/DOCX",
+        "detail2": "Edit online",
+        "detail3": "Export in various formats"
       }
     }
   },
   "ProcessSection": {
+    "badge": "Process",
     "title": "How to use Smart-Edu.AI?",
+    "subtitle": "From idea to finished paper in a few simple steps",
     "steps": {
       "account": {
         "title": "Create a Free Account",
-        "description": "Sign up and get instant access to our AI academic paper generator."
+        "description": "Sign up and get instant access to our AI academic paper generator.",
+        "item1": "Email & password",
+        "item2": "Verification",
+        "item3": "Ready in 30 sec"
       },
       "details": {
         "title": "Specify Topic and Length",
-        "description": "Choose your topic, desired text length, and other preferences for your academic paper."
+        "description": "Choose your topic, desired text length, and other preferences for your academic paper.",
+        "item1": "Topic",
+        "item2": "Length",
+        "item3": "Difficulty level"
       },
       "wait": {
         "title": "Wait 5 Minutes",
-        "description": "Our advanced AI assignment generator writes high-quality academic work in just 5 minutes."
+        "description": "Our advanced AI assignment generator writes high-quality academic work in just 5 minutes.",
+        "item1": "AI working",
+        "item2": "5-10 minutes",
+        "item3": "Real-time status"
       },
       "download": {
         "title": "Download Your Paper",
-        "description": "Download the generated text in PDF or Word format and edit it according to your needs."
+        "description": "Download the generated text in PDF or Word format and edit it according to your needs.",
+        "item1": "PDF",
+        "item2": "DOCX",
+        "item3": "HTML"
       }
+    },
+    "stats": {
+      "registration": "Registration",
+      "generation": "Generation",
+      "formats": "export formats",
+      "availability": "Availability"
     }
   },
   "EducationLevelsSection": {
@@ -746,31 +793,65 @@
     }
   },
   "BenefitsPage": {
-    "title": "Generate Academic Papers with Smart-Edu.ai",
+    "badge": "Benefits",
+    "title": "Discover the Power of AI Writing",
+    "description": "Discover all the benefits of using our AI platform for generating academic content",
+    "stats": {
+      "faster": "Faster",
+      "quality": "Quality",
+      "languages": "Languages"
+    },
+    "demo": {
+      "title": "AI Academic Writing",
+      "subtitle": "Powered by Claude AI",
+      "progress1": "Topic Analysis",
+      "progress2": "Content Generation",
+      "progress3": "Formatting",
+      "stat1": "Words",
+      "stat2": "Time",
+      "status": "Online"
+    },
     "benefits": {
       "generation": {
-        "title": "Instant Text Generation",
-        "description": "Just provide the topic and length, and your paper will be generated within 5 minutes (or faster)."
+        "title": "Fast Generation",
+        "description": "Create complete papers in just 5-50 minutes instead of spending hours writing",
+        "feature1": "5-50 minutes",
+        "feature2": "Automation",
+        "feature3": "24/7 availability"
       },
       "originality": {
-        "title": "No Commitments",
-        "description": "With Smart-Edu.ai you only pay for generating each essay, paper or report. Forget about long-term commitments!"
+        "title": "100% Original Content",
+        "description": "Every paper is unique and created specifically for your requirements",
+        "feature1": "100% Unique",
+        "feature2": "Original content",
+        "feature3": "No plagiarism"
       },
       "versatility": {
         "title": "Versatility",
-        "description": "Generate academic papers from any field, in various formats and in multiple languages."
+        "description": "We support multiple languages, writing styles, and education levels",
+        "feature1": "7 languages",
+        "feature2": "Various styles",
+        "feature3": "All levels"
       },
       "quality": {
-        "title": "Quality Guarantee",
-        "description": "Content quality guaranteed thanks to Claude models that power Smart-Edu.AI."
+        "title": "Highest Quality",
+        "description": "We use advanced Claude AI models to create the highest quality content",
+        "feature1": "Claude AI",
+        "feature2": "Proven quality",
+        "feature3": "Professional formatting"
       },
       "export": {
         "title": "Easy Export",
-        "description": "Download ready assignments in PDF or Word format for further editing."
+        "description": "Download your papers in PDF, DOCX, or HTML formats",
+        "feature1": "PDF, DOCX",
+        "feature2": "HTML",
+        "feature3": "Instant download"
       },
       "flexibility": {
         "title": "Full Flexibility",
-        "description": "Edit and customize generated texts according to your needs."
+        "description": "Create different types of papers with any length tailored to your needs",
+        "feature1": "Various paper types",
+        "feature2": "Multiple lengths"
       }
     }
   },

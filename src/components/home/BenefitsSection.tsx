@@ -1,4 +1,4 @@
-// src/components/home/BenefitsSection_new.tsx
+// src/components/home/BenefitsSection.tsx
 'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -25,21 +25,33 @@ const BenefitsSection: React.FC = () => {
       description: t('benefits.generation.description'),
       Icon: Clock,
       gradient: 'from-blue-500 via-cyan-500 to-teal-500',
-      features: ['5-50 minut', 'Automatyzacja', '24/7 dostępność'],
+      features: [
+        t('benefits.generation.feature1'),
+        t('benefits.generation.feature2'),
+        t('benefits.generation.feature3'),
+      ],
     },
     {
       title: t('benefits.originality.title'),
       description: t('benefits.originality.description'),
       Icon: FileText,
       gradient: 'from-purple-500 via-pink-500 to-rose-500',
-      features: ['100% Unikalne', 'AI Detection Safe', 'Plagiarism Free'],
+      features: [
+        t('benefits.originality.feature1'),
+        t('benefits.originality.feature2'),
+        t('benefits.originality.feature3'),
+      ],
     },
     {
       title: t('benefits.versatility.title'),
       description: t('benefits.versatility.description'),
       Icon: Globe,
       gradient: 'from-green-500 via-emerald-500 to-teal-500',
-      features: ['7 języków', 'Różne style', 'Każdy poziom'],
+      features: [
+        t('benefits.versatility.feature1'),
+        t('benefits.versatility.feature2'),
+        t('benefits.versatility.feature3'),
+      ],
     },
     {
       title: t('benefits.quality.title'),
@@ -47,9 +59,9 @@ const BenefitsSection: React.FC = () => {
       Icon: Award,
       gradient: 'from-yellow-500 via-orange-500 to-red-500',
       features: [
-        'Claude AI',
-        'Sprawdzona jakość',
-        'Profesjonalne formatowanie',
+        t('benefits.quality.feature1'),
+        t('benefits.quality.feature2'),
+        t('benefits.quality.feature3'),
       ],
     },
     {
@@ -57,14 +69,21 @@ const BenefitsSection: React.FC = () => {
       description: t('benefits.export.description'),
       Icon: Download,
       gradient: 'from-indigo-500 via-purple-500 to-pink-500',
-      features: ['PDF, DOCX', 'LaTeX', 'Instant download'],
+      features: [
+        t('benefits.export.feature1'),
+        t('benefits.export.feature2'),
+        t('benefits.export.feature3'),
+      ],
     },
     {
       title: t('benefits.flexibility.title'),
       description: t('benefits.flexibility.description'),
       Icon: Edit,
       gradient: 'from-rose-500 via-pink-500 to-purple-500',
-      features: ['Live editing', 'Real-time preview', 'Custom templates'],
+      features: [
+        t('benefits.flexibility.feature1'),
+        t('benefits.flexibility.feature2'),
+      ],
     },
   ];
 
@@ -76,7 +95,6 @@ const BenefitsSection: React.FC = () => {
           : 'bg-gradient-to-b from-white via-blue-50 to-white'
       }`}
     >
-      {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
           animate={{
@@ -101,9 +119,7 @@ const BenefitsSection: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Header with Visual Element */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          {/* Left: Text Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -122,7 +138,7 @@ const BenefitsSection: React.FC = () => {
                   theme === 'dark' ? 'text-blue-400' : 'text-blue-600'
                 }`}
               >
-                Korzyści
+                {t('badge')}
               </span>
             </motion.div>
 
@@ -138,16 +154,14 @@ const BenefitsSection: React.FC = () => {
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
               }`}
             >
-              Odkryj wszystkie zalety korzystania z naszej platformy AI do
-              generowania treści akademickich
+              {t('description')}
             </p>
 
-            {/* Quick Stats */}
             <div className="grid grid-cols-3 gap-4 mt-8">
               {[
-                { icon: TrendingUp, value: '10x', label: 'Szybciej' },
-                { icon: Award, value: 'A+', label: 'Jakość' },
-                { icon: Globe, value: '50+', label: 'Języków' },
+                { icon: TrendingUp, value: '10x', label: t('stats.faster') },
+                { icon: Award, value: 'A+', label: t('stats.quality') },
+                { icon: Globe, value: '7+', label: t('stats.languages') },
               ].map((stat, i) => (
                 <motion.div
                   key={i}
@@ -185,7 +199,6 @@ const BenefitsSection: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Right: Visual Screenshot Mockup */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -194,7 +207,6 @@ const BenefitsSection: React.FC = () => {
             className="relative"
           >
             <div className="relative">
-              {/* Main Card */}
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
@@ -214,28 +226,35 @@ const BenefitsSection: React.FC = () => {
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}
                     >
-                      Pisanie prac - sztuczna inteligencja
+                      {t('demo.title')}
                     </div>
                     <div
                       className={`text-sm ${
                         theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                       }`}
                     >
-                      Napędzane przez Claude AI
+                      {t('demo.subtitle')}
                     </div>
                   </div>
                 </div>
 
-                {/* Progress bars */}
                 <div className="space-y-4">
                   {[
-                    { label: 'Analiza tematu', progress: 100, color: 'blue' },
                     {
-                      label: 'Generowanie treści',
+                      label: t('demo.progress1'),
+                      progress: 100,
+                      color: 'blue',
+                    },
+                    {
+                      label: t('demo.progress2'),
                       progress: 100,
                       color: 'purple',
                     },
-                    { label: 'Formatowanie', progress: 100, color: 'pink' },
+                    {
+                      label: t('demo.progress3'),
+                      progress: 100,
+                      color: 'pink',
+                    },
                   ].map((item, i) => (
                     <div key={i}>
                       <div className="flex justify-between mb-2">
@@ -277,11 +296,10 @@ const BenefitsSection: React.FC = () => {
                   ))}
                 </div>
 
-                {/* Stats grid */}
                 <div className="grid grid-cols-2 gap-3 mt-6">
                   {[
-                    { label: 'Słowa', value: '2,450' },
-                    { label: 'Czas', value: '8 min' },
+                    { label: t('demo.stat1'), value: '2,450' },
+                    { label: t('demo.stat2'), value: '8 min' },
                   ].map((stat, i) => (
                     <div
                       key={i}
@@ -308,7 +326,6 @@ const BenefitsSection: React.FC = () => {
                 </div>
               </motion.div>
 
-              {/* Floating Badge */}
               <motion.div
                 animate={{
                   y: [0, -10, 0],
@@ -328,7 +345,7 @@ const BenefitsSection: React.FC = () => {
                       theme === 'dark' ? 'text-green-400' : 'text-green-700'
                     }`}
                   >
-                    Online
+                    {t('demo.status')}
                   </span>
                 </div>
               </motion.div>
@@ -336,7 +353,6 @@ const BenefitsSection: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Benefits Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {benefits.map((benefit, index) => (
             <motion.div
@@ -355,12 +371,10 @@ const BenefitsSection: React.FC = () => {
                     : 'bg-white border border-gray-200 shadow-lg'
                 } transition-all duration-300 overflow-hidden`}
               >
-                {/* Gradient Background on Hover */}
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${benefit.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
                 />
 
-                {/* Icon */}
                 <div className="relative mb-6">
                   <div
                     className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${benefit.gradient} flex items-center justify-center shadow-lg`}
@@ -369,7 +383,6 @@ const BenefitsSection: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Content */}
                 <h3
                   className={`text-xl font-bold mb-3 ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
@@ -385,7 +398,6 @@ const BenefitsSection: React.FC = () => {
                   {benefit.description}
                 </p>
 
-                {/* Feature Pills */}
                 <div className="flex flex-wrap gap-2">
                   {benefit.features.map((feature, i) => (
                     <span

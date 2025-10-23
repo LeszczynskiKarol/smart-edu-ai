@@ -307,9 +307,15 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, cta }) => {
                       theme === 'dark' ? 'text-gray-200' : 'text-gray-700'
                     }`}
                   >
-                    Szybko
+                    {t('floating.speed.title')}
                   </span>
                 </div>
+                <div
+                  className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
+                >
+                  {t('floating.speed.description')}
+                </div>
+
                 <div
                   className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
                 >
@@ -344,9 +350,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ title, subtitle, cta }) => {
                       theme === 'dark' ? 'text-gray-200' : 'text-gray-700'
                     }`}
                   >
-                    100% unikalności
+                    {t('floating.unique.title')}
                   </span>
                 </div>
+
                 <div className="flex gap-2">
                   {[...Array(3)].map((_, i) => (
                     <div

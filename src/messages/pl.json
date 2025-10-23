@@ -538,7 +538,7 @@
   },
   "TrustSection": {
     "title": "Dlaczego warto nam zaufać?",
-    "subtitle": "Zamawiając prace zaliczeniowe u nas, zyskujesz gwarancje i profesjonalną obsługę",
+    "subtitle": "Zamawiając prace zaliczeniowe w Smart-Edu.ai, zyskujesz gwarancje i profesjonalną obsługę",
     "features": {
       "privacy": {
         "title": "Pełna prywatność",
@@ -586,6 +586,15 @@
     "heroTitle": "Praca do napisania? Zleć ją Smart‑Edu",
     "heroSubtitle": "Pisanie prac na zlecenie z AI. Podaj temat, a sztuczna inteligencja napisze Twoją pracę w 5 min",
     "heroCta": "Załóż konto",
+    "floating": {
+      "speed": {
+        "title": "Szybko",
+        "description": "Wyniki w kilka minut"
+      },
+      "unique": {
+        "title": "100% unikalności"
+      }
+    },
     "features": {
       "topic": {
         "title": "Dowolne przedmioty i zadania",
@@ -685,74 +694,144 @@
   },
 
   "BenefitsPage": {
+    "badge": "Korzyści",
     "title": "Generuj prace zaliczeniowe ze Smart-Edu.ai",
+    "description": "Odkryj wszystkie zalety korzystania z naszej platformy AI do generowania treści akademickich",
+    "stats": {
+      "faster": "Szybciej",
+      "quality": "Jakość",
+      "languages": "Języków"
+    },
+    "demo": {
+      "title": "Pisanie prac - sztuczna inteligencja",
+      "subtitle": "Napędzane przez Claude AI",
+      "progress1": "Analiza tematu",
+      "progress2": "Generowanie treści",
+      "progress3": "Formatowanie",
+      "stat1": "Słowa",
+      "stat2": "Czas",
+      "status": "Online"
+    },
     "benefits": {
       "generation": {
-        "title": "Błyskawiczne pisanie prac zaliczeniowych",
-        "description": "Podaj temat i długość, a praca zostanie wygenerowana w ciągu 5 minut (albo szybciej)."
+        "title": "Szybkie generowanie",
+        "description": "Twórz kompletne prace w zaledwie 5-50 minut zamiast spędzać godziny na pisaniu",
+        "feature1": "5-50 minut",
+        "feature2": "Automatyzacja",
+        "feature3": "24/7 dostępność"
       },
       "originality": {
-        "title": "Brak zobowiązań",
-        "description": "W Smart-Edu.ai płacisz tylko za pisanie każdego wypracowania, eseju czy referatu. Zapomnij o długoterminowych zoobowiązaniach!"
+        "title": "100% Oryginalna treść",
+        "description": "Każda praca jest unikalna i stworzona specjalnie dla Twoich wymagań",
+        "feature1": "100% Unikalne",
+        "feature2": "Oryginalna treść",
+        "feature3": "Bez plagiatu"
       },
       "versatility": {
         "title": "Wszechstronność",
-        "description": "Generuj prace pisemne z dowolnych dziedzin, w różnych formach i w kilku językach, w tym po polsku."
+        "description": "Wspieramy wiele języków, stylów pisania i poziomów edukacyjnych",
+        "feature1": "7 języków",
+        "feature2": "Różne style",
+        "feature3": "Każdy poziom"
       },
       "quality": {
-        "title": "Wysoka jakość",
-        "description": "Jakość treści gwarantowana dzięki modelom Claude, na których bazuje Smart-Edu.AI."
+        "title": "Najwyższa jakość",
+        "description": "Wykorzystujemy zaawansowane modele AI Claude do tworzenia treści najwyższej jakości",
+        "feature1": "Claude AI",
+        "feature2": "Sprawdzona jakość",
+        "feature3": "Profesjonalne formatowanie"
       },
       "export": {
         "title": "Łatwy eksport",
-        "description": "Pobieraj gotowe prace zaliczeniowe w formacie PDF lub Word do dalszej edycji."
+        "description": "Pobieraj swoje prace w formatach PDF, DOCX lub HTML",
+        "feature1": "PDF, DOCX",
+        "feature2": "HTML",
+        "feature3": "Instant download"
       },
       "flexibility": {
         "title": "Pełna elastyczność",
-        "description": "Edytuj i dostosowuj wygenerowane teksty według własnych potrzeb."
+        "description": "Twórz różne rodzaje prac o dowolnej długości dostosowanej do Twoich potrzeb",
+        "feature1": "Różne rodzaje prac",
+        "feature2": "Wiele długości"
       }
     }
   },
   "HowItWorksSection": {
     "title": "Jak działa Smart-Edu.AI?",
+    "mockup": {
+      "step": "Krok {number}: {title}"
+    },
+
     "steps": {
       "analysis": {
         "title": "Analiza tematu i wytycznych",
-        "description": "Wprowadź temat i opcjonalne wytyczne, które pomogą sztucznej inteligencji lepiej zrozumieć zadanie i Twoje oczekiwania."
+        "description": "Wprowadź temat i opcjonalne wytyczne, które pomogą sztucznej inteligencji lepiej zrozumieć zadanie i Twoje oczekiwania.",
+        "detail1": "Wpisz temat pracy",
+        "detail2": "Wybierz poziom i długość",
+        "detail3": "Dodaj wymagania"
       },
       "research": {
         "title": "Wyszukiwanie informacji",
-        "description": "Sztuczna inteligencja przeszukuje internet, aby znaleźć aktualne i rzetelne źródła, na podstawie których pisze pracę."
+        "description": "Sztuczna inteligencja przeszukuje internet, aby znaleźć aktualne i rzetelne źródła, na podstawie których pisze pracę.",
+        "detail1": "AI analizuje temat",
+        "detail2": "Wyszukuje źródła",
+        "detail3": "Weryfikuje informacje"
       },
       "processing": {
         "title": "Przetwarzanie informacji",
-        "description": "AI analizuje zebrane dane i tworzy merytorycznie poprawną treść do Twojej pracy domowej, zaliczeniowej, naukowej."
+        "description": "AI analizuje zebrane dane i tworzy merytorycznie poprawną treść do Twojej pracy domowej, zaliczeniowej, naukowej.",
+        "detail1": "Generuje treść",
+        "detail2": "Strukturyzuje dokument",
+        "detail3": "Formatuje profesjonalnie"
       },
       "delivery": {
         "title": "Gotowa treść do pobrania",
-        "description": "Pobierz swój tekst w formacie PDF lub DOCX i używaj jej według własnych potrzeb."
+        "description": "Pobierz swój tekst w formacie PDF lub DOCX i używaj jej według własnych potrzeb.",
+        "detail1": "Pobierz PDF/DOCX",
+        "detail2": "Edytuj online",
+        "detail3": "Eksportuj w różnych formatach"
       }
     }
   },
   "ProcessSection": {
+    "badge": "Proces",
     "title": "Jak korzystać ze Smart-Edu.AI?",
+    "subtitle": "Od pomysłu do gotowej pracy w kilka prostych kroków",
     "steps": {
       "account": {
         "title": "Załóż darmowe konto",
-        "description": "Zarejestruj się w serwisie i uzyskaj natychmiastowy dostęp do naszego AI do generowania prac pisemnych."
+        "description": "Zarejestruj się w serwisie i uzyskaj natychmiastowy dostęp do naszego AI do generowania prac pisemnych.",
+        "item1": "Email & hasło",
+        "item2": "Weryfikacja",
+        "item3": "Gotowe w 30 sek"
       },
       "details": {
         "title": "Podaj temat i długość tekstu",
-        "description": "Wybierz temat, określ pożądaną długość i inne preferencje dla swojego tekstu."
+        "description": "Wybierz temat, określ pożądaną długość i inne preferencje dla swojego tekstu.",
+        "item1": "Temat",
+        "item2": "Długość",
+        "item3": "Poziom trudności"
       },
       "wait": {
         "title": "Poczekaj 5 minut",
-        "description": "Nasz zaawansowany generator prac zaliczeniowych AI pisze wysokiej jakości pracę domową w ciągu zaledwie 5 minut."
+        "description": "Nasz zaawansowany generator prac zaliczeniowych AI pisze wysokiej jakości pracę domową w ciągu zaledwie 5 minut.",
+        "item1": "AI pracuje",
+        "item2": "5-10 minut",
+        "item3": "Real-time status"
       },
       "download": {
         "title": "Pobierz gotową pracę",
-        "description": "Pobierz wygenerowany tekst w formacie PDF lub Word i edytuj go według własnych potrzeb."
+        "description": "Pobierz wygenerowany tekst w formacie PDF lub Word i edytuj go według własnych potrzeb.",
+        "item1": "PDF",
+        "item2": "DOCX",
+        "item3": "HTML"
       }
+    },
+    "stats": {
+      "registration": "Rejestracja",
+      "generation": "Generowanie",
+      "formats": "formaty eksportu",
+      "availability": "Dostępność"
     }
   },
   "ServicesSection": {
