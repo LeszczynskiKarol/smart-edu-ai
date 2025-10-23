@@ -81,6 +81,13 @@ const Footer: React.FC = () => {
                   {t('links.paper')}
                 </Link>
                 <Link
+                  href={`/${locale}/bachelors-thesis`}
+                  className="hover:text-gray-300"
+                  onClick={() => handleLinkClick('paperAI')}
+                >
+                  {t('links.bachelor')}
+                </Link>
+                <Link
                   href={`/${locale}/composition`}
                   className="hover:text-gray-300"
                   onClick={() => handleLinkClick('compositionWriter')}
