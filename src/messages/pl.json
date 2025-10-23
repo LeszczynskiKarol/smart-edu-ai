@@ -138,6 +138,40 @@
   "Video": {
     "headerVideo": "2 kliknięcia i praca gotowa w 5 min"
   },
+  "tutorial": {
+    "step": "Krok",
+    "of": "z",
+    "previous": "Wstecz",
+    "next": "Dalej",
+    "skip": "Pomiń",
+    "finish": "Zakończ",
+    "steps": {
+      "language": {
+        "title": "Wybierz język tekstu",
+        "description": "Tutaj możesz wybrać język, w jakim ma zostać napisany Twój tekst. Dostępnych jest wiele opcji językowych."
+      },
+      "length": {
+        "title": "Wybierz długość tekstu",
+        "description": "Określ, ile słów (stron) ma mieć Twój tekst."
+      },
+      "contentType": {
+        "title": "Rodzaj treści",
+        "description": "Wybierz typ pracy: esej, referat, praca licencjacka lub magisterska. Jeśli chcesz zlecić inny rodzaj pracy, wybierz Inny i wprowadź nazwę typu pracy, którą chcesz wygenerować (np. felietion, poradnik)."
+      },
+      "topic": {
+        "title": "Wpisz temat",
+        "description": "Po prostu wpisz temat swojej pracy, a AI wygeneruje ją dla Ciebie."
+      },
+      "guidelines": {
+        "title": "Dodatkowe wytyczne",
+        "description": "Możesz dodać szczegółowe instrukcje, wymagania lub informacje, które pomogą w przygotowaniu tekstu."
+      },
+      "submit": {
+        "title": "Złóż zamówienie",
+        "description": "Gdy wszystko jest gotowe, kliknij ten przycisk, aby wysłać zamówienie. Otrzymasz tekst w ciągu kilku godzin!"
+      }
+    }
+  },
   "Terms": {
     "title": "Regulamin Serwisu Smart-Edu.ai",
     "lastUpdated": "Ostatnia aktualizacja: 6 grudnia 2024",

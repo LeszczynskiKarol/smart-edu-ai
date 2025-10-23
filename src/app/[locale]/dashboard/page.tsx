@@ -2,6 +2,7 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import TutorialGuide from '@/components/dashboard/TutorialGuide';
 import { useAnalytics } from '@/context/AnalyticsContext';
 import { useSearchParams } from 'next/navigation';
 import { useTracking } from '@/hooks/useTracking';
@@ -97,6 +98,61 @@ export default function Dashboard() {
   const searchParams = useSearchParams();
   const te = useTranslations('errors');
   const { refreshOrders, setOrders } = useOrderStatus();
+  const [showTutorial, setShowTutorial] = useState(false);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    console.log('🔍 Checking tutorial status from backend:', {
+      user: !!user,
+      hasSeenTutorial: user?.hasSeenTutorial,
+    });
+
+    // Sprawdź czy użytkownik NIE widział tutoriala (z backendu)
+    if (user && user.hasSeenTutorial === false) {
+      console.log('✅ Showing tutorial - user has not seen it yet');
+
+      // Małe opóźnienie na załadowanie DOM
+      setTimeout(() => {
+        setShowTutorial(true);
+      }, 1000);
+    }
+  }, [user]);
+
+  const handleTutorialComplete = async () => {
+    console.log('✅ Tutorial completed, updating backend');
+    setShowTutorial(false);
+
+    trackInteraction('tutorial_completed', {
+      completed: true,
+    });
+
+    // Zaktualizuj backend
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/users/tutorial-complete`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+        console.log('✅ Tutorial status updated on backend');
+        // Odśwież dane użytkownika żeby mieć nowy stan
+        await refreshUserData();
+      } else {
+        console.error('❌ Failed to update tutorial status:', data.message);
+      }
+    } catch (error) {
+      console.error('❌ Error updating tutorial status:', error);
+    }
+  };
 
   const textLengths = [
     { value: '2000', label: t('textLengths.2000') },
@@ -1012,6 +1068,7 @@ export default function Dashboard() {
                       >
                         <div className="flex flex-col sm:flex-row gap-4">
                           <select
+                            data-tutorial="language-select"
                             value={form.language}
                             onChange={(e) => {
                               trackInteraction('language_select_change', {
@@ -1056,6 +1113,7 @@ export default function Dashboard() {
                               </div>
                             ) : (
                               <select
+                                data-tutorial="length-select"
                                 value={form.textLength}
                                 onChange={(e) => {
                                   const newLength = e.target.value;
@@ -1128,7 +1186,10 @@ export default function Dashboard() {
 
                               <div>
                                 {/* Zmodyfikowana wersja boxów z typami treści z lepszymi kolorami */}
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-2">
+                                <div
+                                  data-tutorial="content-type"
+                                  className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-2"
+                                >
                                   {contentTypes.map((type) => {
                                     const Icon = type.icon;
                                     const isSelected =
@@ -1649,6 +1710,7 @@ export default function Dashboard() {
                             } border border-gray-300`}
                           >
                             <textarea
+                              data-tutorial="topic"
                               value={form.topic}
                               onChange={(e) => {
                                 updateForm(form.id, {
@@ -1688,6 +1750,7 @@ export default function Dashboard() {
                           } border border-gray-300`}
                         >
                           <textarea
+                            data-tutorial="guidelines"
                             value={form.prompt}
                             onChange={(e) => {
                               updateForm(form.id, { prompt: e.target.value });
@@ -1770,6 +1833,7 @@ export default function Dashboard() {
 
          Zamień obecny button na ten: */}
           <button
+            data-tutorial="submit-button"
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               const invalidForms = textForms.filter((form) => {
                 if (!form.textLength) return true;
@@ -1884,6 +1948,12 @@ export default function Dashboard() {
           </div>
           <SuccessModalHandler />
         </div>
+      )}
+      {showTutorial && (
+        <TutorialGuide
+          isFirstLogin={showTutorial}
+          onComplete={handleTutorialComplete}
+        />
       )}
     </>
   );

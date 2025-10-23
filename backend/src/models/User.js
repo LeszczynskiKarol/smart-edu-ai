@@ -14,6 +14,11 @@ const UserSchema = new mongoose.Schema(
       browser: { type: Boolean, default: false },
       sound: { type: Boolean, default: false },
     },
+    hasSeenTutorial: {
+      type: Boolean,
+      default: false,
+    },
+
     newsletterPreferences: {
       categories: [{ type: String }],
     },

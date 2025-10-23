@@ -134,6 +134,40 @@
       "por": "Portuguese"
     }
   },
+  "tutorial": {
+    "step": "Step",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next",
+    "skip": "Skip",
+    "finish": "Finish",
+    "steps": {
+      "language": {
+        "title": "Select text language",
+        "description": "Here you can choose the language in which your text should be written. Many language options are available."
+      },
+      "length": {
+        "title": "Select text length",
+        "description": "Specify how many words your text should have. The longer the text, the higher the price."
+      },
+      "contentType": {
+        "title": "Content type",
+        "description": "Choose the type of work: essay, report, bachelor's or master's thesis. Each type has its own specific features."
+      },
+      "topic": {
+        "title": "Enter topic",
+        "description": "Describe exactly what your text should be about. The more details, the better the result."
+      },
+      "guidelines": {
+        "title": "Additional guidelines",
+        "description": "You can add detailed instructions, requirements or information that will help in preparing the text."
+      },
+      "submit": {
+        "title": "Place order",
+        "description": "When everything is ready, click this button to submit your order. You will receive the text within a few hours!"
+      }
+    }
+  },
   "Video": {
     "videoHeader": "Your Work Ready in 5 min"
   },

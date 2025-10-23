@@ -44,16 +44,16 @@ const VerificationPage: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Teraz dopiero zapisujemy token i aktualizujemy stan użytkownika
         const token = data.token;
         if (token) {
           localStorage.setItem('token', token);
-          // Czyścimy dane tymczasowe
-          sessionStorage.removeItem('pendingVerification');
 
+          // ✅ DODAJ TO - oznacz jako nowego użytkownika
+          sessionStorage.setItem('isNewUser', 'true');
+
+          sessionStorage.removeItem('pendingVerification');
           await refreshUserData();
           setIsVerified(true);
-
           setTimeout(() => {
             router.push(`/${locale}/dashboard`);
           }, 2000);

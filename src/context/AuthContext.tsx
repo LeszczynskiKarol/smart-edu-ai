@@ -18,6 +18,7 @@ export interface User {
   role: string;
   isVerified: boolean;
   accountBalance: number;
+  hasSeenTutorial: boolean;
   notificationPermissions: {
     browser?: boolean;
     sound?: boolean;

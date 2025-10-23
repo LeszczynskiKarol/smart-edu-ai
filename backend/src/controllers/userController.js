@@ -133,6 +133,9 @@ exports.login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        hasSeenTutorial: user.hasSeenTutorial,
+        isVerified: user.isVerified,
+        accountBalance: user.accountBalance,
       },
     });
   } catch (error) {
@@ -330,6 +333,7 @@ exports.register = async (req, res) => {
       companyDetails,
       verificationCode,
       isVerified: false,
+      hasSeenTutorial: false,
     });
 
     try {
@@ -395,6 +399,7 @@ exports.register = async (req, res) => {
         email: user.email,
         role: user.role,
         isVerified: user.isVerified,
+        hasSeenTutorial: user.hasSeenTutorial,
       },
       message: i18n.__('auth.registration.success'),
     });
@@ -426,10 +431,12 @@ exports.handleGoogleLogin = async (req, res) => {
 
     console.log('👤 Email:', payload.email);
     let user = await User.findOne({ email: payload.email });
+    let isNewUser = false;
     console.log('👤 User exists:', user ? 'YES' : 'NO');
 
     if (!user) {
       console.log('📝 Creating new user...');
+      isNewUser = true;
       user = new User({
         name: payload.name,
         email: payload.email,
@@ -437,6 +444,7 @@ exports.handleGoogleLogin = async (req, res) => {
         role: 'client',
         isVerified: true,
         googleId: payload.sub,
+        hasSeenTutorial: false,
       });
 
       await user.save();
@@ -489,12 +497,14 @@ exports.handleGoogleLogin = async (req, res) => {
     res.status(200).json({
       success: true,
       token: jwtToken,
+      isNewUser: isNewUser,
       user: {
         id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
         isVerified: user.isVerified,
+        hasSeenTutorial: user.hasSeenTutorial,
       },
     });
   } catch (error) {
@@ -517,9 +527,21 @@ exports.getMe = async (req, res) => {
         message: 'User not found',
       });
     }
+
     res.status(200).json({
       success: true,
-      user: user,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        isVerified: user.isVerified,
+        accountBalance: user.accountBalance,
+        hasSeenTutorial: user.hasSeenTutorial, // ✅ DODAJ TO
+        notificationPermissions: user.notificationPermissions,
+        companyDetails: user.companyDetails,
+        accountBalanceCurrency: user.accountBalanceCurrency,
+      },
     });
   } catch (error) {
     console.error('Error in getMe:', error);
@@ -817,6 +839,9 @@ exports.refreshSession = async (req, res) => {
           role: user.role,
           companyDetails: user.companyDetails,
           notificationPermissions: user.notificationPermissions,
+          accountBalance: user.accountBalance,
+          hasSeenTutorial: user.hasSeenTutorial,
+          isVerified: user.isVerified,
         },
       });
     }
@@ -837,6 +862,9 @@ exports.refreshSession = async (req, res) => {
         role: user.role,
         companyDetails: user.companyDetails,
         notificationPermissions: user.notificationPermissions,
+        accountBalance: user.accountBalance,
+        hasSeenTutorial: user.hasSeenTutorial,
+        isVerified: user.isVerified,
       },
     });
   } catch (error) {
@@ -944,6 +972,37 @@ exports.adminLogin = async (req, res) => {
     res.status(500).json({
       success: false,
       message: 'Błąd serwera',
+      error: error.message,
+    });
+  }
+};
+
+exports.markTutorialComplete = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { hasSeenTutorial: true },
+      { new: true, runValidators: true }
+    ).select('-password');
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {
+        hasSeenTutorial: user.hasSeenTutorial,
+      },
+    });
+  } catch (error) {
+    console.error('Error marking tutorial as complete:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error',
       error: error.message,
     });
   }

@@ -18,6 +18,7 @@ const {
   getLatestTopUp,
   getUserStats,
   adminLogin,
+  markTutorialComplete,
 } = require('../controllers/userController');
 const { protect } = require('../middlewares/auth');
 
@@ -47,5 +48,6 @@ router.post('/top-up', protect, topUpAccount);
 router.get('/latest-top-up', protect, getLatestTopUp);
 router.get('/stats', protect, getUserStats);
 router.post('/logout', protect, logout);
+router.put('/tutorial-complete', protect, markTutorialComplete);
 
 module.exports = router;
