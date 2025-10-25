@@ -874,6 +874,278 @@
         }
       }
     },
+    "MastersThesis": {
+      "pageTitle": "Master's Thesis AI Generator | Master's Thesis Writing",
+      "meta": {
+        "title": "Master's Thesis Writing with Artificial Intelligence | AI Master's Thesis Generator",
+        "description": "AI for writing master's thesis ✓ Online master's thesis generator ✓ Create master's thesis with AI in 90-120 minutes ✓ 80-120 pages ✓ Bibliography ✓ Verified sources ✓ From 299 PLN",
+        "keywords": "ai for master thesis writing, master thesis writing, master thesis generator, master thesis generation, master thesis creation, artificial intelligence for master thesis writing, master thesis ai, master thesis generator online, write master thesis, master thesis on demand"
+      },
+      "hero": {
+        "badge": "Master's Thesis Generator",
+        "title": "Master's Thesis Writing with AI",
+        "subtitle": "Generate a complete 80-120 page master's thesis with bibliography and verified sources within 2 hours. AI conducts advanced research and creates a professional scientific paper of the highest quality.",
+        "cta": "Start writing thesis",
+        "features": {
+          "fast": "Ready in 90-120 min",
+          "quality": "Verified sources",
+          "complete": "80-120 pages + bibliography"
+        },
+        "stats": {
+          "pages": "pages",
+          "price": "per thesis",
+          "available": "availability"
+        },
+        "preview": {
+          "title": "Master's Thesis AI",
+          "subtitle": "Advanced academic structure",
+          "item1": "Title page and table of contents",
+          "item2": "Introduction and research methodology",
+          "item3": "Chapters with in-depth analysis",
+          "item4": "Conclusions and scientific bibliography",
+          "status": "Generation active"
+        }
+      },
+      "benefits": {
+        "badge": "Benefits",
+        "title": "Why choose our master's thesis generator?",
+        "subtitle": "Discover all the benefits of generating a master's thesis with highest quality AI",
+        "speed": {
+          "title": "Fast generation",
+          "description": "Receive a complete master's thesis in 90-120 minutes instead of months of writing",
+          "feature1": "Generation in 90-120 minutes",
+          "feature2": "Advanced formatting",
+          "feature3": "24/7 availability"
+        },
+        "structure": {
+          "title": "Advanced structure",
+          "description": "Every thesis has a professional scientific structure that meets the highest university standards",
+          "feature1": "Full scientific structure",
+          "feature2": "Academic formatting",
+          "feature3": "Table of contents and numbering"
+        },
+        "research": {
+          "title": "In-depth research",
+          "description": "AI conducts advanced research and verifies scientific sources for your thesis",
+          "feature1": "25-40 scientific sources",
+          "feature2": "Verified data",
+          "feature3": "Complete bibliography"
+        },
+        "quality": {
+          "title": "Highest quality",
+          "description": "We use the latest Claude AI models to create master's-level content",
+          "feature1": "Claude AI Sonnet 4.5",
+          "feature2": "Scientific content",
+          "feature3": "In-depth analysis"
+        },
+        "formats": {
+          "title": "Multiple formats",
+          "description": "Download your thesis in a convenient format - PDF or DOCX for full editing",
+          "feature1": "PDF format",
+          "feature2": "DOCX format",
+          "feature3": "Instant access"
+        },
+        "privacy": {
+          "title": "Privacy and security",
+          "description": "Your data and thesis are fully protected and never shared",
+          "feature1": "100% confidentiality",
+          "feature2": "Secure payments",
+          "feature3": "GDPR data protection"
+        }
+      },
+      "howItWorks": {
+        "badge": "How it works",
+        "title": "Master's thesis generation process",
+        "subtitle": "4 simple steps to a finished master's thesis of the highest quality",
+        "mockup": {
+          "step": "Step {number}: {title}"
+        },
+        "steps": {
+          "input": {
+            "title": "Provide topic and requirements",
+            "description": "Enter thesis topic, field of study and detailed requirements",
+            "detail1": "Master's thesis topic",
+            "detail2": "Field and specialization",
+            "detail3": "Detailed requirements"
+          },
+          "research": {
+            "title": "AI conducts research",
+            "description": "Artificial intelligence analyzes the topic and searches for credible scientific sources",
+            "detail1": "In-depth topic analysis",
+            "detail2": "Scientific source searching",
+            "detail3": "Data verification"
+          },
+          "generation": {
+            "title": "Thesis generation",
+            "description": "AI creates a complete thesis with advanced structure and formatting",
+            "detail1": "Writing scientific chapters",
+            "detail2": "Creating in-depth analysis",
+            "detail3": "Formatting and bibliography"
+          },
+          "download": {
+            "title": "Download finished thesis",
+            "description": "You receive a complete master's thesis ready to download and edit",
+            "detail1": "PDF/DOCX format",
+            "detail2": "Full editing capability",
+            "detail3": "Instant access"
+          }
+        }
+      },
+      "structure": {
+        "badge": "Thesis structure",
+        "title": "Comprehensive master's thesis structure",
+        "subtitle": "Every thesis contains all required elements of advanced scientific structure",
+        "pagesLabel": "pp.",
+        "elements": {
+          "titlePage": {
+            "title": "Title page",
+            "description": "Professional title page with all required information"
+          },
+          "tableOfContents": {
+            "title": "Table of contents",
+            "description": "Automatically generated table of contents with page numbering"
+          },
+          "introduction": {
+            "title": "Introduction",
+            "description": "Introduction to the topic, thesis objectives and advanced research methodology"
+          },
+          "literature": {
+            "title": "Literature review",
+            "description": "In-depth analysis of existing literature and scientific research in the field"
+          },
+          "methodology": {
+            "title": "Methodology",
+            "description": "Detailed description of research methods and analysis tools"
+          },
+          "chapters": {
+            "title": "Substantive chapters",
+            "description": "Main part of the thesis with in-depth analysis, research and results"
+          },
+          "results": {
+            "title": "Research results",
+            "description": "Presentation and discussion of conducted research results"
+          },
+          "conclusion": {
+            "title": "Conclusion",
+            "description": "Summary of results, scientific conclusions and recommendations"
+          },
+          "bibliography": {
+            "title": "Bibliography",
+            "description": "Complete list of scientific sources in required citation format"
+          }
+        },
+        "stats": {
+          "totalPages": "total pages",
+          "sections": "sections",
+          "sources": "sources",
+          "complete": "completeness"
+        }
+      },
+      "process": {
+        "badge": "Process",
+        "title": "How to order a master's thesis?",
+        "subtitle": "From registration to finished thesis in 4 simple steps",
+        "steps": {
+          "account": {
+            "title": "Create account",
+            "description": "Register and get access to the master's thesis generator",
+            "item1": "Email registration",
+            "item2": "Account verification",
+            "item3": "Ready in 5 minutes"
+          },
+          "details": {
+            "title": "Fill in details",
+            "description": "Provide topic, field of study and detailed thesis requirements",
+            "item1": "Master's thesis topic",
+            "item2": "Field of study",
+            "item3": "Detailed requirements"
+          },
+          "wait": {
+            "title": "Wait 90-120 minutes",
+            "description": "AI generates complete master's thesis with bibliography and scientific sources",
+            "item1": "AI conducts research",
+            "item2": "Generation 90-120 min",
+            "item3": "Real-time status"
+          },
+          "download": {
+            "title": "Download thesis",
+            "description": "Download finished master's thesis in PDF or DOCX format",
+            "item1": "PDF format",
+            "item2": "DOCX format",
+            "item3": "Full editing capability"
+          }
+        },
+        "stats": {
+          "registration": "Registration",
+          "generation": "Generation",
+          "formats": "Formats",
+          "availability": "Availability"
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Frequently asked questions",
+        "subtitle": "Everything you need to know about the master's thesis generator",
+        "questions": {
+          "q1": {
+            "question": "How long does it take to generate a master's thesis?",
+            "answer": "Generating a complete master's thesis (80-120 pages) takes 90 to 120 minutes. After this time, you will receive a finished thesis with scientific bibliography and all required structural elements."
+          },
+          "q2": {
+            "question": "Will the thesis be unique and at master's level?",
+            "answer": "Yes, every thesis is generated from scratch specifically for your requirements at master's level. AI creates 100% unique content with in-depth scientific analysis, using the latest Claude AI models."
+          },
+          "q3": {
+            "question": "Can I edit the generated thesis?",
+            "answer": "Of course! You can download the thesis in DOCX format, which allows full editing in programs such as Microsoft Word or Google Docs. You can freely modify the content, add your own research and adjust the formatting."
+          },
+          "q4": {
+            "question": "What scientific sources does AI use?",
+            "answer": "AI uses verified academic sources, scientific publications, monographs, scientific journals and articles from credible databases. Each thesis contains a complete bibliography with 25-40 sources in appropriate citation format."
+          },
+          "q5": {
+            "question": "Will the thesis meet my university's requirements?",
+            "answer": "AI generates theses according to the highest academic standards. You can provide specific requirements of your university (citation format, structure, formal requirements, methodology), and AI will adapt the thesis to these guidelines."
+          },
+          "q6": {
+            "question": "What if I'm not satisfied with the thesis?",
+            "answer": "After generating the thesis, you can download and review it in detail. If something doesn't meet your expectations, you can edit the thesis yourself in DOCX format or contact our support."
+          },
+          "q7": {
+            "question": "What is the difference between a bachelor's and master's thesis?",
+            "answer": "A master's thesis is longer (80-120 pages vs 60-90), contains more scientific sources (25-40 vs 15-30), has a more advanced research methodology and requires deeper topic analysis. AI generates content at a higher scientific level for master's theses."
+          }
+        },
+        "contact": {
+          "title": "Have more questions?",
+          "description": "Our support team is available 24/7 and happy to help",
+          "button": "Contact us"
+        }
+      },
+      "cta": {
+        "badge": "Start now",
+        "title": "Ready for your master's thesis?",
+        "subtitle": "Generate a complete master's thesis in 90-120 minutes",
+        "button": "Start writing thesis",
+        "features": {
+          "fast": "Fast generation",
+          "secure": "Secure payments",
+          "quality": "Highest quality"
+        },
+        "trust": {
+          "indicator1": "100% secure payments",
+          "indicator2": "Personal data protection",
+          "indicator3": "Instant access"
+        },
+        "stats": {
+          "pages": "pages",
+          "price": "price",
+          "time": "generation time",
+          "support": "support"
+        }
+      }
+    },
+
     "features": {
       "topic": {
         "title": "Any Subject and Assignment Type",
@@ -1320,6 +1592,7 @@
       "paper": "AI School Report Writer",
       "bachelor": "AI Bachelors Thesis Writer",
       "composition": "AI Composition Writer",
+      "masters": "AI Masters Thesis Writer",
       "writerPaper": "AI Paper Writer"
     },
     "contact": {

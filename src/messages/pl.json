@@ -394,6 +394,277 @@
       }
     }
   },
+  "MastersThesis": {
+    "pageTitle": "Generator Pracy Magisterskiej AI | Pisanie Prac Magisterskich",
+    "meta": {
+      "title": "Pisanie Prac Magisterskich - Sztuczna Inteligencja | AI Generator Pracy Magisterskiej",
+      "description": "AI do pisania prac magisterskich ✓ Generator pracy magisterskiej online ✓ Tworzenie pracy magisterskiej z AI w 90-120 minut ✓ 80-120 stron ✓ Bibliografia ✓ Sprawdzone źródła ✓ Od 249 zł",
+      "keywords": "ai do pisania prac magisterskich, pisanie prac magisterskich, generator prac magisterskich, generowanie pracy magisterskiej, tworzenie pracy magisterskiej, sztuczna inteligencja do pisania pracy magisterskiej, praca magisterska ai, generator pracy magisterskiej online, napisz pracę magisterską, praca magisterska na zamówienie, ai do mgr, pisanie prac mgr, tworzenie prac mgr"
+    },
+    "hero": {
+      "badge": "Generator pracy magisterskiej",
+      "title": "AI do prac magisterskich",
+      "subtitle": "Wygeneruj kompletną pracę magisterską 80-120 stron z bibliografią i sprawdzonymi źródłami w ciągu 2 godzin. AI przeprowadza zaawansowane badania i tworzy profesjonalną pracę naukową najwyższej jakości.",
+      "cta": "Załóż darmowe konto",
+      "features": {
+        "fast": "Gotowa w 90-120 min",
+        "quality": "Sprawdzone źródła",
+        "complete": "80-120 stron + bibliografia"
+      },
+      "stats": {
+        "pages": "stron",
+        "price": "za pracę",
+        "available": "dostępność"
+      },
+      "preview": {
+        "title": "Praca Magisterska AI",
+        "subtitle": "Zaawansowana struktura akademicka",
+        "item1": "Strona tytułowa i spis treści",
+        "item2": "Wstęp i metodologia badawcza",
+        "item3": "Rozdziały z pogłębioną analizą",
+        "item4": "Wnioski i bibliografia naukowa",
+        "status": "Generowanie aktywne"
+      }
+    },
+    "benefits": {
+      "badge": "Zalety",
+      "title": "Dlaczego warto wybrać nasz generator prac magisterskich?",
+      "subtitle": "Poznaj wszystkie korzyści z generowania pracy magisterskiej z AI najwyższej jakości",
+      "speed": {
+        "title": "Szybkie generowanie",
+        "description": "Otrzymaj kompletną pracę magisterską w ciągu 90-120 minut zamiast miesięcy pisania",
+        "feature1": "Generowanie w 90-120 minut",
+        "feature2": "Zaawansowane formatowanie",
+        "feature3": "Dostępność 24/7"
+      },
+      "structure": {
+        "title": "Zaawansowana struktura",
+        "description": "Każda praca ma profesjonalną strukturę naukową zgodną z najwyższymi standardami uczelni",
+        "feature1": "Pełna struktura naukowa",
+        "feature2": "Formatowanie akademickie",
+        "feature3": "Spis treści i numeracja"
+      },
+      "research": {
+        "title": "Pogłębione badania",
+        "description": "AI przeprowadza zaawansowane badania i weryfikuje źródła naukowe dla Twojej pracy",
+        "feature1": "25-40 źródeł naukowych",
+        "feature2": "Zweryfikowane dane",
+        "feature3": "Kompletna bibliografia"
+      },
+      "quality": {
+        "title": "Najwyższa jakość",
+        "description": "Wykorzystujemy najnowsze modele Claude AI do tworzenia treści na poziomie magisterskim",
+        "feature1": "Claude AI Sonnet 4.5",
+        "feature2": "Treści naukowe",
+        "feature3": "Pogłębiona analiza"
+      },
+      "formats": {
+        "title": "Wiele formatów",
+        "description": "Pobierz swoją pracę w wygodnym formacie - PDF lub DOCX do pełnej edycji",
+        "feature1": "Format PDF",
+        "feature2": "Format DOCX",
+        "feature3": "Natychmiastowy dostęp"
+      },
+      "privacy": {
+        "title": "Prywatność i bezpieczeństwo",
+        "description": "Twoje dane i praca są w pełni chronione i nigdy nie są udostępniane",
+        "feature1": "100% poufności",
+        "feature2": "Bezpieczne płatności",
+        "feature3": "Ochrona danych RODO"
+      }
+    },
+    "howItWorks": {
+      "badge": "Jak to działa",
+      "title": "Proces generowania pracy magisterskiej",
+      "subtitle": "4 proste kroki do gotowej pracy magisterskiej najwyższej jakości",
+      "mockup": {
+        "step": "Krok {number}: {title}"
+      },
+      "steps": {
+        "input": {
+          "title": "Podaj temat i wymagania",
+          "description": "Wprowadź temat pracy, kierunek studiów i szczegółowe wymagania",
+          "detail1": "Temat pracy magisterskiej",
+          "detail2": "Kierunek i specjalizacja",
+          "detail3": "Szczegółowe wymagania"
+        },
+        "research": {
+          "title": "AI przeprowadza badania",
+          "description": "Sztuczna inteligencja analizuje temat i wyszukuje wiarygodne źródła naukowe",
+          "detail1": "Pogłębiona analiza tematu",
+          "detail2": "Wyszukiwanie źródeł naukowych",
+          "detail3": "Weryfikacja danych"
+        },
+        "generation": {
+          "title": "Generowanie pracy",
+          "description": "AI tworzy kompletną pracę z zaawansowaną strukturą i formatowaniem",
+          "detail1": "Pisanie rozdziałów naukowych",
+          "detail2": "Tworzenie pogłębionej analizy",
+          "detail3": "Formatowanie i bibliografia"
+        },
+        "download": {
+          "title": "Pobierz gotową pracę",
+          "description": "Otrzymujesz kompletną pracę magisterską gotową do pobrania i edycji",
+          "detail1": "Format PDF/DOCX",
+          "detail2": "Pełna możliwość edycji",
+          "detail3": "Natychmiastowy dostęp"
+        }
+      }
+    },
+    "structure": {
+      "badge": "Struktura pracy",
+      "title": "Kompleksowa struktura pracy magisterskiej",
+      "subtitle": "Każda praca zawiera wszystkie wymagane elementy zaawansowanej struktury naukowej",
+      "pagesLabel": "str.",
+      "elements": {
+        "titlePage": {
+          "title": "Strona tytułowa",
+          "description": "Profesjonalna strona tytułowa z wszystkimi wymaganymi informacjami"
+        },
+        "tableOfContents": {
+          "title": "Spis treści",
+          "description": "Automatycznie generowany spis treści z numeracją stron"
+        },
+        "introduction": {
+          "title": "Wstęp",
+          "description": "Wprowadzenie do tematu, cel pracy i zaawansowana metodologia badawcza"
+        },
+        "literature": {
+          "title": "Przegląd literatury",
+          "description": "Pogłębiona analiza istniejącej literatury i badań naukowych w dziedzinie"
+        },
+        "methodology": {
+          "title": "Metodologia",
+          "description": "Szczegółowy opis metod badawczych i narzędzi analizy"
+        },
+        "chapters": {
+          "title": "Rozdziały merytoryczne",
+          "description": "Główna część pracy z pogłębioną analizą, badaniami i wynikami"
+        },
+        "results": {
+          "title": "Wyniki badań",
+          "description": "Prezentacja i omówienie wyników przeprowadzonych badań"
+        },
+        "conclusion": {
+          "title": "Zakończenie",
+          "description": "Podsumowanie wyników, wnioski naukowe i rekomendacje"
+        },
+        "bibliography": {
+          "title": "Bibliografia",
+          "description": "Kompletna lista źródeł naukowych w wymaganym formacie cytowania"
+        }
+      },
+      "stats": {
+        "totalPages": "stron w sumie",
+        "sections": "sekcji",
+        "sources": "źródeł",
+        "complete": "kompletności"
+      }
+    },
+    "process": {
+      "badge": "Proces",
+      "title": "Jak zamówić pracę magisterską?",
+      "subtitle": "Od rejestracji do gotowej pracy w 4 prostych krokach",
+      "steps": {
+        "account": {
+          "title": "Załóż konto",
+          "description": "Zarejestruj się i uzyskaj dostęp do generatora prac magisterskich",
+          "item1": "Rejestracja e-mailem",
+          "item2": "Weryfikacja konta",
+          "item3": "Gotowe w 5 minut"
+        },
+        "details": {
+          "title": "Wypełnij szczegóły",
+          "description": "Podaj temat, kierunek studiów i szczegółowe wymagania dotyczące pracy",
+          "item1": "Temat pracy magisterskiej",
+          "item2": "Kierunek studiów",
+          "item3": "Wymagania szczegółowe"
+        },
+        "wait": {
+          "title": "Poczekaj 90-120 minut",
+          "description": "AI generuje kompletną pracę magisterską z bibliografią i źródłami naukowymi",
+          "item1": "AI przeprowadza badania",
+          "item2": "Generowanie 90-120 min",
+          "item3": "Status w czasie rzeczywistym"
+        },
+        "download": {
+          "title": "Pobierz pracę",
+          "description": "Pobierz gotową pracę magisterską w formacie PDF lub DOCX",
+          "item1": "Format PDF",
+          "item2": "Format DOCX",
+          "item3": "Pełna możliwość edycji"
+        }
+      },
+      "stats": {
+        "registration": "Rejestracja",
+        "generation": "Generowanie",
+        "formats": "Formaty",
+        "availability": "Dostępność"
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Najczęściej zadawane pytania",
+      "subtitle": "Wszystko, co musisz wiedzieć o generatorze prac magisterskich",
+      "questions": {
+        "q1": {
+          "question": "Jak długo trwa generowanie pracy magisterskiej?",
+          "answer": "Generowanie kompletnej pracy magisterskiej (80-120 stron) zajmuje od 90 do 120 minut. Po tym czasie otrzymasz gotową pracę z bibliografią naukową i wszystkimi wymaganymi elementami struktury."
+        },
+        "q2": {
+          "question": "Czy praca będzie unikalna i na poziomie magisterskim?",
+          "answer": "Tak, każda praca jest generowana od podstaw specjalnie dla Twoich wymagań na poziomie magisterskim. AI tworzy 100% unikalną treść z pogłębioną analizą naukową, wykorzystując najnowsze modele Claude AI."
+        },
+        "q3": {
+          "question": "Czy mogę edytować wygenerowaną pracę?",
+          "answer": "Oczywiście! Pracę możesz pobrać w formacie DOCX, który pozwala na pełną edycję w programach takich jak Microsoft Word czy Google Docs. Możesz swobodnie modyfikować treść, dodawać własne badania i dostosowywać formatowanie."
+        },
+        "q4": {
+          "question": "Jakie źródła naukowe wykorzystuje AI?",
+          "answer": "AI wykorzystuje zweryfikowane źródła akademickie, naukowe publikacje, monografie, czasopisma naukowe i artykuły z wiarygodnych baz danych. Każda praca zawiera kompletną bibliografię z 25-40 źródłami w odpowiednim formacie cytowania."
+        },
+        "q5": {
+          "question": "Czy praca będzie zgodna z wymaganiami mojej uczelni?",
+          "answer": "AI generuje prace zgodnie z najwyższymi standardami akademickimi. Możesz podać szczegółowe wymagania swojej uczelni (format cytowania, struktura, wymagania formalne, metodologia), a AI dostosuje pracę do tych wytycznych."
+        },
+        "q6": {
+          "question": "Co jeśli nie będę zadowolony z pracy?",
+          "answer": "Po wygenerowaniu pracy możesz ją pobrać i szczegółowo przejrzeć. Jeśli coś nie będzie odpowiadało Twoim oczekiwaniom, możesz edytować pracę we własnym zakresie w formacie DOCX lub skontaktować się z naszym wsparciem."
+        },
+        "q7": {
+          "question": "Jaka jest różnica między pracą licencjacką a magisterską?",
+          "answer": "Praca magisterska jest dłuższa (80-120 stron vs 60-90), zawiera więcej źródeł naukowych (25-40 vs 15-30), ma bardziej zaawansowaną metodologię badawczą i wymaga głębszej analizy tematu. AI generuje treści na wyższym poziomie naukowym dla prac magisterskich."
+        }
+      },
+      "contact": {
+        "title": "Masz więcej pytań?",
+        "description": "Nasz zespół wsparcia jest dostępny 24/7 i chętnie pomoże",
+        "button": "Skontaktuj się z nami"
+      }
+    },
+    "cta": {
+      "badge": "Rozpocznij teraz",
+      "title": "Gotowy na pracę magisterską?",
+      "subtitle": "Wygeneruj kompletną pracę magisterską w 90-120 minut",
+      "button": "Rozpocznij pisanie pracy",
+      "features": {
+        "fast": "Szybkie generowanie",
+        "secure": "Bezpieczne płatności",
+        "quality": "Najwyższa jakość"
+      },
+      "trust": {
+        "indicator1": "100% bezpieczne płatności",
+        "indicator2": "Ochrona danych osobowych",
+        "indicator3": "Natychmiastowy dostęp"
+      },
+      "stats": {
+        "pages": "stron",
+        "price": "cena",
+        "time": "czas generowania",
+        "support": "wsparcie"
+      }
+    }
+  },
   "Video": {
     "headerVideo": "2 kliknięcia i praca gotowa w 5 min"
   },
@@ -1293,6 +1564,7 @@
     "links": {
       "blog": "Blog",
       "contact": "Kontakt",
+      "masters": "AI generator prac mgr",
       "register": "Rejestracja",
       "login": "Logowanie",
       "example": "Przykładowe prace",

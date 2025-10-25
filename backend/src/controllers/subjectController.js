@@ -43,11 +43,6 @@ exports.getSubjectBySlug = async (req, res, next) => {
 
     const subject = await Subject.findOne({ slugEn });
 
-    if (!subject) {
-      console.log('Nie znaleziono subjectu!');
-      return res.status(404).json({ message: 'Subject not found' });
-    }
-
     res.json(subject);
   } catch (error) {
     console.error('Błąd:', error);
