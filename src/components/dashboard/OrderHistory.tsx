@@ -380,7 +380,9 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onOrderSuccess }) => {
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage] = useState(10);
-  const [sortField, setSortField] = useState<keyof Order>('createdAt');
+  const [sortField, setSortField] = useState<keyof Order | 'topic'>(
+    'createdAt'
+  );
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [statusFilter, setStatusFilter] = useState('all');
   const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
@@ -598,12 +600,20 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onOrderSuccess }) => {
 
   useEffect(() => {
     let result = [...orders];
-
     if (statusFilter !== 'all') {
       result = result.filter((order) => order.status === statusFilter);
     }
-
     result.sort((a, b) => {
+      // Specjalna obsługa dla topic
+      if (sortField === 'topic') {
+        const topicA = a.items[0]?.topic || '';
+        const topicB = b.items[0]?.topic || '';
+        if (topicA < topicB) return sortDirection === 'asc' ? -1 : 1;
+        if (topicA > topicB) return sortDirection === 'asc' ? 1 : -1;
+        return 0;
+      }
+
+      // Standardowe sortowanie
       if (a[sortField] === undefined || b[sortField] === undefined) return 0;
       if (a[sortField]! < b[sortField]!)
         return sortDirection === 'asc' ? -1 : 1;
@@ -611,7 +621,6 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onOrderSuccess }) => {
         return sortDirection === 'asc' ? 1 : -1;
       return 0;
     });
-
     setFilteredOrders(result);
   }, [orders, sortField, sortDirection, statusFilter]);
 
@@ -624,7 +633,7 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onOrderSuccess }) => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const handleSort = (field: keyof Order) => {
+  const handleSort = (field: keyof Order | 'topic') => {
     setSortField(field);
     setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
   };
@@ -777,16 +786,17 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onOrderSuccess }) => {
             <thead>
               <tr className="bg-gray-50 dark:bg-gray-700">
                 <th
-                  onClick={() => handleSort('createdAt')}
-                  className="cursor-pointer"
+                  onClick={() => handleSort('topic')}
+                  className="cursor-pointer text-gray-900 dark:text-white"
                 >
                   {t('table.topic')}{' '}
-                  {sortField === 'createdAt' &&
+                  {sortField === 'topic' &&
                     (sortDirection === 'asc' ? '↑' : '↓')}
                 </th>
+
                 <th
                   onClick={() => handleSort('createdAt')}
-                  className="cursor-pointer"
+                  className="cursor-pointer text-gray-900 dark:text-white"
                 >
                   {t('table.orderDate')}{' '}
                   {sortField === 'createdAt' &&
@@ -794,7 +804,7 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onOrderSuccess }) => {
                 </th>
                 <th
                   onClick={() => handleSort('status')}
-                  className="cursor-pointer"
+                  className="cursor-pointer text-gray-900 dark:text-white"
                 >
                   {t('table.status')}{' '}
                   {sortField === 'status' &&
@@ -802,13 +812,12 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onOrderSuccess }) => {
                 </th>
                 <th
                   onClick={() => handleSort('totalPrice')}
-                  className="cursor-pointer"
+                  className="cursor-pointer text-gray-900 dark:text-white"
                 >
                   {t('table.price')}{' '}
                   {sortField === 'totalPrice' &&
                     (sortDirection === 'asc' ? '↑' : '↓')}
                 </th>
-                <th>{t('order.details')}</th>
               </tr>
             </thead>
             <tbody>
@@ -893,7 +902,7 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onOrderSuccess }) => {
                     <td className="text-right text-gray-900 dark:text-gray-200">
                       {formatPrice(order.totalPriceOriginal, order.currency)}
                     </td>
-                    <td>
+                    {/*<td>
                       <button
                         onClick={() => toggleOrderExpansion(order._id)}
                         className="btn btn-circle btn-xs bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
@@ -904,7 +913,7 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onOrderSuccess }) => {
                           <ChevronDown />
                         )}
                       </button>
-                    </td>
+                    </td>*/}
                   </tr>
 
                   {expandedOrder === order._id && (
@@ -1148,30 +1157,31 @@ const OrderHistory: React.FC<OrderHistoryProps> = ({ onOrderSuccess }) => {
           </table>
         </div>
       )}
-      {filteredOrders.length > 0 ? (
-        <div className="flex justify-between items-center mt-4">
-          <button
-            onClick={() => paginate(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="btn bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <ChevronLeft />
-          </button>
-          <span className="text-gray-900 dark:text-gray-200">
-            {t('pagination.page')} {currentPage} {t('pagination.of')}{' '}
-            {Math.ceil(filteredOrders.length / ordersPerPage)}
-          </span>
-          <button
-            onClick={() => paginate(currentPage + 1)}
-            disabled={
-              currentPage === Math.ceil(filteredOrders.length / ordersPerPage)
-            }
-            className="btn bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <ChevronRight />
-          </button>
-        </div>
-      ) : null}
+      {filteredOrders.length > 0 &&
+        Math.ceil(filteredOrders.length / ordersPerPage) > 1 && (
+          <div className="flex justify-between items-center mt-4">
+            <button
+              onClick={() => paginate(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="btn bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <ChevronLeft />
+            </button>
+            <span className="text-gray-900 dark:text-gray-200">
+              {t('pagination.page')} {currentPage} {t('pagination.of')}{' '}
+              {Math.ceil(filteredOrders.length / ordersPerPage)}
+            </span>
+            <button
+              onClick={() => paginate(currentPage + 1)}
+              disabled={
+                currentPage === Math.ceil(filteredOrders.length / ordersPerPage)
+              }
+              className="btn bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <ChevronRight />
+            </button>
+          </div>
+        )}
     </div>
   );
 };

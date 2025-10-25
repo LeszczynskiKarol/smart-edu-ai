@@ -1774,7 +1774,6 @@
   "orderDetails": {
     "title": "Order Details",
     "loading": "Loading...",
-
     "status": {
       "title": "Status",
       "inProgress": "in progress",
@@ -1805,10 +1804,27 @@
       "showMore": "Show more",
       "showLess": "Show less"
     },
+    "editor": {
+      "editContent": "Edit content",
+      "edit": "Edit",
+      "saving": "Saving...",
+      "saveChanges": "Save changes",
+      "cancel": "Cancel",
+      "saveSuccess": "✓ Changes saved successfully!",
+      "saveError": "Failed to save changes. Please try again.",
+      "saveErrorGeneric": "An error occurred while saving. Please try again."
+    },
+    "titlePage": {
+      "title": "Title Page",
+      "description": "Fill in the data that will appear on the title page of the PDF and DOCX document",
+      "showForm": "Fill in data",
+      "hideForm": "Hide form",
+      "dataSaved": "Data has been saved!"
+    },
     "attachments": {
       "title": "Attachments",
-      "userAttachments": "Your attachments",
-      "serviceAttachments": "Added by eCopywriting"
+      "userAttachments": "Your attachments:",
+      "serviceAttachments": "Added by eCopywriting:"
     },
     "common": {
       "showLess": "Collapse",

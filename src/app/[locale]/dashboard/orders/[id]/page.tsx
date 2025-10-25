@@ -194,10 +194,11 @@ const ContentActions: React.FC<{
   isSaving,
 }) => {
   const { trackInteraction } = useTracking('ContentActions');
-  const t = useTranslations('orderDetails.content');
+  const t = useTranslations('orderDetails');
   const [copySuccess, setCopySuccess] = useState(false);
   const [copyType, setCopyType] = useState<'text' | 'html' | null>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+
   const handleCopyFormatted = async () => {
     try {
       await navigator.clipboard.write([
@@ -243,7 +244,6 @@ const ContentActions: React.FC<{
       console.log('⏳ Już pobieram PDF, czekaj...');
       return;
     }
-
     if (!content) return;
     try {
       const response = await fetch(
@@ -303,7 +303,7 @@ const ContentActions: React.FC<{
           body: JSON.stringify({
             content,
             topic,
-            orderId, // ✅ DODANO: przekazywanie orderId dla danych strony tytułowej
+            orderId,
           }),
         }
       );
@@ -341,7 +341,7 @@ const ContentActions: React.FC<{
         >
           <Save size={18} />
           <span className="font-medium">
-            {isSaving ? 'Zapisywanie...' : 'Zapisz zmiany'}
+            {isSaving ? t('editor.saving') : t('editor.saveChanges')}
           </span>
         </button>
         <button
@@ -350,7 +350,7 @@ const ContentActions: React.FC<{
           className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 transition-all duration-200 text-gray-700 dark:text-gray-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <CloseIcon size={18} />
-          <span className="font-medium">Anuluj</span>
+          <span className="font-medium">{t('editor.cancel')}</span>
         </button>
       </div>
     );
@@ -362,15 +362,15 @@ const ContentActions: React.FC<{
         <button
           onClick={onEditToggle}
           className="flex items-center gap-2 px-4 py-2 rounded-lg bg-orange-100 hover:bg-orange-200 dark:bg-orange-800 dark:hover:bg-orange-700 transition-all duration-200 text-orange-700 dark:text-orange-300 shadow-md hover:shadow-lg"
-          title="Edytuj treść"
+          title={t('editor.editContent')}
         >
           <Edit size={18} />
-          <span className="font-medium">Edytuj</span>
+          <span className="font-medium">{t('editor.edit')}</span>
         </button>
         <button
           onClick={handleCopyFormatted}
           className="p-3 rounded-lg bg-blue-100 hover:bg-blue-200 dark:bg-blue-800 dark:hover:bg-blue-700 transition-all duration-200 text-blue-700 dark:text-blue-300 hover:text-blue-800 dark:hover:text-blue-200 shadow-md hover:shadow-lg"
-          title={t('copyToClipboard')}
+          title={t('content.copyToClipboard')}
         >
           <Copy
             size={18}
@@ -380,7 +380,7 @@ const ContentActions: React.FC<{
         <button
           onClick={handleCopyHTML}
           className="p-3 rounded-lg bg-purple-100 hover:bg-purple-200 dark:bg-purple-800 dark:hover:bg-purple-700 transition-all duration-200 text-purple-700 dark:text-purple-300 hover:text-purple-800 dark:hover:text-purple-200 shadow-md hover:shadow-lg"
-          title={t('copyHTML')}
+          title={t('content.copyHTML')}
         >
           <Code
             size={18}
@@ -391,7 +391,7 @@ const ContentActions: React.FC<{
           onClick={handleDownloadPDF}
           disabled={isDownloading}
           className="p-3 rounded-lg bg-red-100 hover:bg-red-200 dark:bg-red-800 dark:hover:bg-red-700 transition-all duration-200 text-red-700 dark:text-red-300 hover:text-red-800 dark:hover:text-red-200 shadow-md hover:shadow-lg"
-          title={t('downloadPDF')}
+          title={t('content.downloadPDF')}
         >
           <FileDown
             size={18}
@@ -401,7 +401,7 @@ const ContentActions: React.FC<{
         <button
           onClick={handleDownloadDOCX}
           className="p-3 rounded-lg bg-green-100 hover:bg-green-200 dark:bg-green-800 dark:hover:bg-green-700 transition-all duration-200 text-green-700 dark:text-green-300 hover:text-green-800 dark:hover:text-green-200 shadow-md hover:shadow-lg"
-          title={t('downloadDOCX')}
+          title={t('content.downloadDOCX')}
         >
           <FileText
             size={18}
@@ -412,8 +412,8 @@ const ContentActions: React.FC<{
       {copySuccess && (
         <div className="fixed top-4 right-4 mt-2 px-4 py-3 bg-blue-500 text-white text-sm rounded-lg shadow-xl opacity-95 transition-opacity duration-200 backdrop-blur-sm z-50">
           {copyType === 'html'
-            ? t('copiedHTMLToClipboard')
-            : t('copiedToClipboard')}
+            ? t('content.copiedHTMLToClipboard')
+            : t('content.copiedToClipboard')}
         </div>
       )}
     </div>
@@ -596,11 +596,11 @@ export default function OrderDetailsPage() {
       } else {
         const errorData = await response.json();
         console.error('Błąd zapisywania:', errorData);
-        alert('Nie udało się zapisać zmian. Spróbuj ponownie.');
+        alert(t('editor.saveError'));
       }
     } catch (error) {
       console.error('Błąd podczas zapisywania:', error);
-      alert('Wystąpił błąd podczas zapisywania. Spróbuj ponownie.');
+      alert(t('editor.saveErrorGeneric'));
     } finally {
       setIsSaving(false);
     }
@@ -619,7 +619,7 @@ export default function OrderDetailsPage() {
       {/* Success notification */}
       {saveSuccess && (
         <div className="fixed top-4 right-4 px-4 py-3 bg-green-500 text-white rounded-lg shadow-xl z-50 animate-in slide-in-from-top">
-          ✓ Zmiany zostały zapisane pomyślnie!
+          {t('editor.saveSuccess')}
         </div>
       )}
 
@@ -775,11 +775,11 @@ export default function OrderDetailsPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                          Strona tytułowa
+                          {t('titlePage.title')}
                         </h3>
+
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                          Uzupełnij dane, które pojawią się na stronie tytułowej
-                          dokumentu PDF i DOCX
+                          {t('titlePage.description')}
                         </p>
                       </div>
                       <button
@@ -790,8 +790,8 @@ export default function OrderDetailsPage() {
                       >
                         <FileText size={18} />
                         {showTitlePageEditor
-                          ? 'Ukryj formularz'
-                          : 'Wypełnij dane'}
+                          ? t('titlePage.hideForm')
+                          : t('titlePage.showForm')}
                       </button>
                     </div>
 
@@ -800,7 +800,7 @@ export default function OrderDetailsPage() {
                         <TitlePageEditor
                           orderId={order._id}
                           onSave={() => {
-                            alert('Dane zostały zapisane!');
+                            alert(t('titlePage.dataSaved'));
                           }}
                           onClose={() => setShowTitlePageEditor(false)}
                         />
@@ -828,14 +828,14 @@ export default function OrderDetailsPage() {
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
           <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white flex items-center gap-2">
             <FileText size={24} />
-            Załączniki
+            {t('attachments.title')}
           </h2>
 
           {/* User Attachments */}
           {order.userAttachments && order.userAttachments.length > 0 && (
             <div className="mb-6">
               <h3 className="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">
-                Twoje załączniki:
+                {t('attachments.userAttachments')}
               </h3>
               <div className="space-y-2">
                 {order.userAttachments.map((attachment, index) => (
@@ -862,7 +862,7 @@ export default function OrderDetailsPage() {
               order.completedStatusFiles.length > 0)) && (
             <div>
               <h3 className="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">
-                Dodane przez eCopywriting:
+                {t('attachments.serviceAttachments')}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {['pdf', 'docx', 'image', 'other'].map((fileType) => {

@@ -1784,10 +1784,27 @@
       "showMore": "Pokaż więcej",
       "showLess": "Pokaż mniej"
     },
+    "editor": {
+      "editContent": "Edytuj treść",
+      "edit": "Edytuj",
+      "saving": "Zapisywanie...",
+      "saveChanges": "Zapisz zmiany",
+      "cancel": "Anuluj",
+      "saveSuccess": "✓ Zmiany zostały zapisane pomyślnie!",
+      "saveError": "Nie udało się zapisać zmian. Spróbuj ponownie.",
+      "saveErrorGeneric": "Wystąpił błąd podczas zapisywania. Spróbuj ponownie."
+    },
+    "titlePage": {
+      "title": "Strona tytułowa",
+      "description": "Uzupełnij dane, które pojawią się na stronie tytułowej dokumentu PDF i DOCX",
+      "showForm": "Wypełnij dane",
+      "hideForm": "Ukryj formularz",
+      "dataSaved": "Dane zostały zapisane!"
+    },
     "attachments": {
       "title": "Załączniki",
-      "userAttachments": "Twoje załączniki",
-      "serviceAttachments": "Dodane przez eCopywriting"
+      "userAttachments": "Twoje załączniki:",
+      "serviceAttachments": "Dodane przez eCopywriting:"
     },
     "common": {
       "showLess": "Zwiń",

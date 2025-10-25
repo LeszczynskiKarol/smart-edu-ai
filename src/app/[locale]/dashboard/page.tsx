@@ -1176,7 +1176,7 @@ export default function Dashboard() {
                                     : 'text-gray-700'
                                 }`}
                               >
-                                <span className="label-text">
+                                <span className="label-text block mb-1 text-gray-800 dark:text-gray-200">
                                   {t('inputs.contentType')}
                                 </span>
                                 <Tooltip text={t('tooltips.contentType')}>
@@ -1697,7 +1697,7 @@ export default function Dashboard() {
                                 : 'text-gray-700'
                             }`}
                           >
-                            <span className="label-text block mt-4 mb-1">
+                            <span className="label-text block mt-4 mb-1 text-gray-800 dark:text-gray-200">
                               {t('inputs.topic')}
                             </span>
                           </label>
@@ -1739,9 +1739,10 @@ export default function Dashboard() {
                           </div>
                         </div>
 
-                        <span className="label-text block mt-4 mb-1">
+                        <span className="label-text block mt-4 mb-1 text-gray-800 dark:text-gray-200">
                           {t('inputs.guidelines')}
                         </span>
+
                         <div
                           className={`rounded-lg p-0 ${
                             theme === 'dark'

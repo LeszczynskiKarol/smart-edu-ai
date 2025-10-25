@@ -59,7 +59,7 @@ export default function ExampleContent({
   const [copySuccess, setCopySuccess] = useState<'text' | 'html' | null>(null);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const previewLength = 1000;
-
+  const [isDownloading, setIsDownloading] = useState(false);
   const contentWithIds = useMemo(() => addIdsToHeadings(content), [content]);
 
   const truncateToWord = (text: string, length: number) => {
@@ -101,7 +101,18 @@ export default function ExampleContent({
     }
   };
 
-  const handleDownloadPDF = async () => {
+  const handleDownloadPDF = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    if (isDownloading) {
+      console.log('⏳ Już pobieram PDF, czekaj...');
+      return;
+    }
+
+    if (!content) return;
+
+    setIsDownloading(true);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/generate-pdf`,
@@ -109,8 +120,12 @@ export default function ExampleContent({
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-          body: JSON.stringify({ content }),
+          body: JSON.stringify({
+            content,
+            topic: title, // ✅ POPRAWIONE: Przekazujemy title jako topic
+          }),
         }
       );
 
@@ -120,17 +135,39 @@ export default function ExampleContent({
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        a.download = `${title}.pdf`;
+        a.download = `${title || 'example'}.pdf`; // ✅ POPRAWIONE: Używamy title
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } else {
+        console.error('Failed to generate PDF:', await response.text());
+        throw new Error('Failed to generate PDF');
       }
     } catch (error) {
       console.error('Error generating PDF:', error);
+      alert(
+        locale === 'pl'
+          ? 'Błąd podczas generowania PDF'
+          : 'Error generating PDF'
+      );
+    } finally {
+      setIsDownloading(false);
     }
   };
 
-  const handleDownloadDOCX = async () => {
+  const handleDownloadDOCX = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    if (isDownloading) {
+      console.log('⏳ Już pobieram DOCX, czekaj...');
+      return;
+    }
+
+    if (!content) return;
+
+    setIsDownloading(true);
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/generate-docx`,
@@ -138,8 +175,12 @@ export default function ExampleContent({
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-          body: JSON.stringify({ content }),
+          body: JSON.stringify({
+            content,
+            topic: title, // ✅ POPRAWIONE: Przekazujemy title jako topic
+          }),
         }
       );
 
@@ -149,13 +190,24 @@ export default function ExampleContent({
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        a.download = `${title}.docx`;
+        a.download = `${title || 'example'}.docx`; // ✅ POPRAWIONE: Używamy title
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } else {
+        console.error('Failed to generate DOCX:', await response.text());
+        throw new Error('Failed to generate DOCX');
       }
     } catch (error) {
       console.error('Error generating DOCX:', error);
+      alert(
+        locale === 'pl'
+          ? 'Błąd podczas generowania DOCX'
+          : 'Error generating DOCX'
+      );
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -189,20 +241,34 @@ export default function ExampleContent({
 
         <button
           onClick={handleDownloadPDF}
-          className="flex items-center gap-2 px-4 py-2 bg-red-100 hover:bg-red-200 dark:bg-red-900 dark:hover:bg-red-800 text-red-700 dark:text-red-300 rounded-lg transition-colors"
+          disabled={isDownloading}
+          className="flex items-center gap-2 px-4 py-2 bg-red-100 hover:bg-red-200 dark:bg-red-900 dark:hover:bg-red-800 text-red-700 dark:text-red-300 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           title={t('downloadPDF')}
         >
           <FileDown size={18} />
-          <span className="text-sm font-medium">PDF</span>
+          <span className="text-sm font-medium">
+            {isDownloading
+              ? locale === 'pl'
+                ? 'Pobieranie...'
+                : 'Downloading...'
+              : 'PDF'}
+          </span>
         </button>
 
         <button
           onClick={handleDownloadDOCX}
-          className="flex items-center gap-2 px-4 py-2 bg-green-100 hover:bg-green-200 dark:bg-green-900 dark:hover:bg-green-800 text-green-700 dark:text-green-300 rounded-lg transition-colors"
+          disabled={isDownloading}
+          className="flex items-center gap-2 px-4 py-2 bg-green-100 hover:bg-green-200 dark:bg-green-900 dark:hover:bg-green-800 text-green-700 dark:text-green-300 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           title={t('downloadDOCX')}
         >
           <FileText size={18} />
-          <span className="text-sm font-medium">DOCX</span>
+          <span className="text-sm font-medium">
+            {isDownloading
+              ? locale === 'pl'
+                ? 'Pobieranie...'
+                : 'Downloading...'
+              : 'DOCX'}
+          </span>
         </button>
 
         <button
