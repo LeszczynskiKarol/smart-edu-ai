@@ -2,6 +2,7 @@
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import ExamplesList from '@/components/examples/ExamplesList';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import Layout from '@/components/layout/Layout';
 import { generateMetadata } from './metadata';
 
@@ -54,7 +55,15 @@ export default async function CategoryPage({
   return (
     <Layout title={t(`${category}.title`)}>
       <div className="container mx-auto px-4 py-12 mt-12">
-        <h1 className="text-4xl font-bold mb-4">{t(`${category}.title`)}</h1>
+        <Breadcrumbs
+          items={[
+            { label: t('breadcrumb'), href: `/${locale}/examples` },
+            { label: t(`${category}.title`) },
+          ]}
+        />
+        <h1 className="text-4xl font-bold mb-4 mt-4">
+          {t(`${category}.title`)}
+        </h1>
         <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
           {t(`${category}.description`)}
         </p>
