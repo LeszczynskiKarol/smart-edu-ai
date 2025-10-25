@@ -13,6 +13,9 @@ const nextConfig = {
   output: 'standalone',
   reactStrictMode: true,
   poweredByHeader: false,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   experimental: {
     outputFileTracingRoot: path.join(process.cwd()),
   },

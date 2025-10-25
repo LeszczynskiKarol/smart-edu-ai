@@ -17,7 +17,7 @@ export const Breadcrumbs = ({
       <div className="flex items-center flex-wrap gap-y-2 text-sm">
         <Link
           href={`/${locale}`}
-          className="text-gray-500 hover:text-gray-700 shrink-0"
+          className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 shrink-0"
         >
           <Home size={16} />
         </Link>
@@ -27,12 +27,14 @@ export const Breadcrumbs = ({
             {item.href ? (
               <Link
                 href={item.href}
-                className="text-gray-500 hover:text-gray-700 hover:underline truncate"
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:underline truncate"
               >
                 {item.label}
               </Link>
             ) : (
-              <span className="text-gray-700 truncate">{item.label}</span>
+              <span className="text-gray-700 dark:text-gray-300 truncate">
+                {item.label}
+              </span>
             )}
           </div>
         ))}

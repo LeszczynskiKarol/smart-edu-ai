@@ -2,8 +2,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { ChevronRight, Clock, FileText } from 'lucide-react';
+import { Clock, FileText } from 'lucide-react';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { useTranslations } from 'next-intl';
 import ExampleContent from './ExampleContent';
 import ExampleSidebar from './ExampleSidebar';
@@ -52,25 +52,9 @@ export default function ExamplePageClient({
       <article className="flex-1 lg:w-3/5">
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
           {/* Breadcrumbs */}
-          <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6">
-            {breadcrumbs.map((crumb, index) => (
-              <div key={index} className="flex items-center">
-                {index > 0 && <ChevronRight className="w-4 h-4 mx-2" />}
-                {crumb.href ? (
-                  <Link
-                    href={crumb.href}
-                    className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  >
-                    {crumb.label}
-                  </Link>
-                ) : (
-                  <span className="text-gray-900 dark:text-gray-100 font-medium">
-                    {crumb.label}
-                  </span>
-                )}
-              </div>
-            ))}
-          </nav>
+          <div className="mb-6">
+            <Breadcrumbs items={breadcrumbs} />
+          </div>
 
           {/* Header */}
           <header className="mb-8">

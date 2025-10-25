@@ -1941,6 +1941,7 @@
   "examples": {
     "title": "Examples of Student Work",
     "copyToClipboard": "Copy to clipboard",
+    "breadcrumb": "Examples",
     "copyHTML": "Copy as HTML",
     "downloadPDF": "Download PDF",
     "downloadDOCX": "Download DOCX",

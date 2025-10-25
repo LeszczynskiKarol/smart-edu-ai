@@ -241,8 +241,9 @@ export default function ExampleContent({
       />
 
       {/* Content */}
-      <div className="article-content generated-content prose dark:prose-invert max-w-none">
+      <div className="article-content generated-content prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200">
         <div
+          className="[&_*]:text-gray-800 [&_*]:dark:text-gray-200 [&_h1]:text-gray-900 [&_h1]:dark:text-white [&_h2]:text-gray-900 [&_h2]:dark:text-white [&_h3]:text-gray-900 [&_h3]:dark:text-white [&_strong]:text-gray-900 [&_strong]:dark:text-white"
           dangerouslySetInnerHTML={{
             __html: isExpanded
               ? contentWithIds
