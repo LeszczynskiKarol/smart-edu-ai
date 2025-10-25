@@ -1273,7 +1273,9 @@ exports.getOrderStatus = async (req, res) => {
 exports.updateOrderContent = async (req, res) => {
   try {
     const { orderId, itemId, content } = req.body;
+
     const order = await Order.findById(orderId);
+
     if (!order) {
       return res.status(404).json({
         success: false,
@@ -1281,21 +1283,31 @@ exports.updateOrderContent = async (req, res) => {
       });
     }
 
+    // ✅ TUTAJ JEST FIX - dodaj tę linię:
+    const item = order.items.find((item) => item._id.toString() === itemId);
+
+    // Sprawdź czy item został znaleziony
+    if (!item) {
+      return res.status(404).json({
+        success: false,
+        message: 'Element zamówienia nie znaleziony',
+      });
+    }
+
     const user = await User.findById(order.user);
     const locale = user?.locale || 'pl';
     i18n.setLocale(locale);
 
+    // Teraz możesz bezpiecznie użyć zmiennej 'item'
     item.content = content;
     item.status = 'zakończone';
 
     const allItemsCompleted = order.items.every(
       (item) => item.status === 'zakończone'
     );
-
     if (allItemsCompleted) {
       order.status = 'zakończone';
     }
-
     await order.save();
 
     // WYSYŁKA EMAILA
@@ -1320,7 +1332,6 @@ exports.updateOrderContent = async (req, res) => {
     </p>
     <p>${i18n.__('orders.itemCompletion.thanks')}</p>
   `;
-
       const emailData = {
         title: i18n.__mf('orders.itemCompletion.subject', {
           orderNumber: order.orderNumber,
@@ -1329,9 +1340,7 @@ exports.updateOrderContent = async (req, res) => {
         headerTitle: 'Smart-Edu.ai',
         content: emailContent,
       };
-
       const emailHtml = generateEmailTemplate(emailData);
-
       try {
         await sendEmail({
           email: user.email,
@@ -1346,7 +1355,6 @@ exports.updateOrderContent = async (req, res) => {
         console.error('Błąd podczas wysyłania emaila:', emailError);
       }
     }
-
     res.status(200).json({
       success: true,
       message: 'Treść zamówienia została zaktualizowana',
