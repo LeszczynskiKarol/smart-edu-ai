@@ -1,4 +1,4 @@
-// backend/src/models/Order.js
+// backend/src/models/Order.js - ZAKTUALIZOWANY
 const mongoose = require('mongoose');
 
 // Definicja UserAttachmentSchema
@@ -10,6 +10,23 @@ const UserAttachmentSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
+// ✅ NOWE - Schemat dla danych strony tytułowej
+const TitlePageDataSchema = new mongoose.Schema(
+  {
+    studentName: String,
+    studentIndexNumber: String,
+    university: String,
+    faculty: String,
+    fieldOfStudy: String,
+    specialization: String,
+    supervisor: String,
+    city: String,
+    year: String,
+    workType: String, // np. "Praca licencjacka", "Praca magisterska"
+  },
+  { _id: false }
+);
 
 const OrderItemSchema = new mongoose.Schema({
   topic: {
@@ -130,7 +147,6 @@ const OrderSchema = new mongoose.Schema(
       default: 'PLN',
       required: true,
     },
-
     userAttachments: [UserAttachmentSchema],
     attachments: {
       pdf: {
@@ -157,6 +173,11 @@ const OrderSchema = new mongoose.Schema(
       ],
     },
     stripeInvoiceId: String,
+    // ✅ NOWE POLE - dane strony tytułowej
+    titlePageData: {
+      type: TitlePageDataSchema,
+      default: null,
+    },
   },
   {
     timestamps: true,

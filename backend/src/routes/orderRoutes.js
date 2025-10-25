@@ -41,11 +41,23 @@ router.post(
   upload.array('attachments', 5),
   addComment
 );
+router.put(
+  '/:orderId/title-page',
+  protect,
+  orderController.updateTitlePageData
+);
+
+router.get('/:orderId/title-page', protect, orderController.getTitlePageData);
 router.get('/:orderId/comments', protect, getComments);
 router.put('/item/:itemId/progress', protect, updateOrderProgress);
 router.get('/session/:sessionId', protect, getOrderBySessionId);
 router.get('/:orderId/status', protect, getOrderStatus);
 router.post('/content', protect, updateOrderContent);
+router.put(
+  '/:orderId/title-page',
+  protect,
+  orderController.updateTitlePageData
+);
+router.get('/:orderId/title-page', protect, orderController.getTitlePageData);
 router.post('/:orderId/items/:itemId/hide', protect, hideOrderItem);
 module.exports = router;
-

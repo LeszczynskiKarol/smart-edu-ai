@@ -1310,51 +1310,6 @@ exports.updateOrderContent = async (req, res) => {
     }
     await order.save();
 
-    // WYSYŁKA EMAILA
-    if (user && user.email && item.status === 'zakończone') {
-      const emailContent = `
-    <h2>${i18n.__('orders.itemCompletion.title')}</h2>
-    <p>${i18n.__mf('orders.itemCompletion.greeting', { name: user.name })}</p>
-    <p>${i18n.__mf('orders.itemCompletion.mainMessage', { topic: item.topic })}</p>
-    <div class="card">
-      <p class="card-title">${i18n.__('orders.itemCompletion.detailsTitle')}</p>
-      <ul>
-        <li><strong>${i18n.__('orders.itemCompletion.orderNumber')}</strong> #${order.orderNumber}</li>
-        <li><strong>${i18n.__('orders.itemCompletion.topic')}</strong> ${item.topic}</li>
-        <li><strong>${i18n.__('orders.itemCompletion.contentType')}</strong> ${item.contentType}</li>
-      </ul>
-    </div>
-    <p>${i18n.__('orders.itemCompletion.viewMessage')}</p>
-    <p style="text-align: center; margin-top: 30px;">
-      <a href="${process.env.FRONTEND_URL}/dashboard/orders/${order._id}" class="button">
-        ${i18n.__('orders.itemCompletion.buttonText')}
-      </a>
-    </p>
-    <p>${i18n.__('orders.itemCompletion.thanks')}</p>
-  `;
-      const emailData = {
-        title: i18n.__mf('orders.itemCompletion.subject', {
-          orderNumber: order.orderNumber,
-          topic: item.topic,
-        }),
-        headerTitle: 'Smart-Edu.ai',
-        content: emailContent,
-      };
-      const emailHtml = generateEmailTemplate(emailData);
-      try {
-        await sendEmail({
-          email: user.email,
-          subject: `✅ ${i18n.__mf('orders.itemCompletion.subject', {
-            orderNumber: order.orderNumber,
-            topic: item.topic,
-          })}`,
-          message: emailHtml,
-          isHtml: true,
-        });
-      } catch (emailError) {
-        console.error('Błąd podczas wysyłania emaila:', emailError);
-      }
-    }
     res.status(200).json({
       success: true,
       message: 'Treść zamówienia została zaktualizowana',
@@ -1481,6 +1436,72 @@ exports.hideOrderItem = async (req, res) => {
     });
   } catch (error) {
     console.error('Błąd podczas ukrywania itemu:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Wystąpił błąd serwera',
+    });
+  }
+};
+
+// Zapis danych strony tytułowej
+exports.updateTitlePageData = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const titlePageData = req.body;
+
+    const order = await Order.findOne({
+      _id: orderId,
+      user: req.user.id,
+    });
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: 'Zamówienie nie znalezione',
+      });
+    }
+
+    // Zapisz dane strony tytułowej
+    order.titlePageData = titlePageData;
+    await order.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Dane strony tytułowej zostały zapisane',
+      data: order.titlePageData,
+    });
+  } catch (error) {
+    console.error('Błąd podczas zapisywania danych strony tytułowej:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Wystąpił błąd serwera',
+    });
+  }
+};
+
+// Pobieranie danych strony tytułowej
+exports.getTitlePageData = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    const order = await Order.findOne({
+      _id: orderId,
+      user: req.user.id,
+    });
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: 'Zamówienie nie znalezione',
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: order.titlePageData || null,
+    });
+  } catch (error) {
+    console.error('Błąd podczas pobierania danych strony tytułowej:', error);
     res.status(500).json({
       success: false,
       message: 'Wystąpił błąd serwera',

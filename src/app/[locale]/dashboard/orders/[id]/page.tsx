@@ -1,6 +1,7 @@
 // src/app/[locale]/dashboard/orders/[id]/page.tsx
 'use client';
 import { useTranslations } from 'next-intl';
+import TitlePageEditor from '@/components/TitlePageEditor';
 import TruncatedText from '@/components/TruncatedText';
 import {
   ChevronDown,
@@ -174,6 +175,8 @@ const stripHtml = (html: string) => {
 const ContentActions: React.FC<{
   content: string;
   topic: string;
+  orderId: string;
+  contentType: string;
   isEditing: boolean;
   onEditToggle: () => void;
   onSave: () => void;
@@ -184,6 +187,8 @@ const ContentActions: React.FC<{
   topic,
   isEditing,
   onEditToggle,
+  orderId,
+  contentType,
   onSave,
   onCancel,
   isSaving,
@@ -192,7 +197,7 @@ const ContentActions: React.FC<{
   const t = useTranslations('orderDetails.content');
   const [copySuccess, setCopySuccess] = useState(false);
   const [copyType, setCopyType] = useState<'text' | 'html' | null>(null);
-
+  const [isDownloading, setIsDownloading] = useState(false);
   const handleCopyFormatted = async () => {
     try {
       await navigator.clipboard.write([
@@ -234,6 +239,11 @@ const ContentActions: React.FC<{
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
+    if (isDownloading) {
+      console.log('⏳ Już pobieram PDF, czekaj...');
+      return;
+    }
+
     if (!content) return;
     try {
       const response = await fetch(
@@ -244,7 +254,12 @@ const ContentActions: React.FC<{
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-          body: JSON.stringify({ content }),
+          body: JSON.stringify({
+            content,
+            topic,
+            orderId,
+            contentType,
+          }),
         }
       );
       trackInteraction('content_download', {
@@ -285,7 +300,11 @@ const ContentActions: React.FC<{
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
-          body: JSON.stringify({ content }),
+          body: JSON.stringify({
+            content,
+            topic,
+            orderId, // ✅ DODANO: przekazywanie orderId dla danych strony tytułowej
+          }),
         }
       );
       trackInteraction('content_download', {
@@ -370,6 +389,7 @@ const ContentActions: React.FC<{
         </button>
         <button
           onClick={handleDownloadPDF}
+          disabled={isDownloading}
           className="p-3 rounded-lg bg-red-100 hover:bg-red-200 dark:bg-red-800 dark:hover:bg-red-700 transition-all duration-200 text-red-700 dark:text-red-300 hover:text-red-800 dark:hover:text-red-200 shadow-md hover:shadow-lg"
           title={t('downloadPDF')}
         >
@@ -405,14 +425,13 @@ export default function OrderDetailsPage() {
   const orderId = params.id as string;
   const [order, setOrder] = useState<Order | null>(null);
   const [comments, setComments] = useState<OrderComment[]>([]);
-  const [refreshingStatus, setRefreshingStatus] = useState(false);
-  const [completedStatus, setCompletedStatus] = useState(false);
-
+  const [isDownloading, setIsDownloading] = useState(false);
   // Editor states
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
   const [editedContent, setEditedContent] = useState<string>('');
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [showTitlePageEditor, setShowTitlePageEditor] = useState(false);
 
   const t = useTranslations('orderDetails');
   const tContent = useTranslations('orderSuccess');
@@ -735,6 +754,7 @@ export default function OrderDetailsPage() {
                       editingItemId === item._id ? editedContent : item.content
                     }
                     topic={item.topic}
+                    orderId={order._id} // ✅ DODAJ TO
                     isEditing={editingItemId === item._id}
                     onEditToggle={() =>
                       handleEditToggle(item._id || '', item.content || '')
@@ -742,9 +762,52 @@ export default function OrderDetailsPage() {
                     onSave={handleSaveContent}
                     onCancel={handleCancelEdit}
                     isSaving={isSaving}
+                    contentType={item.contentType}
                   />
                 </div>
+                {/* Strona tytułowa - TYLKO dla prac akademickich */}
+                {order.items.some(
+                  (item) =>
+                    item.contentType === 'licencjacka' ||
+                    item.contentType === 'magisterska'
+                ) && (
+                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                          Strona tytułowa
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Uzupełnij dane, które pojawią się na stronie tytułowej
+                          dokumentu PDF i DOCX
+                        </p>
+                      </div>
+                      <button
+                        onClick={() =>
+                          setShowTitlePageEditor(!showTitlePageEditor)
+                        }
+                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors flex items-center gap-2"
+                      >
+                        <FileText size={18} />
+                        {showTitlePageEditor
+                          ? 'Ukryj formularz'
+                          : 'Wypełnij dane'}
+                      </button>
+                    </div>
 
+                    {showTitlePageEditor && (
+                      <div className="mt-6">
+                        <TitlePageEditor
+                          orderId={order._id}
+                          onSave={() => {
+                            alert('Dane zostały zapisane!');
+                          }}
+                          onClose={() => setShowTitlePageEditor(false)}
+                        />
+                      </div>
+                    )}
+                  </div>
+                )}
                 <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700 shadow-inner">
                   <ContentSection
                     content={
