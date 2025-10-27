@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: ['/pl/', '/en/'],
-        disallow: ['/', '/examples/', '/api/', '/*?*', '/private/', '/admin/'],
+        allow: ['/', '/pl/', '/en/'],
+        disallow: ['/api/', '/*?*', '/private/', '/admin/'],
       },
     ],
     sitemap: 'https://www.smart-edu.ai/sitemap.xml',
