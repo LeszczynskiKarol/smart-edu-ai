@@ -1,4 +1,4 @@
-// backend/src/models/Order.js - ZAKTUALIZOWANY
+// backend/src/models/Order.js
 const mongoose = require('mongoose');
 
 // Definicja UserAttachmentSchema
@@ -55,6 +55,14 @@ const OrderItemSchema = new mongoose.Schema({
     enum: ['pol', 'eng', 'ger', 'ukr', 'fra', 'esp', 'ros', 'por'],
   },
   guidelines: {
+    type: String,
+    default: '',
+  },
+  bibliography: {
+    type: Boolean,
+    default: false,
+  },
+  bibliographyContent: {
     type: String,
     default: '',
   },

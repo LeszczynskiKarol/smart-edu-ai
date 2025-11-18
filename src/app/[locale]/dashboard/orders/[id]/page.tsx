@@ -1,6 +1,7 @@
 // src/app/[locale]/dashboard/orders/[id]/page.tsx
 'use client';
 import { useTranslations } from 'next-intl';
+import Bibliography from '@/components/Bibliography';
 import TitlePageEditor from '@/components/TitlePageEditor';
 import TruncatedText from '@/components/TruncatedText';
 import {
@@ -48,7 +49,9 @@ const ContentSection: React.FC<{
   content: string;
   isEditing: boolean;
   onContentChange?: (newContent: string) => void;
-}> = ({ content, isEditing, onContentChange }) => {
+  orderId: string;
+  itemId: string;
+}> = ({ content, isEditing, onContentChange, orderId, itemId }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const previewLength = 800;
   const t = useTranslations('orderDetails.content');
@@ -86,6 +89,7 @@ const ContentSection: React.FC<{
           __html: isExpanded ? content : truncateToWord(content, previewLength),
         }}
       />
+
       {content.length > previewLength && (
         <div className="mt-6 flex justify-center">
           <button
@@ -103,6 +107,8 @@ const ContentSection: React.FC<{
           </button>
         </div>
       )}
+      {/* Strona tytułowa - TYLKO dla prac akademickich */}
+      <Bibliography orderId={orderId} itemId={itemId} />
     </div>
   );
 };
@@ -116,6 +122,8 @@ interface OrderItem {
   language: string;
   guidelines?: string;
   content?: string;
+  bibliography?: boolean;
+  bibliographyContent?: string;
 }
 
 interface OrderComment {
@@ -765,7 +773,7 @@ export default function OrderDetailsPage() {
                     contentType={item.contentType}
                   />
                 </div>
-                {/* Strona tytułowa - TYLKO dla prac akademickich */}
+
                 {order.items.some(
                   (item) =>
                     item.contentType === 'licencjacka' ||
@@ -815,6 +823,8 @@ export default function OrderDetailsPage() {
                     }
                     isEditing={editingItemId === item._id}
                     onContentChange={setEditedContent}
+                    orderId={order._id}
+                    itemId={item._id || ''}
                   />
                 </div>
               </div>

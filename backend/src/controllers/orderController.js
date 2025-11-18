@@ -1508,3 +1508,62 @@ exports.getTitlePageData = async (req, res) => {
     });
   }
 };
+
+// backend/src/controllers/orderController.js
+exports.getOrderBibliography = async (req, res) => {
+  try {
+    const { orderId, itemId } = req.params;
+
+    console.log('\n========== POBIERANIE BIBLIOGRAFII ==========');
+    console.log('📦 OrderId:', orderId);
+    console.log('📄 ItemId:', itemId);
+
+    const order = await Order.findOne({
+      _id: orderId,
+      user: req.user.id,
+    });
+
+    if (!order) {
+      console.log('❌ Zamówienie nie znalezione');
+      return res.status(404).json({
+        success: false,
+        message: 'Zamówienie nie znalezione',
+      });
+    }
+
+    const item = order.items.id(itemId);
+    if (!item) {
+      console.log('❌ Item nie znaleziony');
+      return res.status(404).json({
+        success: false,
+        message: 'Item nie znaleziony',
+      });
+    }
+
+    console.log('✅ Item znaleziony');
+    console.log('📚 item.bibliography:', item.bibliography);
+    console.log(
+      '📄 item.bibliographyContent długość:',
+      item.bibliographyContent?.length || 0
+    );
+    console.log(
+      '📄 item.bibliographyContent (początek):',
+      item.bibliographyContent?.substring(0, 100) || 'BRAK'
+    );
+    console.log('========================================\n');
+
+    res.status(200).json({
+      success: true,
+      data: {
+        hasBibliography: item.bibliography,
+        bibliographyContent: item.bibliographyContent || '',
+      },
+    });
+  } catch (error) {
+    console.error('❌ Błąd:', error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

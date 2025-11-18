@@ -337,6 +337,44 @@ const generateContent = async (orderedTextId) => {
 
     console.log(`✅ Treść zapisana w bazie (ID: ${generatedContent._id})\n`);
 
+    console.log(`✅ Treść zapisana w bazie (ID: ${generatedContent._id})\n`);
+
+    // ✅✅✅ DODAJ TU ✅✅✅
+    console.log(`\n📚 === TWORZENIE BIBLIOGRAFII Z WYBRANYCH ŹRÓDEŁ ===\n`);
+
+    // Pobierz 4 wybrane źródła
+    const selectedForBibliography = await ScrapedContent.find({
+      orderedTextId,
+      selectedForGeneration: true,
+      status: 'completed',
+    }).sort({ createdAt: 1 });
+
+    console.log(
+      `📚 Znaleziono ${selectedForBibliography.length} wybranych źródeł dla bibliografii`
+    );
+
+    // Formatuj jako HTML
+    const bibliographyHTML = `<h2>Bibliografia</h2>
+<ul>
+${selectedForBibliography
+  .map(
+    (source, index) =>
+      `<li><strong>Źródło ${index + 1}:</strong> <a href="${source.url}" target="_blank">${source.url}</a></li>`
+  )
+  .join('\n')}
+</ul>`;
+
+    console.log(
+      `✅ Bibliografia utworzona z ${selectedForBibliography.length} źródeł\n`
+    );
+
+    // Zapisz w GeneratedTextContent
+    generatedContent.bibliographyContent = bibliographyHTML;
+    await generatedContent.save();
+
+    console.log(`✅ Bibliografia zapisana w GeneratedTextContent\n`);
+    // ✅✅✅ KONIEC DODANIA ✅✅✅
+
     console.log(`🎉 === GENEROWANIE TREŚCI ZAKOŃCZONE ===\n`);
     // 🆕 6. AKTUALIZUJ STATUS ORDEREDTEXT NA "Zakończone"
     orderedText = await OrderedText.findByIdAndUpdate(
@@ -369,8 +407,16 @@ const generateContent = async (orderedTextId) => {
           // Zaktualizuj status itemu
           item.status = 'zakończone';
           item.content = contentData.fullContent; // Zapisz wygenerowaną treść w Order
+          item.bibliographyContent = bibliographyHTML;
 
           console.log(`   ✅ Item ${item._id} zaktualizowany na "zakończone"`);
+          console.log(
+            `   📚 Bibliografia: ${selectedForBibliography.length} źródeł`
+          );
+
+          selectedForBibliography.forEach((src, idx) => {
+            console.log(`      ${idx + 1}. ${src.url.substring(0, 80)}...`);
+          });
 
           // Sprawdź czy WSZYSTKIE itemy w zamówieniu są zakończone
           const allItemsCompleted = order.items.every(

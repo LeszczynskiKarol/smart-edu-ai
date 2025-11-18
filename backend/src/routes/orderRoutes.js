@@ -60,4 +60,9 @@ router.put(
 );
 router.get('/:orderId/title-page', protect, orderController.getTitlePageData);
 router.post('/:orderId/items/:itemId/hide', protect, hideOrderItem);
+router.get(
+  '/:orderId/items/:itemId/bibliography',
+  protect,
+  orderController.getOrderBibliography
+);
 module.exports = router;
