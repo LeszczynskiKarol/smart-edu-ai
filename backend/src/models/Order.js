@@ -186,6 +186,14 @@ const OrderSchema = new mongoose.Schema(
       type: TitlePageDataSchema,
       default: null,
     },
+    abandonedCartDismissedAt: {
+      type: Date,
+      default: null,
+    },
+    abandonedCartOfferedAt: {
+      type: Date,
+      default: null,
+    },
   },
   {
     timestamps: true,

@@ -1,8 +1,10 @@
 // src/components/dashboard/DashboardLayout.tsx
 'use client';
 import React, { useRef, useState, useEffect } from 'react';
+import AbandonedCartBanner from './AbandonedCartBanner';
 import OrderStatusBox from '../OrderStatusBox';
 import MobileCookieLinks from './MobileCookieLinks';
+import AbandonedCartModal from './AbandonedCartModal';
 import { useOrderStatus } from '../../hooks/useOrderStatus';
 import CookieSettings from '@/components/CookieSettings';
 import ContactModal from '@/components/ContactModal';
@@ -51,6 +53,8 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { activeOrders, refreshOrders } = useOrderStatus();
+  const [showAbandonedCartModal, setShowAbandonedCartModal] = useState(false);
+  const [forceShowModal, setForceShowModal] = useState(false);
   const [showPaymentSuccessModal, setShowPaymentSuccessModal] = useState(false);
   const [forceShow, setForceShow] = useState(false);
   const { trackEvent } = useAnalytics();
@@ -115,6 +119,36 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
 
     sessionStorage.setItem('lastPath', pathname);
   }, [pathname]);
+
+  useEffect(() => {
+    const orderCanceled = searchParams.get('order_canceled');
+    if (orderCanceled === 'true') {
+      setShowAbandonedCartModal(true);
+    }
+  }, [searchParams]);
+
+  // Sprawdzaj przy mount czy jest porzucone zamówienie
+  useEffect(() => {
+    const checkAbandonedOrder = async () => {
+      const orderCanceled = searchParams.get('order_canceled');
+
+      // Jeśli jest parametr w URL - pokaż modal
+      if (orderCanceled === 'true') {
+        setShowAbandonedCartModal(true);
+        return;
+      }
+
+      // W przeciwnym razie sprawdź czy jest porzucone zamówienie (banner sam się pokaże)
+    };
+
+    checkAbandonedOrder();
+  }, [searchParams]);
+
+  // Handler do otwierania modalu z bannera
+  const handleOpenAbandonedCartModal = () => {
+    setForceShowModal(true);
+    setShowAbandonedCartModal(true);
+  };
 
   const hasVisibleOrders = (orders: Order[]) => {
     return orders.some(
@@ -746,7 +780,7 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
 
           {/* OrderStatusBox */}
           <OrderStatusBox orders={activeOrders} forceShow={forceShow} />
-
+          <AbandonedCartBanner onOpenModal={handleOpenAbandonedCartModal} />
           {children}
         </div>
       </main>
@@ -846,6 +880,18 @@ const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({
         isOpen={isContactModalOpen}
         onClose={() => setIsContactModalOpen(false)}
       />
+
+      {showAbandonedCartModal && (
+        <AbandonedCartModal
+          onClose={() => {
+            setShowAbandonedCartModal(false);
+            setForceShowModal(false);
+            const newUrl = window.location.pathname;
+            window.history.replaceState({}, '', newUrl);
+          }}
+          forceLoad={forceShowModal}
+        />
+      )}
     </div>
   );
 };

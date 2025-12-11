@@ -176,7 +176,26 @@
     "description": "Professional AI Assignment Writter and Homework Generator. Sign Up For Free!",
     "ogImageAlt": "Smart-Edu.ai"
   },
-
+  "abandonedCart": {
+    "banner": {
+      "title": "You have an unfinished order!",
+      "savings": "Save {amount} with 20% discount",
+      "viewOffer": "View offer"
+    },
+    "modal": {
+      "title": "Save 20%!",
+      "subtitle": "Complete your order now and pay less",
+      "expiresIn": "Offer expires in",
+      "originalPrice": "Regular price",
+      "savings": "Your discount",
+      "discountedPrice": "Total",
+      "itemsCount": "{count, plural, one {# item} other {# items}}",
+      "acceptButton": "Order with 20% discount 🎉",
+      "dismissButton": "No, I don't want the discount",
+      "processing": "Processing...",
+      "loading": "Loading offer..."
+    }
+  },
   "Privacy": {
     "title": "Privacy Policy",
     "linkText": "Privacy Policy",

@@ -15,6 +15,7 @@ const makeWebhookRoutes = require('./src/routes/makeWebhookRoutes');
 const userRoutes = require('./src/routes/userRoutes');
 const contentGenerationRoutes = require('./src/routes/contentGenerationRoutes');
 const workTypeRoutes = require('./src/routes/workTypeRoutes');
+const abandonedCartRoutes = require('./src/routes/abandonedCartRoutes');
 const workTypePageRoutes = require('./src/routes/workTypePageRoutes');
 const paperRoutes = require('./src/routes/paperRoutes');
 const thesisExampleRoutes = require('./src/routes/thesisExampleRoutes');
@@ -117,6 +118,9 @@ app.use('/api/payments', paymentRoutes);
 
 // File Upload
 app.use('/api/upload', uploadRoutes);
+
+// Abandoned Cart
+app.use('/api/abandoned-cart', abandonedCartRoutes);
 
 // ========================================
 // MAKE.COM ROUTES - NOWY SYSTEM

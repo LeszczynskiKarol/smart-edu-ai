@@ -668,6 +668,26 @@
   "Video": {
     "headerVideo": "2 kliknięcia i praca gotowa w 5 min"
   },
+  "abandonedCart": {
+    "banner": {
+      "title": "Masz niedokończone zamówienie!",
+      "savings": "Oszczędź {amount} z rabatem 20%",
+      "viewOffer": "Zobacz ofertę"
+    },
+    "modal": {
+      "title": "STOP! Dlaczego rezygnujesz?",
+      "subtitle": "Dokończ zamówienie teraz i zapłać mniej",
+      "expiresIn": "Oferta wygasa za",
+      "originalPrice": "Cena regularna",
+      "savings": "Twój rabat",
+      "discountedPrice": "Do zapłaty",
+      "itemsCount": "{count, plural, one {# element} few {# elementy} many {# elementów} other {# elementów}}",
+      "acceptButton": "Zamawiam z rabatem 20% 🎉",
+      "dismissButton": "Nie, rezygnuję z rabatu",
+      "processing": "Przetwarzanie...",
+      "loading": "Ładowanie oferty..."
+    }
+  },
   "tutorial": {
     "step": "Krok",
     "of": "z",

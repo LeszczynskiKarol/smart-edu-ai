@@ -278,35 +278,63 @@ exports.createOrder = async (req, res) => {
 
       const successUrl = `${process.env.FRONTEND_URL}/dashboard?session_id={CHECKOUT_SESSION_ID}&type=payment&orderNumber=${order.orderNumber}&totalPrice=${order.totalPrice}&itemsCount=${orderItems.length}`;
 
-      const orderDescription =
-        currency === 'PLN'
-          ? `Zamówienie za ${preliminaryTotalPrice.toFixed(2)} PLN`
-          : `Order payment $${preliminaryTotalPrice.toFixed(2)}`;
-
       const analyticalSessionId =
         req.body.analyticalSessionId || req.query.analyticalSessionId;
       const locale = user.locale || 'pl';
+
+      // Helper do formatowania długości
+      const formatLength = (length) => {
+        if (locale === 'pl') {
+          return length >= 1000
+            ? `${Math.round(length / 1000)}k znaków`
+            : `${length} znaków`;
+        }
+        return length >= 1000
+          ? `${Math.round(length / 1000)}k chars`
+          : `${length} chars`;
+      };
+
+      // Helper do nazwy typu treści
+      const getContentTypeLabel = (contentType) => {
+        const labels = {
+          licencjacka:
+            locale === 'pl' ? 'Praca licencjacka' : 'Bachelor thesis',
+          magisterska: locale === 'pl' ? 'Praca magisterska' : 'Master thesis',
+          wypracowanie: locale === 'pl' ? 'Wypracowanie' : 'Essay',
+          esej: locale === 'pl' ? 'Esej' : 'Essay',
+          referat: locale === 'pl' ? 'Referat' : 'Report',
+        };
+        return labels[contentType] || contentType;
+      };
+
+      // Oblicz współczynnik płatności (jeśli część pokryta z salda)
+      const totalItemsPrice = validatedOrderItems.reduce(
+        (sum, item) => sum + item.price,
+        0
+      );
+      const paymentRatio =
+        totalItemsPrice > 0 ? paymentInOriginalCurrency / totalItemsPrice : 1;
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types:
           currency === 'PLN' ? ['blik', 'card', 'paypal'] : ['card', 'paypal'],
 
-        line_items: [
-          {
+        line_items: validatedOrderItems.map((item) => {
+          const adjustedPrice = item.price * paymentRatio;
+
+          return {
             price_data: {
               currency: currency.toLowerCase(),
               product_data: {
-                name: orderDescription,
-                description:
-                  locale === 'pl'
-                    ? `Płatność za zamówienie w Smart-Edu.ai`
-                    : `Pay for order`,
+                name: item.topic || getContentTypeLabel(item.contentType),
+                description: `${getContentTypeLabel(item.contentType)} | ${formatLength(item.length)}`,
               },
-              unit_amount: Math.round(paymentInOriginalCurrency * 100),
+              unit_amount: Math.round(adjustedPrice * 100),
             },
             quantity: 1,
-          },
-        ],
+          };
+        }),
+
         mode: 'payment',
         success_url: successUrl,
         cancel_url: `${process.env.FRONTEND_URL}/dashboard?order_canceled=true`,
