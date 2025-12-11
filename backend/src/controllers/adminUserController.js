@@ -319,30 +319,21 @@ exports.adjustUserBalance = async (req, res) => {
     const oldBalance = user.accountBalance;
     user.accountBalance += parseFloat(amount);
 
-    const payment = await Payment.create({
-      user: user._id,
-      amount: Math.abs(amount),
-      paidAmount: Math.abs(amount),
-      amountPLN: Math.abs(amount),
-      currency: 'PLN',
-      type: amount > 0 ? 'top_up' : 'order_payment',
-      status: 'completed',
-      metadata: {
-        adminAdjustment: true,
-        reason: reason || 'Korekta salda przez admina',
-        adminNote: `Zmiana: ${amount} (${oldBalance} → ${user.accountBalance})`,
-      },
-    });
+    // Upewnij się, że saldo nie jest ujemne
+    if (user.accountBalance < 0) {
+      user.accountBalance = 0;
+    }
 
     await user.save();
 
+    // Wysyłka emaila do użytkownika
     const emailContent = `
       <h2>Zmiana salda konta</h2>
       <p>Twoje saldo zostało ${amount > 0 ? 'zwiększone' : 'zmniejszone'} przez administratora.</p>
       <div class="card">
         <p class="card-title">Szczegóły:</p>
         <ul>
-          <li><strong>Kwota zmiany:</strong> ${amount > 0 ? '+' : ''}${amount.toFixed(2)} PLN</li>
+          <li><strong>Kwota zmiany:</strong> ${amount > 0 ? '+' : ''}${parseFloat(amount).toFixed(2)} PLN</li>
           <li><strong>Nowe saldo:</strong> ${user.accountBalance.toFixed(2)} PLN</li>
           ${reason ? `<li><strong>Powód:</strong> ${reason}</li>` : ''}
         </ul>
