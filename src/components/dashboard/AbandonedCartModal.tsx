@@ -60,7 +60,7 @@ export default function AbandonedCartModal({
       if (!response.ok) {
         const errorText = await response.text();
         console.log('❌ [AbandonedCart] Response NOT OK:', errorText);
-        setError(`Błąd API: ${response.status}`);
+        setError(`API Error: ${response.status}`);
         setLoading(false);
         return;
       }
@@ -74,11 +74,13 @@ export default function AbandonedCartModal({
         const secondsLeft = Math.max(0, Math.floor((expiresAt - now) / 1000));
         setTimeLeft(secondsLeft);
       } else {
-        setError('Brak porzuconego zamówienia');
+        onClose();
       }
     } catch (err) {
-      console.error('💥 [AbandonedCart] Błąd fetch:', err);
-      setError(`Błąd: ${err instanceof Error ? err.message : 'Nieznany błąd'}`);
+      console.error('💥 [AbandonedCart] Fetch error:', err);
+      setError(
+        `Error: ${err instanceof Error ? err.message : 'Unknown error'}`
+      );
     } finally {
       setLoading(false);
     }
@@ -148,11 +150,11 @@ export default function AbandonedCartModal({
           window.location.href = data.paymentUrl;
         }
       } else {
-        setError(data.message || 'Wystąpił błąd');
+        setError(data.message || t('error'));
       }
     } catch (err) {
       console.error('Error applying discount:', err);
-      setError('Wystąpił błąd podczas przetwarzania');
+      setError(t('error'));
     } finally {
       setProcessing(false);
     }
@@ -214,17 +216,17 @@ export default function AbandonedCartModal({
       <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
           <h2 className="text-xl font-bold text-red-600 dark:text-red-400 mb-4">
-            Błąd
+            {t('error')}
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">{error}</p>
           <p className="text-sm text-gray-400 dark:text-gray-500 mb-4">
-            Sprawdź konsolę przeglądarki (F12) po więcej szczegółów.
+            {t('errorDetails')}
           </p>
           <button
             onClick={handleDismiss}
             className="w-full py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
           >
-            Zamknij
+            {t('close')}
           </button>
         </div>
       </div>
@@ -243,7 +245,7 @@ export default function AbandonedCartModal({
           <button
             onClick={handleDismiss}
             className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
-            aria-label="Zamknij"
+            aria-label={t('close')}
           >
             <X className="w-6 h-6" />
           </button>
@@ -324,7 +326,7 @@ export default function AbandonedCartModal({
             ))}
             {orderData.items.length > 2 && (
               <p className="text-sm text-gray-400 dark:text-gray-500 pl-6">
-                +{orderData.items.length - 2} więcej...
+                {t('moreItems', { count: orderData.items.length - 2 })}
               </p>
             )}
           </div>

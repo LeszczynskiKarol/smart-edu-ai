@@ -672,7 +672,8 @@
     "banner": {
       "title": "Masz niedokończone zamówienie!",
       "savings": "Oszczędź {amount} z rabatem 20%",
-      "viewOffer": "Zobacz ofertę"
+      "viewOffer": "Zobacz ofertę",
+      "close": "Zamknij"
     },
     "modal": {
       "title": "STOP! Dlaczego rezygnujesz?",
@@ -685,7 +686,11 @@
       "acceptButton": "Zamawiam z rabatem 20% 🎉",
       "dismissButton": "Nie, rezygnuję z rabatu",
       "processing": "Przetwarzanie...",
-      "loading": "Ładowanie oferty..."
+      "loading": "Ładowanie oferty...",
+      "close": "Zamknij",
+      "error": "Błąd",
+      "errorDetails": "Sprawdź konsolę przeglądarki (F12) po więcej szczegółów.",
+      "moreItems": "+{count} więcej..."
     }
   },
   "tutorial": {

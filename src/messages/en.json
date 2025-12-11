@@ -180,7 +180,8 @@
     "banner": {
       "title": "You have an unfinished order!",
       "savings": "Save {amount} with 20% discount",
-      "viewOffer": "View offer"
+      "viewOffer": "View offer",
+      "close": "Close"
     },
     "modal": {
       "title": "Save 20%!",
@@ -193,7 +194,11 @@
       "acceptButton": "Order with 20% discount 🎉",
       "dismissButton": "No, I don't want the discount",
       "processing": "Processing...",
-      "loading": "Loading offer..."
+      "loading": "Loading offer...",
+      "close": "Close",
+      "error": "Error",
+      "errorDetails": "Check browser console (F12) for more details.",
+      "moreItems": "+{count} more..."
     }
   },
   "Privacy": {

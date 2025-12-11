@@ -26,18 +26,6 @@ export default function AbandonedCartBanner({
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
 
-  // Dodaj useEffect do nasłuchiwania:
-  useEffect(() => {
-    const handleDismissed = () => {
-      // Po dismiss modala - sprawdź ponownie
-      checkForAbandonedOrder();
-    };
-
-    window.addEventListener('abandonedCartDismissed', handleDismissed);
-    return () =>
-      window.removeEventListener('abandonedCartDismissed', handleDismissed);
-  }, []);
-
   const checkForAbandonedOrder = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -52,10 +40,8 @@ export default function AbandonedCartBanner({
 
       const data = await response.json();
 
-      // Jeśli jest zamówienie (dismissed lub nie) - pokaż banner
       if (data.success && data.data) {
         setBannerData(data.data);
-        // Pokaż banner tylko jeśli było dismissed (modal się nie pokazał)
         if (data.dismissed && data.canReactivate) {
           setIsVisible(true);
         }
@@ -65,6 +51,22 @@ export default function AbandonedCartBanner({
     }
   };
 
+  useEffect(() => {
+    const handleDismissed = () => {
+      checkForAbandonedOrder();
+    };
+
+    window.addEventListener('abandonedCartDismissed', handleDismissed);
+    return () =>
+      window.removeEventListener('abandonedCartDismissed', handleDismissed);
+  }, []);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('abandonedCartBannerDismissed')) {
+      setIsVisible(false);
+    }
+  }, []);
+
   const handleOpenModal = () => {
     setIsVisible(false);
     onOpenModal();
@@ -73,16 +75,8 @@ export default function AbandonedCartBanner({
   const handleDismissBanner = () => {
     setIsDismissed(true);
     setIsVisible(false);
-    // Zapisz w sessionStorage że user schował banner w tej sesji
     sessionStorage.setItem('abandonedCartBannerDismissed', 'true');
   };
-
-  // Nie pokazuj jeśli już schowany w tej sesji
-  useEffect(() => {
-    if (sessionStorage.getItem('abandonedCartBannerDismissed')) {
-      setIsVisible(false);
-    }
-  }, []);
 
   if (!isVisible || !bannerData || isDismissed) return null;
 
@@ -122,7 +116,7 @@ export default function AbandonedCartBanner({
           <button
             onClick={handleDismissBanner}
             className="p-2 text-white/70 hover:text-white transition-colors"
-            aria-label="Zamknij"
+            aria-label={t('close')}
           >
             <X className="w-5 h-5" />
           </button>
