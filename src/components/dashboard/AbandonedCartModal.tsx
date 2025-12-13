@@ -1,10 +1,10 @@
 // src/components/dashboard/AbandonedCartModal.tsx
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { Clock, Percent, ShoppingCart, Tag, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { X, Clock, Tag, ShoppingCart, Percent } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface AbandonedOrderData {
   orderId: string;
@@ -14,7 +14,7 @@ interface AbandonedOrderData {
   discount: number;
   currency: string;
   itemsCount: number;
-  items: Array<{
+  items?: Array<{
     topic: string;
     length: number;
     contentType: string;
@@ -50,7 +50,8 @@ export default function AbandonedCartModal({
         return;
       }
 
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/api/abandoned-cart/check${forceLoad ? '?force=true' : ''}`;
+      // ZAWSZE wymuszaj pobranie pełnych danych gdy otwieramy modal
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/api/abandoned-cart/check?force=true`;
       const response = await fetch(url, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -84,7 +85,7 @@ export default function AbandonedCartModal({
     } finally {
       setLoading(false);
     }
-  }, [onClose, forceLoad]);
+  }, [onClose]);
 
   useEffect(() => {
     fetchAbandonedOrder();
@@ -237,6 +238,9 @@ export default function AbandonedCartModal({
 
   const savings = orderData.originalPrice - orderData.discountedPrice;
 
+  // CRITICAL FIX: Safely get items array (might be undefined in some API responses)
+  const items = orderData.items || [];
+
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
       <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl overflow-hidden animate-fade-in">
@@ -316,18 +320,23 @@ export default function AbandonedCartModal({
                 {t('itemsCount', { count: orderData.itemsCount })}
               </span>
             </div>
-            {orderData.items.slice(0, 2).map((item, idx) => (
-              <p
-                key={idx}
-                className="text-sm text-gray-500 dark:text-gray-400 truncate pl-6"
-              >
-                • {item.topic}
-              </p>
-            ))}
-            {orderData.items.length > 2 && (
-              <p className="text-sm text-gray-400 dark:text-gray-500 pl-6">
-                {t('moreItems', { count: orderData.items.length - 2 })}
-              </p>
+            {/* CRITICAL FIX: Only render items if they exist and have length > 0 */}
+            {items.length > 0 && (
+              <>
+                {items.slice(0, 2).map((item, idx) => (
+                  <p
+                    key={idx}
+                    className="text-sm text-gray-500 dark:text-gray-400 truncate pl-6"
+                  >
+                    • {item.topic}
+                  </p>
+                ))}
+                {items.length > 2 && (
+                  <p className="text-sm text-gray-400 dark:text-gray-500 pl-6">
+                    {t('moreItems', { count: items.length - 2 })}
+                  </p>
+                )}
+              </>
             )}
           </div>
 

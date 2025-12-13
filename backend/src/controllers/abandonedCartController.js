@@ -62,6 +62,17 @@ exports.getAbandonedOrder = async (req, res) => {
       });
     }
 
+    // CRITICAL FIX: Prepare items array for response - ALWAYS include it!
+    const itemsArray = abandonedOrder.items.map((item) => ({
+      topic: item.topic,
+      length: item.length,
+      contentType: item.contentType,
+    }));
+
+    // Oblicz cenę z rabatem
+    const originalPrice = abandonedOrder.totalPriceOriginal;
+    const discountedPrice = originalPrice * (1 - ABANDONED_CART_DISCOUNT / 100);
+
     // Jeśli było dismissed i nie wymuszamy - nie pokazuj automatycznie
     // Ale zwróć info że zamówienie istnieje
     if (abandonedOrder.abandonedCartDismissedAt && !force) {
@@ -72,21 +83,16 @@ exports.getAbandonedOrder = async (req, res) => {
         data: {
           orderId: abandonedOrder._id,
           orderNumber: abandonedOrder.orderNumber,
-          originalPrice: abandonedOrder.totalPriceOriginal,
-          discountedPrice: Number(
-            (abandonedOrder.totalPriceOriginal * 0.8).toFixed(2)
-          ),
+          originalPrice: originalPrice,
+          discountedPrice: Number(discountedPrice.toFixed(2)),
           discount: ABANDONED_CART_DISCOUNT,
           currency: abandonedOrder.currency,
           itemsCount: abandonedOrder.items.length,
+          items: itemsArray, // CRITICAL FIX: ALWAYS include items!
           expiresAt: expiresAt.toISOString(),
         },
       });
     }
-
-    // Oblicz cenę z rabatem
-    const originalPrice = abandonedOrder.totalPriceOriginal;
-    const discountedPrice = originalPrice * (1 - ABANDONED_CART_DISCOUNT / 100);
 
     res.status(200).json({
       success: true,
@@ -99,11 +105,7 @@ exports.getAbandonedOrder = async (req, res) => {
         discount: ABANDONED_CART_DISCOUNT,
         currency: abandonedOrder.currency,
         itemsCount: abandonedOrder.items.length,
-        items: abandonedOrder.items.map((item) => ({
-          topic: item.topic,
-          length: item.length,
-          contentType: item.contentType,
-        })),
+        items: itemsArray,
         createdAt: abandonedOrder.createdAt,
         expiresAt: expiresAt.toISOString(),
       },
