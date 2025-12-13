@@ -1,9 +1,9 @@
 // src/components/dashboard/AbandonedCartBanner.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { ChevronRight, Clock, Tag, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Tag, X, ChevronRight } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface AbandonedCartBannerProps {
   onOpenModal: () => void;
@@ -16,6 +16,7 @@ interface BannerData {
   discount: number;
   currency: string;
   itemsCount: number;
+  expiresAt: string;
 }
 
 export default function AbandonedCartBanner({
@@ -25,8 +26,9 @@ export default function AbandonedCartBanner({
   const [bannerData, setBannerData] = useState<BannerData | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<number>(0);
 
-  const checkForAbandonedOrder = async () => {
+  const checkForAbandonedOrder = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
       if (!token) return;
@@ -41,7 +43,20 @@ export default function AbandonedCartBanner({
       const data = await response.json();
 
       if (data.success && data.data) {
+        // Oblicz pozostały czas
+        const expiresAt = new Date(data.data.expiresAt).getTime();
+        const now = Date.now();
+        const secondsLeft = Math.max(0, Math.floor((expiresAt - now) / 1000));
+
+        // Jeśli czas już minął, nie pokazuj banera
+        if (secondsLeft <= 0) {
+          setIsVisible(false);
+          return;
+        }
+
         setBannerData(data.data);
+        setTimeLeft(secondsLeft);
+
         if (data.dismissed && data.canReactivate) {
           setIsVisible(true);
         }
@@ -49,7 +64,25 @@ export default function AbandonedCartBanner({
     } catch (error) {
       console.error('Error checking abandoned order:', error);
     }
-  };
+  }, []);
+
+  // Countdown timer
+  useEffect(() => {
+    if (!isVisible || timeLeft <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setIsVisible(false); // Ukryj baner gdy czas minie
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isVisible, timeLeft]);
 
   useEffect(() => {
     const handleDismissed = () => {
@@ -59,7 +92,7 @@ export default function AbandonedCartBanner({
     window.addEventListener('abandonedCartDismissed', handleDismissed);
     return () =>
       window.removeEventListener('abandonedCartDismissed', handleDismissed);
-  }, []);
+  }, [checkForAbandonedOrder]);
 
   useEffect(() => {
     if (sessionStorage.getItem('abandonedCartBannerDismissed')) {
@@ -78,6 +111,12 @@ export default function AbandonedCartBanner({
     sessionStorage.setItem('abandonedCartBannerDismissed', 'true');
   };
 
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
   if (!isVisible || !bannerData || isDismissed) return null;
 
   const formatPrice = (price: number, currency: string) => {
@@ -90,7 +129,7 @@ export default function AbandonedCartBanner({
 
   return (
     <div className="mb-4 bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-700 dark:to-indigo-700 rounded-xl p-4 shadow-lg">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3 text-white">
           <div className="p-2 bg-white/20 rounded-lg">
             <Tag className="w-5 h-5" />
@@ -103,6 +142,14 @@ export default function AbandonedCartBanner({
               })}
             </p>
           </div>
+        </div>
+
+        {/* Timer */}
+        <div className="flex items-center gap-2 bg-white/20 rounded-lg px-3 py-1.5">
+          <Clock className="w-4 h-4 text-white" />
+          <span className="text-white font-mono font-bold text-lg">
+            {formatTime(timeLeft)}
+          </span>
         </div>
 
         <div className="flex items-center gap-2">
