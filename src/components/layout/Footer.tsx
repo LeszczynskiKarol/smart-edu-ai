@@ -1,4 +1,4 @@
-// src/components/layout/Footer.tsx
+// src/components/layout/Footer.tsx SMART EDU
 'use client';
 import React, { useRef, useState } from 'react';
 import Link from 'next/link';
@@ -135,7 +135,15 @@ const Footer: React.FC = () => {
           <div className="mt-8 pt-8 border-t border-gray-700 text-center">
             <p>
               &copy; {new Date().getFullYear()} {t('companyName')}.{' '}
-              {t('copyright')}
+              {t('copyright')} | Realizacja:{' '}
+              <a
+                href="https://www.torweb.pl"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gray-300 transition-colors"
+              >
+                TorWeb.pl
+              </a>
             </p>
           </div>
         </div>
