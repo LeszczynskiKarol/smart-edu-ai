@@ -145,6 +145,17 @@ const Footer: React.FC = () => {
                 TorWeb.pl
               </a>
             </p>
+            <p>
+              Polecamy:{' '}
+              <a
+                href="https://www.smart-copy.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gray-300 transition-colors"
+              >
+                Pisanie tekstów AI
+              </a>
+            </p>
           </div>
         </div>
       </footer>
