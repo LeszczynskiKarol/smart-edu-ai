@@ -668,6 +668,355 @@
   "Video": {
     "headerVideo": "2 kliknięcia i praca gotowa w 5 min"
   },
+  "Rozprawka": {
+    "pageTitle": "Generator Rozprawek AI | Rozprawka ze Sztuczną Inteligencją",
+    "meta": {
+      "title": "Rozprawka AI - Generator Rozprawek Online | Sztuczna Inteligencja",
+      "description": "Generator rozprawek AI ✓ Napisz rozprawkę w 5 minut ✓ Rozprawka argumentacyjna i problemowa ✓ AI do pisania rozprawek ✓ Prawidłowa struktura ✓ Argumenty i kontrargumenty ✓ Od 5 zł",
+      "keywords": "rozprawka ai, generator rozprawek, ai rozprawka, rozprawka generator, napisz rozprawkę ai, sztuczna inteligencja rozprawka, rozprawka problemowa ai, rozprawka argumentacyjna ai, generator rozprawek online, rozprawka na zamówienie, ai do rozprawek, rozprawka sztuczna inteligencja"
+    },
+    "hero": {
+      "badge": "Generator rozprawek AI",
+      "title": "Rozprawka do napisania?",
+      "titleHighlight": "Zleć to sztucznej inteligencji!",
+      "subtitle": "Wygeneruj profesjonalną rozprawkę argumentacyjną lub problemową w 5 minut. AI stworzy tekst z prawidłową strukturą, mocnymi argumentami i kontrargumentami.",
+      "cta": "Napisz rozprawkę za darmo",
+      "ctaSecondary": "Zobacz jak to działa",
+      "features": {
+        "fast": "Gotowa w 5 minut",
+        "quality": "Prawidłowa struktura",
+        "types": "Różne rodzaje rozprawek"
+      },
+      "stats": {
+        "time": "czas generowania",
+        "price": "cena od",
+        "available": "dostępność"
+      },
+      "preview": {
+        "title": "Generator Rozprawek AI",
+        "item1": "Teza i antyteza",
+        "item2": "Argumenty i kontrargumenty",
+        "item3": "Profesjonalne zakończenie",
+        "status": "AI gotowe do pracy"
+      }
+    },
+    "benefits": {
+      "badge": "Korzyści",
+      "title": "Dlaczego warto wybrać nasz generator rozprawek?",
+      "subtitle": "Poznaj wszystkie zalety generowania rozprawek ze sztuczną inteligencją",
+      "speed": {
+        "title": "Błyskawiczne generowanie",
+        "description": "Otrzymaj kompletną rozprawkę w ciągu 5 minut zamiast godzin pisania",
+        "feature1": "Generowanie w 5 minut",
+        "feature2": "Automatyczne formatowanie",
+        "feature3": "Dostępność 24/7"
+      },
+      "structure": {
+        "title": "Prawidłowa struktura",
+        "description": "Każda rozprawka ma profesjonalną strukturę z tezą, argumentami i zakończeniem",
+        "feature1": "Wstęp z tezą",
+        "feature2": "Argumenty i kontrargumenty",
+        "feature3": "Logiczne zakończenie"
+      },
+      "arguments": {
+        "title": "Mocne argumenty",
+        "description": "AI dobiera przekonujące argumenty i kontrargumenty do Twojego tematu",
+        "feature1": "Przemyślane argumenty",
+        "feature2": "Trafne kontrargumenty",
+        "feature3": "Logiczna argumentacja"
+      },
+      "quality": {
+        "title": "Najwyższa jakość",
+        "description": "Wykorzystujemy zaawansowane modele AI Claude do tworzenia treści",
+        "feature1": "Model Claude AI",
+        "feature2": "Profesjonalny język",
+        "feature3": "Poprawna stylistyka"
+      },
+      "formats": {
+        "title": "Wiele formatów",
+        "description": "Pobierz rozprawkę w wygodnym formacie - PDF lub DOCX do edycji",
+        "feature1": "Format PDF",
+        "feature2": "Format DOCX",
+        "feature3": "Natychmiastowy dostęp"
+      },
+      "privacy": {
+        "title": "Prywatność",
+        "description": "Twoje dane i rozprawki są w pełni chronione",
+        "feature1": "100% poufności",
+        "feature2": "Bezpieczne płatności",
+        "feature3": "Ochrona danych"
+      }
+    },
+    "types": {
+      "badge": "Rodzaje rozprawek",
+      "title": "Jakie rozprawki generuje AI?",
+      "subtitle": "Nasz generator obsługuje wszystkie popularne rodzaje rozprawek szkolnych i maturalnych",
+      "featuresLabel": "Cechy charakterystyczne",
+      "examplesLabel": "Przykładowe tematy",
+      "argumentative": {
+        "title": "Rozprawka argumentacyjna",
+        "description": "Rozprawka, w której przedstawiasz argumenty za lub przeciw określonej tezie",
+        "features": [
+          "Jasna teza na początku",
+          "Minimum 3 argumenty",
+          "Przykłady z literatury",
+          "Logiczne wnioskowanie"
+        ],
+        "examples": [
+          "Czy warto czytać książki w dobie internetu?",
+          "Czy pieniądze dają szczęście?",
+          "Czy warto podróżować?"
+        ]
+      },
+      "problem": {
+        "title": "Rozprawka problemowa",
+        "description": "Rozprawka analizująca problem z różnych perspektyw, bez jednoznacznej odpowiedzi",
+        "features": [
+          "Wieloaspektowa analiza",
+          "Różne punkty widzenia",
+          "Odwołania do źródeł",
+          "Przemyślane wnioski"
+        ],
+        "examples": [
+          "Jakie są przyczyny i skutki uzależnienia od mediów społecznościowych?",
+          "Jak rozwiązać problem zanieczyszczenia środowiska?",
+          "Czym jest prawdziwe szczęście?"
+        ]
+      },
+      "persuasive": {
+        "title": "Rozprawka przekonująca",
+        "description": "Rozprawka mająca na celu przekonanie czytelnika do określonego stanowiska",
+        "features": [
+          "Silna teza",
+          "Perswazyjne argumenty",
+          "Emocjonalne odwołania",
+          "Wezwanie do działania"
+        ],
+        "examples": [
+          "Dlaczego każdy powinien uprawiać sport?",
+          "Dlaczego warto uczyć się języków obcych?",
+          "Dlaczego powinniśmy ograniczyć plastik?"
+        ]
+      },
+      "comparative": {
+        "title": "Rozprawka porównawcza",
+        "description": "Rozprawka porównująca dwa lub więcej zjawisk, postaci lub koncepcji",
+        "features": [
+          "Jasne kryteria porównania",
+          "Obiektywna analiza",
+          "Podobieństwa i różnice",
+          "Syntetyczne wnioski"
+        ],
+        "examples": [
+          "Porównaj postawy życiowe Wokulskiego i Judyma",
+          "Porównaj życie w mieście i na wsi",
+          "Książka czy film - co lepiej przekazuje emocje?"
+        ]
+      }
+    },
+    "howItWorks": {
+      "badge": "Jak to działa",
+      "title": "Jak działa generator rozprawek AI?",
+      "subtitle": "4 proste kroki do gotowej rozprawki",
+      "mockup": {
+        "step": "Krok {number}: {title}"
+      },
+      "steps": {
+        "input": {
+          "title": "Podaj temat rozprawki",
+          "description": "Wpisz temat rozprawki i wybierz jej rodzaj (argumentacyjna, problemowa, itd.)",
+          "detail1": "Temat rozprawki",
+          "detail2": "Rodzaj rozprawki",
+          "detail3": "Długość tekstu"
+        },
+        "analysis": {
+          "title": "AI analizuje temat",
+          "description": "Sztuczna inteligencja analizuje temat i dobiera odpowiednie argumenty",
+          "detail1": "Analiza tematu",
+          "detail2": "Dobór argumentów",
+          "detail3": "Planowanie struktury"
+        },
+        "generation": {
+          "title": "Generowanie rozprawki",
+          "description": "AI tworzy kompletną rozprawkę z prawidłową strukturą i argumentacją",
+          "detail1": "Pisanie wstępu z tezą",
+          "detail2": "Rozwijanie argumentów",
+          "detail3": "Tworzenie zakończenia"
+        },
+        "download": {
+          "title": "Pobierz gotową rozprawkę",
+          "description": "Otrzymujesz kompletną rozprawkę gotową do pobrania i edycji",
+          "detail1": "Format PDF/DOCX",
+          "detail2": "Możliwość edycji",
+          "detail3": "Natychmiastowy dostęp"
+        }
+      }
+    },
+    "structure": {
+      "badge": "Struktura rozprawki",
+      "title": "Prawidłowa struktura każdej rozprawki",
+      "subtitle": "AI generuje rozprawki z zachowaniem wszystkich wymaganych elementów struktury",
+      "elements": {
+        "introduction": {
+          "title": "Wstęp",
+          "description": "Wprowadzenie do tematu, nakreślenie problemu i zainteresowanie czytelnika"
+        },
+        "thesis": {
+          "title": "Teza / Hipoteza",
+          "description": "Jasne sformułowanie głównej myśli lub pytania, na które odpowiada rozprawka"
+        },
+        "arguments": {
+          "title": "Argumenty",
+          "description": "Minimum 3 mocne argumenty poparte przykładami z literatury lub życia"
+        },
+        "counterarguments": {
+          "title": "Kontrargumenty",
+          "description": "Przedstawienie przeciwnych poglądów i ich analiza lub obalenie"
+        },
+        "conclusion": {
+          "title": "Zakończenie",
+          "description": "Podsumowanie argumentacji i sformułowanie ostatecznych wniosków"
+        }
+      },
+      "stats": {
+        "sections": "sekcji",
+        "words": "słów",
+        "arguments": "argumenty min.",
+        "structure": "zgodność ze strukturą"
+      }
+    },
+    "process": {
+      "badge": "Proces",
+      "title": "Jak zamówić rozprawkę?",
+      "subtitle": "Od rejestracji do gotowej rozprawki w 4 prostych krokach",
+      "cta": "Rozpocznij teraz",
+      "steps": {
+        "account": {
+          "title": "Załóż darmowe konto",
+          "description": "Zarejestruj się i uzyskaj dostęp do generatora rozprawek AI",
+          "item1": "Rejestracja e-mailem",
+          "item2": "Weryfikacja konta",
+          "item3": "Gotowe w 30 sekund"
+        },
+        "details": {
+          "title": "Podaj temat i wymagania",
+          "description": "Wpisz temat rozprawki, wybierz rodzaj i określ długość",
+          "item1": "Temat rozprawki",
+          "item2": "Rodzaj (argumentacyjna/problemowa)",
+          "item3": "Długość tekstu"
+        },
+        "wait": {
+          "title": "Poczekaj 5 minut",
+          "description": "AI generuje kompletną rozprawkę z argumentami i strukturą",
+          "item1": "AI analizuje temat",
+          "item2": "Generowanie 5 min",
+          "item3": "Status w czasie rzeczywistym"
+        },
+        "download": {
+          "title": "Pobierz rozprawkę",
+          "description": "Pobierz gotową rozprawkę w formacie PDF lub DOCX",
+          "item1": "Format PDF",
+          "item2": "Format DOCX",
+          "item3": "Pełna możliwość edycji"
+        }
+      },
+      "stats": {
+        "registration": "Rejestracja",
+        "generation": "Generowanie",
+        "formats": "formaty eksportu",
+        "availability": "Dostępność"
+      }
+    },
+    "pricing": {
+      "title": "Cennik rozprawek AI",
+      "subtitle": "Płać tylko za to, czego potrzebujesz. Bez abonamentu, bez ukrytych opłat.",
+      "tableTitle": "Cennik rozprawek",
+      "tableSubtitle": "Wybierz długość rozprawki dopasowaną do Twoich potrzeb",
+      "pages": "str.",
+      "words": "słów",
+      "popular": "Najpopularniejsza",
+      "basePriceInfo": "Cena bazowa: {price} za 1000 znaków",
+      "features": {
+        "instant": "Generowanie w 2-5 minut",
+        "secure": "100% bezpieczeństwa",
+        "available": "Dostępne 24/7",
+        "payAsYouGo": "Płatność za tekst"
+      },
+      "cta": "Napisz rozprawkę teraz",
+      "ctaSubtext": "Darmowa rejestracja • Płatność tylko za wygenerowane teksty",
+      "tiers": {
+        "very-short": { "name": "Bardzo krótka" },
+        "short": { "name": "Krótka" },
+        "medium": { "name": "Średnia" },
+        "long": { "name": "Długa" },
+        "very-long": { "name": "Bardzo długa" },
+        "mega": { "name": "Mega długa" },
+        "longest": { "name": "Najdłuższa" }
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Najczęściej zadawane pytania",
+      "subtitle": "Wszystko, co musisz wiedzieć o generatorze rozprawek AI",
+      "questions": {
+        "q1": {
+          "question": "Jak długo trwa generowanie rozprawki?",
+          "answer": "Generowanie rozprawki zajmuje około 5 minut. W tym czasie AI analizuje temat, dobiera argumenty i tworzy kompletny tekst z prawidłową strukturą."
+        },
+        "q2": {
+          "question": "Czy rozprawka będzie miała prawidłową strukturę?",
+          "answer": "Tak! Każda rozprawka generowana przez AI ma prawidłową strukturę: wstęp z tezą, argumenty poparte przykładami, kontrargumenty oraz zakończenie z wnioskami."
+        },
+        "q3": {
+          "question": "Jakie rodzaje rozprawek mogę wygenerować?",
+          "answer": "Generator obsługuje wszystkie popularne rodzaje rozprawek: argumentacyjną, problemową, przekonującą i porównawczą. Możesz też określić własne wymagania."
+        },
+        "q4": {
+          "question": "Czy mogę edytować wygenerowaną rozprawkę?",
+          "answer": "Oczywiście! Rozprawkę możesz pobrać w formacie DOCX, który pozwala na pełną edycję w Microsoft Word lub Google Docs. Możesz modyfikować treść według własnych potrzeb."
+        },
+        "q5": {
+          "question": "Czy rozprawka będzie zawierać przykłady z literatury?",
+          "answer": "Tak, AI dobiera odpowiednie przykłady z literatury polskiej i światowej do argumentów. Możesz też wskazać konkretne lektury, do których ma się odwołać."
+        },
+        "q6": {
+          "question": "Ile kosztuje wygenerowanie rozprawki?",
+          "answer": "Ceny zaczynają się od 5 zł za krótką rozprawkę (około 250 słów). Dłuższe rozprawki kosztują więcej - szczegółowy cennik znajdziesz w sekcji Cennik."
+        },
+        "q7": {
+          "question": "Czy generator nadaje się do rozprawki maturalnej?",
+          "answer": "Generator tworzy rozprawki zgodne ze standardami maturalnymi. Pamiętaj jednak, że wygenerowany tekst powinien służyć jako inspiracja i materiał do nauki, a nie gotowa praca do oddania."
+        }
+      },
+      "contact": {
+        "title": "Masz więcej pytań?",
+        "description": "Nasz zespół jest dostępny 24/7 i chętnie pomoże",
+        "button": "Skontaktuj się z nami"
+      }
+    },
+    "cta": {
+      "badge": "Rozpocznij teraz",
+      "title": "Gotowy na swoją rozprawkę?",
+      "subtitle": "Wygeneruj profesjonalną rozprawkę w 5 minut",
+      "button": "Napisz rozprawkę teraz",
+      "features": {
+        "fast": "Szybkie generowanie",
+        "secure": "Bezpieczne płatności",
+        "quality": "Najwyższa jakość"
+      },
+      "trust": {
+        "indicator1": "100% bezpieczne płatności",
+        "indicator2": "Ochrona danych osobowych",
+        "indicator3": "Natychmiastowy dostęp"
+      },
+      "stats": {
+        "time": "czas generowania",
+        "price": "cena od",
+        "quality": "jakość",
+        "support": "wsparcie"
+      }
+    }
+  },
   "abandonedCart": {
     "banner": {
       "title": "Masz niedokończone zamówienie!",
@@ -1583,28 +1932,29 @@
     }
   },
   "Footer": {
-    "companyName": "Smart-Edu.AI",
-    "description": "Pisanie prac na zamówienie, domowych, naukowych, zaliczeniowych Smart-Edu.ai - sztuczna inteligencja do pisania zadań.",
+    "companyName": "Smart-Edu.ai",
+    "description": "Platforma do generowania prac naukowych i edukacyjnych z wykorzystaniem sztucznej inteligencji.",
     "quickLinks": "Szybkie linki",
     "links": {
-      "blog": "Blog",
-      "contact": "Kontakt",
-      "masters": "AI generator prac mgr",
       "register": "Rejestracja",
       "login": "Logowanie",
-      "example": "Przykładowe prace",
-      "bachelor": "Pisanie prac licencjackich",
+      "example": "Przykłady",
       "paper": "Referat AI",
+      "bachelor": "Pisanie prac licencjackich AI",
       "composition": "Wypracowanie AI",
-      "writerPaper": "AI generator prac pisemnych"
+      "masters": "Pisanie prac magisterskich AI",
+      "writerPaper": "AI generator prac pisemnych",
+      "rozprawka": "Rozprawka AI"
     },
     "contact": {
-      "title": "Warunki użytkowania",
-      "email": "kontakt@ecopywriting.pl",
+      "title": "Informacje prawne",
       "privacy": "Polityka prywatności",
       "terms": "Regulamin"
     },
-    "copyright": "Wszelkie prawa zastrzeżone."
+    "copyright": "Wszelkie prawa zastrzeżone",
+    "madeBy": "Realizacja:",
+    "recommended": "Polecamy:",
+    "smartCopyLink": "Pisanie tekstów AI"
   },
   "Header": {
     "brandName": "Smart-Edu.AI",

@@ -176,6 +176,355 @@
     "description": "Professional AI Assignment Writter and Homework Generator. Sign Up For Free!",
     "ogImageAlt": "Smart-Edu.ai"
   },
+  "Rozprawka": {
+    "pageTitle": "AI Argumentative Essay Generator | Write Essays with AI",
+    "meta": {
+      "title": "Argumentative Essay AI Generator | Write Essays Online",
+      "description": "AI Argumentative Essay Generator ✓ Write essays in 5 minutes ✓ Persuasive and analytical essays ✓ AI essay writing ✓ Proper structure ✓ Strong arguments ✓ From $2",
+      "keywords": "argumentative essay ai, essay generator, ai essay writer, essay generator online, write essay ai, artificial intelligence essay, persuasive essay ai, analytical essay ai, essay generator online, essay on demand, ai for essays"
+    },
+    "hero": {
+      "badge": "AI Essay Generator",
+      "title": "Need to write an essay?",
+      "titleHighlight": "Let AI do it for you!",
+      "subtitle": "Generate a professional argumentative or analytical essay in 5 minutes. AI creates text with proper structure, strong arguments and counterarguments.",
+      "cta": "Write Essay for Free",
+      "ctaSecondary": "See how it works",
+      "features": {
+        "fast": "Ready in 5 minutes",
+        "quality": "Proper structure",
+        "types": "Various essay types"
+      },
+      "stats": {
+        "time": "generation time",
+        "price": "price from",
+        "available": "availability"
+      },
+      "preview": {
+        "title": "AI Essay Generator",
+        "item1": "Thesis and antithesis",
+        "item2": "Arguments and counterarguments",
+        "item3": "Professional conclusion",
+        "status": "AI ready to work"
+      }
+    },
+    "benefits": {
+      "badge": "Benefits",
+      "title": "Why choose our essay generator?",
+      "subtitle": "Discover all the advantages of generating essays with artificial intelligence",
+      "speed": {
+        "title": "Lightning-fast generation",
+        "description": "Get a complete essay in 5 minutes instead of hours of writing",
+        "feature1": "Generation in 5 minutes",
+        "feature2": "Automatic formatting",
+        "feature3": "24/7 availability"
+      },
+      "structure": {
+        "title": "Proper structure",
+        "description": "Every essay has a professional structure with thesis, arguments and conclusion",
+        "feature1": "Introduction with thesis",
+        "feature2": "Arguments and counterarguments",
+        "feature3": "Logical conclusion"
+      },
+      "arguments": {
+        "title": "Strong arguments",
+        "description": "AI selects convincing arguments and counterarguments for your topic",
+        "feature1": "Well-thought arguments",
+        "feature2": "Relevant counterarguments",
+        "feature3": "Logical reasoning"
+      },
+      "quality": {
+        "title": "Highest quality",
+        "description": "We use advanced Claude AI models to create content",
+        "feature1": "Claude AI model",
+        "feature2": "Professional language",
+        "feature3": "Correct style"
+      },
+      "formats": {
+        "title": "Multiple formats",
+        "description": "Download your essay in convenient format - PDF or DOCX for editing",
+        "feature1": "PDF format",
+        "feature2": "DOCX format",
+        "feature3": "Instant access"
+      },
+      "privacy": {
+        "title": "Privacy",
+        "description": "Your data and essays are fully protected",
+        "feature1": "100% confidentiality",
+        "feature2": "Secure payments",
+        "feature3": "Data protection"
+      }
+    },
+    "types": {
+      "badge": "Essay Types",
+      "title": "What types of essays does AI generate?",
+      "subtitle": "Our generator supports all popular types of academic essays",
+      "featuresLabel": "Key characteristics",
+      "examplesLabel": "Example topics",
+      "argumentative": {
+        "title": "Argumentative Essay",
+        "description": "An essay where you present arguments for or against a specific thesis",
+        "features": [
+          "Clear thesis at the beginning",
+          "Minimum 3 arguments",
+          "Examples from literature",
+          "Logical reasoning"
+        ],
+        "examples": [
+          "Is it worth reading books in the age of the internet?",
+          "Does money bring happiness?",
+          "Is traveling worth it?"
+        ]
+      },
+      "problem": {
+        "title": "Analytical Essay",
+        "description": "An essay analyzing a problem from different perspectives, without a definitive answer",
+        "features": [
+          "Multi-aspect analysis",
+          "Different points of view",
+          "References to sources",
+          "Thoughtful conclusions"
+        ],
+        "examples": [
+          "What are the causes and effects of social media addiction?",
+          "How to solve the problem of environmental pollution?",
+          "What is true happiness?"
+        ]
+      },
+      "persuasive": {
+        "title": "Persuasive Essay",
+        "description": "An essay aimed at convincing the reader of a specific position",
+        "features": [
+          "Strong thesis",
+          "Persuasive arguments",
+          "Emotional appeals",
+          "Call to action"
+        ],
+        "examples": [
+          "Why should everyone play sports?",
+          "Why is it worth learning foreign languages?",
+          "Why should we reduce plastic use?"
+        ]
+      },
+      "comparative": {
+        "title": "Comparative Essay",
+        "description": "An essay comparing two or more phenomena, characters or concepts",
+        "features": [
+          "Clear comparison criteria",
+          "Objective analysis",
+          "Similarities and differences",
+          "Synthetic conclusions"
+        ],
+        "examples": [
+          "Compare city and rural life",
+          "Book vs. movie - which conveys emotions better?",
+          "Traditional vs. online education"
+        ]
+      }
+    },
+    "howItWorks": {
+      "badge": "How It Works",
+      "title": "How does the AI essay generator work?",
+      "subtitle": "4 simple steps to a finished essay",
+      "mockup": {
+        "step": "Step {number}: {title}"
+      },
+      "steps": {
+        "input": {
+          "title": "Enter essay topic",
+          "description": "Enter your essay topic and choose its type (argumentative, analytical, etc.)",
+          "detail1": "Essay topic",
+          "detail2": "Essay type",
+          "detail3": "Text length"
+        },
+        "analysis": {
+          "title": "AI analyzes the topic",
+          "description": "Artificial intelligence analyzes the topic and selects appropriate arguments",
+          "detail1": "Topic analysis",
+          "detail2": "Argument selection",
+          "detail3": "Structure planning"
+        },
+        "generation": {
+          "title": "Essay generation",
+          "description": "AI creates a complete essay with proper structure and argumentation",
+          "detail1": "Writing introduction with thesis",
+          "detail2": "Developing arguments",
+          "detail3": "Creating conclusion"
+        },
+        "download": {
+          "title": "Download your essay",
+          "description": "Get a complete essay ready for download and editing",
+          "detail1": "PDF/DOCX format",
+          "detail2": "Full editing capability",
+          "detail3": "Instant access"
+        }
+      }
+    },
+    "structure": {
+      "badge": "Essay Structure",
+      "title": "Proper structure in every essay",
+      "subtitle": "AI generates essays maintaining all required structural elements",
+      "elements": {
+        "introduction": {
+          "title": "Introduction",
+          "description": "Introduction to the topic, outlining the problem and engaging the reader"
+        },
+        "thesis": {
+          "title": "Thesis / Hypothesis",
+          "description": "Clear formulation of the main idea or question the essay answers"
+        },
+        "arguments": {
+          "title": "Arguments",
+          "description": "Minimum 3 strong arguments supported by examples from literature or life"
+        },
+        "counterarguments": {
+          "title": "Counterarguments",
+          "description": "Presentation of opposing views and their analysis or refutation"
+        },
+        "conclusion": {
+          "title": "Conclusion",
+          "description": "Summary of argumentation and formulation of final conclusions"
+        }
+      },
+      "stats": {
+        "sections": "sections",
+        "words": "words",
+        "arguments": "arguments min.",
+        "structure": "structure compliance"
+      }
+    },
+    "process": {
+      "badge": "Process",
+      "title": "How to order an essay?",
+      "subtitle": "From registration to finished essay in 4 simple steps",
+      "cta": "Start Now",
+      "steps": {
+        "account": {
+          "title": "Create free account",
+          "description": "Register and get access to the AI essay generator",
+          "item1": "Email registration",
+          "item2": "Account verification",
+          "item3": "Ready in 30 seconds"
+        },
+        "details": {
+          "title": "Enter topic and requirements",
+          "description": "Enter essay topic, choose type and specify length",
+          "item1": "Essay topic",
+          "item2": "Type (argumentative/analytical)",
+          "item3": "Text length"
+        },
+        "wait": {
+          "title": "Wait 5 minutes",
+          "description": "AI generates a complete essay with arguments and structure",
+          "item1": "AI analyzes topic",
+          "item2": "Generation 5 min",
+          "item3": "Real-time status"
+        },
+        "download": {
+          "title": "Download essay",
+          "description": "Download finished essay in PDF or DOCX format",
+          "item1": "PDF format",
+          "item2": "DOCX format",
+          "item3": "Full editing capability"
+        }
+      },
+      "stats": {
+        "registration": "Registration",
+        "generation": "Generation",
+        "formats": "export formats",
+        "availability": "Availability"
+      }
+    },
+    "pricing": {
+      "title": "Essay Pricing",
+      "subtitle": "Pay only for what you need. No subscription, no hidden fees.",
+      "tableTitle": "Essay Pricing",
+      "tableSubtitle": "Choose the essay length that fits your needs",
+      "pages": "pages",
+      "words": "words",
+      "popular": "Most Popular",
+      "basePriceInfo": "Base price: {price} per 1000 characters",
+      "features": {
+        "instant": "Generated in 2-5 minutes",
+        "secure": "100% secure",
+        "available": "Available 24/7",
+        "payAsYouGo": "Pay per text"
+      },
+      "cta": "Write your essay now",
+      "ctaSubtext": "Free registration • Pay only for generated texts",
+      "tiers": {
+        "very-short": { "name": "Very Short" },
+        "short": { "name": "Short" },
+        "medium": { "name": "Medium" },
+        "long": { "name": "Long" },
+        "very-long": { "name": "Very Long" },
+        "mega": { "name": "Mega Long" },
+        "longest": { "name": "Longest" }
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about the AI essay generator",
+      "questions": {
+        "q1": {
+          "question": "How long does it take to generate an essay?",
+          "answer": "Generating an essay takes about 5 minutes. During this time, AI analyzes the topic, selects arguments and creates a complete text with proper structure."
+        },
+        "q2": {
+          "question": "Will the essay have proper structure?",
+          "answer": "Yes! Every essay generated by AI has proper structure: introduction with thesis, arguments supported by examples, counterarguments, and conclusion with findings."
+        },
+        "q3": {
+          "question": "What types of essays can I generate?",
+          "answer": "The generator supports all popular essay types: argumentative, analytical, persuasive and comparative. You can also specify your own requirements."
+        },
+        "q4": {
+          "question": "Can I edit the generated essay?",
+          "answer": "Of course! You can download the essay in DOCX format, which allows full editing in Microsoft Word or Google Docs. You can modify the content according to your needs."
+        },
+        "q5": {
+          "question": "Will the essay include examples from literature?",
+          "answer": "Yes, AI selects appropriate examples from literature to support arguments. You can also indicate specific works you want referenced."
+        },
+        "q6": {
+          "question": "How much does it cost to generate an essay?",
+          "answer": "Prices start from $2 for a short essay (about 250 words). Longer essays cost more - you can find detailed pricing in the Pricing section."
+        },
+        "q7": {
+          "question": "Is the generator suitable for academic essays?",
+          "answer": "The generator creates essays according to academic standards. Remember, however, that generated text should serve as inspiration and learning material, not as a ready paper to submit."
+        }
+      },
+      "contact": {
+        "title": "Have more questions?",
+        "description": "Our team is available 24/7 and happy to help",
+        "button": "Contact us"
+      }
+    },
+    "cta": {
+      "badge": "Start Now",
+      "title": "Ready for your essay?",
+      "subtitle": "Generate a professional essay in 5 minutes",
+      "button": "Write Essay Now",
+      "features": {
+        "fast": "Fast generation",
+        "secure": "Secure payments",
+        "quality": "Highest quality"
+      },
+      "trust": {
+        "indicator1": "100% secure payments",
+        "indicator2": "Personal data protection",
+        "indicator3": "Instant access"
+      },
+      "stats": {
+        "time": "generation time",
+        "price": "price from",
+        "quality": "quality",
+        "support": "support"
+      }
+    }
+  },
   "abandonedCart": {
     "banner": {
       "title": "You have an unfinished order!",
@@ -1604,28 +1953,29 @@
     }
   },
   "Footer": {
-    "companyName": "Smart-Edu.AI",
-    "description": "AI Assignment Writter - Artificial Intelligence Homework Generator",
+    "companyName": "Smart-Edu.ai",
+    "description": "AI-powered platform for generating academic and educational papers.",
     "quickLinks": "Quick Links",
     "links": {
-      "blog": "Blog",
-      "contact": "Contact",
       "register": "Register",
       "login": "Login",
-      "example": "Example works",
-      "paper": "AI School Report Writer",
-      "bachelor": "AI Bachelors Thesis Writer",
-      "composition": "AI Composition Writer",
-      "masters": "AI Masters Thesis Writer",
-      "writerPaper": "AI Paper Writer"
+      "example": "Examples",
+      "paper": "AI Report",
+      "bachelor": "Bachelor's Thesis",
+      "composition": "AI Essay",
+      "masters": "Master's Thesis",
+      "writerPaper": "AI Paper Writer",
+      "rozprawka": "Essay Generator"
     },
     "contact": {
-      "title": "Terms of use",
-      "email": "kontakt@ecopywriting.pl",
+      "title": "Legal Information",
       "privacy": "Privacy Policy",
       "terms": "Terms of Service"
     },
-    "copyright": "All rights reserved."
+    "copyright": "All rights reserved",
+    "madeBy": "Made by:",
+    "recommended": "Recommended:",
+    "smartCopyLink": "AI Content Generator"
   },
   "Header": {
     "brandName": "Smart-Edu.AI",

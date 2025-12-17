@@ -1,4 +1,4 @@
-// src/components/layout/Footer.tsx SMART EDU
+// src/components/layout/Footer.tsx
 'use client';
 import React, { useRef, useState } from 'react';
 import Link from 'next/link';
@@ -108,6 +108,13 @@ const Footer: React.FC = () => {
                 >
                   {t('links.writerPaper')}
                 </Link>
+                <Link
+                  href={`/${locale}/rozprawka`}
+                  className="hover:text-gray-300"
+                  onClick={() => handleLinkClick('rozprawka')}
+                >
+                  {t('links.rozprawka')}
+                </Link>
               </div>
             </div>
             <div>
@@ -135,7 +142,7 @@ const Footer: React.FC = () => {
           <div className="mt-8 pt-8 border-t border-gray-700 text-center">
             <p>
               &copy; {new Date().getFullYear()} {t('companyName')}.{' '}
-              {t('copyright')} | Realizacja:{' '}
+              {t('copyright')} | {t('madeBy')}{' '}
               <a
                 href="https://www.torweb.pl"
                 target="_blank"
@@ -146,14 +153,14 @@ const Footer: React.FC = () => {
               </a>
             </p>
             <p>
-              Polecamy:{' '}
+              {t('recommended')}{' '}
               <a
                 href="https://www.smart-copy.ai"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-gray-300 transition-colors"
               >
-                Pisanie tekstów AI
+                {t('smartCopyLink')}
               </a>
             </p>
           </div>
