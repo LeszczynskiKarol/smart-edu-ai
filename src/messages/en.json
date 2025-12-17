@@ -134,6 +134,377 @@
       "por": "Portuguese"
     }
   },
+
+  "Referat": {
+    "pageTitle": "AI Report Generator | Write Reports with Artificial Intelligence",
+    "meta": {
+      "title": "AI Report Generator - Write Reports Online | Artificial Intelligence",
+      "description": "AI Report Generator ✓ Write reports in 5 minutes ✓ Scientific, school, analytical reports ✓ AI report writing ✓ Verified sources ✓ Bibliography ✓ From $2",
+      "keywords": "ai report generator, report generator, ai report, report writer, write report ai, artificial intelligence report, scientific report ai, report generator online, report on demand, ai for reports"
+    },
+    "hero": {
+      "badge": "AI Report Generator",
+      "title": "Need to write a report?",
+      "titleHighlight": "Let AI do it for you!",
+      "subtitle": "Generate a professional report in 5 minutes. AI searches sources, verifies information and creates a complete report with bibliography on any topic.",
+      "cta": "Write Report for Free",
+      "ctaSecondary": "See how it works",
+      "features": {
+        "fast": "Ready in 5 minutes",
+        "quality": "High quality",
+        "sources": "Verified sources"
+      },
+      "stats": {
+        "time": "generation time",
+        "price": "price from",
+        "available": "availability"
+      },
+      "preview": {
+        "title": "AI Report Generator",
+        "subtitle": "Powered by Claude AI",
+        "item1": "Automatic source searching",
+        "item2": "Citations and bibliography",
+        "item3": "Professional formatting",
+        "status": "AI ready to work"
+      }
+    },
+    "benefits": {
+      "badge": "Benefits",
+      "title": "Why choose our report generator?",
+      "subtitle": "Discover all the advantages of generating reports with artificial intelligence",
+      "speed": {
+        "title": "Lightning-fast generation",
+        "description": "Get a complete report in 5 minutes instead of hours of searching and writing",
+        "feature1": "Generation in 5 minutes",
+        "feature2": "Automatic formatting",
+        "feature3": "24/7 availability"
+      },
+      "sources": {
+        "title": "Verified sources",
+        "description": "AI searches and verifies information from reliable scientific and encyclopedic sources",
+        "feature1": "Reliable sources",
+        "feature2": "Current information",
+        "feature3": "Complete bibliography"
+      },
+      "languages": {
+        "title": "Multiple languages",
+        "description": "Generate reports in English, Polish, German and other languages",
+        "feature1": "7 languages",
+        "feature2": "English and Polish",
+        "feature3": "European languages"
+      },
+      "quality": {
+        "title": "Highest quality",
+        "description": "We use advanced Claude AI models to create content",
+        "feature1": "Claude AI model",
+        "feature2": "Professional language",
+        "feature3": "Correct style"
+      },
+      "formats": {
+        "title": "Multiple formats",
+        "description": "Download your report in convenient format - PDF or DOCX for editing",
+        "feature1": "PDF format",
+        "feature2": "DOCX format",
+        "feature3": "Instant access"
+      },
+      "privacy": {
+        "title": "Privacy",
+        "description": "Your data and reports are fully protected",
+        "feature1": "100% confidentiality",
+        "feature2": "Secure payments",
+        "feature3": "Data protection"
+      }
+    },
+    "types": {
+      "badge": "Report Types",
+      "title": "What types of reports does AI generate?",
+      "subtitle": "Our generator supports all popular types of school and academic reports",
+      "featuresLabel": "Key characteristics",
+      "examplesLabel": "Example topics",
+      "scientific": {
+        "title": "Scientific Report",
+        "description": "In-depth report based on scientific sources and academic research",
+        "features": [
+          "Scientific and academic sources",
+          "Citations and footnotes",
+          "Research structure",
+          "Complete bibliography"
+        ],
+        "examples": [
+          "Impact of climate change on biodiversity",
+          "Development of artificial intelligence in medicine",
+          "Theory of evolution - modern research"
+        ]
+      },
+      "school": {
+        "title": "School Report",
+        "description": "Report adapted for elementary and high school level",
+        "features": [
+          "Accessible language",
+          "Clear structure",
+          "Illustrations and examples",
+          "Appropriate length"
+        ],
+        "examples": [
+          "Life and works of Shakespeare",
+          "Solar System - planets and their features",
+          "World War II - key events"
+        ]
+      },
+      "analytical": {
+        "title": "Analytical Report",
+        "description": "Detailed analysis of a phenomenon, problem or topic from various perspectives",
+        "features": [
+          "Multi-aspect analysis",
+          "Comparisons and contrasts",
+          "Data and statistics",
+          "Final conclusions"
+        ],
+        "examples": [
+          "Analysis of climate crisis causes",
+          "Impact of social media on youth",
+          "Causes and effects of globalization"
+        ]
+      },
+      "comparative": {
+        "title": "Comparative Report",
+        "description": "Comparison of two or more phenomena, theories or concepts",
+        "features": [
+          "Clear comparison criteria",
+          "Objective analysis",
+          "Similarities and differences",
+          "Synthetic conclusions"
+        ],
+        "examples": [
+          "Comparison of political systems: democracy vs authoritarianism",
+          "Renewable energy vs fossil fuels",
+          "Classical vs modern literature"
+        ]
+      },
+      "problem": {
+        "title": "Problem Report",
+        "description": "Presentation of a problem, its causes, effects and possible solutions",
+        "features": [
+          "Problem identification",
+          "Cause analysis",
+          "Discussion of effects",
+          "Solution proposals"
+        ],
+        "examples": [
+          "Ocean plastic pollution problem",
+          "Youth unemployment - causes and solutions",
+          "Cyberbullying in schools"
+        ]
+      }
+    },
+    "howItWorks": {
+      "badge": "How It Works",
+      "title": "How does the AI report generator work?",
+      "subtitle": "4 simple steps to a finished report",
+      "next": "Next",
+      "mockup": {
+        "step": "Step {number}: {title}"
+      },
+      "steps": {
+        "input": {
+          "title": "Enter report topic",
+          "description": "Enter topic and choose report type (scientific, school, analytical...)",
+          "detail1": "Report topic",
+          "detail2": "Report type",
+          "detail3": "Text length"
+        },
+        "research": {
+          "title": "AI searches sources",
+          "description": "Artificial intelligence searches the internet and finds reliable information sources",
+          "detail1": "Topic analysis",
+          "detail2": "Source searching",
+          "detail3": "Information verification"
+        },
+        "generation": {
+          "title": "Report generation",
+          "description": "AI creates a complete report with proper structure, sources and bibliography",
+          "detail1": "Writing introduction",
+          "detail2": "Developing content",
+          "detail3": "Creating bibliography"
+        },
+        "download": {
+          "title": "Download your report",
+          "description": "Get a complete report ready for download and editing",
+          "detail1": "PDF/DOCX format",
+          "detail2": "Full editing capability",
+          "detail3": "Instant access"
+        }
+      }
+    },
+    "subjects": {
+      "badge": "Subjects",
+      "title": "Reports for every subject",
+      "subtitle": "Generator supports all school and academic subjects",
+      "polish": {
+        "title": "English Language",
+        "items": ["Literature", "Literary periods", "Authors", "Genres"]
+      },
+      "history": {
+        "title": "History",
+        "items": ["Eras", "Events", "Figures", "Revolutions"]
+      },
+      "geography": {
+        "title": "Geography",
+        "items": ["Countries", "Climate", "Terrain", "Economy"]
+      },
+      "biology": {
+        "title": "Biology",
+        "items": ["Organisms", "Ecosystems", "Genetics", "Anatomy"]
+      },
+      "civics": {
+        "title": "Social Studies",
+        "items": ["Politics", "Law", "Society", "Economics"]
+      },
+      "art": {
+        "title": "Art",
+        "items": ["Painting", "Music", "Architecture", "Film"]
+      },
+      "chemistry": {
+        "title": "Chemistry",
+        "items": ["Reactions", "Elements", "Compounds", "Processes"]
+      },
+      "physics": {
+        "title": "Physics",
+        "items": ["Mechanics", "Electricity", "Optics", "Thermodynamics"]
+      },
+      "stats": {
+        "subjects": "subjects",
+        "languages": "languages",
+        "topics": "topics",
+        "quality": "quality"
+      }
+    },
+    "process": {
+      "badge": "Process",
+      "title": "How to order a report?",
+      "subtitle": "From registration to finished report in 4 simple steps",
+      "cta": "Start Now",
+      "steps": {
+        "account": {
+          "title": "Create free account",
+          "description": "Register and get access to the AI report generator",
+          "item1": "Email registration",
+          "item2": "Account verification",
+          "item3": "Ready in 30 seconds"
+        },
+        "details": {
+          "title": "Enter topic and requirements",
+          "description": "Enter report topic, choose type and specify length",
+          "item1": "Report topic",
+          "item2": "Type (scientific/school/...)",
+          "item3": "Text length"
+        },
+        "wait": {
+          "title": "Wait 5 minutes",
+          "description": "AI generates a complete report with sources and bibliography",
+          "item1": "AI searches sources",
+          "item2": "Generation 5 min",
+          "item3": "Real-time status"
+        },
+        "download": {
+          "title": "Download report",
+          "description": "Download finished report in PDF or DOCX format",
+          "item1": "PDF format",
+          "item2": "DOCX format",
+          "item3": "Full editing capability"
+        }
+      }
+    },
+    "pricing": {
+      "title": "Report Pricing",
+      "subtitle": "Pay only for what you need. No subscription, no hidden fees.",
+      "tableTitle": "Report Pricing",
+      "tableSubtitle": "Choose the report length that fits your needs",
+      "pages": "pages",
+      "words": "words",
+      "popular": "Most Popular",
+      "basePriceInfo": "Base price: {price} per 1000 characters",
+      "features": {
+        "instant": "Generated in 2-5 minutes",
+        "secure": "100% secure",
+        "available": "Available 24/7",
+        "payAsYouGo": "Pay per text"
+      },
+      "cta": "Write your report now",
+      "ctaSubtext": "Free registration • Pay only for generated texts",
+      "tiers": {
+        "very-short": { "name": "Very Short" },
+        "short": { "name": "Short" },
+        "medium": { "name": "Medium" },
+        "long": { "name": "Long" },
+        "very-long": { "name": "Very Long" },
+        "mega": { "name": "Mega Long" },
+        "longest": { "name": "Longest" }
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about the AI report generator",
+      "questions": {
+        "q1": {
+          "question": "How long does it take to generate a report?",
+          "answer": "Generating a report takes about 5 minutes. During this time, AI searches sources, verifies information and creates a complete text with bibliography."
+        },
+        "q2": {
+          "question": "Will the report include sources and bibliography?",
+          "answer": "Yes! Every report generated by AI includes verified sources and a complete bibliography in the appropriate format. AI automatically searches for reliable information sources."
+        },
+        "q3": {
+          "question": "From which subjects can I order a report?",
+          "answer": "Reports can be ordered from all subjects: English, History, Social Studies, Geography, Biology, Chemistry, Physics, foreign languages and many more. AI can handle any topic."
+        },
+        "q4": {
+          "question": "Can I edit the generated report?",
+          "answer": "Of course! You can download the report in DOCX format, which allows full editing in Microsoft Word or Google Docs. You can modify the content according to your needs."
+        },
+        "q5": {
+          "question": "What types of reports can I generate?",
+          "answer": "The generator supports all popular report types: scientific, school, analytical, comparative and problem reports. You can also specify your own requirements."
+        },
+        "q6": {
+          "question": "How much does it cost to generate a report?",
+          "answer": "Prices start from $2 for a short report (about 250 words). Longer reports cost more - you can find detailed pricing in the Pricing section."
+        },
+        "q7": {
+          "question": "Is the information in the report reliable?",
+          "answer": "AI searches information from reliable sources and verifies it before use. Remember, however, that the generated report should serve as learning material that you should review yourself."
+        }
+      },
+      "contact": {
+        "title": "Have more questions?",
+        "description": "Our team is available 24/7 and happy to help",
+        "button": "Contact us"
+      }
+    },
+    "cta": {
+      "badge": "Start Now",
+      "title": "Ready for your report?",
+      "subtitle": "Generate a professional report in 5 minutes",
+      "button": "Write Report Now",
+      "features": {
+        "fast": "Fast generation",
+        "secure": "Secure payments",
+        "quality": "Highest quality"
+      },
+      "trust": {
+        "indicator1": "100% secure payments",
+        "indicator2": "Personal data protection",
+        "indicator3": "Instant access"
+      },
+      "stats": {
+        "time": "generation time",
+        "price": "price from",
+        "quality": "quality",
+        "support": "support"
+      }
+    }
+  },
   "tutorial": {
     "step": "Step",
     "of": "of",

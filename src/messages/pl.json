@@ -135,6 +135,376 @@
       "confirm": "Wyloguj"
     }
   },
+  "Referat": {
+    "pageTitle": "Generator Referatów AI | Referat ze Sztuczną Inteligencją",
+    "meta": {
+      "title": "Referat AI - Generator Referatów Online | Sztuczna Inteligencja",
+      "description": "Generator referatów AI ✓ Napisz referat w 5 minut ✓ Referat naukowy, szkolny, analityczny ✓ AI do pisania referatów ✓ Zweryfikowane źródła ✓ Bibliografia ✓ Od 8 zł",
+      "keywords": "referat ai, generator referatów, ai referat, referat generator, napisz referat ai, sztuczna inteligencja referat, referat naukowy ai, generator referatów online, referat na zamówienie, ai do referatów"
+    },
+    "hero": {
+      "badge": "Generator referatów AI",
+      "title": "Referat do napisania?",
+      "titleHighlight": "Zleć to sztucznej inteligencji!",
+      "subtitle": "Wygeneruj profesjonalny referat w 5 minut. AI wyszuka źródła, zweryfikuje informacje i stworzy kompletny referat z bibliografią na każdy temat.",
+      "cta": "Napisz referat za darmo",
+      "ctaSecondary": "Zobacz jak to działa",
+      "features": {
+        "fast": "Gotowe w 5 minut",
+        "quality": "Wysoka jakość",
+        "sources": "Zweryfikowane źródła"
+      },
+      "stats": {
+        "time": "czas generowania",
+        "price": "cena od",
+        "available": "dostępność"
+      },
+      "preview": {
+        "title": "Generator Referatów AI",
+        "subtitle": "Powered by Claude AI",
+        "item1": "Automatyczne wyszukiwanie źródeł",
+        "item2": "Cytaty i bibliografia",
+        "item3": "Profesjonalne formatowanie",
+        "status": "AI gotowe do pracy"
+      }
+    },
+    "benefits": {
+      "badge": "Korzyści",
+      "title": "Dlaczego warto wybrać nasz generator referatów?",
+      "subtitle": "Poznaj wszystkie zalety generowania referatów ze sztuczną inteligencją",
+      "speed": {
+        "title": "Błyskawiczne generowanie",
+        "description": "Otrzymaj kompletny referat w ciągu 5 minut zamiast godzin wyszukiwania i pisania",
+        "feature1": "Generowanie w 5 minut",
+        "feature2": "Automatyczne formatowanie",
+        "feature3": "Dostępność 24/7"
+      },
+      "sources": {
+        "title": "Zweryfikowane źródła",
+        "description": "AI wyszukuje i weryfikuje informacje z wiarygodnych źródeł naukowych i encyklopedycznych",
+        "feature1": "Wiarygodne źródła",
+        "feature2": "Aktualne informacje",
+        "feature3": "Kompletna bibliografia"
+      },
+      "languages": {
+        "title": "Wiele języków",
+        "description": "Generuj referaty w języku polskim, angielskim, niemieckim i innych",
+        "feature1": "7 języków",
+        "feature2": "Polski i angielski",
+        "feature3": "Języki europejskie"
+      },
+      "quality": {
+        "title": "Najwyższa jakość",
+        "description": "Wykorzystujemy zaawansowane modele AI Claude do tworzenia treści",
+        "feature1": "Model Claude AI",
+        "feature2": "Profesjonalny język",
+        "feature3": "Poprawna stylistyka"
+      },
+      "formats": {
+        "title": "Wiele formatów",
+        "description": "Pobierz referat w wygodnym formacie - PDF lub DOCX do edycji",
+        "feature1": "Format PDF",
+        "feature2": "Format DOCX",
+        "feature3": "Natychmiastowy dostęp"
+      },
+      "privacy": {
+        "title": "Prywatność",
+        "description": "Twoje dane i referaty są w pełni chronione",
+        "feature1": "100% poufności",
+        "feature2": "Bezpieczne płatności",
+        "feature3": "Ochrona danych"
+      }
+    },
+    "types": {
+      "badge": "Rodzaje referatów",
+      "title": "Jakie referaty generuje AI?",
+      "subtitle": "Nasz generator obsługuje wszystkie popularne rodzaje referatów szkolnych i akademickich",
+      "featuresLabel": "Cechy charakterystyczne",
+      "examplesLabel": "Przykładowe tematy",
+      "scientific": {
+        "title": "Referat naukowy",
+        "description": "Pogłębiony referat oparty na źródłach naukowych i badaniach akademickich",
+        "features": [
+          "Źródła naukowe i akademickie",
+          "Cytowania i przypisy",
+          "Struktura badawcza",
+          "Kompletna bibliografia"
+        ],
+        "examples": [
+          "Wpływ zmian klimatycznych na bioróżnorodność",
+          "Rozwój sztucznej inteligencji w medycynie",
+          "Teoria ewolucji - współczesne badania"
+        ]
+      },
+      "school": {
+        "title": "Referat szkolny",
+        "description": "Referat dostosowany do poziomu szkoły podstawowej i średniej",
+        "features": [
+          "Przystępny język",
+          "Jasna struktura",
+          "Ilustracje i przykłady",
+          "Odpowiednia długość"
+        ],
+        "examples": [
+          "Życie i twórczość Adama Mickiewicza",
+          "Układ Słoneczny - planety i ich cechy",
+          "II wojna światowa - najważniejsze wydarzenia"
+        ]
+      },
+      "analytical": {
+        "title": "Referat analityczny",
+        "description": "Szczegółowa analiza zjawiska, problemu lub tematu z różnych perspektyw",
+        "features": [
+          "Wieloaspektowa analiza",
+          "Porównania i kontrasty",
+          "Dane i statystyki",
+          "Wnioski końcowe"
+        ],
+        "examples": [
+          "Analiza przyczyn kryzysu klimatycznego",
+          "Wpływ mediów społecznościowych na młodzież",
+          "Przyczyny i skutki globalizacji"
+        ]
+      },
+      "comparative": {
+        "title": "Referat porównawczy",
+        "description": "Porównanie dwóch lub więcej zjawisk, teorii lub koncepcji",
+        "features": [
+          "Jasne kryteria porównania",
+          "Obiektywna analiza",
+          "Podobieństwa i różnice",
+          "Syntetyczne wnioski"
+        ],
+        "examples": [
+          "Porównanie systemów politycznych: demokracja vs autorytaryzm",
+          "Energia odnawialna vs paliwa kopalne",
+          "Oświecenie a romantyzm w literaturze"
+        ]
+      },
+      "problem": {
+        "title": "Referat problemowy",
+        "description": "Przedstawienie problemu, jego przyczyn, skutków i możliwych rozwiązań",
+        "features": [
+          "Identyfikacja problemu",
+          "Analiza przyczyn",
+          "Omówienie skutków",
+          "Propozycje rozwiązań"
+        ],
+        "examples": [
+          "Problem zanieczyszczenia oceanów plastikiem",
+          "Bezrobocie wśród młodzieży - przyczyny i rozwiązania",
+          "Cyberprzemoc w szkołach"
+        ]
+      }
+    },
+    "howItWorks": {
+      "badge": "Jak to działa",
+      "title": "Jak działa generator referatów AI?",
+      "subtitle": "4 proste kroki do gotowego referatu",
+      "next": "Dalej",
+      "mockup": {
+        "step": "Krok {number}: {title}"
+      },
+      "steps": {
+        "input": {
+          "title": "Podaj temat referatu",
+          "description": "Wpisz temat i wybierz rodzaj referatu (naukowy, szkolny, analityczny...)",
+          "detail1": "Temat referatu",
+          "detail2": "Rodzaj referatu",
+          "detail3": "Długość tekstu"
+        },
+        "research": {
+          "title": "AI wyszukuje źródła",
+          "description": "Sztuczna inteligencja przeszukuje internet i wyszukuje wiarygodne źródła informacji",
+          "detail1": "Analiza tematu",
+          "detail2": "Wyszukiwanie źródeł",
+          "detail3": "Weryfikacja informacji"
+        },
+        "generation": {
+          "title": "Generowanie referatu",
+          "description": "AI tworzy kompletny referat z prawidłową strukturą, źródłami i bibliografią",
+          "detail1": "Pisanie wstępu",
+          "detail2": "Rozwijanie treści",
+          "detail3": "Tworzenie bibliografii"
+        },
+        "download": {
+          "title": "Pobierz gotowy referat",
+          "description": "Otrzymujesz kompletny referat gotowy do pobrania i edycji",
+          "detail1": "Format PDF/DOCX",
+          "detail2": "Możliwość edycji",
+          "detail3": "Natychmiastowy dostęp"
+        }
+      }
+    },
+    "subjects": {
+      "badge": "Przedmioty",
+      "title": "Referaty z każdego przedmiotu",
+      "subtitle": "Generator obsługuje wszystkie przedmioty szkolne i akademickie",
+      "polish": {
+        "title": "Język polski",
+        "items": ["Lektury", "Epoki literackie", "Autorzy", "Gatunki"]
+      },
+      "history": {
+        "title": "Historia",
+        "items": ["Epoki", "Wydarzenia", "Postacie", "Rewolucje"]
+      },
+      "geography": {
+        "title": "Geografia",
+        "items": ["Kraje", "Klimat", "Ukształtowanie", "Gospodarka"]
+      },
+      "biology": {
+        "title": "Biologia",
+        "items": ["Organizmy", "Ekosystemy", "Genetyka", "Anatomia"]
+      },
+      "civics": {
+        "title": "WOS",
+        "items": ["Polityka", "Prawo", "Społeczeństwo", "Ekonomia"]
+      },
+      "art": {
+        "title": "Sztuka",
+        "items": ["Malarstwo", "Muzyka", "Architektura", "Film"]
+      },
+      "chemistry": {
+        "title": "Chemia",
+        "items": ["Reakcje", "Pierwiastki", "Związki", "Procesy"]
+      },
+      "physics": {
+        "title": "Fizyka",
+        "items": ["Mechanika", "Elektryczność", "Optyka", "Termodynamika"]
+      },
+      "stats": {
+        "subjects": "przedmiotów",
+        "languages": "języków",
+        "topics": "tematów",
+        "quality": "jakości"
+      }
+    },
+    "process": {
+      "badge": "Proces",
+      "title": "Jak zamówić referat?",
+      "subtitle": "Od rejestracji do gotowego referatu w 4 prostych krokach",
+      "cta": "Rozpocznij teraz",
+      "steps": {
+        "account": {
+          "title": "Załóż darmowe konto",
+          "description": "Zarejestruj się i uzyskaj dostęp do generatora referatów AI",
+          "item1": "Rejestracja e-mailem",
+          "item2": "Weryfikacja konta",
+          "item3": "Gotowe w 30 sekund"
+        },
+        "details": {
+          "title": "Podaj temat i wymagania",
+          "description": "Wpisz temat referatu, wybierz rodzaj i określ długość",
+          "item1": "Temat referatu",
+          "item2": "Rodzaj (naukowy/szkolny/...)",
+          "item3": "Długość tekstu"
+        },
+        "wait": {
+          "title": "Poczekaj 5 minut",
+          "description": "AI generuje kompletny referat ze źródłami i bibliografią",
+          "item1": "AI wyszukuje źródła",
+          "item2": "Generowanie 5 min",
+          "item3": "Status w czasie rzeczywistym"
+        },
+        "download": {
+          "title": "Pobierz referat",
+          "description": "Pobierz gotowy referat w formacie PDF lub DOCX",
+          "item1": "Format PDF",
+          "item2": "Format DOCX",
+          "item3": "Pełna możliwość edycji"
+        }
+      }
+    },
+    "pricing": {
+      "title": "Cennik referatów AI",
+      "subtitle": "Płać tylko za to, czego potrzebujesz. Bez abonamentu, bez ukrytych opłat.",
+      "tableTitle": "Cennik referatów",
+      "tableSubtitle": "Wybierz długość referatu dopasowaną do Twoich potrzeb",
+      "pages": "str.",
+      "words": "słów",
+      "popular": "Najpopularniejszy",
+      "basePriceInfo": "Cena bazowa: {price} za 1000 znaków",
+      "features": {
+        "instant": "Generowanie w 2-5 minut",
+        "secure": "100% bezpieczeństwa",
+        "available": "Dostępne 24/7",
+        "payAsYouGo": "Płatność za tekst"
+      },
+      "cta": "Napisz referat teraz",
+      "ctaSubtext": "Darmowa rejestracja • Płatność tylko za wygenerowane teksty",
+      "tiers": {
+        "very-short": { "name": "Bardzo krótki" },
+        "short": { "name": "Krótki" },
+        "medium": { "name": "Średni" },
+        "long": { "name": "Długi" },
+        "very-long": { "name": "Bardzo długi" },
+        "mega": { "name": "Mega długi" },
+        "longest": { "name": "Najdłuższy" }
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Najczęściej zadawane pytania",
+      "subtitle": "Wszystko, co musisz wiedzieć o generatorze referatów AI",
+      "questions": {
+        "q1": {
+          "question": "Jak długo trwa generowanie referatu?",
+          "answer": "Generowanie referatu zajmuje około 5 minut. W tym czasie AI wyszukuje źródła, weryfikuje informacje i tworzy kompletny tekst z bibliografią."
+        },
+        "q2": {
+          "question": "Czy referat będzie zawierał źródła i bibliografię?",
+          "answer": "Tak! Każdy referat generowany przez AI zawiera zweryfikowane źródła oraz kompletną bibliografię w odpowiednim formacie. AI automatycznie wyszukuje wiarygodne źródła informacji."
+        },
+        "q3": {
+          "question": "Z jakich przedmiotów mogę zamówić referat?",
+          "answer": "Referaty można zamawiać z wszystkich przedmiotów: język polski, historia, WOS, geografia, biologia, chemia, fizyka, język angielski i wiele innych. AI poradzi sobie z każdym tematem."
+        },
+        "q4": {
+          "question": "Czy mogę edytować wygenerowany referat?",
+          "answer": "Oczywiście! Referat możesz pobrać w formacie DOCX, który pozwala na pełną edycję w Microsoft Word lub Google Docs. Możesz modyfikować treść według własnych potrzeb."
+        },
+        "q5": {
+          "question": "Jakie rodzaje referatów mogę wygenerować?",
+          "answer": "Generator obsługuje wszystkie popularne rodzaje referatów: naukowy, szkolny, analityczny, porównawczy i problemowy. Możesz też określić własne wymagania."
+        },
+        "q6": {
+          "question": "Ile kosztuje wygenerowanie referatu?",
+          "answer": "Ceny zaczynają się od 8 zł za krótki referat (około 250 słów). Dłuższe referaty kosztują więcej - szczegółowy cennik znajdziesz w sekcji Cennik."
+        },
+        "q7": {
+          "question": "Czy informacje w referacie są wiarygodne?",
+          "answer": "AI wyszukuje informacje z wiarygodnych źródeł i weryfikuje je przed wykorzystaniem. Pamiętaj jednak, że wygenerowany referat powinien służyć jako materiał do nauki, który warto jeszcze samodzielnie przejrzeć."
+        }
+      },
+      "contact": {
+        "title": "Masz więcej pytań?",
+        "description": "Nasz zespół jest dostępny 24/7 i chętnie pomoże",
+        "button": "Skontaktuj się z nami"
+      }
+    },
+    "cta": {
+      "badge": "Rozpocznij teraz",
+      "title": "Gotowy na swój referat?",
+      "subtitle": "Wygeneruj profesjonalny referat w 5 minut",
+      "button": "Napisz referat teraz",
+      "features": {
+        "fast": "Szybkie generowanie",
+        "secure": "Bezpieczne płatności",
+        "quality": "Najwyższa jakość"
+      },
+      "trust": {
+        "indicator1": "100% bezpieczne płatności",
+        "indicator2": "Ochrona danych osobowych",
+        "indicator3": "Natychmiastowy dostęp"
+      },
+      "stats": {
+        "time": "czas generowania",
+        "price": "cena od",
+        "quality": "jakość",
+        "support": "wsparcie"
+      }
+    }
+  },
   "Wypracowanie": {
     "pageTitle": "Generator Wypracowań AI | Wypracowanie ze Sztuczną Inteligencją",
     "meta": {

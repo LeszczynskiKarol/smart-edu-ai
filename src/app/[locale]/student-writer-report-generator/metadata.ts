@@ -13,34 +13,34 @@ export async function generateMetadata({
 
   return {
     metadataBase: new URL(baseUrl),
-    title: messages.ReportGenerator.meta.title,
-    description: messages.ReportGenerator.meta.description,
-    keywords: messages.ReportGenerator.meta.keywords,
-    authors: [{ name: 'Smart Copy AI' }],
-    creator: 'Smart Copy AI',
-    publisher: 'Smart Copy AI',
+    title: messages.Referat.meta.title,
+    description: messages.Referat.meta.description,
+    keywords: messages.Referat.meta.keywords,
+    authors: [{ name: 'Smart-Edu.AI' }],
+    creator: 'Smart-Edu.AI',
+    publisher: 'Smart-Edu.AI',
     robots: {
       index: true,
       follow: true,
     },
     openGraph: {
-      title: messages.ReportGenerator.meta.title,
-      description: messages.ReportGenerator.meta.description,
-      url: baseUrl,
+      title: messages.Referat.meta.title,
+      description: messages.Referat.meta.description,
+      url: `${baseUrl}/${locale}/student-writer-report-generator`,
       siteName: messages.site.name,
       locale: locale,
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: messages.ReportGenerator.meta.title,
-      description: messages.ReportGenerator.meta.description,
+      title: messages.Referat.meta.title,
+      description: messages.Referat.meta.description,
     },
     alternates: {
-      canonical: baseUrl,
+      canonical: `${baseUrl}/${locale}/student-writer-report-generator`,
       languages: {
-        en: `${baseUrl}/en`,
-        pl: `${baseUrl}/pl`,
+        en: `${baseUrl}/en/student-writer-report-generator`,
+        pl: `${baseUrl}/pl/student-writer-report-generator`,
       },
     },
   };
