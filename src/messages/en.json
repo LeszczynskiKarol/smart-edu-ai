@@ -525,6 +525,384 @@
       }
     }
   },
+  "Wypracowanie": {
+    "pageTitle": "AI Essay Writer - Online Essay Generator | Artificial Intelligence",
+    "meta": {
+      "title": "AI Essay Writer - Online Essay Generator | Artificial Intelligence",
+      "description": "AI Essay Generator ✓ Write essays in 5 minutes ✓ Interpretation, character analysis, description ✓ AI essay writing ✓ All subjects ✓ From $2",
+      "keywords": "ai essay writer, essay generator, ai essay, essay generator online, write essay ai, artificial intelligence essay, essay writing ai, online essay generator"
+    },
+    "hero": {
+      "badge": "AI Essay Generator",
+      "title": "Need to write an essay?",
+      "titleHighlight": "Let AI do it for you!",
+      "subtitle": "Generate a professional essay in 5 minutes. AI will write interpretation, character analysis, description or story on any topic from any subject.",
+      "cta": "Write Essay for Free",
+      "ctaSecondary": "See how it works",
+      "features": {
+        "fast": "Ready in 5 minutes",
+        "quality": "High quality",
+        "subjects": "All subjects"
+      },
+      "stats": {
+        "time": "generation time",
+        "price": "price from",
+        "available": "availability"
+      },
+      "preview": {
+        "title": "AI Essay Generator",
+        "subtitle": "Powered by Claude AI",
+        "item1": "Literary interpretation",
+        "item2": "Character analysis",
+        "item3": "Descriptions and stories",
+        "status": "AI ready to work"
+      }
+    },
+    "benefits": {
+      "badge": "Benefits",
+      "title": "Why choose our essay generator?",
+      "subtitle": "Discover all the advantages of generating essays with artificial intelligence",
+      "speed": {
+        "title": "Lightning-fast generation",
+        "description": "Get a complete essay in 5 minutes instead of hours of writing",
+        "feature1": "Generation in 5 minutes",
+        "feature2": "Automatic formatting",
+        "feature3": "24/7 availability"
+      },
+      "subjects": {
+        "title": "All subjects",
+        "description": "Essays for English, History, Social Studies, Geography and many other subjects",
+        "feature1": "English Language",
+        "feature2": "Humanities",
+        "feature3": "Natural Sciences"
+      },
+      "languages": {
+        "title": "Multiple languages",
+        "description": "Generate essays in English, Polish, German and other languages",
+        "feature1": "7 languages",
+        "feature2": "Polish and English",
+        "feature3": "European languages"
+      },
+      "quality": {
+        "title": "Highest quality",
+        "description": "We use advanced Claude AI models to create content",
+        "feature1": "Claude AI model",
+        "feature2": "Professional language",
+        "feature3": "Correct style"
+      },
+      "formats": {
+        "title": "Multiple formats",
+        "description": "Download your essay in convenient format - PDF or DOCX for editing",
+        "feature1": "PDF format",
+        "feature2": "DOCX format",
+        "feature3": "Instant access"
+      },
+      "privacy": {
+        "title": "Privacy",
+        "description": "Your data and essays are fully protected",
+        "feature1": "100% confidentiality",
+        "feature2": "Secure payments",
+        "feature3": "Data protection"
+      }
+    },
+    "types": {
+      "badge": "Essay Types",
+      "title": "What types of essays does AI generate?",
+      "subtitle": "Our generator supports all popular types of school essays",
+      "featuresLabel": "Key characteristics",
+      "examplesLabel": "Example topics",
+      "interpretation": {
+        "title": "Interpretation",
+        "description": "Analysis and interpretation of literary works, poems and cultural texts",
+        "features": [
+          "Language layer analysis",
+          "Interpretation of symbols and motifs",
+          "Historical and cultural context",
+          "Thoughtful conclusions"
+        ],
+        "examples": [
+          "Interpret a famous poem by a renowned poet",
+          "Analyze a fragment from a classic novel",
+          "Interpret symbolism in a famous play"
+        ]
+      },
+      "characterization": {
+        "title": "Character Analysis",
+        "description": "Comprehensive character analysis of literary and historical figures",
+        "features": [
+          "External and internal traits",
+          "Character motivations and goals",
+          "Relationships with other characters",
+          "Character evolution"
+        ],
+        "examples": [
+          "Analyze the character of Hamlet",
+          "Present the profile of Macbeth",
+          "Describe a protagonist from a classic novel"
+        ]
+      },
+      "description": {
+        "title": "Description",
+        "description": "Descriptions of places, objects, phenomena and experiences",
+        "features": [
+          "Rich language",
+          "Stylistic devices",
+          "Detailed description",
+          "Logical structure"
+        ],
+        "examples": [
+          "Describe your favorite place",
+          "Description of sunset over the sea",
+          "Describe an object of special value"
+        ]
+      },
+      "narrative": {
+        "title": "Narrative Essay",
+        "description": "Creative stories, continuations of works and stories with dialogue",
+        "features": [
+          "Interesting plot",
+          "Dynamic action",
+          "Character dialogues",
+          "Climax point"
+        ],
+        "examples": [
+          "Write a story about an adventure",
+          "Continuation of a literary character's fate",
+          "Story with fantasy elements"
+        ]
+      },
+      "reflective": {
+        "title": "Reflective Essay",
+        "description": "Reflections on philosophical, ethical and existential topics",
+        "features": [
+          "Personal thoughts",
+          "References to literature",
+          "Argumentation",
+          "Depth of reflection"
+        ],
+        "examples": [
+          "What is happiness?",
+          "Reflections on the meaning of life",
+          "Is it worth having dreams?"
+        ]
+      }
+    },
+    "howItWorks": {
+      "badge": "How It Works",
+      "title": "How does the AI essay generator work?",
+      "subtitle": "4 simple steps to a finished essay",
+      "next": "Next",
+      "mockup": {
+        "step": "Step {number}: {title}"
+      },
+      "steps": {
+        "input": {
+          "title": "Enter essay topic",
+          "description": "Enter topic and choose essay type (interpretation, character analysis, description...)",
+          "detail1": "Essay topic",
+          "detail2": "Essay type",
+          "detail3": "Text length"
+        },
+        "research": {
+          "title": "AI analyzes the topic",
+          "description": "Artificial intelligence analyzes the topic and searches for relevant information",
+          "detail1": "Topic analysis",
+          "detail2": "Source searching",
+          "detail3": "Structure planning"
+        },
+        "generation": {
+          "title": "Essay generation",
+          "description": "AI creates a complete essay with proper structure and style",
+          "detail1": "Writing introduction",
+          "detail2": "Developing content",
+          "detail3": "Creating conclusion"
+        },
+        "download": {
+          "title": "Download your essay",
+          "description": "Get a complete essay ready for download and editing",
+          "detail1": "PDF/DOCX format",
+          "detail2": "Full editing capability",
+          "detail3": "Instant access"
+        }
+      }
+    },
+    "subjects": {
+      "badge": "Subjects",
+      "title": "Essays for every subject",
+      "subtitle": "Generator supports all school and academic subjects",
+      "polish": {
+        "title": "English Language",
+        "items": [
+          "Interpretation",
+          "Character Analysis",
+          "Argumentative Essay",
+          "Narrative",
+          "Description"
+        ]
+      },
+      "history": {
+        "title": "History",
+        "items": [
+          "Historical Essay",
+          "Source Analysis",
+          "Event Description",
+          "Biographies"
+        ]
+      },
+      "geography": {
+        "title": "Geography",
+        "items": [
+          "Region Description",
+          "Phenomena Analysis",
+          "Tourism",
+          "Climate"
+        ]
+      },
+      "biology": {
+        "title": "Biology",
+        "items": ["Process Description", "Ecology", "Health", "Evolution"]
+      },
+      "civics": {
+        "title": "Social Studies",
+        "items": ["Social Essay", "Politics", "Law", "Society"]
+      },
+      "art": {
+        "title": "Art & Culture",
+        "items": ["Art Analysis", "Art History", "Film", "Music"]
+      },
+      "stats": {
+        "subjects": "subjects",
+        "languages": "languages",
+        "topics": "topics",
+        "quality": "quality"
+      }
+    },
+    "process": {
+      "badge": "Process",
+      "title": "How to order an essay?",
+      "subtitle": "From registration to finished essay in 4 simple steps",
+      "cta": "Start Now",
+      "steps": {
+        "account": {
+          "title": "Create free account",
+          "description": "Register and get access to the AI essay generator",
+          "item1": "Email registration",
+          "item2": "Account verification",
+          "item3": "Ready in 30 seconds"
+        },
+        "details": {
+          "title": "Enter topic and requirements",
+          "description": "Enter essay topic, choose type and specify length",
+          "item1": "Essay topic",
+          "item2": "Type (interpretation/description/...)",
+          "item3": "Text length"
+        },
+        "wait": {
+          "title": "Wait 5 minutes",
+          "description": "AI generates a complete essay according to your requirements",
+          "item1": "AI analyzes topic",
+          "item2": "Generation 5 min",
+          "item3": "Real-time status"
+        },
+        "download": {
+          "title": "Download essay",
+          "description": "Download finished essay in PDF or DOCX format",
+          "item1": "PDF format",
+          "item2": "DOCX format",
+          "item3": "Full editing capability"
+        }
+      }
+    },
+    "pricing": {
+      "title": "Essay Pricing",
+      "subtitle": "Pay only for what you need. No subscription, no hidden fees.",
+      "tableTitle": "Essay Pricing",
+      "tableSubtitle": "Choose the essay length that fits your needs",
+      "pages": "pages",
+      "words": "words",
+      "popular": "Most Popular",
+      "basePriceInfo": "Base price: {price} per 1000 characters",
+      "features": {
+        "instant": "Generated in 2-5 minutes",
+        "secure": "100% secure",
+        "available": "Available 24/7",
+        "payAsYouGo": "Pay per text"
+      },
+      "cta": "Write your essay now",
+      "ctaSubtext": "Free registration • Pay only for generated texts",
+      "tiers": {
+        "very-short": { "name": "Very Short" },
+        "short": { "name": "Short" },
+        "medium": { "name": "Medium" },
+        "long": { "name": "Long" },
+        "very-long": { "name": "Very Long" },
+        "mega": { "name": "Mega Long" },
+        "longest": { "name": "Longest" }
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about the AI essay generator",
+      "questions": {
+        "q1": {
+          "question": "How long does it take to generate an essay?",
+          "answer": "Generating an essay takes about 5 minutes. During this time, AI analyzes the topic and creates a complete text with proper structure and style."
+        },
+        "q2": {
+          "question": "What types of essays can I generate?",
+          "answer": "The generator supports all popular essay types: interpretation, character analysis, description, narrative, reflective essay, and many more. You can also specify your own requirements."
+        },
+        "q3": {
+          "question": "From which subjects can I order an essay?",
+          "answer": "Essays can be ordered from all subjects: English, History, Social Studies, Geography, Biology, foreign languages and many more. AI can handle any topic."
+        },
+        "q4": {
+          "question": "Can I edit the generated essay?",
+          "answer": "Of course! You can download the essay in DOCX format, which allows full editing in Microsoft Word or Google Docs. You can modify the content according to your needs."
+        },
+        "q5": {
+          "question": "Will the essay include literary quotes?",
+          "answer": "Yes, AI can include appropriate literary quotes if required. You can also indicate specific works you want referenced."
+        },
+        "q6": {
+          "question": "How much does it cost to generate an essay?",
+          "answer": "Prices start from $2 for a short essay (about 250 words). Longer essays cost more - you can find detailed pricing in the Pricing section."
+        },
+        "q7": {
+          "question": "Is the generator suitable for academic essays?",
+          "answer": "The generator creates essays according to academic standards. Remember, however, that generated text should serve as inspiration and learning material, not as a ready paper to submit."
+        }
+      },
+      "contact": {
+        "title": "Have more questions?",
+        "description": "Our team is available 24/7 and happy to help",
+        "button": "Contact us"
+      }
+    },
+    "cta": {
+      "badge": "Start Now",
+      "title": "Ready for your essay?",
+      "subtitle": "Generate a professional essay in 5 minutes",
+      "button": "Write Essay Now",
+      "features": {
+        "fast": "Fast generation",
+        "secure": "Secure payments",
+        "quality": "Highest quality"
+      },
+      "trust": {
+        "indicator1": "100% secure payments",
+        "indicator2": "Personal data protection",
+        "indicator3": "Instant access"
+      },
+      "stats": {
+        "time": "generation time",
+        "price": "price from",
+        "quality": "quality",
+        "support": "support"
+      }
+    }
+  },
   "abandonedCart": {
     "banner": {
       "title": "You have an unfinished order!",
